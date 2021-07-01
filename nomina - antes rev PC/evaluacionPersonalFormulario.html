@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/aw/lib/aw.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftGrid.js"></script>
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script></head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          RECURSOS HUMANOS<br>
+          INGRESO ENCUESTAS- EVALUACION 
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="146" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="148" height="24"  class="inputtitle">No. Evaluacion:</td>
+            <td width="323"> <input name="numeroDocumento_evp" type="text" id="numeroDocumento_evp" class="date" size="10" maxlength="10"  onBlur="esconderToolTip(); formularioGrabado=0;" style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none" disabled></td>
+            <td width="37" class="inputtitle">Fecha:</td>
+            <td colspan="2"><span class="style1 style4 style5"> 
+              <input name="fecha_evp" type="text" id="fecha_evp" class="date" size="10" maxlength="10"  onBlur="esconderToolTip(); formularioGrabado=0;" style="font-family:Tahoma; font-size:10px">
+              </span></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Evaluador:</td>
+            <td colspan="4" ><input name="nombre_epl" type="text" id="nombre_epl" size="15" maxlength="15" class="string"  table="empleado" serial="serial_epl" info="codigo_epl"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Cuestonatios :</td>
+            <td ><span class="style1 style4"><span class="style1 style4 style5"> 
+              <select name="serial_cep" id="serial_cep" class="combo" onChange="verEvaluaciones();" style="font-family:Tahoma; font-size:10px">
+                <option >Seleccione...</option>
+              </select>
+              </span></span></td>
+            <td class="inputtitle">Estado:<span class="style1 style4 style5"> </span></td>
+            <td ><span class="style1 style4 style5"> 
+              <select name="estado_evp" id="select2" class="combo" style="font-family:Tahoma; font-size:10px">
+                <option value="A">Activo</option>
+                <option value="S">Suspendido</option>
+              </select>
+              </span></td>
+            <td width="240" ><span class="style1 style4 style5"> </span></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Departamentos :</td>
+            <td colspan="4" ><input name="descripcion_dep" type="text" id="descripcion_dep" size="15" maxlength="15" class="string"  table="departamentos" serial="serial_dep" info="codigo_dep"> 
+              &nbsp;</td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Observaciones :</td>
+            <td colspan="4" ><span class="style1 style4"><span class="style1 style4 style5"> 
+              <input name="observaciones_evp" id="observaciones_evp" class="string" type="text" value="" size="60" maxlength="200" style="font-family:Tahoma; font-size:10px">
+              <script>
+	function desplegarRegistros()
+ {
+var SQL = 'SELECT e.serial_epl, concat(e.nombre_epl,\' \',e.apellido_epl) FROM empleado as e, cargos as c, departamentos as d WHERE c.serial_car = e.serial_car AND d.serial_dep = c.serial_dep AND d.serial_dep = '+document.PaginaDatos.serial_dep.value;
+jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recoverEmpleadosDepartamentos,'omnisoftExecuteSelect',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',SQL));	
+ }
+	</script>
+              <script>
+		/*omnisoftComboBoxJSShow('400px','serial_epl');
+		omnisoftNormalComboBoxJS('serial_epl','SELECT serial_epl, concat(codigo_epl,\' \',nombre_epl,\' \',apellido_epl) as nombre FROM empleado','',getURLParam('serial_epl'));*/
+	</script>
+              </span></span></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Encuestado :</td>
+            <td colspan="4" ><span class="style1 style4"><span class="style1 style4 style5"> 
+              <select name="serial_emple" id="serial_emple" class="combo" style="font-family:Tahoma; font-size:10px">
+              </select>
+              <script>
+	 
+	  
+		/*function verPersonal()
+		{
+			
+			if(document.PaginaDatos.serial_epl.value=='Evaluador')
+			{
+				document.PaginaDatos.serial_cep.disabled = true;
+				document.PaginaDatos.serial_dep.disabled = false;
+			}
+				if (document.PaginaDatos.tipo_esc.value=='')
+				{
+					document.PaginaDatos.serial_pvd.disabled = true;
+					document.PaginaDatos.serial_cli.disabled = false;
+				}
+		}
+	</script>
+              <script>/*
+		omnisoftComboBoxJSShow('400px','serial_dep');
+		omnisoftNormalComboBoxJS('serial_dep','SELECT serial_dep, concat( codigo_dep,\' \',descripcion_dep,\' \',consolidado_dep) as descripcion_dep FROM departamentos','cambio',getURLParam('serial_dep'));*/
+		</script>
+              </span></span></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >       <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

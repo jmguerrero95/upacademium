@@ -1,0 +1,538 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftAcciones.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script language="javascript" src="../lib/tools/ValidarIdentificacion.js"></script>
+
+<script>
+function cargarFoto() {
+	var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+    omnisoftNewWindow=window.open('../lib/server/omnisoftImportPhoto.php?campofoto=foto_epl&foto='+document.PaginaDatos.foto_alu.value,'OmnisoftPhoto',attributes);
+    if (window.focus) {omnisoftNewWindow.focus()}
+	omnisoftProcesarCambios();
+}
+
+function seleccionarPeriodo(){
+//alert('entro_seleccionarPeriodo');
+ objDB=new omnisoftDB('select serial_per, nombre_per, per.serial_sec, serial_per, nombre_sec, serial_suc from periodo as per left join seccion as sec on per.serial_sec = sec.serial_sec  where per.serial_sec='+document.PaginaDatos.serial_sec.value+' and serial_suc='+getCookie('serial_suc')+' and activo_per=\'SI\'','../lib/server/omnisoftSQLData.php','periodoDatos');
+ //prompt('seleccionarPeriodo','select serial_per, nombre_per, per.serial_sec, serial_per, nombre_sec, serial_suc from periodo as per left join seccion as sec on per.serial_sec = sec.serial_sec  where per.serial_sec='+document.PaginaDatos.serial_sec.value+' and serial_suc='+getCookie('serial_suc')+' and activo_per=\'SI\'');
+  setTimeout('objDB.executeQuery()',0);
+  
+  }
+ 
+ function periodoDatos(data)
+{
+		 var registros=data.split('~');
+		 var n=0;
+		 
+		 var serial_programa=registros[2];
+		 //serial_periodo=registros[3];
+		 cserial_per.objDBComando.sqlCommand='select serial_per, nombre_per, per.serial_sec, serial_per, nombre_sec, serial_suc from periodo as per left join seccion as sec on per.serial_sec = sec.serial_sec  where per.serial_sec='+serial_programa+' and serial_suc='+getCookie('serial_suc')+' and activo_per=\'SI\' order by nombre_per asc';
+  cserial_per.objDBComando.executeQuery();
+  //prompt('periodoDatos','select serial_per, nombre_per, per.serial_sec, serial_per, nombre_sec, serial_suc from periodo as per left join seccion as sec on per.serial_sec = sec.serial_sec  where per.serial_sec='+serial_programa+' and serial_suc='+getCookie('serial_suc')+' and activo_per=\'SI\' order by nombre_per asc');
+   //nombre_programa=registros[3];
+} 
+function mostrarProvincia(){
+   cserial_prv.objDBComando.sqlCommand='select -99,\'SELECCIONE\' UNION select serial_prv, nombre_prv from provincia where serial_pai='+document.PaginaDatos.serial_pai.value;
+	cserial_prv.objDBComando.executeQuery();
+}
+
+function mostrarCiudad(){
+   cserial_ciu.objDBComando.sqlCommand='select -99,\'SELECCIONE\' UNION select serial_ciu, nombre_ciu from ciudad where serial_prv='+document.PaginaDatos.serial_prv.value;
+	cserial_ciu.objDBComando.executeQuery();
+}
+
+
+function mostrarParroquia(){
+   cserial_par.objDBComando.sqlCommand='select -99,\'SELECCIONE\' UNION select serial_par, nombre_par from parroquia where serial_ciu='+document.PaginaDatos.serial_ciu.value;
+	cserial_par.objDBComando.executeQuery();
+}
+function mailUPAC(){
+	
+	document.PaginaDatos.mailuniv_alu.value=trim(document.PaginaDatos.nombre1_alu.value)+'.'+trim(document.PaginaDatos.apellidopaterno_alu.value)+'@upacifico.edu.ec';
+	
+}
+
+</script>
+<script>
+/*<!--
+function seleccionarTitulo() {
+   cserial_car.objDBComando.sqlCommand='select car.serial_car,concat(codigo_car,\' \',nombre_car) as carrera from carrera as car WHERE serial_fac ='+document.PaginaDatos.serial_fac.value;
+  cserial_car.objDBComando.executeQuery();
+}
+
+
+function seleccionarEspecialidad() {
+   cserial_esp.objDBComando.sqlCommand='select serial_esp,concat(codigo_esp,\' \',nombre_esp) as especialidad from especialidad where serial_car ='+document.PaginaDatos.serial_car.value;
+    cserial_esp.objDBComando.executeQuery();
+}
+-->*/
+
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+<input name="serial_suc" type="hidden" id="serial_suc" class="hidden">
+<input name="serial_usr" type="hidden" id="serial_usr" class="hidden">
+  <table width="905" border="0" cellspacing="0" cellpadding="0" >
+    <!--<tr >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO DE ADMISIONES<br>
+          INSCRIPCIONES ALUMNOS NUEVOS
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>-->
+    <tr>
+      <td height="30" colspan="3"> <table width="905" height="515"  border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000"  bordercolordark="#FFFFFF"class="formtable">
+          <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS PERSONALES</span></div></td>
+		  </tr>
+		  
+		  <tr>
+            <td width="105"  class="inputtitle">Nombre 1 :</td>
+            <td colspan="2">
+				<img src="../images/camporequerido.gif"><input name="nombre1_alu" id="nombre_alu" type="text" class="string" size="29" maxlength="40"   onBlur="mailUPAC();"/></td>
+		  	<td width="224" class="inputtitle">Nombre 2 :</td>
+			<td colspan="5"><span class="inputtitle">
+			<input name="nombre2_alu" id="nombre2_alu" type="text" class="emptystring" size="30" maxlength="40"  />
+				</span></td>
+			<td width="103" class="inputtitle">Sexo:</td>
+			<td colspan="3">
+				<img src="../images/camporequerido.gif"><span class="inputtitle"><script>
+                 var cserial_sex=new omnisoftComboBox('cserial_sex','serial_sex','select serial_sex, descripcion_sex from sexo','90px',true,getURLParam('serial_sex'));
+                     cserial_sex.show();
+	            </script>
+			</span></td>
+		    <td width="537" colspan="2" rowspan="4" ><img src="../fotos/foto.jpg"  name="imgfoto" width="100" height="100"></td>
+		  </tr>
+		  <tr>
+		    <td  class="inputtitle">Apellido Paterno : </td>
+		    <td colspan="2"><img src="../images/camporequerido.gif">
+	        <input name="apellidopaterno_alu" id="apellidopaterno_alu" type="text" class="string" size="30" maxlength="40" onBlur="mailUPAC();" /></td>
+		    <td class="inputtitle">Apellido Materno :</td>
+		    <td colspan="5">
+	        <input name="apellidomaterno_alu" id="apellidomaterno_alu" type="text" class="emptystring" size="30" maxlength="40" /></td>
+		    <td class="inputtitle">Estado Civil : </td>
+		    <td colspan="3"><span class="inputtitle"><img src="../images/camporequerido.gif">
+		      <script>
+                 var cserial_eci=new omnisoftComboBox('cserial_eci','serial_eci','select serial_eci,nombre_eci from estadocivil','90px',true,getURLParam('serial_eci'));
+                     cserial_eci.show();
+					 
+	            </script>
+		    </span></td>
+	    </tr>
+          <tr>
+		  	<td class="inputtitle">Fecha Nacimiento:</td>
+			<td colspan="2">
+				<img src="../images/camporequerido.gif"><input name="fecnac_alu" id="fecnac_alu" type="text" class="date" size="12" maxlength="10">			</td>
+			<td class="inputtitle">Tipo Identificacion:</td>
+			<td colspan="5"><img src="../images/camporequerido.gif"><select name="tipoIdentificacion_alu" id="tipoIdentificacion_alu" class="combo">
+				<option value="CI">Cedula</option>
+				<option value="PA">Pasaporte</option>
+				<option value="OT">Otro</option>
+				</select>			</td>
+			<td class="inputtitle">N&uacute;mero Identificaci&oacute;n:</td>
+            <td colspan="3">
+				<img src="../images/camporequerido.gif">
+            	<input name="codigoIdentificacion_alu" type="text" id="codigoIdentificacion_alu" size="15" maxlength="15" class="text" onBlur="validar_doc('tipoIdentificacion_alu','codigoIdentificacion_alu')">			</td>
+          </tr>
+          
+          <tr>
+            <td class="inputtitle">Nacionalidad:</td>
+            <td colspan="2"><script>
+				var cserial_nac=new omnisoftComboBox('cserial_nac','serial_nac','SELECT serial_nac, nombre_nac FROM nacionalidad ORDER BY nombre_nac','150px',true,getURLParam('serial_nac'));
+				cserial_nac.show();
+			</script></td>
+            <td class="inputtitle">Foto:</td>
+            <td colspan="5" class="inputtitle">
+              <img src="../images/camporequerido.gif"><input name="foto_alu" type="text" id="foto_alu" size="28" maxlength="255" class="emptytext"  >
+              <a href="#" onclick="cargarFoto()"><image alt="Cargar Foto" src="../images/buscar.png" width="20" heigth="20" name="foto" ></a>            </td>
+            <td class="inputtitle">e-mail personal :</td>
+            <td colspan="3"><span class="inputtitle">
+              <input name="mail_alu" type="text" id="mail_alu" size="38" maxlength="70" class="mail"  onBlur="esconderToolTip()">
+            </span></td>
+          </tr>
+		  
+		  
+		  <tr>
+		    <td class="inputtitle">Pa&iacute;s Natal : </td>
+		    <td colspan="2"><script>
+				var cserial_pai=new omnisoftComboBox('cserial_pai','serial_pai','SELECT serial_pai, nombre_pai FROM pais ','165px',true,getURLParam('serial_pai'),'',mostrarProvincia);
+				cserial_pai.show();
+				document.PaginaDatos.serial_pai.onchange=mostrarProvincia;
+			    document.PaginaDatos.serial_pai.onclick=mostrarProvincia;
+
+				
+			</script></td>
+		    <td class="inputtitle">Provincia : </td>
+		    <td colspan="3"><script>
+				var cserial_prv=new omnisoftComboBox('cserial_prv','serial_prv','SELECT serial_prv, nombre_prv FROM provincia WHERE serial_pai='+getURLParam('serial_pai')+'ORDER BY nombre_prv asc','130px',true,getURLParam('serial_prv'),'',mostrarCiudad);
+				cserial_prv.show();
+				document.PaginaDatos.serial_prv.onchange=mostrarCiudad;
+			    document.PaginaDatos.serial_prv.onclick=mostrarCiudad;
+				
+			</script></td>
+		    <td colspan="2" class="inputtitle">Ciudad :</td>
+		    <td class="inputtitle"><script>
+				var cserial_ciu=new omnisoftComboBox('cserial_ciu','serial_ciu','SELECT serial_ciu, nombre_ciu FROM ciudad WHERE serial_prv='+getURLParam('serial_prv')+' ORDER BY nombre_ciu asc','130px',true,getURLParam('serial_ciu'),'',mostrarParroquia);
+				cserial_ciu.show();
+				
+				document.PaginaDatos.serial_ciu.onchange=mostrarParroquia;
+			    document.PaginaDatos.serial_ciu.onclick=mostrarParroquia;
+				
+			</script></td>
+		    <td colspan="3"class="inputtitle"><div align="center">Parroquia : </div></td>
+	        <td colspan="2"class="inputtitle"><script>
+				var cserial_par=new omnisoftComboBox('cserial_par','serial_par','SELECT serial_par, nombre_par FROM parroquia WHERE serial_ciu='+getURLParam('serial_ciu')+' ORDER BY nombre_par asc','120px',true,getURLParam('serial_par'));
+				cserial_par.show();
+			</script></td>
+		  </tr>
+		  <tr>
+		    <td class="inputtitle"> e-mail institucional :</td>
+		    <td colspan="3" class="inputtitle"><input name="mailuniv_alu" type="text" id="mailuniv_alu" size="55" maxlength="70" class="mail"  onBlur="esconderToolTip()"></td>
+		    <td colspan="5" class="inputtitle">&nbsp;</td>
+		    <td colspan="6">&nbsp;</td>
+          </tr>
+		  <tr>
+		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS DOMICILIO</span></div></td>
+	      </tr>
+		  <tr>
+		    <td class="inputtitle">Direcci&oacute;n Domicilio :</td>
+		    <td colspan="2"><img src="../images/camporequerido.gif"><input name="direcciondomic_alu" type="text" id="direcciondomic_alu" size="35" maxlength="80" class="string"  onBlur="esconderToolTip()"></td>
+		    <td class="inputtitle">Ciudad : </td>
+		    <td colspan="2"><span class="inputtitle">
+		      <script>
+				var cciudadvive_alu=new omnisoftComboBox('cciudadvive_alu','ciudadvive_alu','select serial_ciu, nombre_ciu FROM ciudad order by nombre_ciu asc','130px',true,getURLParam('cciudadvive_alu'));
+				cciudadvive_alu.show();
+			  </script>
+		    </span></td>
+		    <td colspan="3" class="inputtitle">Tel&eacute;fono:</td>
+		    <td class="inputtitle"><input name="telefodomic_alu" type="text" id="telefodomic_alu" size="15" maxlength="9" class="emptytext"  onBlur="esconderToolTip()"></td>
+		    <td colspan="3"class="inputtitle"><div align="center">Celular : </div></td>
+		    <td colspan="2"class="inputtitle"><input name="celular_alu" type="text" id="celular_alu" size="15" maxlength="9" class="emptytext"  onBlur="esconderToolTip()"></td>
+	    </tr>
+		  <tr>
+		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS TRABAJO </span></div></td>
+	      </tr>
+		  
+		 <tr>
+		    <td colspan="15" >
+			<table border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000"  bordercolordark="#FFFFFF"class="formtable">
+			<tr>
+		    <td width="108" height="25" class="inputtitle">Direcci&oacute;n Trabajo :</td>
+		    <td height="25" colspan="2"><input name="direccionTrabajo_alu" type="text" id="direccionTrabajo_alu" size="35" maxlength="80" class="emptystring"  onBlur="esconderToolTip()"></td>
+		    <td width="102" height="25" class="inputtitle">Lugar : </td>
+		    <td height="25" colspan="6"><input name="lugartrabajo_alu" type="text" id="lugartrabajo_alu" size="50" maxlength="120" class="emptystring"  onBlur="esconderToolTip()"></td>
+		    <td height="25" colspan="3" class="inputtitle">Cargo:</td>
+	        <td width="66" class="inputtitle"><input name="cargo_alu" type="text" id="cargo_alu" size="35" maxlength="80" class="emptystring"  onBlur="esconderToolTip()"></td>
+	        </tr>
+		  <tr>
+		    <td height="25" colspan="3" class="inputtitle">Cuales son sus ingresos anuales que percibe:</td>
+		    <td height="25" colspan="7" class="inputtitle"><select name="sueldo_alu" id="sueldo_alu" class="combobox">
+                <option value="">Seleccione</option>
+                <option value="MENOS DE 6000">MENOS DE 6000</option>
+                <option value="DE 6000 A 10000">DE 6000 A 10000</option>
+                <option value="DE 10001 A 25000">DE 10001 A 25000</option>
+                <option value="DE 25001 A 50000">DE 25001 A 50000</option>
+				<option value="DE 50001 A 75000">DE 50001 A 75000</option>
+				<option value="DE 75001 A 100000">DE 75001 A 100000</option>
+				<option value="DE 100001 A 125000">DE 100001 A 125000</option>
+				<option value="DE 125001 A 150000">DE 125001 A 150000</option>
+                <option value="MAS DE 150001">MAS DE 150001</option>
+              </select></td>
+		    <td height="25" colspan="3" class="inputtitle">Tel&eacute;fono :</td>
+		    <td class="inputtitle"><input name="telefotrabajo_alu" type="text" id="telefotrabajo_alu" size="15" maxlength="9" class="emptytext"  onBlur="esconderToolTip()"></td>
+		    </tr>
+		  <tr>
+		    <td height="25" colspan="4" class="inputtitle">		     
+		       Está casado con una compañera(o) de la Universidad.  Nombre?	          </td>
+		    <td height="25" colspan="6"><input name="esposa_alu" type="text" id="esposa_alu" size="35" maxlength="80" class="emptystring"  onBlur="esconderToolTip()"></td>
+		    <td height="25" colspan="3" class="inputtitle">&nbsp;</td>
+		    <td class="inputtitle">&nbsp;</td>
+		    </tr>
+			</table>			</td>
+		  </tr>
+			<tr>
+		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS DE INSCRIPCION</span></div></td>
+	      </tr>
+		   <tr>
+		    <td colspan="15" ><table width="1013" height="112" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000"  bordercolordark="#FFFFFF"class="formtable">
+              <tr>
+                <td width="115" height="21" class="inputtitle">Proceso : </td>
+                <td height="21"><input name="proceso_alu" type="text" id="proceso_alu" size="16" maxlength="18" class="string"  value="INSCRIPCION" readonly onBlur="esconderToolTip()"></td>
+                <td width="135" height="21" class="inputtitle">Fecha Inscripcion:</td>
+                <td width="128" height="21" class="inputtitle" span><img src="../images/camporequerido.gif">
+                    <input name="fechaInscripcion_alu" id="fechaInscripcion_alu" type="text" class="date" size="12" maxlength="10"></td>
+                <td width="155" height="21" class="inputtitle">Programa :</td>
+                <td width="146" height="21" class="inputtitle"><script>                var cserial_sec=new omnisoftComboBox('cserial_sec','serial_sec','select serial_sec, nombre_sec from seccion order by nombre_sec','160px',true,getURLParam('serial_sec'),'',seleccionarPeriodo);
+                     cserial_sec.show();
+				
+					
+	            </script></td>
+                <td width="122" height="21" class="inputtitle">Periodo  Ingreso:</td>
+                <td width="103" height="21" class="inputtitle"><script>                var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per, nombre_per from periodo where serial_sec= '+getURLParam('serial_sec')+' and serial_suc='+getCookie('serial_suc')+' order by nombre_per','160px',true,getURLParam('serial_per'));
+                     cserial_per.show();
+				
+					
+	            </script></td>
+              </tr>
+              <tr>
+                <td height="21" class="inputtitle">Estado:</td>
+                <td width="91" height="21"><span class="inputtitle">
+                  <select name="estado_alu" id="estado_alu" class="combo">
+                    <option value="ACTIVO">Activo</option>
+                    <option value="INACTIVO">Inactivo</option>
+                  </select>
+                </span></td>
+                <td height="21" class="inputtitle">N&uacute;mero m&aacute;x. creditos:</td>
+                <td height="21" class="inputtitle"><img src="../images/camporequerido.gif">
+                    <input name="nummaxcreditos_alu" type="text" id="nummaxcreditos_alu" size="5" maxlength="9" class="integer"  onBlur="esconderToolTip()"></td>
+                <td height="21" class="inputtitle">Calificaci&oacute;n Equivalencia :</td>
+                <td height="21" class="inputtitle"><img src="../images/camporequerido.gif">
+                    <script>                var cserial_cale=new omnisoftComboBox('cserial_cale','serial_cale','select -99,\'SELECCIONE\' union SELECT serial_cale, nombre_cale FROM calificacionequivalencia','155px',true,getURLParam('serial_cale'));
+                     cserial_cale.show();
+				
+					
+	            </script>                </td>
+                <td height="21" class="inputtitle">Como nos conocio ? : </td>
+                <td height="21"  class="inputtitle"><script>
+				var cserial_inf=new omnisoftComboBox('cserial_inf','serial_inf','SELECT serial_inf, nombre_inf FROM informacionfuentes','100px',true,getURLParam('serial_inf'));
+				cserial_inf.show();
+			</script></td>
+              </tr>
+              <tr>
+                <td height="25" class="inputtitle">Colegio:</td>
+                <td height="25" colspan="3"><script>
+				var cserial_col=new omnisoftComboBox('cserial_col','serial_col','select serial_col, nombre_col FROM colegios where serial_suc='+getCookie('serial_suc')+' order by nombre_col','330px',true,getURLParam('serial_col'));
+				cserial_col.show();
+				//alert ('serial_suc'+getCookie('serial_suc'));
+			</script></td>
+                <td height="25"  class="inputtitle">Nota grado :</td>
+                <td height="25" ><span class="inputtitle">
+                  <input name="notagradocol_alu" type="text" id="notagradocol_alu" size="5" maxlength="9" class="emptydecimal"  onBlur="esconderToolTip()">
+                </span></td>
+                <td height="25" class="inputtitle">Fecha  graduacion: </td>
+                <td height="25" ><span class="inputtitle">
+                  <input name="fechagraduacioncol_alu" id="fechagraduacioncol_alu" type="text" class="emptystring" value="0000-00-00" size="12" maxlength="10">
+                </span></td>
+              </tr>
+              <tr>
+                <td height="25" class="inputtitle">Alumno Especial  :</td>
+                <td height="25"><span class="inputtitle">
+                    <select name="intercambio_alu" id="intercambio_alu" class="combo">
+                <option value="NINGUNO">Ninguno</option>
+                <option value="COMUNIDAD">Comunidad</option>
+                <option value="VIENE INTERCAMBIO">Viene Intercambio.</option>
+                <option value="VA INTERCAMBIO">Va Intercambio.</option>
+              </select>
+                </span></td>
+                <td height="25"  class="inputtitle">Representante: </td>
+                <td height="25" class="inputtitle"><input name="conQuienVive_alu" type="text" id="conQuienVive_alu" size="30" maxlength="40" class="emptystring"  onBlur="esconderToolTip()">                </td>
+                <td height="25"  class="inputtitle">Observaci&oacute;n:</td>
+                <td height="25" ><span class="inputtitle">
+                  <input name="observacion_alu" id="observacion_alu" type="text" class="emptytext" size="35" maxlength="255" value="NINGUNA">
+                </span></td>
+              <td height="21" class="inputtitle">Modalidad:</td>
+                <td width="91" height="21"><span class="inputtitle">
+                  <select name="modalidad_alu" id="modalidad_alu" class="combo">
+                    <option value="PRESENCIAL">Presencial</option>
+                    <option value="SEMIPRESENCIAL">Semipresencial</option>
+					<option value="A DISTANCIA">A Distancia</option>
+                  </select>
+                </span>
+			  </tr>
+            </table></td>
+		  </tr>
+		  <!-- <tr>
+		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS EGRESAMIENTO</span></div></td>
+	      </tr>
+		  <tr>
+		    <td colspan="2" class="inputtitle"><div align="right">Fecha de Egresamiento :(aaaa-mm-dd) </div></td>
+		    <td colspan="3" class="inputtitle"><input name="fecegreso_alu" id="fecegreso_alu" type="text" class="emptystring" value="0000-00-00" size="12" maxlength="10"></td>
+		    <td colspan="5" class="inputtitle"><div align="right">Fecha de Titulaci&oacute;n :(aaaa-mm-dd) </div></td>
+		    <td colspan="6" class="inputtitle"><input name="fectitulo_alu" id="fectitulo_alu" type="text" class="emptystring" value="0000-00-00" size="12" maxlength="10"></td>
+	      </tr>
+<tr>
+		    <td height="17" colspan="13" class="formtitle"><div align="center"><span class="style1">DATOS DE RESPALDO</span></div></td>
+	      </tr>		  
+		<tr>
+		    <td height="25" class="inputtitle">Fecha Inscripcion:</td>
+		    <td width="114" height="25"><img src="../images/camporequerido.gif"><input name="fechaInscripcion_alu" id="fechaInscripcion_alu" type="text" class="date" size="12" maxlength="10"></td>
+		    <td width="60" class="inputtitle">Periodo : </td>
+		    <td height="25" colspan="4" class="inputtitle"><script>
+				var cserial_per=new omnisoftComboBox('cserial_per','serial_per','SELECT serial_per, nombre_per FROM periodo where serial_suc='+getCookie('serial_suc')+' order by nombre_per asc','160px',true,getURLParam('serial_per'));
+				cserial_per.show();
+			</script></td>
+		    <td height="25" colspan="2" class="inputtitle">Calificaci&oacute;n Equivalencia :</td>
+		    <td height="25" class="inputtitle"><img src="../images/camporequerido.gif"></td>
+		    <td width="87" height="25"class="inputtitle">Representante :</td>
+		    <td height="25" colspan="3"><input name="conQuienVive_alu" type="text" id="conQuienVive_alu" size="30" maxlength="40" class="emptystring"  onBlur="esconderToolTip()"></td>
+	      </tr>
+		 <tr>
+		   <td height="25" class="inputtitle">Proceso : </td>
+		   <td height="25"><input name="proceso_alu" type="text" id="proceso_alu" size="16" maxlength="18" class="string"  value="INSCRIPCION" readonly onBlur="esconderToolTip()"></td>
+		   <td height="25" class="inputtitle">Programa :</td>
+		   <td height="25" colspan="4" class="inputtitle"><img src="../images/camporequerido.gif">
+	        <script>                var cserial_sec=new omnisoftComboBox('cserial_sec','serial_sec','select serial_sec, nombre_sec from seccion order by nombre_sec','185px',true,getURLParam('serial_sec'));
+                     cserial_sec.show();
+				
+					
+	            </script></td>
+		   <td height="25" colspan="2" class="inputtitle">N&uacute;mero m&aacute;x. creditos : </td>
+		   <td height="25" class="inputtitle"><img src="../images/camporequerido.gif">
+	        <input name="nummaxcreditos_alu" type="text" id="nummaxcreditos_alu" size="5" maxlength="9" class="integer"  onBlur="esconderToolTip()"></td>
+		   <td height="25" class="inputtitle">Como nos conocio ? :</td>
+	       <td height="25" colspan="3"><span class="inputtitle">
+	         <script>
+				var cserial_inf=new omnisoftComboBox('cserial_inf','serial_inf','SELECT serial_inf, nombre_inf FROM informacionfuentes','100px',true,getURLParam('serial_inf'));
+				cserial_inf.show();
+			  </script>
+	       </span></td>
+          </tr>
+		  
+		  <tr>
+		    <td height="22" class="inputtitle">Estado:</td>
+		    <td height="22"><span class="inputtitle">
+		      <select name="estado_alu" id="estado_alu" class="combo">
+                <option value="ACTIVO">Activo</option>
+                <option value="INACTIVO">Inactivo</option>
+              </select>
+		    </span></td>
+		    <td height="22" class="inputtitle">&nbsp;</td>
+		    <td height="22" colspan="4" class="inputtitle">&nbsp;</td>
+		    <td height="22" colspan="2" class="inputtitle">Estudiante Especial  : </td>
+		    <td height="22" class="inputtitle">&nbsp;</td>
+	        <td height="22" class="inputtitle">Observaci&oacute;n:</td>
+            <td height="22" colspan="3"><input name="observacion_alu" id="observacion_alu" type="text" class="emptytext" size="35" maxlength="255" value="NINGUNA"></td>
+          </tr>-->
+		  
+		  
+        </table></td>
+    </tr>
+    <!--<tr>
+		<td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>-->
+    </tr>
+  </table>
+
+</form>
+<script>
+function cargarFoto() {
+
+
+   var attributes='width=500,height=400,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportPhoto.php?campofoto=foto_alu&foto='+document.PaginaDatos.foto_alu.value,'OmnisoftPhoto',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+ 
+ 
+ 
+}
+</script>
+
+<script>
+   omnisoftLoadData(document.PaginaDatos);
+
+   if (getURLParam('action')=='insert')
+   
+   document.PaginaDatos.fechaInscripcion_alu.value=fechaSistema();
+   </script>
+
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	  if (document.PaginaDatos.foto_alu.value!='')
+   document.PaginaDatos.imgfoto.src='../fotos/'+document.PaginaDatos.foto_alu.value;
+//	OmnisoftPerfilUsuarioFormulario();
+	document.PaginaDatos.serial_suc.value=getCookie('serial_suc');
+	document.PaginaDatos.serial_usr.value=getCookie('serial_usr');
+	//alert(getCookie('serial_suc'));
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftAcciones.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script>
+function seleccionarPeriodo() {
+//alert('entro');
+   cserial_per.objDBComando.sqlCommand='select serial_per, nombre_per from periodo where serial_sec = '+document.PaginaDatos.serial_sec.value+' and serial_suc='+getCookie('serial_suc')+' order by nombre_per';
+    cserial_per.objDBComando.executeQuery();
+	
+//prompt('periodo1: ','select serial_per, nombre_per from periodo where serial_sec = '+document.PaginaDatos.serial_sec.value+' order by nombre_per');	
+}
+
+function MostrarFechas(){
+//alert('entro ');
+var query='select serial_per, fecini_per, fecfin_per, nombre_per from periodo where serial_per = '+document.PaginaDatos.serial_per.value+' order by nombre_per';
+ objDB=new omnisoftDB(query,'../lib/server/omnisoftSQLData.php','recuperarFechas');
+       setTimeout('objDB.executeQuery()',0);
+	   
+//prompt('creditos: ','SELECT dmat.serial_ama, sum(numerocreditos_dmat + creditosequivalentes_dmat) AS total_creditos, nummaxcreditos_alu FROM alumnomalla AS ama LEFT JOIN alumno AS a ON ama.serial_alu = a.serial_alu, detallemateriamatriculada AS dmat LEFT JOIN materiamatriculada AS mmat ON dmat.serial_mmat = mmat.serial_mmat WHERE ama.serial_ama = dmat.serial_ama AND dmat.serial_ama = '+opener.PaginaDatos.serial_ama.value+' GROUP BY dmat.serial_ama HAVING total_creditos <= nummaxcreditos_alu');	   
+}
+
+function recuperarFechas(data)
+{
+		//alert(data);
+		 var registros=data.split('~');
+		//alert(registros);
+		 var n=0;
+//alert(registros[1]);
+		 //document.getElementById('aulas_sugeridas').innerHTML=registros[3];
+		 document.PaginaDatos.fecini_cun.value=registros[1];
+		 
+		 document.PaginaDatos.fecfin_cun.value=registros[2];
+		//alert('fecfin_cun'+registros[2); 
+		 
+		 
+
+}
+
+
+</script>
+
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_cun" type="hidden" id="serial_cun" class="hidden" >
+<input name="serial_suc" type="hidden" id="serial_suc" class="hidden" >
+
+  <table width="814" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="217" height="52"  class="ingeniumtoptitle"></td>
+      <td width="568"  class="maintoptitle fonttitle"><center>
+       MODULO ACADEMICO<br>
+CALENDARIO UNIFICADO
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="917" height="188" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="18" colspan="12"  bgcolor="#000166"><div align="center" class="style1 style1">IDENTIFICACION</div></td>
+          </tr>
+          <tr>
+            <td width="71" height="32"  class="inputtitle">Programa :</td>
+            <td width="304"><img src="../images/camporequerido.gif">
+            <script>                var cserial_sec=new omnisoftComboBox('cserial_sec','serial_sec','select serial_sec, nombre_sec from seccion order by nombre_sec','175px',true,getURLParam('serial_sec'),'',seleccionarPeriodo);
+                     cserial_sec.show();
+				
+					
+	            </script></td>
+            <td width="63" class="inputtitle">Per&iacute;odo :</td>
+            <td width="155"><script>                var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per, nombre_per from periodo where serial_sec= '+getURLParam('serial_sec')+' and serial_suc='+getCookie('serial_suc')+' order by nombre_per','190px',true,getURLParam('serial_per'),'',MostrarFechas);
+                     cserial_per.show();
+				
+					
+	            </script></td>
+            <td width="57" class="inputtitle"> Inicio : </td>
+            <td width="103" class="inputtitle"><input name="fecini_cun" type="text" id="fecini_cun" size="10" maxlength="10"  value="0000-00-00" onBlur="esconderToolTip()"></td>
+            <td width="47" class="inputtitle">  Fin : </td>
+            <td width="99"><input name="fecfin_cun" type="text" id="fecfin_cun" size="10" maxlength="10" value="0000-00-00" onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="33"  class="inputtitle">Nombre  :</td>
+            <td height="33" colspan="3" ><img src="../images/camporequerido.gif"><input name="nombre_cun" type="text" id="nombre_cun" size="100" maxlength="110" class="string"></td>
+            <td height="33" colspan="2"  class="inputtitle">Secci&oacute;n : </td>
+            <td height="33" colspan="2" ><span class="inputtitle">
+              <select name="seccion_cun"  id="seccion_cun" class="combobox">
+                <option value="DIURNA">Diurna</option>
+                <option value="NOCTURNA">Nocturna</option>
+              </select>
+            </span></td>
+          </tr>
+          
+
+
+		  <tr><td height="23"  class="inputtitle">Activo :</td>
+            <td colspan="7" ><img src="../images/camporequerido.gif">
+              <select name="activo_cun" id="activo_cun" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select></td>
+          <tr>
+            <td height="18" colspan="12"  bgcolor="#000166"><div align="center" class="style1">MATERIAS DEL CALENDARIO </div></td>
+          </tr>
+
+
+        <tr>
+            <td height="40" colspan=11><script>
+   omnisoftLoadData(document.PaginaDatos);
+
+   
+      //document.PaginaDatos.fecini_maa.value=fechaSistema();
+	//alert(getURLParam('action'));
+    var serial_cun=(getURLParam('action')=='insert')?0:getURLParam('serial_cun');
+	//alert('Serial calendario: '+serial_cun);
+
+   //alert(document.PaginaDatos.serial_maa.value);
+    var sql='SELECT serial_dcun, nombre_mat, nombre_fac, estado_dcun, observaciones_dcun, detallecalendariounificado.serial_cun, detallecalendariounificado.serial_mat, calendariounificado.serial_sec, materia.serial_are FROM detallecalendariounificado LEFT JOIN calendariounificado ON detallecalendariounificado.serial_cun = calendariounificado.serial_cun LEFT JOIN seccion ON seccion.serial_sec = calendariounificado.serial_sec LEFT JOIN materia ON detallecalendariounificado.serial_mat = materia.serial_mat LEFT JOIN area ON materia.serial_are = area.serial_are LEFT JOIN facultad ON area.serial_fac = facultad.serial_fac WHERE detallecalendariounificado.serial_cun = masterkey';
+	//prompt('sql',sql);
+
+     omniObj=new omnisoftGridDetail('omniObj','serial_cun',serial_cun,'detallecalendariounificado','serial_dcun',sql,document.PaginaDatos,Array(true,true,true),'detallecalendariounificado.html',801,200);
+		         
+     omniObj.addColumn('Serial','serial_dcun', 1,'hidden','','middle','');
+	 omniObj.addColumn('Materia','nombre_mat', 35,'string','','middle','');
+	 omniObj.addColumn('Facultad','nombre_fac', 30,'string','','middle','');
+	 omniObj.addColumn('Estado','estado_dcun', 10,'string','','middle','');
+	 omniObj.addColumn('Observaciones','observaciones_dcun ', 16,'string','','middle','');
+	 omniObj.addColumn('serial calendario unificado','serial_cun', 1,'hidden','','middle','','');
+	 //omniObj.addColumn('serial nivel','serial_niv', 1,'hidden','','middle','','');
+	 omniObj.addColumn('serial materia','serial_mat', 1,'hidden','','middle','','');
+	 omniObj.addColumn('serial seccion','serial_sec', 1,'hidden','','middle','','');
+	 omniObj.addColumn('serial area','serial_are', 1,'hidden','','middle','','1');
+
+  	 omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');
+
+
+            </script></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690">
+			 <div align="center" id="divImprimir" style="visibility:visible"><a href="#"  onClick="javascript:imprimirMalla()"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a></div>
+			</td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	 
+	document.PaginaDatos.serial_suc.value=getCookie('serial_suc')
+	 //alert('serial_suc'+document.PaginaDatos.serial_suc); 
+</script>
+</body>
+</html>

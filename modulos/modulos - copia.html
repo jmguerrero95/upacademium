@@ -1,0 +1,410 @@
+<HTML>
+<HEAD>
+<TITLE>ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script src="../lib/cluetip/jquery-1.2.5.min.js" type="text/javascript"></script>
+<script src="../lib/cluetip/jquery.hoverIntent.js" type="text/javascript"></script>
+<script src="../lib/cluetip/jquery.cluetip.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../lib/cluetip/jquery.cluetip.css" type="text/css" />
+
+<script type="text/JavaScript">
+<!--
+//-->
+</script>
+<style type="text/css">
+<!--
+.Estilo2 {font-size: 9px}
+-->
+</style>
+</head>
+
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language="javascript" src="../lib/aw/lib/aw.js"></script>
+<script language="javascript" src="../lib/grid/omnisoftDB.js"></script>
+<script language="javascript" src="../lib/tools/omnisoftMenu.js"></script>
+<script language="javascript" src= "../config/config.js" ></script>
+<script language="javascript" src= "../lib/tools/disableRightClick.js" ></script>
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+
+//-->
+
+
+function registrarAsistencia() {
+
+var attributes='width=800 ,height=355,scrollbars=no,resizable=no,toolbar=no,location=no,status=no,menubar=no'
+var sURL='../nomina/registroAsistenciaFormulario.html';
+ omnisoftNewWindow=window.open(sURL,'RegistroAsistencia',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+
+}
+function registrarAsistenciaProfesor() {
+
+var attributes='width=800 ,height=355,scrollbars=no,resizable=no,toolbar=no,location=no,status=yes,menubar=no'
+var sURL='../academico/registroAsistenciaProfesorFormulario.html';
+ omnisoftNewWindow=window.open(sURL,'RegistroAsistencia',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+
+}
+//alert(getCookie('serial_suc'));
+</script>
+</HEAD>
+<BODY  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_gestionfinanciera_b.gif','../images/bot_proveedores_b.gif','../images/bot_marketing_b.gif','../images/bot_nomina_b.gif','../images/bot_calidad_b.gif','../images/bot_sistema_b.gif','../images/bot_academico_a.gif')">
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="4"><IMG SRC="../images/index1024_01.jpg" WIDTH=4 HEIGHT=81 ALT=""></td>
+    <td background="../images/index1024_02.jpg">
+      <div align="left">
+        <table width="100%" height="81" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td >&nbsp;</td>
+          </tr>
+        </table>
+      </div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="6EA0D3">
+  <tr>
+    <td width="4" background="../images/index1024_04.jpg">&nbsp;</td>
+    <td width="416"><IMG SRC="../images/index1024_05.jpg" WIDTH=416 HEIGHT=365 ALT=""></td>
+    <td width="10">&nbsp;</td>
+    <td colspan="2" >
+<table width="501" height="365" border="0" cellpadding="0" cellspacing="0" bgcolor="6EA0D3">
+        <tr>
+          <td height="367" valign="middle" class=" toptitle"><br><center><script>document.write(getCookie('nombreSucursal'));</script></center><br>
+            <br>
+           <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="166" >&nbsp;</td>
+                <td colspan="3" ><a href="ayudaAdquisiciones.html" rel="ayudaAdquisiciones.html" title="Adquisiciones"  onClick="procesarOpcion(9)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image142','','../images/bot_adquisiciones_b.gif',1)"><img src="../images/bot_adquisiciones_a.gif" alt="" name="imgAdquisiciones" width="220" height="37" border="0" id="ImgAdquisiciones" ></a></td>
+              </tr>
+              <tr>
+                <td colspan="2" class=" menuborder"><div align="center">Actividades Frecuentes</div></td>
+                <td colspan="2"><a href="ayudaActivosFijos.html" rel="ayudaActivosFijos.html" title="Activos Fijos"  onClick="procesarOpcion(8)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image142','','../images/bot_activosfijos_b.gif',1)"><img src="../images/bot_activosfijos_a.gif" name="imgActivosFijos" width="220" height="37" border="0" id="ImgActivosFijos" ></a></td>
+              </tr>
+              <tr>
+                <td height="17" colspan="2" class="menuborder Estilo2">- Cambiar de Clave de Acceso</td>
+                <td width="22" rowspan="2">&nbsp;</td>
+                <td width="263" rowspan="2"><a href="ayudaAdmisiones.html" rel="ayudaAdmisiones.html" title="Admisiones" onClick="procesarOpcion(6)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image142','','../images/bot_admisiones_a.gif',1)"><img src="../images/bot_admisiones_a.gif" name="imgAdmisiones" width="220" height="37" border="0" id="ImgAdmisiones" ></a></td>
+              </tr>
+              <tr>
+                <td height="18" colspan="2" class="menuborder Estilo2"><a href="#" rel="ayuda.html" title="Registro de Asistencia" onClick="registrarAsistencia()">- Registrar Asistencia</a></td>
+              </tr>
+            </table>
+            <table width="501" height="38" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="215" height="19" class="menuborder Estilo2"><a href="#" rel="ayuda.html" title="Registro de Asistencia Profesor" onClick="registrarAsistenciaProfesor()">- Registrar Asistencia Profesor </a><img src="../images/New.gif" width="22" height="7"></td>
+                <td width="51" rowspan="2">&nbsp;</td>
+                <td width="235" rowspan="2"><a href="ayudaAcademico.html" rel="ayudaAcademico.html" title="Academico" onClick="procesarOpcion(7)" onMouseOut="MM_swapImgRestore()" ><img src="../images/bot_academico_a.gif" name="Image141" width="220" height="37" border="0" id="ImgAcademico" ></a></td>
+              </tr>
+              <tr>
+                <td class="menuborder Estilo2" height="19">- Aprobar Facturas de compra</td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="216" height="19" class="menuborder Estilo2">- Revisar estad&iacute;sticas de compras</td>
+                <td width="63" rowspan="2">&nbsp;</td>
+                <td width="222" rowspan="2"><a href="ayudaGestionFinanciera.html" rel="ayudaGestionFinanciera.html" title="Gestión Financiera" onClick="procesarOpcion(0)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image9','','../images/bot_gestionfinanciera_b.gif',1)"><img src="../images/bot_gestionfinanciera_a.gif" name="ImgGestionFinanciera" width="220" height="37" border="0" ></a></td>
+              </tr>
+              <tr>
+                <td class="menuborder Estilo2" height="19">- Aprobar ordenes de requerimiento</td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="215" class="menuborder Estilo2" height="19">- Verificar despacho de mercaderia</td>
+                <td width="51" rowspan="2">&nbsp;</td>
+                <td width="235" rowspan="2"><a href="ayudaInventarios.html" rel="ayudaInventarios.html" title="Logistica e Inventarios" onClick="procesarOpcion(1)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image10','','../images/bot_proveedores_b.gif',1)"><img src="../images/bot_proveedores_a.gif" name="ImgInventarios" width="220" height="37" border="0" ></a></td>
+              </tr>
+              <tr>
+                <td class="menuborder Estilo2" height="19">- Verificar ingreso de mercaderia</td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="216" class="menuborder Estilo2" height="19">- Chequear devoluciones a proveedores</td>
+                <td width="33" rowspan="2">&nbsp;</td>
+                <td width="252" rowspan="2"><a href="ayudaVentas.html" rel="ayudaVentas.html" title="Evaluacion" onClick="procesarOpcion(2)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image11','','../images/bot_evaluacion_b.gif',1)"><img src="../images/bot_evaluacion_a.gif" name="ImgVentas" width="220" height="37" border="0" ></a></td>
+              </tr>
+              <tr>
+                <td class="menuborder Estilo2" height="19">- Chequear devoluciones de clientes</td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="233">&nbsp;</td>
+                <td width="268"><a href="../nomina/departamentos.html" rel="ayudaRRHH.html" title="Nómina y Recursos Humanos" onClick="procesarOpcion(3)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image12','','../images/bot_nomina_b.gif',1)"><img src="../images/bot_nomina_a.gif" name="ImgNomina" width="220" height="37" border="0" ></a></td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="159">&nbsp;</td>
+                <td width="51">&nbsp;</td>
+                <td width="291"><a href="ayudaPensiones.html" rel="ayudaPensiones.html" title="Pensiones" onClick="procesarOpcion(4)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image13','','../images/bot_pensiones_a.gif',1)"><img src="../images/bot_pensiones_a.gif" name="ImgPensiones" width="220" height="37" border="0" ></a></td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="158">&nbsp;</td>
+                <td width="15">&nbsp;</td>
+                <td width="328"><a href="ayudaSistema.html" rel="ayudaSistema.html" title="Sistema y Seguridades" onClick="procesarOpcion(5)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image14','','../images/bot_sistema_b.gif',1)"><img src="../images/bot_sistema_a.gif" name="ImgSistema" width="220" height="37" border="0" ></a></td>
+              </tr>
+            </table></td>
+        </tr>
+      </table> </td>
+    <td width="7" >&nbsp;</td>
+    <td width="44" >&nbsp;</td>
+    <td width="10" background="../images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+  <tr>
+    <td background="../images/index1024_04.jpg">&nbsp;</td>
+    <td height="160"><table width="100%" height="55" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000" bgcolor="#FFFF99" >
+      <tr>
+        <td width="25%"><img src="../fotos/foto.jpg"  name="imgfoto" width="100" height="100"></td>
+        <td width="75%"><table width="100%" height="102" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000"  bordercolordark="#FFFFFF">
+          <tr>
+            <td width="37%" class="inputtitle menuborder">Nombre:</td>
+            <td width="63%" class="inputtitle menuborder"><script>document.write(getCookie('nombre_usr'));</script></td>
+          </tr>
+          <tr>
+            <td class="inputtitle menuborder">Apellido:</td>
+            <td class="inputtitle menuborder"><script>document.write(getCookie('apellido_usr'));</script></td>
+          </tr>
+          <tr>
+            <td class="inputtitle menuborder">Perfil:</td>
+            <td class="inputtitle menuborder"><script>document.write(getCookie('nombre_pfl'));</script></td>
+          </tr>
+          <tr>
+            <td class="inputtitle menuborder"> Ultimo acceso:</td>
+            <td class="inputtitle menuborder">&nbsp;</td>
+          </tr>
+          <tr>
+            <td class="inputtitle menuborder">Su clave expira en:</td>
+            <td class="inputtitle menuborder"><script>document.write(60-getCookie('dias')+ '  dias');</script></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+    <td>&nbsp;</td>
+    <td colspan="2"><img src="../images/index1024_09.jpg" width="369" height="75" name="imgFoto" id="imgFoto"></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td background="../images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="34" colspan="2" background="../images/index1024_18.jpg"><IMG SRC="../images/index1024_17.jpg" WIDTH=420 HEIGHT=36 ALT=""></td>
+    <td background="../images/index1024_18.jpg">&nbsp;</td>
+    <td width="261" background="../images/index1024_18.jpg">&nbsp;</td>
+    <td width="250" background="../images/index1024_18.jpg">&nbsp;</td>
+    <td background="../images/index1024_18.jpg">&nbsp;</td>
+    <td background="../images/index1024_18.jpg">&nbsp;</td>
+    <td background="../images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+</table>
+<script>
+
+document.getElementById('imgFoto').src='../fotos/'+getCookie('foto_usr');
+var serial_usr=getCookie('serial_usr');
+
+   if (serial_usr==null) {
+
+       alert('Error Grave:  Usuario NO permitido!');
+       window.close();
+   }
+else {
+       objDB=new omnisoftDB("SELECT upmodulos.serial_mod,trim(nombre_prc),trim(url_prc) FROM  upaccionproceso,upmodulos, upprocesos,upusuario WHERE serial_usr='"+serial_usr+"' and  upaccionproceso.serial_pfl =upusuario.serial_pfl and upprocesos.serial_prc=upaccionproceso.serial_prc and upmodulos.serial_mod = upprocesos.serial_mod and navegar_acp='SI'  order by upmodulos.serial_mod, upprocesos.serial_prc ","../lib/server/omnisoftSQLData.php");
+       setTimeout('objDB.executeQuery()',0);
+
+
+
+}
+
+var registroModulos=new Array();
+
+var opcionesMenu=new Array();
+
+
+function omnisoftProcesarDatos(data)
+{
+ // alert(data);
+ var registros=data.split('|');
+ var n=0;
+ var regmodulo=registros[1].split('~');
+ var  moduloActual=regmodulo[0];
+ registroModulos[n]=Array(regmodulo[0],regmodulo[2]);
+ opcionesMenu[0]=registros[1];
+
+
+ for (var i=2; i < registros.length; i++) {
+
+     regmodulo=registros[i].split('~');
+
+     if (regmodulo[0]!=moduloActual) {
+        moduloActual=regmodulo[0];
+        n++;
+        registroModulos[n]=new Array(regmodulo[0],regmodulo[2]);
+        opcionesMenu[n]=registros[i];
+     }
+
+     else opcionesMenu[n]=opcionesMenu[n]+'|'+registros[i];
+ }
+
+    document.ImgAdquisiciones.src='../images/bot_blanco.jpg';
+    document.ImgGestionFinanciera.src='../images/bot_blanco.jpg';
+    document.ImgInventarios.src='../images/bot_blanco.jpg';
+    document.ImgVentas.src='../images/bot_blanco.jpg';
+    document.ImgPensiones.src='../images/bot_blanco.jpg';
+    document.ImgNomina.src='../images/bot_blanco.jpg';
+    document.ImgSistema.src='../images/bot_blanco.jpg';
+    document.ImgAdmisiones.src='../images/bot_blanco.jpg';
+    document.ImgAcademico.src='../images/bot_blanco.jpg';
+    document.ImgActivosFijos.src='../images/bot_blanco.jpg';
+
+ for (var i=0; i <registroModulos.length-1; i++) {
+  switch(registroModulos[i][0]) {
+  
+    case '1':
+    document.ImgGestionFinanciera.src='../images/bot_gestionfinanciera_a.gif';
+    break;
+   case '2':
+    document.ImgInventarios.src='../images/bot_proveedores_a.gif';
+    break;
+   case '3':
+    document.ImgVentas.src='../images/bot_evaluacion_a.gif';
+    break;
+   case '4':
+    document.ImgNomina.src='../images/bot_nomina_a.gif';
+    break;
+
+   case '5':
+    document.ImgPensiones.src='../images/bot_pensiones_a.gif';
+    break;
+   case '6':
+    document.ImgSistema.src='../images/bot_sistema_a.gif';
+    break;
+   case '7':
+    document.ImgAdmisiones.src='../images/bot_Admisiones_a.gif';
+    break;
+   case '8':
+    document.ImgAcademico.src='../images/bot_academico_a.gif';
+    break;
+   case '9':
+    document.ImgActivosFijos.src='../images/bot_activosfijos_a.gif';
+    break;
+    case '10':
+    document.imgAdquisiciones.src='../images/bot_adquisiciones_a.gif';
+    break;
+
+   }
+
+   }
+
+}
+
+function procesarOpcion(id) {
+var found=false;
+
+for (var i=0; i < registroModulos.length-1; i++)
+
+      switch(id) {
+
+       case 0:
+             if (registroModulos[i][0]=='1')
+             window.location.href='../contabilidad/'+registroModulos[i][1];
+              break;
+       case 1:
+             if (registroModulos[i][0]=='2')
+
+             window.location.href='../inventarios/'+registroModulos[i][1];
+              break;
+       case 2:
+            if (registroModulos[i][0]=='3')
+
+             window.location.href='../evaluacion/'+registroModulos[i][1];
+              break;
+
+       case 3:
+                    if (registroModulos[i][0]=='4')
+
+             window.location.href='../nomina/'+registroModulos[i][1];
+              break;
+       case 4:
+                    if (registroModulos[i][0]=='5')
+
+             window.location.href='../pensiones/'+registroModulos[i][1];
+              break;
+       case 5:
+                    if (registroModulos[i][0]=='6')
+
+             window.location.href='../sistema/'+registroModulos[i][1];
+              break;
+       case 6:
+                    if (registroModulos[i][0]=='7')
+
+             window.location.href='../admisiones/'+registroModulos[i][1];
+              break;
+       case 7:
+                    if (registroModulos[i][0]=='8')
+
+             window.location.href='../academico/'+registroModulos[i][1];
+              break;
+       case 8:
+                    if (registroModulos[i][0]=='9')
+
+             window.location.href='../activosfijos/'+registroModulos[i][1];
+              break;
+       case 9:
+                    if (registroModulos[i][0]=='10')
+
+             window.location.href='../adquisiciones/'+registroModulos[i][1];
+              break;
+
+
+      }
+}
+
+  $('a:eq(0)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});
+  $('a:eq(1)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});
+  $('a:eq(2)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});
+  $('a:eq(3)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});
+  $('a:eq(4)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});
+  $('a:eq(5)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});
+  $('a:eq(6)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});
+  $('a:eq(7)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});
+  $('a:eq(8)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});
+  $('a:eq(9)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});
+  $('a:eq(10)').cluetip({cluetipClass: 'rounded', dropShadow: false, sticky: true, ajaxCache: false, arrows: true});
+
+</script>
+</BODY>
+</HTML>

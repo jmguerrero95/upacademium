@@ -1,0 +1,201 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script>
+function grabarFacturas() {
+     document.PaginaDatos.action.value='edit';
+     top.opener.omniObj.grid.action='edit';
+     omnisoftGrabar();
+
+}
+function procesarSeccion() {
+   cserial_niv.objDBComando.sqlCommand='select -99,\'TODOS\' UNION select serial_niv,nombre_niv from nivel where serial_sec='+document.PaginaDatos.serial_sec.value;
+                          cserial_niv.objDBComando.executeQuery();
+			}
+
+function procesarNivel() {
+   cserial_par.objDBComando.sqlCommand='select -99,\'TODOS\' UNION select serial_par,nombre_par from paralelo where serial_niv='+document.PaginaDatos.serial_niv.value;
+         cserial_par.objDBComando.executeQuery();
+			}
+
+function procesarParalelo() {
+   cserial_alu.objDBComando.sqlCommand='select alumno.serial_alu,concat(apellido_alu,\' \',nombre_alu) as nombre from alumno,paralelo_alumno where alumno.serial_alu=paralelo_alumno.serial_alu and paralelo_alumno.serial_par='+document.PaginaDatos.serial_par.value+' and activo_paralu=\'s\' and  estado_alu=\'A\'  order by apellido_alu,nombre_alu ';
+         cserial_alu.objDBComando.executeQuery();
+			}
+function recuperarDatos(data) {
+//alert(data);
+alert('La generación de la facturación ha sido terminada');
+
+opener.omniObj.lastPage();
+window.close();
+//var datos=data.split('|');
+//   omniObj.grid.masterKeyValue=document.PaginaDatos.serial_odc.value=datos[0];
+//   omniObj.grid.executeQuery(omniObj.grid.rows);
+}
+
+</script>
+
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_caf" type="hidden" id="serial_caf" class="hidden">
+<input name="estado_caf" type="hidden" id="estado_caf" class="hidden" value="VARIAS">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          FACTURAS VARIAS<br>
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="121" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+
+
+          <tr>
+            <td width="174" height="21"  class="inputtitle">Periodo:</td>
+            <td ><img  src="../images/camporequerido.gif" alt=""><script>
+ var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per,nombre_per from periodo order by serial_per DESC','250px',false,getURLParam('serial_per'));
+                     cserial_per.show();	</script></td>
+            <td class="inputtitle" >Fecha:</td>
+            <td ><input type="text" name="fecha_caf" id="fecha_caf" class="date" maxlength="10" size="10"></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Mes:</td>
+            <td width="293" ><img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_mes=new omnisoftComboBox('cserial_mes','mes_caf','select serial_mes,nombre_mes from meses','250px',true,getURLParam('mes_caf'));
+                     cserial_mes.show();	  </script></td>
+            <td width="192" class="inputtitle" >Numero de Factura:</td>
+            <td width="136" ><label>
+              <input type="text" name="numero_caf" id="numero_caf" class="autoincrement" maxlength="15" size="17" fieldid="numero_caf" table="cabecerafactura">
+            </label></td>
+          </tr>
+
+          <tr>
+            <td height="22"  class="inputtitle">Alumno:</td>
+            <td  ><img  src="../images/camporequerido.gif"><script>
+ var cserial_alu=new omnisoftComboBox('cserial_alu','serial_paralu','select serial_paralu,concat(apellido_alu,\' \',nombre_alu) as nombre from alumno,paralelo_alumno where alumno.serial_alu=paralelo_alumno.serial_alu and estado_alu=\'A\' and paralelo_alumno.activo_paralu=\'s\' order by apellido_alu,nombre_alu' ,'250px',true,getURLParam('serial_alu'));
+                     cserial_alu.show();	  </script>	</td>
+                     
+            <td class="inputtitle">Graba IVA:</td>
+            <td><select name="iva_caf" id="iva_caf" class="combo">
+                <option value="NO" selected>NO</option>
+                <option value="SI">SI</option>
+
+            </select>
+             </td>
+
+          </tr>
+          <tr>
+            <td height="22" colspan="4"  class="inputtitle">
+             <script>
+//   omnisoftLoadData(document.PaginaDatos);
+   var serial_caf=0;
+
+  if (getURLParam('action')=='insert')
+      document.PaginaDatos.fecha_caf.value=fechaSistema();
+  else {
+   document.PaginaDatos.serial_caf.value=serial_caf=getURLParam('serial_caf');
+   document.PaginaDatos.mes_caf.value=getURLParam('mes_caf');
+   document.PaginaDatos.fecha_caf.value=getURLParam('fecha_caf');
+   document.PaginaDatos.numero_caf.value=getURLParam('numero_caf');
+   document.PaginaDatos.estado_caf.value=getURLParam('estado_caf');
+   
+   }
+  
+
+    var sql='select serial_dfa, rubro_aal,   valor_aal from detallefactura where serial_caf=masterkey';
+    omniObj=new omnisoftGridDetail('omniObj','serial_caf',serial_caf,'detallefactura','serial_dfa',sql,document.PaginaDatos,Array(true,true));
+
+     omniObj.addColumn('Serial','serial_dfa', 10,'hidden','','middle','');
+     omniObj.addColumn('Rubro','rubro_aal', 20,'string','','middle','');
+     omniObj.addColumn('Valor','valor_aal', 12,'double','sum','middle','',0);
+
+    omniObj.showGrid('omniObj',12,290,1020,'menu','#FF9900');
+
+
+ </script>            </td>
+          </tr>
+          
+          
+
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="javascript:grabarFacturas()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

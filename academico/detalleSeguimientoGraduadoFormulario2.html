@@ -1,0 +1,2610 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+<script>
+function evaluar(){
+	//Control de suma de fechas
+	if(getURLParam('action')=='insert'){
+		var res;
+		var type;
+		var nTime;
+		type = document.PaginaDatos.tipoencuestaanterior_seg.value;
+		
+		switch(type){
+			case 'PRIMERA': 
+				nTime = 1;
+				break;
+			case 'SEGUNDA': 
+				nTime = 2;
+				break;
+			case 'TERCERA': 
+				nTime = 3;
+				break;			
+			case 'OTRA': 
+				nTime = 4;
+				break;			
+		}
+		res = document.PaginaDatos.fechaencuesta_seg.value;
+		var fec = res.split('-');
+		var myDate  = new Date (); 
+		myDate.setYear(fec[0]); 
+		myDate.setMonth(fec[1]);
+		myDate.setDate(fec[2]);
+		myDate.setYear (myDate.getYear() + nTime); 
+		dateSum = myDate.getYear()+"-"+myDate.getMonth()+"-"+myDate.getDate(); 	
+		document.PaginaDatos.fechaencuestaant_seg.value = dateSum ;		
+	}
+	
+	var primernombre;
+	var segundonombre;
+	//primer nombre
+	if (document.PaginaAlumno.primernombresi_alu.checked==true){
+		primernombre = "SI";
+	}else{
+		primernombre = "NO";
+	}
+	//segundo nombre
+	if (document.PaginaAlumno.segundonombresi_alu.checked==true){
+		segundonombre = "SI";
+	}else{
+		segundonombre = "NO";
+	}	
+	var SQLCommand="update alumno set apellidopaterno_alu='"+document.PaginaAlumno.apellidopaterno_alu.value+"',apellidomaterno_alu= '"+document.PaginaAlumno.apellidomaterno_alu.value+"', nombre1_alu='"+document.PaginaAlumno.nombre1_alu.value+"', nombre2_alu='"+document.PaginaAlumno.nombre2_alu.value+"', serial_sex = '"+document.PaginaAlumno.serial_sex.value+"', serial_eci = '"+document.PaginaAlumno.serial_eci.value+"',primernombresi_alu = '"+primernombre+"',segundonombresi_alu = '"+segundonombre+"' where serial_alu ="+document.PaginaDatos.serial_alu.value;
+	var res = omnisoftGrabar();
+	if( res != false){
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'');
+		objDBComando.executeQuery();	
+	}
+	
+}
+
+ var serial_sec=opener.serial_sec;
+
+	//alert('serial_sec:'+serial_sec);
+</script>
+<style type="text/css">
+<!--
+.style5 {color: #000066; font-weight: bold; font-size: 11px; }
+.style7 {color: #000000}
+-->
+</style>
+<body scroll = "auto">
+<table width="900" border="0" cellspacing="0" cellpadding="0" >
+<tr>
+      <td width="990" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO <br>
+          DETALLE DE ENCUESTA
+      </center></td>
+      <td width="1"  class="logotoptitle"></td>
+  </tr>
+</table>
+<form method="POST" enctype="multipart/form-data"  name="PaginaAlumno" onClick="highlight(event)" onKeyUp="highlight(event)">
+  <table width="1000" border="1" cellspacing="0" cellpadding="0" class="formtable" >
+    <!--BEGIN TABLE PASTE-->
+    <tr>
+      <td height="30" colspan="4">  
+    <tr>
+      <td colspan="16" class="formtitle"><div align="center"><span class="style1">Encuesta Para Graduados </span></div></td>
+    </tr>
+    <tr>
+      <td colspan="16" class="formtitle"><div align="center"><span class="style1">DATOS GRADUACION </span></div></td>
+    </tr>
+    <tr>
+    <tr>
+      <td width="19"  class="style5">&nbsp;</td>
+      <td width="559" height="15"  class="style5">&nbsp;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">&nbsp;</td>
+      <td width="559" height="15"  class="style5">&nbsp;</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">&nbsp;</td>
+      <td   class="style5">C&eacute;dula del Encuestador </td>
+      <td ><input name="cedula_del_encuestador" id="cedula_del_encuestador" type="text" class="" size="30" maxlength="40" onBlur="" /></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">&nbsp;</td>
+      <td  class="style5">Fecha de Encuesta </td>
+      <td><input name=" fecha_de_encuesta" id=" fecha_de_encuesta" type="text" class="" size="30" maxlength="40" onBlur="" /></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">&nbsp;</td>
+      <td   class="style5">sede</td>
+      <td><input name=" sede" id=" sede" type="text" class="" size="30" maxlength="40" onBlur="" /></td>
+    </tr>
+    <tr>
+      <td width="19" height="18"  class="style5">&nbsp;</td>
+      <td class="style5">C&eacute;dual del alumno </td>
+      <td><input name=" cedula_alumno" id=" cedula_alumno" type="text" class="" size="30" maxlength="40" onBlur="" /></td>
+    </tr>
+    <tr>
+      <td colspan="16" class="formtitle"><div align="center"><span class="style1">ENCUESTA DE DESARROLLO DE INVESTIGACIÓN </span></div></td>
+    </tr>
+    <tr>
+      <td colspan="16" class="formtitle">A COMPETENCIA PARA EL EMPRENDIMIENTO </td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">1.</td>
+      <td whidth="30" class="style5">Priorize entre los siguientes criterios los 5 mas importantes </td>
+      <td><span class="style5">
+        <select name="priorize_entre_los_siguientes_criterios_los_5_mas_importantes1" id="priorize_entre_los_siguientes_criterios_los_5_mas_importantes1" class="combobox">
+          <option value="Busquedad de Oportunidades">Busqueda de Oportunidades e iniciativa</option>
+          <option value="Persistencia y discipina">Persistencia y disciplina</option>
+          <option value="Cumplimiento de metas">Cumplimiento de metas y Objetivos</option>
+          <option value="Logro Eficiencia">Logro de eficiencia y calidad</option>
+          <option value="Correr riesgos calculados">Correr riesgos calculados</option>
+          <option value="Vision del Futuro">Vision del Futuro</option>
+          <option value="Busqueda de Informacion">Busqueda de Informacion</option>
+          <option value="Planificación Sistematica">Planificación Sistematica y Seguimiento</option>
+          <option value="Capacidad de relacion">Persiuación, capacidad de relación y redes de apoyo</option>
+          <option value="Autoconfianza y control interno">Autoconfianza y control interno</option>
+          <option value="Solucion de problemas">Solucion de problemas</option>
+          <option value="Vocación por los negocios">Vocación por los negocios</option>
+          <option value="Negociación">Negociación</option>
+          <option value="Trabajo en Equipo">Trabajo en Equipo</option>
+          <option value="Creatividad">Creatividad"</option>
+          <option value="Conocimiento Tecnico">Conocimiento Tecnico del  área de negocios</option>
+          <option value="Mercadeo">Mercadeo</option>
+          <option value="Administracion de empresas">Administración de empresas</option>
+          <option value="Comunicacion">Comunicación</option>
+          <option value="Motivacion">Motivación</option>
+        </select>
+      </span> </td>
+    <tr>
+      <td width="19"  class="style5">&nbsp;</td>
+      <td whidth="30"  class="style5">&nbsp;</td>
+      <td><span class="style5">
+        <select name="priorize_entre_los_siguientes_criterios_los_5_mas_importantes2" id="priorize_entre_los_siguientes_criterios_los_5_mas_importantes2" class="combobox">
+          <option value="Busquedad de Oportunidades">Busqueda de Oportunidades e iniciativa</option>
+          <option value="Persistencia y discipina">Persistencia y disciplina</option>
+          <option value="Cumplimiento de metas">Cumplimiento de metas y Objetivos</option>
+          <option value="Logro Eficiencia">Logro de eficiencia y calidad</option>
+          <option value="Correr riesgos calculados">Correr riesgos calculados</option>
+          <option value="Vision del Futuro">Vision del Futuro</option>
+          <option value="Busqueda de Informacion">Busqueda de Informacion</option>
+          <option value="Planificación Sistematica">Planificación Sistematica y Seguimiento</option>
+          <option value="Capacidad de relacion">Persiuación, capacidad de relación y redes de apoyo</option>
+          <option value="Autoconfianza y control interno">Autoconfianza y control interno</option>
+          <option value="Solucion de problemas">Solucion de problemas</option>
+          <option value="Vocación por los negocios">Vocación por los negocios</option>
+          <option value="Negociación">Negociación</option>
+          <option value="Trabajo en Equipo">Trabajo en Equipo</option>
+          <option value="Creatividad">Creatividad"</option>
+          <option value="Conocimiento Tecnico">Conocimiento Tecnico del  área de negocios</option>
+          <option value="Mercadeo">Mercadeo</option>
+          <option value="Administracion de empresas">Administración de empresas</option>
+          <option value="Comunicacion">Comunicación</option>
+          <option value="Motivacion">Motivación</option>
+        </select>
+      </span> </td>
+      <input name="nombre1_alu2" id="nombre1_alu" type="text" class="" size="30" maxlength="40" onBlur="" />
+    </tr>
+    <tr>
+      <td width="19"  class="style5">&nbsp;</td>
+      <td height="15"  class="style5">&nbsp;</td>
+      <td><span class="style5">
+        <select name="priorize_entre_los_siguientes_criterios_los_5_mas_importantes3" id="priorize_entre_los_siguientes_criterios_los_5_mas_importantes3" class="combobox">
+          <option value="Busquedad de Oportunidades">Busqueda de Oportunidades e iniciativa</option>
+          <option value="Persistencia y discipina">Persistencia y disciplina</option>
+          <option value="Cumplimiento de metas">Cumplimiento de metas y Objetivos</option>
+          <option value="Logro Eficiencia">Logro de eficiencia y calidad</option>
+          <option value="Correr riesgos calculados">Correr riesgos calculados</option>
+          <option value="Vision del Futuro">Vision del Futuro</option>
+          <option value="Busqueda de Informacion">Busqueda de Informacion</option>
+          <option value="Planificación Sistematica">Planificación Sistematica y Seguimiento</option>
+          <option value="Capacidad de relacion">Persiuación, capacidad de relación y redes de apoyo</option>
+          <option value="Autoconfianza y control interno">Autoconfianza y control interno</option>
+          <option value="Solucion de problemas">Solucion de problemas</option>
+          <option value="Vocación por los negocios">Vocación por los negocios</option>
+          <option value="Negociación">Negociación</option>
+          <option value="Trabajo en Equipo">Trabajo en Equipo</option>
+          <option value="Creatividad">Creatividad"</option>
+          <option value="Conocimiento Tecnico">Conocimiento Tecnico del  área de negocios</option>
+          <option value="Mercadeo">Mercadeo</option>
+          <option value="Administracion de empresas">Administración de empresas</option>
+          <option value="Comunicacion">Comunicación</option>
+          <option value="Motivacion">Motivación</option>
+        </select>
+      </span> </td>
+      <input name="nombre1_alu2" id="nombre1_alu" type="text" class="" size="30" maxlength="40" onBlur="" />
+    </tr>
+    <tr>
+      <td width="19"  class="style5">&nbsp;</td>
+      <td height="15"  class="style5">&nbsp;</td>
+      <td><span class="style5">
+        <select name="priorize_entre_los_siguientes_criterios_los_5_mas_importantes4" id="priorize_entre_los_siguientes_criterios_los_5_mas_importantes4" class="combobox">
+          <option value="Busquedad de Oportunidades">Busqueda de Oportunidades e iniciativa</option>
+          <option value="Persistencia y discipina">Persistencia y disciplina</option>
+          <option value="Cumplimiento de metas">Cumplimiento de metas y Objetivos</option>
+          <option value="Logro Eficiencia">Logro de eficiencia y calidad</option>
+          <option value="Correr riesgos calculados">Correr riesgos calculados</option>
+          <option value="Vision del Futuro">Vision del Futuro</option>
+          <option value="Busqueda de Informacion">Busqueda de Informacion</option>
+          <option value="Planificación Sistematica">Planificación Sistematica y Seguimiento</option>
+          <option value="Capacidad de relacion">Persiuación, capacidad de relación y redes de apoyo</option>
+          <option value="Autoconfianza y control interno">Autoconfianza y control interno</option>
+          <option value="Solucion de problemas">Solucion de problemas</option>
+          <option value="Vocación por los negocios">Vocación por los negocios</option>
+          <option value="Negociación">Negociación</option>
+          <option value="Trabajo en Equipo">Trabajo en Equipo</option>
+          <option value="Creatividad">Creatividad"</option>
+          <option value="Conocimiento Tecnico">Conocimiento Tecnico del  área de negocios</option>
+          <option value="Mercadeo">Mercadeo</option>
+          <option value="Administracion de empresas">Administración de empresas</option>
+          <option value="Comunicacion">Comunicación</option>
+          <option value="Motivacion">Motivación</option>
+        </select>
+      </span> </td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">&nbsp;</td>
+      <td height="15"  class="style5" >&nbsp;</td>
+      <td><span class="style5">
+        <select name="priorize_entre_los_siguientes_criterios_los_5_mas_importantes5" id="priorize_entre_los_siguientes_criterios_los_5_mas_importantes5" class="combobox">
+          <option value="Busquedad de Oportunidades">Busqueda de Oportunidades e iniciativa</option>
+          <option value="Persistencia y discipina">Persistencia y disciplina</option>
+          <option value="Cumplimiento de metas">Cumplimiento de metas y Objetivos</option>
+          <option value="Logro Eficiencia">Logro de eficiencia y calidad</option>
+          <option value="Correr riesgos calculados">Correr riesgos calculados</option>
+          <option value="Vision del Futuro">Vision del Futuro</option>
+          <option value="Busqueda de Informacion">Busqueda de Informacion</option>
+          <option value="Planificación Sistematica">Planificación Sistematica y Seguimiento</option>
+          <option value="Capacidad de relacion">Persiuación, capacidad de relación y redes de apoyo</option>
+          <option value="Autoconfianza y control interno">Autoconfianza y control interno</option>
+          <option value="Solucion de problemas">Solucion de problemas</option>
+          <option value="Vocación por los negocios">Vocación por los negocios</option>
+          <option value="Negociación">Negociación</option>
+          <option value="Trabajo en Equipo">Trabajo en Equipo</option>
+          <option value="Creatividad">Creatividad"</option>
+          <option value="Conocimiento Tecnico">Conocimiento Tecnico del  área de negocios</option>
+          <option value="Mercadeo">Mercadeo</option>
+          <option value="Administracion de empresas">Administración de empresas</option>
+          <option value="Comunicacion">Comunicación</option>
+          <option value="Motivacion">Motivación</option>
+        </select>
+      </span> </td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">2</td>
+      <td height="15"  class="style5">En que medida considera usted que la existencia de su empresa ha dependido del criterio de B&uacute;squeda de oportunudades e iniciativa. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_oportunids" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_oportunids" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_oportunids" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_oportunids" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_oportunids" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_oportunids" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td height="26"  class="style5">Considera Usted Que el Manejo de este factor en su empresa es..... </td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es1" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es1" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es1" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td height="26"  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor </td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor1" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor1" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor1" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor1" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td height="20"  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor </td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_que_la_univers_apoyo_ala_formacion_este_factor1" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_que_la_univers_apoyo_ala_formacion_este_factor1" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_que_la_univers_apoyo_ala_formacion_este_factor1" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_que_la_univers_apoyo_ala_formacion_este_factor1" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_que_la_univers_apoyo_ala_formacion_este_factor1" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_que_la_univers_apoyo_ala_formacion_este_factor1" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">3</td>
+      <td height="23"  class="style5" >En que medida considera usted que la existencia de su empresa ha dependido del criterio de Persistencia y Disciplina. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_persistencia_y_disciplina" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_persistencia_y_disciplina" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_persistencia_y_disciplina" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_persistencia_y_disciplina" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_persistencia_y_disciplina" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_que_la_univers_apoyo_ala_formacion_este_factor1" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td height="24"  class="style5">Considera Usted Que el Manejo de este factor en su empresa es..... </td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es2" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es2" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es2" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td height="23"  class="style5">Donde desarroll&oacute; la habilidad de manejo de este factor </td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor2" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor2" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor2" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor2" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td height="24"  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor </td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor2" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor2" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor2" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor2" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor2" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor2" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">4</td>
+      <td height="15"  class="style5" >En que medida considera usted que la existencia de su empresa ha dependido del riterio de Cumplimiento de metas y objetivos. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_cumplimiento_metas_objs" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_cumplimiento_metas_objs" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_cumplimiento_metas_objs" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_cumplimiento_metas_objs" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_cumplimiento_metas_objs" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_cumplimiento_metas_objs" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td height="15"  class="style5" >Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es3" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es3" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es3" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td height="30"  class="style5">Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor3" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor3" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor3" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor3" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td height="28"  class="style5" >Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor </td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor3" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor3" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor3" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor3" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor3" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor3" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">5</td>
+      <td height="15"  class="style5">En que medida considera usted que la existencia de sus empresa ha dependido del criterio de Logro de eficiencia y calidad. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_logro_eficiencia_y_calidad" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_logro_eficiencia_y_calidad" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_logro_eficiencia_y_calidad" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_logro_eficiencia_y_calidad" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_logro_eficiencia_y_calidad" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_logro_eficiencia_y_calidad" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td height="25"  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es4" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es4" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es4" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td height="23"  class="style5">Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor4" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor4" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor4" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor4" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td height="24"  class="style5" >Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor4" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor4" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor4" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor4" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor4" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor4" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">6</td>
+      <td height="15"  class="style5" >En que medida Considera usted que la existencia de su empresa ha dependido del criterio de correr riesgos calculados </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_depend_de_correr_riesgos_calculados" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_depend_de_correr_riesgos_calculados" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_depend_de_correr_riesgos_calculados" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_depend_de_correr_riesgos_calculados" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_depend_de_correr_riesgos_calculados" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_depend_de_correr_riesgos_calculados" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td height="24"  class="style5" >Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es5" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es5" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es5" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td height="15"  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor5" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor5" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor5" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor5" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td height="15"  class="style5" >Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_univer_apoyo_a_la_formacion_de_este_factor5" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_univer_apoyo_a_la_formacion_de_este_factor5" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_univer_apoyo_a_la_formacion_de_este_factor5" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_univer_apoyo_a_la_formacion_de_este_factor5" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_univer_apoyo_a_la_formacion_de_este_factor5" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_univer_apoyo_a_la_formacion_de_este_factor5" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">7</td>
+      <td height="15"  class="style5" >En que medidad considera ustedque la existencia de sus empresa ha dependido del criterio de visi&oacute;n del futuro </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vision_del_futuro" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vision_del_futuro" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vision_del_futuro" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vision_del_futuro" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vision_del_futuro" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vision_del_futuro" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td height="15"  class="style5" >Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es6" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es6" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es6" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td height="26"  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor6" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor6" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor6" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor6" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td height="15"  class="style5" >Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_l_universidad_apoyo_formacion_este_factor5" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_l_universidad_apoyo_formacion_este_factor5" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_l_universidad_apoyo_formacion_este_factor5" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_l_universidad_apoyo_formacion_este_factor5" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_l_universidad_apoyo_formacion_este_factor5" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_univer_apoyo_a_la_formacion_de_este_factor5" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">8</td>
+      <td height="31"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de B&uacute;squeda de informaci&oacute;n </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_informacion" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_informacion" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_informacion" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_informacion" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_informacion" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_busqueda_de_informacion" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td height="25"  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es7" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es7" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es7" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td height="25"  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor7" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor7" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor7" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor7" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td height="15"  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_la_universidad_apoyo_formacion_este_factor6" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_la_universidad_apoyo_formacion_este_factor6" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_la_universidad_apoyo_formacion_este_factor6" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_la_universidad_apoyo_formacion_este_factor6" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_la_universidad_apoyo_formacion_este_factor6" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_la_universidad_apoyo_formacion_este_factor6" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">9</td>
+      <td height="15"  class="style5" >En que medida considera usted que la existencia de sus empresa ha dependido del criterio de Planificacion sistem&aacute;tica y seguimiento </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_planificacion_sistemica_seguimiento" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_planificacion_sistemica_seguimiento" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_planificacion_sistemica_seguimiento" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_planificacion_sistemica_seguimiento" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_planificacion_sistemica_seguimiento" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_la_universidad_apoyo_formacion_este_factor6" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es8" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es8" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es8" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor8" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor8" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor8" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor8" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_que_universidad_apoyo_la_formacion_este_factor7" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_que_universidad_apoyo_la_formacion_este_factor7" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_que_universidad_apoyo_la_formacion_este_factor7" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_que_universidad_apoyo_la_formacion_este_factor7" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_que_universidad_apoyo_la_formacion_este_factor7" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_que_universidad_apoyo_la_formacion_este_factor7" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">10</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de Persiasi&oacute;n, capacidad de relaci&oacute;n y redes de apoyo </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_persuacion_capaci_relaci_redes_apoyo" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_persuacion_capaci_relaci_redes_apoyo" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_persuacion_capaci_relaci_redes_apoyo" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_persuacion_capaci_relaci_redes_apoyo" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_persuacion_capaci_relaci_redes_apoyo" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_persuacion_capaci_relaci_redes_apoyo" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es9" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es9" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es9" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor9" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor9" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor9" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor9" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor8" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor8" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor8" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor8" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor8" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor8" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">11</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de autoconfianza y control interno. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_autoconfianza_y_control_interno" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_autoconfianza_y_control_interno" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_autoconfianza_y_control_interno" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_autoconfianza_y_control_interno" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_autoconfianza_y_control_interno" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_autoconfianza_y_control_interno" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es10" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es10" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es10" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor10" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor10" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor10" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor10" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_este_factor9" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_este_factor9" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_este_factor9" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_este_factor9" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_este_factor9" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_este_factor9" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">12</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de soluci&oacute;n de Problemas. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_solucion_de_problemas" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_solucion_de_problemas" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_solucion_de_problemas" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_solucion_de_problemas" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_solucion_de_problemas" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_solucion_de_problemas" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es11" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es11" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es11" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor11" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor11" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor11" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor11" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_q_universidad_apoyo_formacion_este_factor10" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_q_universidad_apoyo_formacion_este_factor10" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_q_universidad_apoyo_formacion_este_factor10" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_q_universidad_apoyo_formacion_este_factor10" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_q_universidad_apoyo_formacion_este_factor10" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_q_universidad_apoyo_formacion_este_factor10" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">13</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio deVocaci&oacute;n por los negocios </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vocacion_por_negocios" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vocacion_por_negocios" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vocacion_por_negocios" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vocacion_por_negocios" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vocacion_por_negocios" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_vocacion_por_negocios" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es12" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es12" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es12" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor12" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor12" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor12" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor12" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_l_universidad_apoyo_la_formacion_este_factor11" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_l_universidad_apoyo_la_formacion_este_factor11" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_l_universidad_apoyo_la_formacion_este_factor11" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_l_universidad_apoyo_la_formacion_este_factor11" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_l_universidad_apoyo_la_formacion_este_factor11" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_l_universidad_apoyo_la_formacion_este_factor11" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">14</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de Negociaci&oacute;n. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_negociacion" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_negociacion" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_negociacion" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_negociacion" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_negociacion" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_negociacion" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es13" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es13" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es13" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor13" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor13" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor13" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor13" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_qla_univers_apoyo_formacion_de_este_factor12" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_qla_univers_apoyo_formacion_de_este_factor12" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_qla_univers_apoyo_formacion_de_este_factor12" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_qla_univers_apoyo_formacion_de_este_factor12" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_qla_univers_apoyo_formacion_de_este_factor12" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_qla_univers_apoyo_formacion_de_este_factor12" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">15</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de Trabajo en equipo. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_trabajo_en_equipo" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_trabajo_en_equipo" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_trabajo_en_equipo" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_trabajo_en_equipo" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_trabajo_en_equipo" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_trabajo_en_equipo" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es14" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es14" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es14" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor14" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor14" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor14" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor14" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor13" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor13" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor13" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor13" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor13" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor13" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">16</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de Creatividad. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_creatividad" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_creatividad" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_creatividad" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_creatividad" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_creatividad" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_creatividad" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es15" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es15" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es15" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor15" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor15" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor15" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor15" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_ql_universidad_apoyo_formacion_de_este_factor14" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_ql_universidad_apoyo_formacion_de_este_factor14" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_ql_universidad_apoyo_formacion_de_este_factor14" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_ql_universidad_apoyo_formacion_de_este_factor14" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_ql_universidad_apoyo_formacion_de_este_factor14" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_ql_universidad_apoyo_formacion_de_este_factor14" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">17</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de Conocimiento T&eacute;cnico del &aacute;rea de negocios. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_conoc_tecnico_negocios" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_conoc_tecnico_negocios" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_conoc_tecnico_negocios" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_conoc_tecnico_negocios" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_conoc_tecnico_negocios" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_conoc_tecnico_negocios" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es16" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es16" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es16" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor16" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor16" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor16" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor16" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formac_de_este_factor15" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formac_de_este_factor15" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formac_de_este_factor15" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formac_de_este_factor15" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formac_de_este_factor15" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formac_de_este_factor15" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">18</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de Mercadeo. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_mercadeo" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_mercadeo" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_mercadeo" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_mercadeo" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_mercadeo" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_mercadeo" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es17" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es17" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es17" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor17" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor17" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor17" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor17" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor16" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor16" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor16" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor16" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor16" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor16" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">19</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de Administraci&oacute;n de Empresas. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_adminis_empresas" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_adminis_empresas" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_adminis_empresas" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_adminis_empresas" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_adminis_empresas" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_adminis_empresas" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es18" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es18" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es18" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor18" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor18" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor18" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor18" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dste_factor17" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dste_factor17" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dste_factor17" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dste_factor17" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dste_factor17" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dste_factor17" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">20</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de Comunicaci&oacute;n. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_comunicacion" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_comunicacion" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_comunicacion" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_comunicacion" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_comunicacion" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_comunicacion" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es19" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es19" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es19" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor19" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor19" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor19" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor19" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor18" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor18" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor18" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor18" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor18" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_formacion_de_este_factor18" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">21</td>
+      <td height="15"  class="style5" >En que medidad considera usted que la existencia de su empresa ha dependido del criterio de Motivaci&oacute;n. </td>
+      <td ><span class="style5">
+        <input type="radio"  name="medida_considera_existencia_dependido_de_motivacion" value="100%">
+        100%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_motivacion" value="80%">
+        80%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_motivacion" value="60%">
+        60%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_motivacion" value="40%">
+        40%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_motivacion" value="20%">
+        20%
+        <input type="radio"  name="medida_considera_existencia_dependido_de_motivacion" value="0%">
+        0% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">a</td>
+      <td  class="style5">Considera Usted Que el Manejo de este factor en su empresa es.....</td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es20" value="Aceptable">
+        Aceptable
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es20" value="Medio">
+        Medio
+        <input type="radio"  name="considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es20" value="Bajo">
+        Bajo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">b</td>
+      <td  class="style5" >Donde desarroll&oacute; la habilidad de manejo de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor20" value="Universidad">
+        Universidad
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor20" value="Capacitacion">
+        Capacitacion
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor20" value="Experiencia">
+        Experiencia
+        <input type="radio"  name="donde_desarrollo_la_habilidad_de_manejo_de_este_factor20" value="Terceros">
+        Terceros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">c</td>
+      <td  class="style5">Cuanto considera que la Universidad apoyo a la formaci&oacute;n de este factor</td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dl_factor19" value="100%">
+        100%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dl_factor19" value="80%">
+        80%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dl_factor19" value="60%">
+        60%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dl_factor19" value="40%">
+        40%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dl_factor19" value="20%">
+        20%
+        <input type="radio"  name="cuanto_considera_universidad_apoyo_a_la_formacion_dl_factor19" value="0%">
+        0% </span></td>
+    <tr>
+      <td colspan="16" class="formtitle">B RENDIMEINTO EMPRESARIAL </td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">1</td>
+      <td height="15"  class="style5" >Cuantoe Empleados tiene su empresa </td>
+      <td ><span class="style5">
+        <input type="radio"  name="cuantos_empleados_tiene_su_empresa" value="Menos de 10">
+        Menos de 10
+        <input type="radio"  name="cuantos_empleados_tiene_su_empresa" value="11 a 50">
+        11 a 50
+        <input type="radio"  name="cuantos_empleados_tiene_su_empresa" value="51 a 200">
+        51 a 200
+        <input type="radio"  name="cuantos_empleados_tiene_su_empresa" value="mas de 200">
+        mas de 200 </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">2</td>
+      <td height="15"  class="style5" >Considera usted que las ventas de su empresa han vendido </td>
+      <td ><span class="style5">
+        <input type="radio"  name="considera_usted_que_las_ventas_de_su_empresa_han_venido" value="Creciendo">
+        Creciendo
+        <input type="radio"  name="considera_usted_que_las_ventas_de_su_empresa_han_venido" value="Estable">
+        Estable
+        <input type="radio"  name="considera_usted_que_las_ventas_de_su_empresa_han_venido" value="Decreciendo">
+        Decreciendo
+        <input type="radio"  name="considera_usted_que_las_ventas_de_su_empresa_han_venido" value="NI">
+        NI </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">3a</td>
+      <td height="15"  class="style5" >La tsas promedio a la que evoluciona su empresa es </td>
+      <td ><span class="style5">
+        <input type="radio"  name="la_tasa_promedio_a_la_que_evoluciona_su_empresa_es" value="Positiva">
+        Positiva
+        <input type="radio"  name="la_tasa_promedio_a_la_que_evoluciona_su_empresa_es" value="Neutra">
+        Neutra
+        <input type="radio"  name="la_tasa_promedio_a_la_que_evoluciona_su_empresa_es" value="Negativa">
+        Negativa </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">3b</td>
+      <td height="15"  class="style5" >La tasa promedio a la que evoluciona su empresa se aproxima a </td>
+      <td ><span class="style5">
+        <input type="radio"  name="la_tasa_promedio_a_la_que_evoluciona_su_empresa_se_aproxima_a" value="< de 10%">
+        < de 10%
+        <input type="radio"  name="la_tasa_promedio_a_la_que_evoluciona_su_empresa_se_aproxima_a" value="11% a 15%">
+        11% a 15%
+        <input type="radio"  name="la_tasa_promedio_a_la_que_evoluciona_su_empresa_se_aproxima_a" value="16% a 25%">
+        16% a 25%
+        <input type="radio"  name="la_tasa_promedio_a_la_que_evoluciona_su_empresa_se_aproxima_a" value="> a 25%">
+        > a 25% </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">4a</td>
+      <td height="15"  class="style5" >Su nivel de contactos empresariales y redes personales es </td>
+      <td ><span class="style5">
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_personales_es" value="Optimo">
+        Optimo
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_personales_es" value="Bueno">
+        Bueno
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_personales_es" value="Medio">
+        Medio
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_personales_es" value="Bajo">
+        Bajo
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_personales_es" value="Nulo">
+        Nulo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">4b</td>
+      <td height="15"  class="style5" >Su nivel de contactos empresariales y redes personales proviene de</td>
+      <td ><span class="style5">
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_pers_proviene_de" value="Familia">
+        Familia
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_pers_proviene_de" value="Amigos">
+        Amigos
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_pers_proviene_de" value="Universidad">
+        Universidad
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_pers_proviene_de" value="Trabajo">
+        Trabajo
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_pers_proviene_de" value="Otros">
+        Otros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">5a</td>
+      <td height="15"  class="style5" >Su nivel de contactos empresariales y redes comerciales es</td>
+      <td ><span class="style5">
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_comerciales_es" value="Optimo">
+        Optimo
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_comerciales_es" value="Bueno">
+        Bueno
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_comerciales_es" value="Medio">
+        Medio
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_comerciales_es" value="Bajo">
+        Bajo
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_comerciales_es" value="Nulo">
+        Nulo </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">5b</td>
+      <td height="15"  class="style5" >Su nivel de contacto empresariales y redes comerciales proviene de </td>
+      <td ><span class="style5">
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_comer_proviene_de" value="Familia">
+        Familia
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_comer_proviene_de" value="Amigos">
+        Amigos
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_comer_proviene_de" value="Universidad">
+        Universidad
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_comer_proviene_de" value="Trabajo">
+        Trabajo
+        <input type="radio"  name="su_nivel_de_contactos_empresariales_y_redes_comer_proviene_de" value="Otros">
+        Otros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">6a</td>
+      <td height="15"  class="style5" >El número de instituciones con las que usted mantiene alianza estratégica es de</td>
+      <td ><span class="style5">
+        <input type="radio"  name="numero_instituciones_que_mantiene_alianzas_estrategicas_es_de" value="0">
+        0
+        <input type="radio"  name="numero_instituciones_que_mantiene_alianzas_estrategicas_es_de" value="1 a 3">
+        1 a 3
+        <input type="radio"  name="numero_instituciones_que_mantiene_alianzas_estrategicas_es_de" value="3 a 5">
+        3 a 5
+        <input type="radio"  name="numero_instituciones_que_mantiene_alianzas_estrategicas_es_de" value="5 a 7">
+        5 a 7
+        <input type="radio"  name="numero_instituciones_que_mantiene_alianzas_estrategicas_es_de" value=">7">
+        >7 </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">6b</td>
+      <td height="15"  class="style5" >Sus alianzas estratégicas provienen de</td>
+      <td ><span class="style5">
+        <input type="radio"  name="sus_alianzas_estrategicas_provienen_de" value="Familia">
+        Familia
+        <input type="radio"  name="sus_alianzas_estrategicas_provienen_de" value="Amigos">
+        Amigos
+        <input type="radio"  name="sus_alianzas_estrategicas_provienen_de" value="Universidad">
+        Universidad
+        <input type="radio"  name="sus_alianzas_estrategicas_provienen_de" value="Trabajo">
+        Trabajo
+        <input type="radio"  name="sus_alianzas_estrategicas_provienen_de" value="Otros">
+        Otros </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">7a</td>
+      <td height="15"  class="style5" >Usted ha recibiso apoyo Institucional </td>
+      <td ><span class="style5">
+        <input type="radio"  name="usted_a_recibido_apoyo_institucional" value="SI">
+        Si
+        <input type="radio"  name="usted_a_recibido_apoyo_institucional" value="No">
+        NO </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">7b</td>
+      <td height="15"  class="style5" >Su apoyo Institucional ha venido desde</td>
+      <td ><span class="style5">
+        <input type="radio"  name="su_apoyo_institucional_ha_venido_desde" value="Universidad">
+        Universidad
+        <input type="radio"  name="su_apoyo_institucional_ha_venido_desde" value="Consultoras">
+        Consultoras
+        <input type="radio"  name="su_apoyo_institucional_ha_venido_desde" value="Fundaciones">
+        Fundaciones
+        <input type="radio"  name="su_apoyo_institucional_ha_venido_desde" value="Sector Publico">
+        Sector Publico</span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">7c</td>
+      <td height="65"  class="style5" >En que consistio el apoyo institucional </td>
+      <td ><span class="style5">
+        <input type="radio"  name="en_que_consistio_el_apoyo_institucional" value="Emp Priv">
+        Emp Priv
+        <input type="radio"  name="en_que_consistio_el_apoyo_institucional" value="Internacional">
+        Internacional
+        <input type="radio"  name="en_que_consistio_el_apoyo_institucional" value="Otros">
+        Otros <br>
+        <input type="radio"  name="en_que_consistio_el_apoyo_institucional" value="Financiam">
+        Financiam
+        <input type="radio"  name="en_que_consistio_el_apoyo_institucional" value="Capaciatacion">
+        Capaciatacion
+        <input type="radio"  name="en_que_consistio_el_apoyo_institucional" value="Incubacion">
+        Incubacion
+        <input type="radio"  name="en_que_consistio_el_apoyo_institucional" value="Asesoria">
+        Asesoria <br>
+        <input type="radio"  name="en_que_consistio_el_apoyo_institucional" value="Convenios">
+        Convenios
+        <input type="radio"  name="en_que_consistio_el_apoyo_institucional" value="Seguridad">
+        Seguridad
+        <input type="radio"  name="en_que_consistio_el_apoyo_institucional" value="Otros">
+        Otros</span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">8</td>
+      <td height="15"  class="style5" >Priorize entre los 3 factores mas importantes en el rendimeinto empresarial </td>
+      <td ><span class="style5">
+        <select name="priorice_entre_3_factores_mas_importantes_el_rendimiento_empres" id="priorice_entre_3_factores_mas_importantes_el_rendimiento_empres" class="combobox">
+          <option value="Numero de empleados">Número de empleados</option>
+          <option value="Evolucion Historica">Evolución historica de las ventas brutas, incluyendo el último periodo anual</option>
+          <option value="Nivel redes personales">Nivel de redes personales</option>
+          <option value="Nivel redes comerciales">Nivel de redes comerciales</option>
+          <option value="Número de instituciones">Numero de instituciones con las que se mantienen alianzas estratégicas</option>
+          <option value="Poyo Institucional">apoyo Institucional en los primero años</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">&nbsp;</td>
+      <td height="15"  class="style5" >&nbsp;</td>
+      <td ><span class="style5">
+        <select name="priorice_entre_3_factores_mas_importantes_en_rendimiento_empres" id="priorice_entre_3_factores_mas_importantes_en_rendimiento_empres" class="combobox">
+          <option value="Numero de empleados">Número de empleados</option>
+          <option value="Evolucion Historica">Evolución historica de las ventas brutas, incluyendo el último periodo anual</option>
+          <option value="Nivel redes personales">Nivel de redes personales</option>
+          <option value="Nivel redes comerciales">Nivel de redes comerciales</option>
+          <option value="Número de instituciones">Numero de instituciones con las que se mantienen alianzas estratégicas</option>
+          <option value="Poyo Institucional">apoyo Institucional en los primero años</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">&nbsp;</td>
+      <td height="15"  class="style5" >&nbsp;</td>
+      <td ><span class="style5">
+        <select name="priorice_entre_3_factores_mas_importantes_rendimiento_empresar" id="priorice_entre_3_factores_mas_importantes_rendimiento_empresar" class="combobox">
+          <option value="Numero de empleados">Número de empleados</option>
+          <option value="Evolucion Historica">Evolución historica de las ventas brutas, incluyendo el último periodo anual</option>
+          <option value="Nivel redes personales">Nivel de redes personales</option>
+          <option value="Nivel redes comerciales">Nivel de redes comerciales</option>
+          <option value="Número de instituciones">Numero de instituciones con las que se mantienen alianzas estratégicas</option>
+          <option value="Poyo Institucional">apoyo Institucional en los primero años</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td colspan="16" class="formtitle">C. CRITERIOS INFORMATIVOS GENERALES </td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">1</td>
+      <td height="15"  class="style5" >N&uacute;mero de socios fundadores </td>
+      <td ><span class="style5">
+        <input type="radio"  name="nuemro_de_socios_fundadores" value="1">
+        1
+        <input type="radio"  name="nuemro_de_socios_fundadores" value="2">
+        2
+        <input type="radio"  name="nuemro_de_socios_fundadores" value="3">
+        3
+        <input type="radio"  name="nuemro_de_socios_fundadores" value=">3">
+        >3</span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">2</td>
+      <td height="27"  class="style5" >Tiene uste diferenciadas y asignadas las funciones de su empresa </td>
+      <td ><span class="style5">
+        <input type="radio"  name="tiene_usted_diferenciadas_y_asignadas_las_funciones_empresa" value="SI">
+        Si
+        <input type="radio"  name="tiene_usted_diferenciadas_y_asignadas_las_funciones_empresa" value="No">
+        NO </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">3</td>
+      <td height="55"  class="style5" >Sector de actividad empresarial</td>
+      <td ><span class="style5">
+        <input type="radio"  name="sector_de_actividad_empresarial" value="x procesos">
+        x procesos
+        <input type="radio"  name="sector_de_actividad_empresarial" value="x departamento">
+        x departamento
+        <input type="radio"  name="sector_de_actividad_empresarial" value="x productos">
+        x productos
+        <input type="radio"  name="sector_de_actividad_empresarial" value="otros">
+        otros <br>
+        <input type="radio"  name="sector_de_actividad_empresarial" value="comercial">
+        comercial
+        <input type="radio"  name="sector_de_actividad_empresarial" value="manufactura">
+        manufactura
+        <input type="radio"  name="sector_de_actividad_empresarial" value="Turismo">
+        Turismo
+        <input type="radio"  name="sector_de_actividad_empresarial" value="transporte">
+        Turismo <br>
+        <input type="radio"  name="sector_de_actividad_empresarial" value="servicios">
+        servicios
+        <input type="radio"  name="sector_de_actividad_empresarial" value="otros">
+        otros</span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">4</td>
+      <td height="24"  class="style5" >Tipo de propuesta comercial</td>
+      <td ><span class="style5">
+        <input type="radio"  name="tipo_de_propuesta_comercial" value="Tradicional">
+        Tradicional
+        <input type="radio"  name="tipo_de_propuesta_comercial" value="Innovadora">
+        Innovadora </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">5</td>
+      <td height="25"  class="style5" >Tipo de clientes iniciales </td>
+      <td ><span class="style5">
+        <input type="radio"  name="tipo_de_clientes_iniciales" value="Grandes ">
+        Grandes
+        <input type="radio"  name="tipo_de_clientes_iniciales" value="Medianos">
+        Medianos
+        <input type="radio"  name="tipo_de_clientes_iniciales" value="Pequeños">
+        Pequeños </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">6</td>
+      <td height="25"  class="style5" >Tipo de clientes actuales </td>
+      <td ><span class="style5">
+        <input type="radio"  name="tipo_de_clientes_actuales" value="Grandes ">
+        Grandes
+        <input type="radio"  name="tipo_de_clientes_actuales" value="Medianos">
+        Medianos
+        <input type="radio"  name="tipo_de_clientes_actuales" value="Pequeños">
+        Pequeños </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5 style7">7</td>
+      <td height="15"  class="style5" >Experiencia Laboral previa</td>
+      <td ><span class="style5">
+        <select name="experiencia_laboral_previa" id="experiencia_laboral_previa" class="combobox">
+          <option value="Ninguna">Ninguna</option>
+          <option value="S Publico">S Publico</option>
+          <option value="S Privado">S Privado</option>
+          <option value="Fundacion">Fundacion</option>
+          <option value="Docencia">Docencia</option>
+          <option value="Emp. Familiar">Emp. Familiar</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5 style7">7.1</td>
+      <td height="15"  class="style5" >Tiempo de Experiencia Laboral</td>
+      <td ><span class="style5">
+        <select name="tiempo_experincia_laboral" id="tiempo_experincia_laboral" class="combobox">
+          <option value="< a 1 año"> < a 1 año</option>
+          <option value=" 2 a 3 años">2 a 3 años</option>
+          <option value="3 a 4 años">3 a 4 años</option>
+          <option value="4 a 5 años">4 a 5 años</option>
+          <option value="5 a 10 años">5 a 10 años</option>
+          <option value="> 10 años"> > 10 años</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">8</td>
+      <td height="26"  class="style5" >Fuente de Identificación de oportunidades</td>
+      <td ><span class="style5">
+        <select name="fuente_de_identificacion_de_la_oportunidad" id="fuente_de_identificacion_de_la_oportunidad" class="combobox">
+          <option value="Universidad"> Universidad</option>
+          <option value="Publicaciones">2 a 3 años</option>
+          <option value="Monit Merc">Publicaciones</option>
+          <option value="Imitacion">Imitacion</option>
+          <option value="Observacion">Observacion</option>
+          <option value="Sugerencia">Sugerencia</option>
+          <option value="Otros">Otros</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">9</td>
+      <td height="21"  class="style5" >Fuentes de Financiamiento </td>
+      <td ><span class="style5">
+        <select name="fuentes_de_financiamiento" id="fuentes_de_financiamiento" class="combobox">
+          <option value="Propia"> Propia </option>
+          <option value="Ent fin pub"> Ent fin pub</option>
+          <option value="Ent fin priv">Ent fin priv</option>
+          <option value="Invers">Invers</option>
+          <option value="Exterior">Exterior</option>
+          <option value="Otros"> Otros</option>
+          <option value="Mixta">Mixta</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td colspan="16" class="formtitle">D. PRINCIPALES OBSTÁCULOS AL EMPRENDIMIENTO </td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">1</td>
+      <td height="15"  class="style5" >priorice_los_5_factores_que_le_han_impedido_desarr_su_empresa1</td>
+	  <td ><span class="style5">
+        <select name="priorice_los_5_factores_que_le_han_impedido_desarr_su_empresa1" id="priorice_los_5_factores_que_le_han_impedido_desarr_su_empresa1" class="combobox">
+          <option value="Información de Mercado"> Información de mercadeo </option>
+          <option value="Obtencion de clientes"> Obtención de clientes</option>
+          <option value="Consecucion de proveedores">Consecución de proveedores adecuados</option>
+          <option value="Contratacion de personal ej">Contratación  de personal ejecutivo calificado</option>
+          <option value="Contratacion de personal op">Contratación  de personal operativo calificado</option>
+          <option value="Equipos y logistica"> Equipos y logistica</option>
+          <option value="Financiamiento">Financiamiento</option>
+		  <option value="Conocimiento del area de Negocio">Conocimiento técnico del área de Negocio</option>
+		  <option value="Conocimiento de las tecnicas ad">Conocimiento técnico de las tecnicas de administración de empresas</option>
+		  <option value="Consecucion de estandares">Consecucion de estandares de calidad</option>
+		  <option value="Adaptacion del producto">Adaptacion del producto a las necesidades del mercado</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">118</td>
+      <td height="15"  class="style5" >priorice_los_5_factores_q_mas_han_impedido_desarr_su_empresa2</td>
+	  <td ><span class="style5">
+        <select name="priorice_los_5_factores_q_mas_han_impedido_desarr_su_empresa2" id="priorice_los_5_factores_q_mas_han_impedido_desarr_su_empresa2" class="combobox">
+          <option value="Información de Mercado"> Información de mercadeo </option>
+          <option value="Obtencion de clientes"> Obtención de clientes</option>
+          <option value="Consecucion de proveedores">Consecución de proveedores adecuados</option>
+          <option value="Contratacion de personal ej">Contratación  de personal ejecutivo calificado</option>
+          <option value="Contratacion de personal op">Contratación  de personal operativo calificado</option>
+          <option value="Equipos y logistica"> Equipos y logistica</option>
+          <option value="Financiamiento">Financiamiento</option>
+		  <option value="Conocimiento del area de Negocio">Conocimiento técnico del área de Negocio</option>
+		  <option value="Conocimiento de las tecnicas ad">Conocimiento técnico de las tecnicas de administración de empresas</option>
+		  <option value="Consecucion de estandares">Consecucion de estandares de calidad</option>
+		  <option value="Adaptacion del producto">Adaptacion del producto a las necesidades del mercado</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">119</td>
+      <td height="15"  class="style5" >priorice_los_5_factores_q_mas_han_impedido_desarr_su_empresa3</td>
+	  <td ><span class="style5">
+        <select name="priorice_los_5_factores_q_mas_han_impedido_desarr_su_empresa3" id="priorice_los_5_factores_q_mas_han_impedido_desarr_su_empresa3" class="combobox">
+          <option value="Información de Mercado"> Información de mercadeo </option>
+          <option value="Obtencion de clientes"> Obtención de clientes</option>
+          <option value="Consecucion de proveedores">Consecución de proveedores adecuados</option>
+          <option value="Contratacion de personal ej">Contratación  de personal ejecutivo calificado</option>
+          <option value="Contratacion de personal op">Contratación  de personal operativo calificado</option>
+          <option value="Equipos y logistica"> Equipos y logistica</option>
+          <option value="Financiamiento">Financiamiento</option>
+		  <option value="Conocimiento del area de Negocio">Conocimiento técnico del área de Negocio</option>
+		  <option value="Conocimiento de las tecnicas ad">Conocimiento técnico de las tecnicas de administración de empresas</option>
+		  <option value="Consecucion de estandares">Consecucion de estandares de calidad</option>
+		  <option value="Adaptacion del producto">Adaptacion del producto a las necesidades del mercado</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">120</td>
+      <td height="15"  class="style5" >priorice_los_5_factores_q_mas_le_han_impedido_desarr_su_empresa4</td>
+	   <td ><span class="style5">
+        <select name="priorice_los_5_factores_q_mas_le_han_impedido_desarr_su_empresa4" id="priorice_los_5_factores_q_mas_le_han_impedido_desarr_su_empresa4" class="combobox">
+          <option value="Información de Mercado"> Información de mercadeo </option>
+          <option value="Obtencion de clientes"> Obtención de clientes</option>
+          <option value="Consecucion de proveedores">Consecución de proveedores adecuados</option>
+          <option value="Contratacion de personal ej">Contratación  de personal ejecutivo calificado</option>
+          <option value="Contratacion de personal op">Contratación  de personal operativo calificado</option>
+          <option value="Equipos y logistica"> Equipos y logistica</option>
+          <option value="Financiamiento">Financiamiento</option>
+		  <option value="Conocimiento del area de Negocio">Conocimiento técnico del área de Negocio</option>
+		  <option value="Conocimiento de las tecnicas ad">Conocimiento técnico de las tecnicas de administración de empresas</option>
+		  <option value="Consecucion de estandares">Consecucion de estandares de calidad</option>
+		  <option value="Adaptacion del producto">Adaptacion del producto a las necesidades del mercado</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">121</td>
+      <td height="15"  class="style5" >priorice_los_5_factores_q_mas_le_han_impedido_desarr_su_empresa5</td>
+	  <td ><span class="style5">
+        <select name="priorice_los_5_factores_q_mas_le_han_impedido_desarr_su_empresa5" id="priorice_los_5_factores_q_mas_le_han_impedido_desarr_su_empresa5" class="combobox">
+          <option value="Información de Mercado"> Información de mercadeo </option>
+          <option value="Obtencion de clientes"> Obtención de clientes</option>
+          <option value="Consecucion de proveedores">Consecución de proveedores adecuados</option>
+          <option value="Contratacion de personal ej">Contratación  de personal ejecutivo calificado</option>
+          <option value="Contratacion de personal op">Contratación  de personal operativo calificado</option>
+          <option value="Equipos y logistica"> Equipos y logistica</option>
+          <option value="Financiamiento">Financiamiento</option>
+		  <option value="Conocimiento del area de Negocio">Conocimiento técnico del área de Negocio</option>
+		  <option value="Conocimiento de las tecnicas ad">Conocimiento técnico de las tecnicas de administración de empresas</option>
+		  <option value="Consecucion de estandares">Consecucion de estandares de calidad</option>
+		  <option value="Adaptacion del producto">Adaptacion del producto a las necesidades del mercado</option>
+        </select>
+      </span></td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">122</td>
+      <td height="15"  class="style5" >universidad_preparo_manejar_obstaculo_informacion_de_mercado</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">123</td>
+      <td height="15"  class="style5" >considera_este_factor_superado1</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">124</td>
+      <td height="15"  class="style5" >como_a_superado_este_factor1</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">125</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_superar_este_factor1</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">126</td>
+      <td height="15"  class="style5" >que_vacios_fueron_los_mas_notorios_en_su_formacion_academica1</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">127</td>
+      <td height="15"  class="style5" >que_ares_contribuyeron_mas_en_su_formacion_academica</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">128</td>
+      <td height="15"  class="style5" >universidad_preparo_manejar_obstaculo_obtencion_de_clientes</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">129</td>
+      <td height="15"  class="style5" >considera_este_factor_superado2</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">130</td>
+      <td height="15"  class="style5" >como_a_superado_este_factor2</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">131</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_superar_este_factor2</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">132</td>
+      <td height="15"  class="style5" >que_vacios_fueron_los_mas_notorios_en_su_formacion_academica2</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">133</td>
+      <td height="15"  class="style5" >que_areas_contribuyeron_mas_en_su_formacion_academica1</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">134</td>
+      <td height="15"  class="style5" >universidad_preparomanejar_obstaculo_consecuc_proveed_adecuados</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">135</td>
+      <td height="15"  class="style5" >considera_este_factor_superado3</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">136</td>
+      <td height="15"  class="style5" >como_a_superado_este_factor3</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">137</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_superar_este_factor3</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">138</td>
+      <td height="15"  class="style5" >que_vacios_fueron_los_mas_notorios_en_su_formacion_academica3</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">139</td>
+      <td height="15"  class="style5" >que_areas_contribuyeron_mas_en_su_formacion_academica2</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">140</td>
+      <td height="15"  class="style5" >univer_preparo_manejar_obstaculocontratac_pers_ejecu_calificad</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">141</td>
+      <td height="15"  class="style5" >considera_este_factor_superado4</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">142</td>
+      <td height="15"  class="style5" >como_a_superado_este_factor4</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">143</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_superar_este_factor</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">144</td>
+      <td height="15"  class="style5" >que_vacios_fueron_los_mas_notorios_en_su_formacion_academica4</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">145</td>
+      <td height="15"  class="style5" >que_areas_contribuyeron_mas_en_su_formacion_academica3</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">146</td>
+      <td height="15"  class="style5" >univers_preparomanejar_obstac_contratacpersonal_opera_calificad</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">147</td>
+      <td height="15"  class="style5" >considera_este_factor_superado5</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">148</td>
+      <td height="15"  class="style5" >como_a_superado_este_factor5</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">149</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_superar_este_factor4</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">150</td>
+      <td height="15"  class="style5" >que_vacios_fueron_los_mas_notorios_en_su_formacion_academica5</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">151</td>
+      <td height="15"  class="style5" >que_areas_contribuyeron_mas_en_su_formacion_academica4</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">152</td>
+      <td height="15"  class="style5" >universidad_le_preparo_manejar_obstaculo_de_equipos_y_logistica</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">153</td>
+      <td height="15"  class="style5"  >considera_este_factor_superado6</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">154</td>
+      <td height="15"  class="style5" >como_a_superado_este_factor6</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">155</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_superar_este_factor5</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">156</td>
+      <td height="15"  class="style5" >que_vacios_fueron_los_mas_notorios_en_su_formacion_academica6</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">157</td>
+      <td height="15"  class="style5" >que_areas_contribuyeron_mas_en_su_formacion_academica5</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">158</td>
+      <td height="15"  class="style5" >la_universidad_preparo_para_manejar_obstaculo_financiamiento</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">159</td>
+      <td height="15"  class="style5" >considera_este_factor_superado7</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">160</td>
+      <td height="15"  class="style5" >como_a_superado_este_factor7</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">161</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_superar_este_factor6</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">162</td>
+      <td height="15"  class="style5" >que_vacios_fueron_los_mas_notorios_en_su_formacion_academica7</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">163</td>
+      <td height="15"  class="style5" >que_areas_contribuyeron_mas_en_su_formacion_academica6</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">164</td>
+      <td height="15"  class="style5" >universidad_preparo_manejar_obstaculo_conocim_tecn_area_negocios</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">165</td>
+      <td height="15"  class="style5" >considera_este_factor_superado8</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">166</td>
+      <td height="15"  class="style5" >como_a_superado_este_factor8</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">167</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_superar_este_factor7</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">168</td>
+      <td height="15"  class="style5" >que_vacios_fueron_los_mas_notorios_en_su_formacion_academica8</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">169</td>
+      <td height="15"  class="style5" >que_areas_contribuyeron_mas_en_su_formacion_academica7</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">170</td>
+      <td height="15"  class="style5" >univer_preparo_manejar_obstaculo_conoc_tecnico_admin_empresas</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">171</td>
+      <td height="15"  class="style5" >considera_este_factor_superado9</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">172</td>
+      <td height="15"  class="style5" >como_a_superado_este_factor9</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">173</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_superar_este_factor8</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">174</td>
+      <td height="15"  class="style5" >que_vacios_fueron_los_mas_notorios_en_su_formacion_academica9</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">175</td>
+      <td height="15"  class="style5" >que_areas_contribuyeron_mas_en_su_formacion_academica8</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">176</td>
+      <td height="15"  class="style5" >univers_preparo_manejar_obstaculo_consecucion_estandarde_calidad</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">177</td>
+      <td height="15"  class="style5" >considera_este_factor_superado</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">178</td>
+      <td height="15"  class="style5" >como_a_superado_este_factor10</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">179</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_superar_este_factor9</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">180</td>
+      <td height="15"  class="style5" >que_vacios_fueron_los_mas_notorios_en_su_formacion_academica10</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">181</td>
+      <td height="15"  class="style5" >que_areas_contribuyeron_mas_en_su_formacion_academica9</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">182</td>
+      <td height="15"  class="style5" >univers_preparo_manejar_obstaculo_consecucion_estandares_calidad</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">183</td>
+      <td height="15"  class="style5" >considera_este_factor_superado11</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">184</td>
+      <td height="15"  class="style5" >como_a_superado_este_factor11</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">185</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_superar_este_factor10</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">186</td>
+      <td height="15"  class="style5" >que_vacios_fueron_los_mas_notorios_en_su_formacion_academica11</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">187</td>
+      <td height="15"  class="style5" >que_areas_contribuyeron_mas_en_su_formacion_academica10</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">188</td>
+      <td height="15"  class="style5" >priorice_los_5_factores_qmas_han_motivado_a_desarr_su_empresa</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">189</td>
+      <td height="15"  class="style5" >priorice_los_5_factores_qmas_han_motivado_a_desarro_su_empresa</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">190</td>
+      <td height="15"  class="style5" >priorice_los_5_factores_qmas_han_motivado_a_desarroll_su_empres1</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">191</td>
+      <td height="15"  class="style5" >priorice_los_5_factores_qmas_han_motivado_a_desarroll_su_empres2</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">192</td>
+      <td height="15"  class="style5" >priorice_los_5_factores_qmas_han_motivado_a_desarroll_su_empres3</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">193</td>
+      <td height="15"  class="style5" >la_universidad_contribuyo_a_motivarle_para_ser_su_propio_jefe</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">194</td>
+      <td height="15"  class="style5" >considera_contar_con_las_herramientas_necesarias1</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">195</td>
+      <td height="15"  class="style5" >como_ha_desarrollado_este_factor1</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">196</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_desarrollar_este_factor1</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">197</td>
+      <td height="15"  class="style5" >que_areas_academicas_contribuyeron_mas1</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">198</td>
+      <td height="15"  class="style5" >universidad_contribuyo_motivarle_buscar_realizacion_personal</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">199</td>
+      <td height="15"  class="style5" >considera_contar_con_las_herramientas_necesarias2</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">200</td>
+      <td height="15"  class="style5" >como_ha_desarrollado_este_factor2</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">201</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_desarrollar_este_factor2</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">202</td>
+      <td height="15"  class="style5" >que_areas_academicas_contribuyeron_mas2</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">203</td>
+      <td height="15"  class="style5" >univer_contribuyo_a_motivarle_a_buscar_la_realizacion_personal</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">204</td>
+      <td height="15"  class="style5" >considera_contar_con_las_herramientas_necesarias3</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">205</td>
+      <td height="15"  class="style5" >como_ha_desarrollado_este_factor3</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">206</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_desarrollar_este_factor3</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">207</td>
+      <td height="15"  class="style5" >que_areas_academicas_contribuyeron_mas3</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">208</td>
+      <td height="15"  class="style5" >universidad_contribuyo_a_motivarle_para_contribuir_comunidad</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">209</td>
+      <td height="15"  class="style5" >considera_contar_con_las_herramientas_necesarias4</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">210</td>
+      <td height="15"  class="style5" >como_ha_desarrollado_este_factor4</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">211</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_desarrollar_este_factor4</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">212</td>
+      <td height="15"  class="style5" >que_areas_academicas_contribuyeron_mas4</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">213</td>
+      <td height="15"  class="style5" >universidad_contribuyo_a_motivarle_para_mejorar_estatus_social</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">214</td>
+      <td height="15"  class="style5" >considera_contar_con_las_herramientas_necesarias5</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">215</td>
+      <td height="15"  class="style5" >como_ha_desarrollado_este_factor5</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">216</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_desarrollar_este_factor5</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">217</td>
+      <td height="15"  class="style5" >que_areas_academicas_contribuyeron_mas5</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">218</td>
+      <td height="15"  class="style5" >universidad_contribuyo_motivarle_para_seguir_tradicion_familiar</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">219</td>
+      <td height="15"  class="style5" >considera_contar_con_las_herramientas_necesarias6</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">220</td>
+      <td height="15"  class="style5" >como_ha_desarrollado_este_factor6</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">221</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_desarrollar_este_factor6</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">222</td>
+      <td height="15"  class="style5" >que_areas_academicas_contribuyeron_mas6</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">223</td>
+      <td height="15"  class="style5" >universidad_contribuyo_motivar_para_superar_carencia_de_empleo</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">224</td>
+      <td height="15"  class="style5" >considera_contar_con_las_herramientas_necesarias7</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">225</td>
+      <td height="15"  class="style5" >como_ha_desarrollado_este_factor7</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">226</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_desarrollar_este_factor7</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">227</td>
+      <td height="15"  class="style5" >que_areas_academicas_contribuyeron_mas7</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">228</td>
+      <td height="15"  class="style5" >universidad_contribuyo_motivarle_superar_falta_oport_estudio</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">229</td>
+      <td height="15"  class="style5" >considera_contar_con_las_herramientas_necesarias8</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">230</td>
+      <td height="15"  class="style5" >como_ha_desarrollado_este_factor8</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">231</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_desarrollar_este_factor8</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">232</td>
+      <td height="15"  class="style5" >que_areas_academicas_contribuyeron_mas8</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">233</td>
+      <td height="15"  class="style5" >universidad_contribuyo_a_motivarle_nivel_de_bienestar_economico</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">234</td>
+      <td height="15"  class="style5" >considera_contar_con_las_herramientas_necesarias9</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">235</td>
+      <td height="15"  class="style5" >como_ha_desarrollado_este_factor9</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">236</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_desarrollar_este_factor9</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">237</td>
+      <td height="15"  class="style5" >que_areas_academicas_contribuyeron_mas9</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">238</td>
+      <td height="15"  class="style5" >universidad_contribuyo_motivarle_para_poner_profesion_practica</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">239</td>
+      <td height="15"  class="style5" >considera_contar_con_las_herramientas_necesarias10</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">240</td>
+      <td height="15"  class="style5" >como_ha_desarrollado_este_factor10</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">241</td>
+      <td height="15"  class="style5" >que_le_ha_impedido_desarrollar_este_factor10</td>
+    </tr>
+    <tr>
+      <td width="19"  class="style5">241</td>
+      <td height="15"  class="style5" >que_areas_academicas_contribuyeron_mas10</td>
+    </tr>
+    <tr>
+      <td>  
+    </tr>
+    <tr>
+      <td  class="style5">&nbsp;</td>
+      <td height="15"  class="style5">&nbsp;</td>
+      <td width="390" >&nbsp;</td>
+      <td width="1" class="style5">&nbsp;</td>
+      <td width="19" >&nbsp;</td>
+    </tr>
+    <!--END TABLE PASTE-->
+  </table>
+</form>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+  <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+         
+        </table></td>
+  </tr>
+  </table>
+<script>
+function cargarDocumento() {
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportFileHistoricoAcademico.php?campoarchivo=documento_hac&archivo='+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+function verDocumento() {
+   var attributes='width=550,height=250,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no, copyhistory=no, statusbar=no';
+                   omnisoftNewWindow=window.open('../historicoacademico/'+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+}
+</script>
+<script>
+   	omnisoftLoadData(document.PaginaDatos);	
+	
+    var serial_alu=opener.PaginaDatos.serial_alu.value;
+	document.PaginaDatos.serial_alu.value=serial_alu;
+	//Nueva encuesta pero hay encuestas anteriores
+	if(getURLParam('action')=='insert'){
+		document.PaginaDatos.fechaencuesta_seg.value = fechaSistema();	
+		var SQLCommand="select count(*) from seguimientograduado where serial_alu =" + serial_alu;
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'RecCount');
+		objDBComando.executeQuery();	  
+	}
+	var SQLCommand="select apellidopaterno_alu, apellidomaterno_alu, nombre1_alu, nombre2_alu,serial_sex,serial_eci,primernombresi_alu,segundonombresi_alu,direcciondomic_alu,telefodomic_alu,celular_alu,mail_alu from alumno where serial_alu =" + serial_alu;
+	var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperarDat');
+	objDBComando.executeQuery();	  
+	function recuperarDat(data){
+		var datos=data.split('|')[1].split('~');	
+		document.PaginaAlumno.apellidopaterno_alu.value = datos[0];
+		document.PaginaAlumno.apellidomaterno_alu.value = datos[1];	
+		document.PaginaAlumno.nombre1_alu.value = datos[2];
+		document.PaginaAlumno.nombre2_alu.value = datos[3];	
+		document.PaginaAlumno.serial_sex.value = datos[4];
+		document.PaginaAlumno.serial_eci.value = datos[5];	
+		
+		//primernombresi
+		switch(datos[6]){
+			case '': 
+				document.PaginaAlumno.primernombresi_alu.checked = false ;	
+				break;
+			case 'NO':
+				document.PaginaAlumno.primernombresi_alu.checked = false ;	
+				break;
+			case 'SI':
+				document.PaginaAlumno.primernombresi_alu.checked = true ;	
+				break;
+		}
+		//segundonombresi		
+		switch(datos[7]){
+			case '': 
+				document.PaginaAlumno.segundonombresi_alu.checked = false ;	
+				break;
+			case 'NO':
+				document.PaginaAlumno.segundonombresi_alu.checked = false ;	
+				break;
+			case 'SI':
+				document.PaginaAlumno.segundonombresi_alu.checked = true ;	
+				break;
+		}
+		document.PaginaAlumno.direcciondomic_alu.value = datos[8];	
+		document.PaginaAlumno.telefodomic_alu.value = datos[9];	
+		document.PaginaAlumno.celular_alu.value = datos[10];	
+		document.PaginaAlumno.mail_alu.value = datos[11];	
+var SQLGrad="select fectitulacion_ama, fecegresamiento_ama, carreraprincipal.nombre_crp as carrera, nombre_car from alumno as alu, sexo as sex left join alumnomalla on alumnomalla.serial_alu=alu.serial_alu left join malla on malla.serial_maa=alumnomalla.serial_maa and serial_maa_p=0 left join carrera on carrera.serial_car=malla.serial_car left join carreraprincipal on carreraprincipal.serial_crp=carrera.serial_crp left join facultad on facultad.serial_fac=carrera.serial_fac where alu.serial_sex = sex.serial_sex and alu.serial_alu = "+serial_alu;
+//prompt('sql',SQLGrad);
+	var objDBComando=new omnisoftDB(SQLGrad,"../lib/server/omnisoftSQLData.php",'recuperarDat2');
+	objDBComando.executeQuery();	
+		
+	}	
+//recuperar datos
+function recuperarDat2(datat){
+		var datost=datat.split('|')[1].split('~');	
+		document.PaginaAlumno.fectitulacion_ama.value = datost[0];
+		document.PaginaAlumno.fecegresamiento_ama.value = datost[1];
+		document.PaginaAlumno.nombre_car.value = datost[3]; 
+}
+function RecCount(data){
+	var datos=data.split('|')[1].split('~');	
+	if (datos[0]>0){
+			//alert("hay encuestas anteriores traer datos a nuevo form");
+
+		var SQLCommand="select tipoencuestaanterior_seg,fechaencuesta_seg,tiempotardoprimertrabajodgraduado_seg,tiempotardoprimeremprendgraduado_seg,fechaencuestaant_seg,ingresoanualalprimeraniograduado_seg,montosalarialprimertrabajodgraduado_seg,direcciontrabajo_seg,serial_ciu,lugartrabajo_seg,tipoempresa_seg,relaciondependencia_seg,pctaccion_seg,ingresosanuales_seg,telefonotrabajo_seg,tiempoconseguirultimoempleo_seg,numpersonasacargo_seg,emailtrabajo_seg,funcionultimocargo_seg,funcionactual_seg,logotipoenwebupac_seg,duenio_seg,nombre_seg,tematesis_seg,numempleados_seg,website_seg,tipo_seg,montoactivos_seg,ingresosanualesnegprop_seg,pasantias_seg,mentor_seg,documentar_seg,asociacion_seg,sugerencia_seg,productos_seg,opinion_seg,publicidad_seg,testimonio_seg,tipojuridico_seg,observaciones_seg,otro_seg,serial_alu from seguimientograduado where serial_alu = " + serial_alu;
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'putData');
+		objDBComando.executeQuery();	  
+		
+	}
+}
+function putData(data){
+	var datos=data.split('|')[1].split('~');	
+	document.PaginaDatos.tipoencuestaanterior_seg.value = datos[0];
+	document.PaginaDatos.fechaencuesta_seg.value = datos[1];
+	document.PaginaDatos.tiempotardoprimertrabajodgraduado_seg.value = datos[2];
+	document.PaginaDatos.tiempotardoprimeremprendgraduado_seg.value = datos[3];
+	document.PaginaDatos.fechaencuestaant_seg.value = datos[4];
+	document.PaginaDatos.ingresoanualalprimeraniograduado_seg.value = datos[5];
+	document.PaginaDatos.montosalarialprimertrabajodgraduado_seg.value = datos[6];
+	document.PaginaDatos.direcciontrabajo_seg.value = datos[7];
+	document.PaginaDatos.serial_ciu.value = datos[8];
+	document.PaginaDatos.lugartrabajo_seg.value = datos[9];
+	document.PaginaDatos.tipoempresa_seg.value = datos[10];
+	document.PaginaDatos.relaciondependencia_seg.value = datos[11];
+	document.PaginaDatos.pctaccion_seg.value = datos[12];
+	document.PaginaDatos.ingresosanuales_seg.value = datos[13];
+	document.PaginaDatos.telefonotrabajo_seg.value = datos[14];
+	document.PaginaDatos.tiempoconseguirultimoempleo_seg .value = datos[15];
+	document.PaginaDatos.numpersonasacargo_seg.value = datos[16];
+	document.PaginaDatos.emailtrabajo_seg.value = datos[17];
+	document.PaginaDatos.funcionultimocargo_seg.value = datos[18];
+	document.PaginaDatos.funcionactual_seg.value = datos[19];
+	document.PaginaDatos.logotipoenwebupac_seg.value = datos[20];
+	document.PaginaDatos.duenio_seg.value = datos[21];
+	document.PaginaDatos.nombre_seg.value = datos[22];
+	document.PaginaDatos.tematesis_seg.value = datos[23];
+	document.PaginaDatos.numempleados_seg.value = datos[24];
+	document.PaginaDatos.website_seg.value = datos[25];
+	document.PaginaDatos.tipo_seg.value = datos[26];
+	document.PaginaDatos.montoactivos_seg.value = datos[27];
+	document.PaginaDatos.ingresosanualesnegprop_seg.value = datos[28];
+	document.PaginaDatos.pasantias_seg.value = datos[29];
+	document.PaginaDatos.mentor_seg .value = datos[30];
+	document.PaginaDatos.documentar_seg.value = datos[31];
+	document.PaginaDatos.asociacion_seg.value = datos[32];
+	document.PaginaDatos.sugerencia_seg.value = datos[33];
+	document.PaginaDatos.productos_seg.value = datos[34];
+	document.PaginaDatos.opinion_seg.value = datos[35];
+	document.PaginaDatos.publicidad_seg.value = datos[36];
+	document.PaginaDatos.testimonio_seg.value = datos[37];
+	document.PaginaDatos.tipojuridico_seg.value = datos[38];
+	document.PaginaDatos.observaciones_seg.value = datos[39];
+	document.PaginaDatos.otro_seg.value = datos[40];
+	document.PaginaDatos.serial_alu.value = datos[41];
+}
+
+	
+</script>
+
+</form>
+
+</body>
+</html>

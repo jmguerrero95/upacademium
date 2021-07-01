@@ -1,0 +1,26 @@
+select serial_dorp,
+       nombre_prd,  
+       (@cajas:=if(cantidad_dorp is NULL or cantidad_dorp=0,cantidadunidades_dorp/unidadesembalaje_prd,cantidad_dorp )) as cantidad_dorp, 
+       (@unidades:=if(cantidad_dorp is NULL or cantidad_dorp=0,cantidadunidades_dorp,cantidad_dorp*unidadesembalaje_prd))as cantidadunidades_dorp,
+       (@compensacion:=round(@unidades*if(descuento_dca is NULL,0,descuento_dca),0)) as compensacion_dorp,
+       (@totalunidades:=@unidades+@compensacion) as totalunidades_dorp,
+       (@totaldespachar:=if (cantidaddespachar_dorp is NULL or cantidaddespachar_dorp =0,@totalunidades,cantidaddespachar_dorp)) as cantidaddespachar_dorp,
+       format(valor_lpr,4) as valor_lpr, 
+       format(@totaldespachar*valor_lpr,2) as subtotal,
+       format((@descuento:=@compensacion*valor_lpr),2) as descuento,
+       format((@iva12:=if (grabaiva_prd =\'SI\',0.12*@unidades*valor_lpr,0)),2) as valorIva12_dorp, 
+       format((@iva12+@totaldespachar*valor_lpr-@descuento),2) as total,
+       producto.serial_prd,
+       comision_dorp
+
+FROM listaprecios,
+     detalleordenpedido,
+     producto,
+     cliente 
+     left join descuentocanal on descuentocanal.serial_tpr=cliente.serial_tpr 
+     and descuentocanal.serial_can=cliente.serial_can 
+     and descuentocanal.serial_prd=producto.serial_prd  
+     and descuento_dca is NOT NULL WHERE producto.serial_prd=detalleordenpedido.serial_prd 
+     and  listaprecios.serial_prd=producto.serial_prd 
+     and listaprecios.serial_tpr=cliente.serial_tpr 
+     and  cliente.serial_cli='+cliente_ieb+' and detalleordenpedido.serial_orp=masterkey';

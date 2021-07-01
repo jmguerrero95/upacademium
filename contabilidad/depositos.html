@@ -1,0 +1,148 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script type="text/javascript" src="../lib/fisheyes/jquery.js"></script>
+<script type="text/javascript" src="../lib/fisheyes/interface.js"></script>
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+
+
+<!--[if lt IE 7]>
+ <style type="text/css">
+ .dock img { behavior: url(../lib/fisheyes/iepngfix.htc) }
+ </style>
+<![endif]-->
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+</HEAD>
+<BODY onLoad="initDisableRight();"  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td height="541" valign="top">
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top">
+                    <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td>                    <td width="482"  class="toptitle" > <center>
+MODULO
+                        DE GESTION FINANCIERA<br>DEPOSITOS</center></td>
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>  <td height="20" class="menuborder" >
+		<ul id="myMenu" class='zpHideOnLoad'>            </ul>
+        <script>
+              OmnisoftPerfilUsuario(moduloContabilidad);
+            </script>
+
+
+
+
+
+           <script>
+
+
+            </script>
+            </td>
+
+          </tr>
+          <tr>            <td height="412" valign="top" >
+			<div align="center">
+                <table width="100%" height="447" border="0" align="center" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="1123" height="447" colspan="2" >
+        <script>
+        omniObj=new omnisoftGrid('omniObj','detallerecibocobro','serial_drec',"SELECT serial_drec, numeroDocumento_drec, fechaDocumento_drec, emisorDocumento_drec, cli.razonSocial_cli, ific.nombre_ifi, valor_drec, estadoDocumento_drec, fechaDeposito_drec,  fechaEfectivizado_drec, fechaProtestado_drec, ifi.nombre_ifi, cif.numero_cif, tipoCobro_drec, bancoEmisor_drec, numeroCuenta_drec, valorAbono_drec, usuarioDeposito_drec, costoProtesto_drec, comision_drec, diasCobro_drec, estadoComisiones_drec, drec.serial_rec, drec.serial_fac, drec.serial_ncd, drec.serial_ret, drec.serial_cif, drec.serial_dinp from  institucionesfinancieras ifi, institucionesfinancieras ific, cuentaifi cif, cliente cli, factura fac, detallerecibocobro drec where tipoCobro_drec='Cheque' and estadoDocumento_drec <> 'Efectivizado' and fac.serial_fac=drec.serial_fac and fac.serial_cli=cli.serial_cli and ific.serial_ifi=drec.bancoEmisor_drec and cif.serial_cif=drec.serial_cif and ifi.serial_ifi=cif.serial_ifi",'depositosFormulario.html',550,133);
+
+   omniObj.addColumn('Serial','serial_drec', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('No Documento','numeroDocumento_drec', 9,'string','','middle','#ffffcc');
+   omniObj.addColumn('Fecha','fechaDocumento_drec', 8,'string','','middle','#ffffcc');
+   omniObj.addColumn('Emisor','emisorDocumento_drec', 8,'string','','middle','#ffffcc');
+   omniObj.addColumn('Cliente','razonSocial_cli', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Banco','nombre_ifi', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Valor','valor_drec', 8,'string','','middle','#ffffcc');
+   omniObj.addColumn('Estado Docto','estadoDocumento_drec', 11,'string','','middle','#ffffcc');
+   omniObj.addColumn('Depósito','fechaDeposito_che', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Efectivizado','fechaEfectivizado_drec', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Protestado','fechaProtestado_drec', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Depositado en el Banco','nombre_ifi', 14,'string','','middle','#ffffcc');
+   omniObj.addColumn('Cuenta','numero_cif', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Tipo de Cobro','tipoCobro_drec', 12,'string','','middle','#ffffcc');
+   omniObj.addColumn('Banco Emisor','bancoEmisor_drec', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('numeroCuenta_drec','numeroCuenta_drec', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Valor Abono','valorAbono_drec', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Depositante','usuarioDeposito_drec', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Costo Protesto','costoProtesto_drec', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Comision','comision_drec', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('diasCobro_drec','diasCobro_drec', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('estadoComisiones_drec','estadoComisiones_drec', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_rec','serial_rec', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Serial Fac','serial_fac', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_ncd','serial_ncd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Comision','comision_drec', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_ret','serial_ret', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Serial Cif','serial_cif', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_dinp','serial_dinp', 1,'hidden','','middle','#ffffcc');   omniObj.showGrid('omniObj',20,482,1020,'menu','#FF9900');
+</script></td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<table width="100%" height="58"  cellpadding="0" cellspacing="0" >
+<tr>
+<td class="menuborder"> </td>
+</tr>
+</table>
+</body>
+
+              
+</HTML>

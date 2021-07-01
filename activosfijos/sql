@@ -1,0 +1,1 @@
+update familiaactivofijo,tipoactivofijo,activosfijos set codigobarras_acf=concat(codigo_faf,codigo_taf,substr(codigo_acf,3,8)) where tipoactivofijo.serial_taf=activosfijos.serial_taf and familiaactivofijo.serial_faf=tipoactivofijo.serial_faf

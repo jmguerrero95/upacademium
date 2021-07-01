@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+</head>
+<body >
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_hex" type="hidden" id="serial_hex" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          RECURSOS HUMANOS<br>
+          HORAS EXTRAS
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="146" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="149" height="26"  class="inputtitle"> Periodo *<br> </td>
+            <td width="650"><script>                var cserial_perrol=new omnisoftComboBox('cserial_perrol','serial_perrol','select serial_perrol,descripcion_perrol from periodorol order by serial_perrol','255px',true,getURLParam('serial_perrol'));
+                     cserial_perrol.show();
+	          </script></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Empleado*</td>
+            <td ><script>                var cserial_epl=new omnisoftComboBox('cserial_epl','serial_epl','select serial_epl,concat(apellido_epl,\' \',nombre_epl)as empleados from empleado order by apellido_epl,nombre_epl','255px',true,getURLParam('serial_epl'));
+                     cserial_epl.show();
+	          </script>
+            </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Fecha*</td>
+            <td ><input name="fecha_hex" type="text" id="fecha_hex" class="date" size="12" maxlength="12"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Horas Extras *</td>
+            <td ><input name="hora_hex" type="text" id="hora_hex" class="number" size="10" maxlength="10"  onBlur="esconderToolTip()">
+            horas</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Porcentaje (%)*</td>
+            <td ><select name="porcentaje_hex" id="porcentaje_hex" class="comboBox">
+                <option value="25">25%</option>
+                <option value="50">50%</option>
+				<option value="100">100%</option>
+              </select>
+			</td>
+          </tr>
+          <tr>
+            <td height="22"  class="inputtitle">Observacion</td>
+            <td ><input name="observacion_hex" type="text" id="observacion_hex" class="textarea" size="100" maxlength="100"  onBlur="esconderToolTip()"></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	if (getURLParam('action')=='insert')
+	  document.PaginaDatos.fecha_hex.value=fechaSistema();
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

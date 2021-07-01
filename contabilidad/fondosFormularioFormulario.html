@@ -1,0 +1,65 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/aw/lib/aw.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftGrid.js"></script>
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script></head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          GESTION FINANCIERA<br>
+          FONDOS 
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="57" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td height="24"  class="inputtitle">Codigo :</td>
+            <td><input name="codigo_fon" type="text" id="codigo_fon" class="string" size="15" maxlength="15"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td width="149" height="24"  class="inputtitle">Nombre :</td>
+            <td width="650"> <input name="nombre_fon" type="text" id="nombre_fon" class="string" size="40" maxlength="40" onBlur="esconderToolTip()"></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >       <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

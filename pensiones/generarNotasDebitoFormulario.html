@@ -1,0 +1,442 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+ var clientevalido=true;
+ var valor = 0;
+ 
+ function ValidaDatosCliente(codigo_alu){
+
+	if(codigo_alu=='G9-99-99' || codigo_alu=='Q9-99-99' || codigo_alu=='C9-99-99')
+		 if(trim(document.PaginaDatos.cliente_caf.value)=='' || trim(document.PaginaDatos.cedula_caf.value)==''){
+			
+			if(trim(document.PaginaDatos.cliente_caf.value)==''){
+				  alert('Debe ingresar el nombre del Cliente...!!!');
+				  document.PaginaDatos.cliente_caf.focus();
+				}else{ 
+					 alert('Debe ingresar la cedula del Cliente...!!!');
+					document.PaginaDatos.cedula_caf.focus(); 
+				}
+				return false;
+		 }
+		 return true;
+}
+
+
+function recuperarDatosFactura(data) {
+//alert(data);
+   var datos=data.split('|');
+   if (datos[0]!='') {
+      alert(datos[0]);
+   }
+   else {
+ //      imprimirFactura();
+       opener.omniObj.lastPage();
+       window.close();
+   }
+
+}
+
+function grabarFactura(){
+var SQLCommand=document.PaginaDatos.serial_caf.value+"|"+document.PaginaDatos.serial_alu.value+"|"+document.PaginaDatos.serial_ama.value+"|"+document.PaginaDatos.serial_per.value+"|"+document.PaginaDatos.numero_caf.value+"|"+document.PaginaDatos.serial_dep.value+"|"+document.PaginaDatos.estado_caf.value+"|"+getCookie('serial_suc')+"|insert|NOTADEBITO|"+document.PaginaDatos.serial_caa.value+"|"+document.PaginaDatos.cliente_caf.value+"|"+document.PaginaDatos.cedula_caf.value+"|"+document.PaginaDatos.documento_caf.value+"|ND|13|1"; 
+
+//prompt("",SQLCommand);
+
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGrabarFacturaVenta.php",'recuperarDatosFactura');  
+    objDBComando.executeQuery();
+}
+
+
+function procesarTotales(row){	
+	document.getElementById('spanTotal').innerHTML=omniObj.grid.getFooterTemplate(3,1).getContent("box/text").element().innerHTML;
+}
+
+function validarCliente() {
+ if (clientevalido==false) {
+     document.PaginaDatos.razonSocial_cli.focus();
+     alert('ADVERTENCIA: EL CLIENTE '+document.PaginaDatos.razonSocial_cli.value+' TIENE FACTURAS PENDIENTES DE PAGO POR TANTO NO PUEDE FACTURAR!');
+     return false;
+  }
+  return true;
+}
+
+function recuperarAlumno(data) {
+    var datos=data.split('|')[1].split('~');	
+   document.PaginaDatos.serial_per.value=datos[0];
+   document.PaginaDatos.nombre_sec.value=datos[1];
+   document.PaginaDatos.nombre_maa.value=datos[3];
+   document.PaginaDatos.serial_ama.value=datos[4];
+   document.PaginaDatos.serial_caa.value=datos[5];
+   document.PaginaDatos.codigo_alu.value=datos[6];
+   document.PaginaDatos.nombre1_alu.value=datos[7];
+    document.PaginaDatos.serial_car.value=datos[9];
+   //document.PaginaDatos.serial_alu.value=datos[8];
+   
+   
+    var SQLCommand="select serial_dep from departamentocarrera where serial_age="+getCookie('serial_age')+" and serial_car="+datos[9];
+ 
+ 
+	var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperarDep');
+     objDBComando.executeQuery();
+ 
+arancel();// filtra cheques y rubros	
+//escoje las facturas que pagaron con cheque
+
+	var sql="select distinct(caf.serial_caf), numero_caf,der.serial_forc,caf.serial_alu from cabecerafactura as caf, cabecerarecibo as car, detallerecibo as der,formacobro as fc where caf.serial_caf = car.serial_caf and car.serial_cre = der.serial_cre and caf.serial_alu = "+document.PaginaDatos.serial_alu.value+" and tipo_caf = 'FAC' and fc.serial_forc=der.serial_forc and CONTROL_FORC='CH' and estado_caf<>'ANULADO' and estado_cre<>'ANULADO'"
+	
+	//prompt("",sql);	
+cserial_caf1.objDBComando.sqlCommand=sql;
+cserial_caf1.objDBComando.executeQuery();
+
+
+
+}
+
+function arancel(){
+	var cobro = 'select 0,\'SELECCIONE\' union select dre.serial_dre, concat_ws(\'-\', numeroDocumento_dre, valor_dre) from cabecerarecibo as cre, detallerecibo as dre,formacobro as fc where cre.serial_cre = dre.serial_cre and serial_caf = '+document.PaginaDatos.serial_caf1.value+' and fc.serial_forc=dre.serial_forc  and  CONTROL_FORC=\'CH\' and actividad_dre <> "cerrada" and estado_cre<>\'ANULADO\'';
+	
+	cserial_dre.objDBComando.sqlCommand=cobro;
+	cserial_dre.objDBComando.executeQuery();
+	
+	var sql="select serial_dar, descripcion_dar from detallearancel where descripcion_dar like '%cheque%'";
+	omniObj.grid.fields[1].list[0]=sql;
+}
+
+
+
+function recuperarDep(data) {
+
+  
+ var datos=data.split('|')[1].split('~');
+    document.PaginaDatos.serial_dep1.value=datos[0];
+ 
+      
+var SQLCommand="select serial_dep,descripcion_dep from departamentos where serial_age="+getCookie('serial_age')+" and consolidado_dep<>\'S\' and facturacion_dep=\'S\' and serial_dep="+datos[0];
+
+var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperarDepartamento');
+     objDBComando.executeQuery();
+	  
+	  
+}
+
+function recuperarDepartamento(data) {
+
+  
+ var datos=data.split('|')[1].split('~');
+    document.PaginaDatos.serial_dep.value=datos[0];
+    document.PaginaDatos.descripcion_dep.value=datos[1];
+
+    
+ 
+	  
+}
+
+
+
+
+
+function valorCheque(){
+var indice = document.PaginaDatos.documento_caf.selectedIndex;
+var valorcheque = document.PaginaDatos.documento_caf.options[indice].text.split("-");
+valor = valorcheque[1];
+
+
+omniObj.grid.sqlCommand='select distinct serial_dfa, descripcion_dar,cantidad_dfa,valor_dar,(cantidad_dfa*valor_dar) as subtotal_dfa   FROM cabecerafactura,detallearancel,detallefactura,alumno where  alumno.serial_alu=cabecerafactura.serial_alu and cabecerafactura.serial_caf=detallefactura.serial_caf and detallearancel.serial_dar=detallefactura.serial_dar and descripcion_dar not like \'CHD%\' and detallefactura.serial_caf=masterkey union select distinct serial_dfa, descripcion_dar,cantidad_dfa,'+valor+',(cantidad_dfa*'+valor+') as subtotal_dfa   FROM cabecerafactura,detallearancel,detallefactura,alumno where  alumno.serial_alu=cabecerafactura.serial_alu and cabecerafactura.serial_caf=detallefactura.serial_caf and detallearancel.serial_dar=detallefactura.serial_dar and descripcion_dar  like \'CHD%\' and detallefactura.serial_caf=masterkey';
+
+omniObj.grid.executeQuery(omniObj.grid.rows);
+
+//alert("hola");
+
+}
+
+function procesarAlumno(){
+    var SQLCommand="select alumno.serial_per,seccion.nombre_sec,seccion.serial_sec,malla.nombre_maa,alumnomalla.serial_ama,serial_caa, alumno.codigo_alu, concat_ws('  ',nombre1_alu, nombre2_alu) as nombre, alumno.serial_alu, serial_car from seccion,malla,alumnomalla,alumno where seccion.serial_sec=malla.serial_sec and malla.serial_maa=alumnomalla.serial_maa and alumnomalla.serial_alu=alumno.serial_alu and alumno.serial_alu="+document.PaginaDatos.serial_alu.value;
+
+    var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperarAlumno');
+      objDBComando.executeQuery();
+
+    SQLCommand="select max(,seccion.nombre_sec,seccion.serial_sec,malla.nombre_maa,alumnomalla.serial_ama  from seccion,malla,alumnomalla,alumno where seccion.serial_sec=malla.serial_sec and malla.serial_maa=alumnomalla.serial_maa and alumnomalla.serial_alu=alumno.serial_alu and alumno.serial_alu="+document.PaginaDatos.serial_alu.value;
+	
+    var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperarAlumno');
+      objDBComando.executeQuery();
+}
+
+
+function cobrarFactura() {
+ var sqlcmd="cobrarFactura.html?dummy=1&total_caf="+document.getElementById('spanTotal').innerHTML.replace(',','');
+                var   attributes='width=1020,height=480,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open(sqlcmd,'',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+ }
+
+ function imprimirFacturaPensiones() {
+
+            var attributes='';
+            var sURL='../lib/export/omnisoftNotasDebito.php?numerofactura='+document.PaginaDatos.serial_caf.value;
+            var sWidth=1000;
+            var sHeight=750;
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+
+               omnisoftNewWindow=window.open(sURL,'PDF',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+
+ }
+
+function validarFechaFactura() {
+    var mes=parseFloat(document.PaginaDatos.fecha_cab.value.substr(5,2))-1;
+    var fecha=new Date(document.PaginaDatos.fecha_cab.value.substr(0,4),mes,document.PaginaDatos.fecha_cab.value.substr(8,2));
+     var dias=dateDifference( new Date(), fecha);
+     if (dias>=0 && dias <=2)
+        return true;
+     else {
+           if (dias <0)
+           alert('Advertencia: No puede facturar '+ dias*-1+' dias posteriores al dia de hoy');
+           else
+           alert('Advertencia: No puede facturar '+ dias+' dias anteriores al dia de hoy');
+           document.PaginaDatos.fecha_cab.focus();
+     }
+     return false;
+     }
+</script>
+
+</head>
+
+
+<body>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_caf" type="hidden" id="serial_caf" class="hidden" >
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden" >
+<input name="serial_ama" type="hidden" id="serial_ama" class="hidden" >
+<input name="serial_per" type="hidden" id="serial_per">
+<input name="serial_caa" type="hidden" id="serial_caa">
+
+
+<input name="serial_fac" type="hidden" id="serial_fac" class="" >
+<input name="serial_car" type="hidden" id="serial_car" class="" >
+<input name="serial_dep1" type="hidden" id="serial_dep1" class="" >
+<input name="serial_dep" type="hidden" id="serial_dep" class="" >
+
+
+  <table width="918" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="217" height="52"  class="ingeniumtoptitle"></td>
+      <td width="578"  class="maintoptitle fonttitle"><center>
+        NOTAS DE 
+      <br>
+          DEBITO
+        </center></td>
+      <td width="126"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="137" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="87" height="21"  class="inputtitle">Fechass :</td>
+            <td width="230"><img  src="../images/camporequerido.gif">
+            <input name="fecha_caf" type="text" id="fecha_caf" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()" onChange="validarFechaFactura()"></td>            
+            
+            <td width="109" class="inputtitle">Número Nota de Debito :</td>
+            <td width="100" class="inputtitle"><input name="numero_caf" type="text" id="numero_caf" class="secuencia" size="17" maxlength="15"  onBlur="esconderToolTip()" tipo="ND">          </td>
+            <td width="129" rowspan="2" class="inputtitle"><div align="center"><span id="spanTotal" class="totales">0.00 </span></div>            </td>
+            <td width="9" class="inputtitle"></td>
+          </tr>
+
+          <tr>
+            <td height="21"  class="inputtitle">Alumno:</td>
+            <td colspan="1" class="inputtitle"><img  src="../images/camporequerido.gif">
+            <script>
+                document.write('<input name="apellidopaterno_alu" type="text" id="apellidopaterno_alu" size="25" maxlength="100" class="autosuggest" funcion="procesarAlumno" table="alumno" serial="serial_alu" info="codigoIdentificacion_alu" filter="serial_suc='+getCookie('serial_suc')+'" >');
+				
+				
+			</script>
+            <input name="nombre1_alu" type="text" id="nombre1_alu"  size="15" maxlength="20"  onBlur="esconderToolTip()" readonly="yes" >
+            <input name="codigo_alu" type="text" id="codigo_alu"  size="10" maxlength="10"  onBlur="esconderToolTip()" >
+            
+            <td class="inputtitle">Programa:</td>
+            <td class="inputtitle"><input name="nombre_sec" type="text" id="nombre_sec"  size="25" maxlength="25"  onBlur="esconderToolTip()" ></td>
+            <td class="inputtitle"></td>
+          </tr>
+		  
+		  <tr>
+		  <td width="87" class="inputtitle">Cliente</td>
+                 
+              <td height="22" colspan="1">    
+				   <input name="cliente_caf" type="text" id="cliente_caf"  size="35" maxlength="70"  onBlur="esconderToolTip();ValidaDatosCliente(document.PaginaDatos.codigo_alu.value);">
+	   	   	 	 <br><span class="inputtitle">Factura:</span>	 
+			<img  src="../images/camporequerido.gif" alt="">			
+			<script>
+					var alumno = 'select serial_caf, numero_caf from cabecerafactura where serial_alu = '+document.PaginaDatos.serial_alu.value+' and tipo_caf = "FAC"';
+					
+					var cserial_caf1=new omnisoftComboBox('cserial_caf1','serial_caf1',alumno,'100px',false,'','',arancel);						
+					  	cserial_caf1.show();			 
+			</script>			 
+				<span class="inputtitle"> Cheque: </span>			
+			 <script>					
+					var cobro = 'select 0,\'SELECCIONE\' union select dre.serial_dre,concat_ws(\'-\',numeroDocumento_dre, dre.valor_dre) nombre from cabecerarecibo as cre, detallerecibo as dre where cre.serial_cre = dre.serial_cre and serial_caf = '+document.PaginaDatos.serial_caf1.value+' and serial_forc = 2 and actividad_dre <> "cerrada"';
+			
+					var cserial_dre=new omnisoftComboBox('cserial_dre','documento_caf',cobro,'100px',false,'','');						
+					
+					cserial_dre.show();
+					document.PaginaDatos.documento_caf.onchange=valorCheque;
+			</script>	 			 						 					 
+			 </td>
+					 
+			 <td width="87" class="inputtitle">C&eacute;dula/RUC:</td>
+		  	 <td height="22" colspan="1"><span class="inputtitle">                     
+                   
+				   <input name="cedula_caf" type="text" id="cedula_caf"  size="35" maxlength="70"  onBlur="esconderToolTip();ValidaDatosCliente(document.PaginaDatos.codigo_alu.value);">
+			</span>
+			</td>	   
+		  </tr>
+		  
+
+               <tr>
+            <td height="22"
+			class="inputtitle">Departamento: </td>
+            <td height="22" colspan="1"><img  src="../images/camporequerido.gif" alt="">
+			<input name="descripcion_dep" type="text" id="descripcion_dep"  size="50" maxlength="25"  onBlur="esconderToolTip()" >
+			
+			    </td>
+            <td height="22" class="inputtitle">Malla:</td>
+            <td height="22" colspan="1">
+            
+             <span class="inputtitle">
+             <input name="nombre_maa" type="text" id="nombre_maa"  size="25" maxlength="25"  onBlur="esconderToolTip()" >
+             </span>
+            <td width="129" height="22"></td>
+          </tr>
+
+                    <tr>
+            <td height="22"
+			class="inputtitle">Estado: </td>
+            <td height="22" colspan="1"><img  src="../images/camporequerido.gif" alt="">
+              <select name="estado_caf" id="estado_caf" class="combobox">
+                <option value="EMITIDA" selected="selected">EMITIDA</option>
+                <option value="ANULADO">ANULADO</option>
+              </select>			 </td>
+			  
+            <td height="22" class="inputtitle">Observaciones:</td>
+            <td height="22" colspan="2">
+              <input name="observaciones_caf" type="text" id="observaciones_caf" class="emptytext" size="70" maxlength="200"  onBlur="esconderToolTip()" >            
+            <td height="22"></td>
+          </tr>
+
+          <tr>
+            <td height="25" colspan=8> <script>
+   omnisoftLoadData(document.PaginaDatos);
+
+   if (top.opener.omniObj.grid.action=='insert')
+      document.PaginaDatos.fecha_caf.value=fechaSistema();
+
+var serial_caf=(getURLParam('action')=='insert')? 0:getURLParam('serial_caf');
+var serial_alu=(getURLParam('action')=='insert')? 0:getURLParam('serial_alu');   
+
+var arenceles = "select serial_dar, descripcion_dar, valor_dar from detallearancel where descripcion_dar like '%cheque%'";
+
+
+var sql='select distinct serial_dfa, descripcion_dar,cantidad_dfa,valor_dar,(cantidad_dfa*valor_dar) as subtotal_dfa   FROM cabecerafactura,detallearancel,detallefactura,alumno where  alumno.serial_alu=cabecerafactura.serial_alu and cabecerafactura.serial_caf=detallefactura.serial_caf and detallearancel.serial_dar=detallefactura.serial_dar and descripcion_dar not like \'CHD%\' and detallefactura.serial_caf=masterkey union select distinct serial_dfa, descripcion_dar,cantidad_dfa,'+valor+',(cantidad_dfa*'+valor+') as subtotal_dfa   FROM cabecerafactura,detallearancel,detallefactura,alumno where  alumno.serial_alu=cabecerafactura.serial_alu and cabecerafactura.serial_caf=detallefactura.serial_caf and detallearancel.serial_dar=detallefactura.serial_dar and descripcion_dar  like \'CHD%\' and detallefactura.serial_caf=masterkey';
+
+
+		var omniObj=new omnisoftGridDetail('omniObj','serial_caf',serial_caf,'detallefactura','serial_dfa',sql,document.PaginaDatos,Array(true,true),'',0,0,'procesarTotales');
+     omniObj.addColumn('Serial','serial_dfa', 10,'hidden','','middle','');
+	 omniObj.addColumn('Arancel','descripcion_dar', 15,'combobox',Array(arenceles,'serial_dar','descripcion_dar'),'middle','');
+     omniObj.addColumn('Cantidad','cantidad_dfa', 8,'integer',Array('sum','cantidad_dfa'),'right','','0','');
+	 omniObj.addColumn('Valor','valor_aal', 8,'integer',Array('sum','valor_dar'),'right','','0','');
+     omniObj.addColumn('Subtotal','subtotal_dfa', 8,'readonly',Array('sum','(cantidad_dfa*valor_dar)+(cantidad_dfa*1500)'),'right','');
+	 omniObj.addColumn('serial_dar','serial_dar', 8,'hidden','','right','');
+     omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');	
+ </script> </td>
+          </tr>
+
+      </table></td>
+    </tr>
+    <tr >
+
+      <td height="30" colspan="3" align="center" class="menuborder"> <table width="906" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="147" height="58" class="menuborder">
+<div align="center" id="divGuardar" style="visibility:visible"><span class="menuborder"><a href="#" onClick="cobrarFactura()"><img src="../images/comprobante.png" alt="Pagar" width="48" height="48" align="middle">Cobrar</a></span></div></td>
+            <td width="158" class="menuborder"><span style="visibility:visible"><a href="#" onClick="grabarFactura()"><a href="#" onClick="grabarFactura()"><img src="../images/save.png" width="48" height="48" border="0" align="middle"></a>Grabar</span></td>
+            <td width="172" class="menuborder"><a href="#" onClick="omnisoftGrabar()"><img src="../images/saveas.jpg" alt="Grabar Como" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="146" class="menuborder"><a href="#" onClick="imprimirFacturaPensiones()"><img src="../images/impresora.png" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="149" class="menuborder"><a href="#" onClick="imprimirActivoFijo()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="134" class="menuborder"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+  
+</form>
+<script>
+procesarTotales();
+
+ if (getURLParam('action')=='edit')
+
+</script>
+</body>
+</html>

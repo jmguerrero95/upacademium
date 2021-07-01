@@ -1,0 +1,345 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+function imprimirMalla() {
+             var attributes='';
+            var sURL='../lib/export/omnisoftMallasReporte.php?';
+            var sWidth=1000;
+            var sHeight=750;
+            var sFields='';
+            var fields;
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+               sURL=sURL+'serial_maa='+document.PaginaDatos.serial_maa.value;
+               omnisoftNewWindow=window.open(sURL,'PDF',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftAcciones.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+//alert('hola');
+// alert('serial_maa:..'+opener.PaginaDatos.serial_maa.value);
+
+function seleccionarTitulo() {
+   cserial_car.objDBComando.sqlCommand='select car.serial_car, nombre_car from carrera as car WHERE serial_fac ='+document.PaginaDatos.serial_fac.value;
+  cserial_car.objDBComando.executeQuery();
+}
+
+function seleccionarEspecialidad() {
+   cserial_esp.objDBComando.sqlCommand='select serial_esp, nombre_esp from especialidad where serial_car ='+document.PaginaDatos.serial_car.value;
+    cserial_esp.objDBComando.executeQuery();
+	
+	  cserial_maa_p.objDBComando.sqlCommand='select 0 as serial_maa,\'- NIGUNA -\' as mallabasica UNION select serial_maa,concat(codigo_maa,\' \',nombre_maa) as mallabasica from malla where serial_maa_p=0 and serial_maa not in ('+document.PaginaDatos.serial_maa.value+') and serial_car='+document.PaginaDatos.serial_car.value;
+    cserial_maa_p.objDBComando.executeQuery();
+	alert(document.PaginaDatos.serial_maa.value);
+	alert(document.PaginaDatos.serial_car.value);
+}
+
+function totalCreditos(){
+document.PaginaDatos.totalcreditos_maa.value = parseInt(document.PaginaDatos.totalcreditostitulo_maa.value) + parseInt(document.PaginaDatos.creditosidiomas_maa.value) + parseInt(document.PaginaDatos.creditoselectivasab_maa.value) + parseInt(document.PaginaDatos.creditostalleres_maa.value) + parseInt(document.PaginaDatos.creditosespmayor_maa.value) + parseInt(document.PaginaDatos.creditosespmenor_maa.value);
+//alert(document.PaginaDatos.creditostotalgeneral_maa.value);
+
+}
+
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+.style2 {color: #FF0000; font-size: 30px;}
+-->
+</style>
+</head>
+
+
+<body SCROLL=yes >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_maa" type="hidden" id="serial_maa" class="hidden" >
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+        ACADEMICO<br>
+MALLAS ACADEMICAS
+      </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="288" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="18" colspan="12"  bgcolor="#000166"><div align="center" class="style1 style1">IDENTIFICACION</div></td>
+          </tr>
+          <tr>
+            <td width="79" height="24"  class="inputtitle">C&oacute;digo :</td>
+            <td colspan="3"><img src="../images/camporequerido.gif"><input name="codigo_maa" type="text" id="codigo_maa" size="12" maxlength="14" class="string" ></td>
+            <td width="111" class="inputtitle">Programa :</td>
+            <td colspan="3"><img src="../images/camporequerido.gif"> <script>                var cserial_sec=new omnisoftComboBox('cserial_sec','serial_sec','select serial_sec, nombre_sec from seccion order by nombre_sec','255px',true,getURLParam('serial_sec'));
+                     cserial_sec.show();
+				
+					
+	            </script>            </td>
+          </tr>
+          <tr>
+            <td height="18" class="inputtitle">Nombre Malla :</td>
+            <td height="18" colspan="3" class="inputtitle"></div>
+            <img src="../images/camporequerido.gif">
+            <input name="nombre_maa" type="text" id="nombre_maa" size="85" maxlength="110" class="string"></td>
+            <td height="18" class="inputtitle">Malla Básica :</td>
+            <td height="18" class="inputtitle"><input name="totalcreditostitulo_maa" type="text" id="totalcreditostitulo_maa" size="8" maxlength="8"  value="0.00" onBlur="totalCreditos()"></td>
+            <td height="18" class="inputtitle">Cr&eacute;ditos Electivas Abiertas : </td>
+            <td height="18" class="inputtitle"><div align="center">
+            <input name="creditoselectivasab_maa" type="text" id="creditoselectivasab_maa" size="8" maxlength="8"  value="0.00" onBlur="totalCreditos()">
+            </div></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Facultad : </td>
+            <td height="24" colspan="3" ><script>               
+//			select 0,"SELECCIONE" union
+			//var facul = 'select serial_fac, nombre_fac from facultad order by codigo_fac';
+			//
+			var facul = 'select 0,\'SELECCIONE\' union select serial_fac, nombre_fac from facultad'; //union'
+			var cserial_fac=new omnisoftComboBox('cserial_fac','serial_fac',facul,'320px',false,getURLParam('serial_fac'),'');
+			//,,getURLParam('serial_fac')
+                     cserial_fac.show();
+					 document.PaginaDatos.serial_fac.onchange=seleccionarTitulo;
+					// document.PaginaDatos.serial_fac.onclick=seleccionarTitulo;
+					 
+	            </script></td>
+            <td height="24" class="inputtitle">Cr&eacute;ditos Idiomas :</td>
+            <td height="24" ><span class="inputtitle">
+              <input name="creditosidiomas_maa" type="text" id="creditosidiomas_maa" size="8" maxlength="8" class="integer" value="0.00" onBlur="totalCreditos()">
+            </span></td>
+            <td height="24" class="inputtitle">Cr&eacute;ditos Especializaci&oacute;n Mayor :</td>
+            <td height="24" ><img src="../images/camporequerido.gif">
+            <input name="creditosespmayor_maa" type="text" id="creditosespmayor_maa" size="8" maxlength="8" class="integer" value="0.00" onBlur="totalCreditos()" ></td>
+          </tr>
+          <tr>
+            <td height="23"  class="inputtitle">Titulo : </td>
+            <td height="23" colspan="3" ><script>                var cserial_car=new omnisoftComboBox('cserial_car','serial_car','select serial_car, nombre_car from carrera as car  where serial_fac='+getURLParam('serial_fac')+' order  by nombre_car ','420px',true,getURLParam('serial_car'));
+                     cserial_car.show();
+					document.PaginaDatos.serial_car.onchange=seleccionarEspecialidad;
+					//document.PaginaDatos.serial_car.onclick=seleccionarEspecialidad;
+
+	              </script></td>
+            <td height="23" class="inputtitle" ><p>Cr&eacute;ditos Talleres : </p>            </td>
+            <td width="81" height="23" ><img src="../images/camporequerido.gif">
+            <input name="creditostalleres_maa" type="text" id="creditostalleres_maa" size="8" maxlength="8" class="integer" value="0.00" onBlur="totalCreditos()"></td>
+            <td width="184" class="inputtitle">Cr&eacute;ditos Especializaci&oacute;n Menor :</td>
+            <td width="88" ><img src="../images/camporequerido.gif">
+            <input name="creditosespmenor_maa" type="text" id="creditosespmenor_maa" size="8" maxlength="8" class="integer" value="0.00" onBlur="totalCreditos()"></td>
+          </tr>
+          
+          <tr>
+            <td height="24"  class="inputtitle">Especialidad : </td>
+            <td colspan="3" ><script>                
+			var cserial_esp=new omnisoftComboBox('cserial_esp','serial_esp','select serial_esp, nombre_esp from especialidad where serial_car='+getURLParam('serial_car')+' order by nombre_esp','255px',true,getURLParam('serial_esp'));
+                     cserial_esp.show();
+				
+					
+	            </script></td>
+            <td class="inputtitle" >Max Cr&eacute;ditos</td>
+            <td ><input name="creditomax_maa" type="text" id="creditomax_maa" size="8" maxlength="8" class="integer" value="0.00"></td>
+            <td class="inputtitle"><div align="center">Total Cr&eacute;ditos : </div></td>
+            <td ><input name="totalcreditos_maa" type="text" id="totalcreditos_maa" size="8" maxlength="8"  value="0.00"></td>
+          </tr>
+          
+ 		  <tr>
+		    <td height="23"  class="inputtitle">#Cred Form B: </td>
+		    <td ><input name="ncformbasica_maa" type="text" id="ncformbasica_maa" size="8" maxlength="8" class="integer" value="0.00"></td>
+		    <td class="inputtitle">&nbsp;</td>
+		    <td >&nbsp;</td>
+		    <td class="inputtitle">#Cred Serv Comun: </td>
+		    <td ><input name="ncservcomunidad_maa" type="text" id="ncservcomunidad_maa" size="8" maxlength="8" class="integer" value="0.00"></td>
+		    <td  class="inputtitle">#Cred Pasantias: </td>
+		    <td ><input name="ncpasantias_maa" type="text" id="ncpasantias_maa" size="8" maxlength="8" class="integer" value="0.00"></td>
+	      <tr>
+		    <td height="23"  class="inputtitle">#Cred Semin Int:</td>
+		    <td ><input name="ncseminariosint_maa" type="text" id="ncseminariosint_maa" size="8" maxlength="8" class="integer" value="0.00"></td>
+		    <td class="inputtitle">&nbsp;</td>
+		    <td >&nbsp;</td>
+		    <td class="inputtitle">#Cred Trab Grad: </td>
+		    <td ><input name="nctrabgraduacion_maa" type="text" id="nctrabgraduacion_maa" size="8" maxlength="8" class="integer" value="0.00"></td>
+		    <td  class="inputtitle">&nbsp;</td>
+		    <td >&nbsp;</td>
+	      <tr><td height="23"  class="inputtitle">Activo :</td>
+            <td width="143" ><img src="../images/camporequerido.gif">
+              <select name="activo_maa" id="activo_maa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+            </select></td>
+            <td width="115" class="inputtitle">Fecha Vigencia :</td>
+            <td width="102" ><img src="../images/camporequerido.gif">
+            <input name="fecini_maa" type="text" id="fecini_maa" size="10" maxlength="10" class="date" onBlur="esconderToolTip()"></td>
+            <td class="inputtitle">Fecha Fin :</td>
+            <td ><input name="fecfin_maa" type="text" id="fecfin_maa" size="10" maxlength="10" class="string" value="0000-00-00" onBlur="esconderToolTip()"></td>
+		    <td  class="inputtitle">Fecha Resoluci&oacute;n :</td>
+		    <td ><img src="../images/camporequerido.gif">
+              <input name="fecresolucion_maa" type="text" id="fecresolucion_maa" size="10" maxlength="10" class="date" value="0000-00-00" onBlur="esconderToolTip()"></td>
+		  <tr>
+            <td height="23"  class="inputtitle">Malla B&aacute;sica: </td>
+            <td colspan="3" ><script>                var cserial_maa_p=new omnisoftComboBox('cserial_maa_p','serial_maa_p',' select 0 as serial_maa,\'- NINGUNA -\' as mallabasica UNION select serial_maa,concat(codigo_maa,\' \',nombre_maa) as mallabasica from malla where serial_maa_p=0 and serial_maa not in ('+getURLParam('serial_maa')+') and serial_car='+getURLParam('serial_car')+'  order by mallabasica','365px',true,getURLParam('serial_maa_p'));
+			
+                     cserial_maa_p.show();
+						
+					
+	            </script></td>
+            <td class="inputtitle">Observaciones :</td>
+            <td colspan="3" class="inputtitle"><input name="observaciones_maa" type="text" id="observaciones_maa" size="80" maxlength="100" class="emptystring"></td>
+          </tr>
+          <tr>
+            <td height="18" colspan="12"  bgcolor="#000166"><div align="center" class="style1">MATERIAS DE LA MALLA</div></td>
+          </tr>
+
+
+        <tr>
+            <td height="40" colspan=11><script>
+   omnisoftLoadData(document.PaginaDatos);
+
+   
+      //document.PaginaDatos.fecini_maa.value=fechaSistema();
+	//alert(getURLParam('action'));
+    var serial_maa=(getURLParam('action')=='insert')?0:getURLParam('serial_maa');
+	//alert('Serial malla'+serial_maa);
+
+   //alert(document.PaginaDatos.serial_maa.value);
+    var sql='SELECT detallemalla.serial_dma, nombre_are, nombre_mat, nombre_niv, if(materia.serial_are = 11,numerocreditos_dma, 0) AS numerocreditos_idiomas, if(materia.serial_are = 12,numerocreditos_dma, 0) AS numerocreditos_electivas, if(materia.serial_are <> 12 and materia.serial_are <> 11, numerocreditos_dma, 0) AS numerocreditos, tipocredito_dma, materia.serial_mat, area.serial_are, nivel.serial_niv, nivel.serial_sec, detallemalla.serial_maa FROM area, nivel, detallemalla, materia WHERE area.serial_are = materia.serial_are AND nivel.serial_niv = detallemalla.serial_niv AND materia.serial_mat = detallemalla.serial_mat AND serial_maa=masterkey';
+prompt('sql',sql);
+
+     omniObj=new omnisoftGridDetail('omniObj','serial_maa',serial_maa,'detallemalla','serial_dma',sql,document.PaginaDatos,Array(true,true,true),'detallemallaFormulario.html',910,550,'procesarTotales');
+		
+	 omniObj.addColumn('Serial','serial_dma', 1,'hidden','','middle','');
+	 omniObj.addColumn('Area','nombre_are', 22,'string','','middle','');
+	 omniObj.addColumn('Materia','nombre_mat', 38,'string','','middle','');
+	 omniObj.addColumn('Nivel','nombre_niv', 17,'string','','middle','');
+	 omniObj.addColumn('Créditos Idiomas','numerocreditos_idiomas', 8,'integer',Array('sum','if( materia.serial_are = 11,numerocreditos_dma, 0)'),'right','');
+	 omniObj.addColumn('Créditos Electivas','numerocreditos_electivas', 8,'integer',Array('sum','if( materia.serial_are = 12,numerocreditos_dma, 0)'),'right','');
+	 omniObj.addColumn('Créditos Básica','numerocreditos', 8,'integer',Array('sum','if( materia.serial_are <> 12 and materia.serial_are <> 11, numerocreditos_dma, 0)'),'right','');
+	 omniObj.addColumn('Tipo','tipocredito_dma ', 16,'string','','middle','');
+	 omniObj.addColumn('serial materia','serial_mat', 1,'hidden','','middle','','1');
+	 omniObj.addColumn('serial area','serial_are', 1,'hidden','','middle','','1');
+	 omniObj.addColumn('serial nivel','serial_niv', 1,'hidden','','middle','','1');
+	 omniObj.addColumn('serial seccion','serial_sec', 1,'hidden','','middle','','1');
+	 omniObj.addColumn('serial malla','serial_maa', 5,'hidden','','middle','','1');
+	
+	 omniObj.showGrid('omniObj',12,280,1020,'menu','#FF9900');
+
+
+            </script></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690">
+			 <div align="center" id="divImprimir" style="visibility:visible"><a href="#"  onClick="javascript:imprimirMalla()"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a></div>
+			</td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+omnisoftLoadData(document.PaginaDatos);
+//totalcreditostitulo_maa
+	
+	function procesarTotales(row) {
+	//alert('omniObj.....'+omniObj.grid.getFooterTemplate(4,0).getContent("box/text").element().innerHTML);
+ //document.PaginaDatos.totalcreditostitulo_maa.value=omniObj.grid.getFooterTemplate(6,1).getContent("box/text").element().innerHTML;
+ //document.PaginaDatos.creditosidiomas_maa.value=omniObj.grid.getFooterTemplate(4,1).getContent("box/text").element().innerHTML;
+ //document.PaginaDatos.creditoselectivasab_maa.value=omniObj.grid.getFooterTemplate(5,1).getContent("box/text").element().innerHTML;
+ if(getURLParam('totalcreditostitulo_maa')==0){
+ document.PaginaDatos.totalcreditostitulo_maa.value=omniObj.grid.getFooterTemplate(6,1).getContent("box/text").element().innerHTML;
+ document.PaginaDatos.creditoselectivasab_maa.value=omniObj.grid.getFooterTemplate(5,1).getContent("box/text").element().innerHTML;
+ document.PaginaDatos.creditosidiomas_maa.value=omniObj.grid.getFooterTemplate(4,1).getContent("box/text").element().innerHTML;
+ }else{
+ document.PaginaDatos.totalcreditostitulo_maa.value = getURLParam('totalcreditostitulo_maa');
+ document.PaginaDatos.creditoselectivasab_maa.value = getURLParam('creditoselectivasab_maa');
+ document.PaginaDatos.creditosidiomas_maa.value = getURLParam('creditosidiomas_maa');
+ 	  }
+	}
+
+</script>
+<script>
+//omnisoftLoadData(document.PaginaDatos);
+// var serial_maa=(getURLParam('action')=='edit')? 0:getURLParam('serial_maa');
+ var serial_malla=getURLParam('serial_maa');
+//alert(serial_malla);
+
+
+</script>
+
+</body>
+</html>

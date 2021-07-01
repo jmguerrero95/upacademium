@@ -1,0 +1,255 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftAcciones.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script>
+function seleccionarAlumno() {
+   cserial_dnal.objDBComando.sqlCommand='SELECT serial_dnal, concat( apellidopaterno_alu, \' \', apellidomaterno_alu,\' \',nombre1_alu, \' \', nombre2_alu ) AS nombres, nota_dnal, observaciones_dnal, notasalumnos.serial_dmat, detallenotasalumnos.serial_nal, detallenotasalumnos.serial_acal, alumno.serial_cale FROM notasalumnos, detallenotasalumnos, detallemateriamatriculada JOIN materiamatriculada ON detallemateriamatriculada.serial_mmat = materiamatriculada.serial_mmat JOIN alumno ON alumno.serial_alu = materiamatriculada.serial_alu WHERE detallenotasalumnos.serial_nal = notasalumnos.serial_nal AND notasalumnos.serial_dmat = detallemateriamatriculada.serial_dmat AND notasalumnos.serial_nts = '+serial_nts+' AND detallenotasalumnos.serial_acal = '+document.PaginaDatos.serial_acal.value+' ORDER BY apellidopaterno_alu, apellidomaterno_alu';
+  cserial_dnal.objDBComando.executeQuery();
+
+  }
+  
+  function notaApelada(){
+   if (getURLParam('action')=='insert')
+
+  objDB=new omnisoftDB('SELECT serial_dnal, nota_dnal, serial_dnal, detallenotasalumnos.serial_nal, notasalumnos.serial_dmat,  observaciones_dnal, detallenotasalumnos.serial_acal, alumno.serial_cale FROM notasalumnos, detallenotasalumnos, detallemateriamatriculada JOIN materiamatriculada ON detallemateriamatriculada.serial_mmat = materiamatriculada.serial_mmat JOIN alumno ON alumno.serial_alu = materiamatriculada.serial_alu WHERE detallenotasalumnos.serial_nal = notasalumnos.serial_nal AND notasalumnos.serial_dmat = detallemateriamatriculada.serial_dmat AND notasalumnos.serial_nts = '+serial_nts+' AND detallenotasalumnos.serial_acal = '+document.PaginaDatos.serial_acal.value+' AND detallenotasalumnos.serial_dnal = '+document.PaginaDatos.serial_dnal.value+' ORDER BY apellidopaterno_alu, apellidomaterno_alu','../lib/server/omnisoftSQLData.php','detalleNotaApelada');
+  setTimeout('objDB.executeQuery()',0);
+  //prompt('notaApelada','SELECT serial_dnal, nota_dnal, observaciones_dnal, notasalumnos.serial_dmat, detallenotasalumnos.serial_nal, detallenotasalumnos.serial_acal, alumno.serial_cale FROM notasalumnos, detallenotasalumnos, detallemateriamatriculada JOIN materiamatriculada ON detallemateriamatriculada.serial_mmat = materiamatriculada.serial_mmat JOIN alumno ON alumno.serial_alu = materiamatriculada.serial_alu WHERE detallenotasalumnos.serial_nal = notasalumnos.serial_nal AND notasalumnos.serial_dmat = detallemateriamatriculada.serial_dmat AND notasalumnos.serial_nts = '+serial_nts+' AND detallenotasalumnos.serial_acal = '+document.PaginaDatos.serial_acal.value+' AND detallenotasalumnos.serial_dnal = '+document.PaginaDatos.serial_dnal.value+' ORDER BY apellidopaterno_alu, apellidomaterno_alu');
+  }
+
+var serial_dnal;
+var serial_nal;
+var serial_dmat;
+var serial_acal;
+function detalleNotaApelada(data)
+{
+		 var registros=data.split('~');
+		 //alert(registros);
+		 var n=0;
+		 document.PaginaDatos.notaoriginal_nap.value=registros[1];
+		 //alert('notaoriginal: '+document.PaginaDatos.notaoriginal_nap.value);
+		 serial_dnal=registros[2];
+		 //alert('serial_dnal: '+serial_dnal);
+		 serial_nal=registros[3];
+		 //alert('serial_nal: '+serial_nal);
+		 serial_dmat=registros[4];
+		 //alert('serial_dmat: '+serial_dmat);
+		 serial_acal=registros[6];
+		 //alert('serial_acal: '+serial_acal);
+}  
+
+function actualizarNota(){
+//alert('entro_actualizarNota');
+var SQLCommand='UPDATE detallenotasalumnos set nota_dnal= '+document.PaginaDatos.notadefinitiva_nap.value+', observaciones_dnal= \'Nota Apelada\' where serial_dnal='+serial_dnal+' and serial_nal='+serial_nal+' and serial_acal='+serial_acal+'';
+
+//alert(SQLCommand);
+ //prompt('actualizarnota','UPDATE detallenotasalumnos set nota_dnal= '+document.PaginaDatos.notadefinitiva_nap.value+', observaciones_dnal= \'Nota Apelada\' where serial_dnal='+serial_dnal+' and serial_nal='+serial_nal+' and serial_acal='+serial_acal+'');
+
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftDataManager.php",'recuperarDatos');
+     objDBComando.executeQuery();
+ //recuperarDatos();
+} 
+
+function recuperarDatos(data) {
+//alert('entro_recuperarDatos');
+
+omnisoftGrabar();
+//alert('omnisoftGrabar');
+omniObj.firstPage();
+window.close();
+}
+
+
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_nap" type="hidden" id="serial_nap" class="hidden" >
+<input name="serial_nts" type="hidden" id="serial_nts" class="hidden" >
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+        ACADEMICO<br>
+        APELACIONES DE NOTAS
+      </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="153" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+	  <!--<tr>
+            <td height="18" colspan="8"  bgcolor="#000166"><div align="center" class="style1 style1">DATOS GENERALES </div></td>
+          </tr>-->
+           <tr>
+            <td height="28"  class="inputtitle">Fecha : </td>
+            <td height="28" colspan="6"><img src="../images/camporequerido.gif">
+             <input name="fecha_nap" id="fecha_nap" type="text" class="date" size="12" maxlength="13"></td>
+          </tr>
+          <tr>
+            <td height="26"  class="inputtitle">Aporte :</td>
+            <td width="344" height="26"><span class="inputtitle"><img src="../images/camporequerido.gif">
+              <script>                var cserial_acal=new omnisoftComboBox('cserial_acal','serial_acal','SELECT serial_acal, concat(abrevia_acal,\' -> \' ,nombre_acal) as aporte FROM aportescalificacion where tipo_acal = \'DIGITADO\'','260px',true,getURLParam('serial_acal'),'',seleccionarAlumno);
+                     cserial_acal.show();
+			 document.PaginaDatos.serial_acal.onchange=notaApelada;
+			 document.PaginaDatos.serial_acal.onclick=notaApelada;
+					
+	            </script>
+            </span></td>
+            <td width="95" height="26" class="inputtitle">Nota Apelada : </td>
+            <td height="26" colspan="2"><img src="../images/camporequerido.gif">
+              <input name="notaoriginal_nap" id="notaoriginal_nap" type="text" class="float" size="10" maxlength="13" readonly ></td>
+            <td width="99" class="inputtitle">Nueva Nota : </td>
+            <td width="130" height="26"><img src="../images/camporequerido.gif">
+              <input name="notadefinitiva_nap" id="notadefinitiva_nap" type="text" class="float" size="10" maxlength="13" ></td>
+          </tr>
+          <tr>
+            <td height="26"  class="inputtitle">Alumno  :</td>
+            <td height="26" colspan="6"><span ><img src="../images/camporequerido.gif">
+                <script>  
+			     
+				var cserial_dnal=new omnisoftComboBox('cserial_dnal','serial_dnal','select -99,\'SELECCIONE\' union SELECT serial_dnal, concat( apellidopaterno_alu, \' \',apellidomaterno_alu,\' \',nombre1_alu, \' \',nombre2_alu ) AS alumno FROM notasalumnos, detallenotasalumnos, detallemateriamatriculada JOIN materiamatriculada ON detallemateriamatriculada.serial_mmat = materiamatriculada.serial_mmat JOIN alumno ON alumno.serial_alu = materiamatriculada.serial_alu WHERE detallenotasalumnos.serial_nal = notasalumnos.serial_nal AND notasalumnos.serial_dmat = detallemateriamatriculada.serial_dmat AND notasalumnos.serial_nts = '+getURLParam('serial_nts','iframe')+' AND detallenotasalumnos.serial_acal = '+getURLParam('serial_acal')+' ORDER BY apellidopaterno_alu, apellidomaterno_alu','250px',true,getURLParam('serial_dnal'),'',notaApelada); 
+                     cserial_dnal.show();
+	            </script>
+            </span></td>
+          </tr>
+          <tr>
+            <td height="26"  class="inputtitle">Guardar Acta Apelaci&oacute;n:</td>
+            <td height="26" colspan="3" class="inputtitle">
+              <input name="apelacionacta_nap" type="text" id="apelacionacta_nap"  class="emptytext" size="30" maxlength="35">
+            <a href="#" onClick="cargarDocumento()">
+            <image alt="Cargar Documento" src="../images/buscar.png" width="20" heigth="20" name="documento">
+            </a></td>
+            <td height="26" colspan="4" class="inputtitle"><a href="javascript:verDocumento();">Ver 
+	  Documento</a></td>
+          </tr>
+          
+
+          <tr>
+            <td width="137" height="25"  class="inputtitle">Observaciones : </td>
+            <td colspan="6"><input name="observaciones_nap" type="text" id="observaciones_nap" size="120" maxlength="150" class="emptystring" value="NINGUNA"></td>
+          </tr>
+
+          
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="actualizarNota()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href=" javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+function cargarDocumento() {
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportFileApelacionActas.php?campoarchivo=apelacionacta_nap&archivo='+document.PaginaDatos.apelacionacta_nap.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+function verDocumento() {
+   var attributes='width=550,height=250,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no, copyhistory=no, statusbar=no';
+                   omnisoftNewWindow=window.open('../apelacionactas/'+document.PaginaDatos.apelacionacta_nap.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+}
+</script>
+<script>
+
+omnisoftLoadData(document.PaginaDatos);
+var serial_nts=opener.PaginaDatos.serial_nts.value;
+	//alert('serial_nts:'+serial_nts);
+	document.PaginaDatos.serial_nts.value=serial_nts;
+	//alert('serial_nts:'+document.PaginaDatos.serial_nts.value);
+
+ if (getURLParam('action')=='insert')
+      document.PaginaDatos.fecha_nap.value=fechaSistema();	
+
+seleccionarAlumno();
+notaApelada();	  	
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script></head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_rac" type="hidden" id="serial_rac" class="hidden">
+
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          RECURSOS HUMANOS<br>
+          REGISTRO DE ACCIDENTES
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="196" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="28" class="inputtitle" >C&oacute;digo : </td>
+            <td colspan="5" class="inputtitle" ><img src="../images/camporequerido.gif">
+            <input name="codigo_rac" type="text" id="codigo_rac" class="string" size="8" maxlength="8"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+      <td width="114" height="28" class="inputtitle" >Nombre : </td>
+      <td colspan="3" class="inputtitle" ><img src="../images/camporequerido.gif">
+      <script>                
+	  var cserial_epl=new omnisoftComboBox('cserial_epl','serial_epl','select serial_epl,concat(apellido_epl,\' \',nombre_epl)as empleados from empleado order by apellido_epl','255px',true,getURLParam('serial_epl'));
+                     cserial_epl.show();
+	          </script></td>
+      <td width="103" class="inputtitle">Fecha : </td>
+      <td width="283" class="inputtitle"><img src="../images/camporequerido.gif">
+        <input name="fecha_rac" type="text" id="fecha_rac" class="date" size="12" maxlength="12"  onBlur="esconderToolTip()"></td>
+    </tr>
+    
+    <tr>
+      <td height="24" class="inputtitle" >Descripci&oacute;n : </td>
+      <td height="24" colspan="5" class="inputtitle" ><img src="../images/camporequerido.gif">
+      <input name="descripcion_rac" type="text" id="descripcion_rac" class="string" size="130" maxlength="200"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px" ></td>
+    </tr>
+    <tr>
+      <td height="26" class="inputtitle" >Lugar : </td>
+      <td height="26" colspan="3" class="inputtitle" ><img src="../images/camporequerido.gif"><select name="lugar_rac" id="lugar_rac" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="TALLER DE MANTENIMIENTO">Taller de Mantenimiento</option>
+          <option value="PATIOS">Patios</option>
+		  <option value="RECEPCION">Recepcion</option>
+          <option value="OFICINAS ADMINISTRATIVAS">Oficinas Administrativas</option>
+		  <option value="PASTEURIZACION">Pasteurizacion</option>
+          <option value="ENVASADO PASTEURIZACION">Envasado Pasteurizacion</option>
+		  <option value="CASA DE FUERZA">Casa de Fuerza</option>
+          <option value="UHT">UHT</option>
+		  <option value="BODEGAS">Bodegas</option>
+          <option value="VIA PUBLICA">Via Publica</option>
+		  <option value="BANOS - VESTIDORES">Banos - Vestidores</option>
+          <option value="OTROS">Otros</option>
+        </select></td>
+      <td class="inputtitle">Causa : </td>
+      <td class="inputtitle"><img src="../images/camporequerido.gif">
+        <select name="causa_rac" id="causa_rac" readonly class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="ACTO INSEGURO - NO SABER">Acto Inseguro - No saber</option>
+          <option value="ACTO INSEGURO - NO QUERER">Acto Inseguro - No querer</option>
+          <option value="ACTO INSEGURO - NO PODER">Acto Inseguro - No poder</option>	
+		  <option value="NORMAS EXISTENTES">Normas existentes</option>
+          <option value="NORMAS INADECUADAS">Normas inadecuadas</option>
+          <option value="DESGASTE NORMAL DE MAQUINARIA">Desgaste normal de maquinaria</option>	
+		  <option value="DISENO, FABRICACION E INSTALACION DEFECTUOSA">Diseno, fabricacion e instalacion defectuosa</option>
+          <option value="USO ANORMAL DE MAQUINA E INSTALACIONES">Uso anormal de maquina e instalaciones</option>
+		  <option value="DESCONOCIDA">Desconocida</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td height="30" class="inputtitle" >Categorización : </td>
+      <td height="30" colspan="3" class="inputtitle" ><img src="../images/camporequerido.gif">
+        <select name="clasificacion_rac" id="clasificacion_rac" readonly class="combo" style="font-family:Tahoma; font-size:10px">
+        <option value="POR GOLPE">Por Golpe</option>
+        <option value="POR ATRAPAMIENTO">Por Atrapamiento</option>
+        <option value="POR CONTACTO">Por Contacto</option>
+        <option value="POR PEGAR CONTRA">Por Pegar Contra</option>
+        <option value="POR CONTACTO CON">Por Contacto Con</option>
+        <option value="POR PRENDIMIENTO">Por Prendimiento</option>
+        <option value="POR CAIDA A NIVEL">Por caida a nivel</option>
+        <option value="POR CAIDA DE DESNIVEL">Por caida de desnivel</option>
+		<option value="POR APRISIONAMIENTO">Por aprisionamiento</option>
+      </select></td>
+      <td class="inputtitle">Consecuencia : </td>
+      <td class="inputtitle"><img src="../images/camporequerido.gif">
+        <select name="consecuencia_rac" id="consecuencia_rac" class="combo" style="font-family:Tahoma; font-size:10px">
+		<option value="NINGUNA">Ninguna</option>
+        <option value="LESIONES LEVES">Lesiones Leves</option>
+		<option value="LESIONES GRAVES">Lesiones Graves</option>
+        <option value="QUEMADURA">Quemadura</option>
+		<option value="INTOXICACION">Intoxicacion</option>
+        <option value="DESMAYO">Desmayo</option>
+        <option value="HERIDA">Herida</option>
+        <option value="ALERGIA">Alergia</option>
+        <option value="INCAPACIDAD">Incapacidad</option>
+        <option value="DESMEMBRAMIENTO">Desmembramiento</option>
+        <option value="CEGUERA">Ceguera</option>
+        <option value="ASFIXIA">Asfixia</option>
+		<option value="MUERTE">Muerte</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td height="32" class="inputtitle" >Acciones a Tomar : </td>
+      <td height="32" colspan="3" class="inputtitle" ><img src="../images/camporequerido.gif">
+        <select name="acciones_rac" id="acciones_rac" readonly class="combo" style="font-family:Tahoma; font-size:10px">
+        <option value="NINGUNA">Ninguna</option>
+        <option value="BOTIQUIN PRIMEROS AUXILIOS">Botiquin Primeros Auxilios</option>
+        <option value="AEPIC">AEPIC</option>
+        <option value="IESS">IESS</option>
+        <option value="Clinica Privada">Clinica Privada</option>
+        </select></td>
+      <td class="inputtitle">Observaciones : </td>
+      <td class="inputtitle"><input name="observaciones_rac" type="text" id="observaciones_rac" class="emptystring" size="60" maxlength="60"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px" ></td>
+    </tr>
+    <tr>
+      <td height="26" class="inputtitle" >Baja : </td>
+      <td width="134" height="26" class="inputtitle" ><img src="../images/camporequerido.gif">
+        <select name="baja_rac" id="baja_rac" class="comboBox">
+        <option value="NO">NO</option>
+		<option value="SI">SI</option>
+        
+      </select></td>
+      <td width="59" class="inputtitle" >Tiempo : </td>
+      <td width="98" class="inputtitle" ><input name="tiempo_rac" type="text" id="tiempo_rac" class="emptystring" size="10" maxlength="10"  value="0" onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px" ></td>
+      <td class="inputtitle">Costo Accidente : </td>
+      <td class="inputtitle"><input name="costo_rac" type="text" id="costo_rac" class="integer" size="10" maxlength="10" value="0"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px" ></td>
+    </tr>
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script type="text/javascript">
+	Calendar.setup({
+		inputField     :    "fecha_rac",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    true,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+
+	
+</script>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

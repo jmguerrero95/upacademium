@@ -1,0 +1,230 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script type="text/javascript" src="../lib/fisheyes/jquery.js"></script>
+<script type="text/javascript" src="../lib/fisheyes/interface.js"></script>
+
+
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+
+
+<!--[if lt IE 7]>
+ <style type="text/css">
+ .dock img { behavior: url(../lib/fisheyes/iepngfix.htc) }
+ </style>
+<![endif]-->
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+</HEAD>
+<BODY onLoad="initDisableRight();"  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td height="541" valign="top">
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top">
+                    <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td>                    <td width="482"  class="toptitle" > <center>
+<br>
+                        EVALUACIONES
+                    </center></td>
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>  <td height="20" class="menuborder" >
+		<ul id="myMenu" class='zpHideOnLoad'>            </ul>        <script>
+           //   OmnisoftPerfilUsuario(moduloEvaluacion);
+            </script>
+</td>
+
+          </tr>
+          <tr>            <td height="412" valign="top" >
+			<div align="center">
+                <table width="100%" height="447" border="0" align="center" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="1123" height="447" colspan="2" >
+        <script>
+		
+	var query=parent.location.href.split('|');
+	
+	var sucursal = getCookie('serial_suc');
+	var tipoevaluacion = query[1];	
+	var periodo = query[2];
+	var paradicional = query[3];
+
+//	alert(tipoevaluacion);
+//alert(sucursal + " /tipo " + query[1] + " /periodo " + query[2] + " /alumno " + query[3]);
+		
+
+if (tipoevaluacion==1){
+	if(paradicional=='TODOS'){	
+		paradicional = "";	
+	}
+	else{
+			paradicional = 'and alumno.serial_alu =' + paradicional;
+	}
+		
+	var sqlCommand='SELECT  serial_ceva, apellido_epl, nombre_epl,  tipo_teva, apellidopaterno_alu, apellidomaterno_alu, nombre1_alu, nombre2_alu, nombre_mat, nombre_per from cabecera_evaluacion, tipo_evaluadores, empleado, detallemateriamatriculada, materiamatriculada, periodo, alumno, materia where cabecera_evaluacion.SERIAL_TEVA =' +  tipoevaluacion + ' and cabecera_evaluacion.serial_epl = empleado.serial_epl and cabecera_evaluacion.SERIAL_TEVA = tipo_evaluadores.SERIAL_TEVA and detallemateriamatriculada.SERIAL_DMAT = cabecera_evaluacion.SERIAL_DMAT and detallemateriamatriculada.serial_mmat = materiamatriculada.serial_mmat and  materiamatriculada.serial_per = periodo.serial_per  and materiamatriculada.serial_per = '+ periodo +' and materiamatriculada.serial_suc = '+ sucursal +' and materiamatriculada.serial_alu = alumno.serial_alu and detallemateriamatriculada.SERIAL_MAT = materia.SERIAL_MAT ' + paradicional;
+//alert(sqlCommand);
+		   
+	  omniObj=new omnisoftGrid('omniObj','activosfijos','serial_ceva',sqlCommand,'',1020,550,'',1020,550,Array(false,false,false));
+		
+	  omniObj.addColumn('Serial','serial_ceva', 1,'hidden','','middle','#ffffcc');
+	  omniObj.addColumn('Apellido del Profesor','apellido_epl', 20,'string','','middle','#ffffcc');
+  	  omniObj.addColumn('Nombre del Profesor','nombre_epl', 20,'string','','middle','#ffffcc');	  
+	  omniObj.addColumn('Evaluacion echa por:','tipo_teva', 20,'string','','middle','#ffffcc');  
+	  omniObj.addColumn('Primer Apellido','apellidopaterno_alu', 12,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Segundo Apellido','apellidomaterno_alu', 12,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Primer Nombre','nombre1_alu', 12,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Segundo Nombre','nombre2_alu', 12,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Materia','nombre_mat', 25,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Periodo','nombre_per', 25,'string','','middle','#ffffcc');  
+	  omniObj.showGrid('omniObj',20,482,1020,'menu','#FF9900');
+		  
+}
+if (tipoevaluacion==2){
+	if(paradicional=='TODOS'){	
+		paradicional = "";				
+	}
+	else{
+		paradicional = ' and ce.serial_epl ='+ paradicional		
+	}
+
+	//var sqlCommand= 'select serial_ceva, tipo_teva,concat_ws(" ", apellido_epl, nombre_epl) as profesor, nombre_mat, nombre_per from tipo_evaluadores, cabecera_evaluacion, periodo, empleado, materia where cabecera_evaluacion.serial_teva = ' +  tipoevaluacion + ' and periodo.serial_per = '+ periodo +' and periodo.serial_suc = '+ sucursal + paradicional +' and cabecera_evaluacion.serial_epl = empleado.serial_epl and cabecera_evaluacion.serial_teva = tipo_evaluadores.serial_teva and cabecera_evaluacion.serial_mat = materia.serial_mat';
+	var sqlCommand= 'select ce.serial_ceva, apellido_epl, nombre_epl,  mat.nombre_mat, hrr.NOMBREHORARIO_HRR from cabecera_evaluacion as ce, empleado as epl, materia as mat, horario as hrr where epl.SERIAL_EPL = ce.SERIAL_EPL and hrr.SERIAL_HRR = ce.SERIAL_HRR and mat.serial_mat = ce.SERIAL_MAT and estado_hrr=\'ACTIVO\' and ce.SERIAL_PER = '+ periodo +' and ce.SERIAL_TEVA = 2' + paradicional
+
+//	prompt("",sqlCommand);
+	//alert (sqlCommand)
+	
+	  omniObj=new omnisoftGrid('omniObj','activosfijos','serial_ceva',sqlCommand,'',1020,550,'',1020,550,Array(false,false,false));
+	
+	  omniObj.addColumn('Serial','serial_ceva', 1,'hidden','','middle','#ffffcc');
+	  omniObj.addColumn('Apellido del Profesor','apellido_epl', 30,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Nombre del Profesor','nombre_epl', 30,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Materia','nombre_mat', 40,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Horario','NOMBREHORARIO_HRR', 40,'string','','middle','#ffffcc');
+	  
+	  omniObj.showGrid('omniObj',20,482,1020,'menu','#FF9900');
+
+} 
+
+if (tipoevaluacion==3){
+	
+	if(paradicional=='TODOS'){	
+		paradicional = "";		
+		//alert(paradicional);
+	}
+	else{
+		paradicional = ' and cabecera_evaluacion.serial_epl ='+ paradicional
+		//alert(paradicional);		
+	}
+
+	var sqlCommand= 'select ce.serial_ceva, apellido_epl, nombre_epl,  mat.nombre_mat, hrr.NOMBREHORARIO_HRR from cabecera_evaluacion as ce, empleado as epl, materia as mat, horario as hrr where epl.SERIAL_EPL = ce.SERIAL_EPL and hrr.SERIAL_HRR = ce.SERIAL_HRR and mat.serial_mat = ce.SERIAL_MAT  and  estado_hrr=\'ACTIVO\' and ce.SERIAL_PER = '+ periodo +' and ce.SERIAL_TEVA = 3' + paradicional
+
+//	prompt("",sqlCommand);
+	//alert (sqlCommand)
+	
+	  omniObj=new omnisoftGrid('omniObj','activosfijos','serial_ceva',sqlCommand,'',1020,550,'',1020,550,Array(false,false,false));
+	
+	  omniObj.addColumn('Serial','serial_ceva', 1,'hidden','','middle','#ffffcc');
+	  omniObj.addColumn('Apellido del Profesor','apellido_epl', 20,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Nombre del Profesor','nombre_epl', 20,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Materia','nombre_mat', 30,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Horario','NOMBREHORARIO_HRR', 30,'string','','middle','#ffffcc');
+	  
+	  omniObj.showGrid('omniObj',20,482,1020,'menu','#FF9900');
+
+} 
+
+
+if (tipoevaluacion==4){
+//var sqlCommand= 'SELECT serial_ceva, concat_ws(" ",apellido_epl,nombre_epl) as profesor, nombre_per, NOMBREHORARIO_HRR, nombre_are, serial_jar, jefearea.serial_epl from cabecera_evaluacion, empleado, periodo, horario, area, jefearea where cabecera_evaluacion.serial_epl = empleado.serial_epl and cabecera_evaluacion.serial_per = periodo.serial_per and cabecera_evaluacion.serial_hrr = horario.serial_hrr and horario.serial_are = area.serial_are and area.serial_are = jefearea.serial_are and serial_jar = '+ paradicional +' and cabecera_evaluacion.serial_per = '+ periodo +' and periodo.serial_suc = '+ sucursal +' and cabecera_evaluacion.serial_teva = 4';
+if(paradicional=='TODOS'){	
+		paradicional = "";		
+		//alert(paradicional);
+	}
+	else{
+		paradicional = ' and ja.serial_jar ='+ paradicional
+		//alert(paradicional);		
+	}
+	
+var sqlCommand= 'select ce.serial_ceva, epl.APELLIDO_EPL, epl.NOMBRE_EPL, ar.nombre_are, hrr.NOMBREHORARIO_HRR ,ce.SERIAL_CEVA from  area as ar, horario as hrr, empleado as epl, cabecera_evaluacion as ce where  hrr.SERIAL_ARE = ar.serial_are and hrr.SERIAL_EPL = epl.SERIAL_EPL  and  estado_hrr=\'ACTIVO\' and  ce.SERIAL_PER = '+ periodo +' and hrr.SERIAL_HRR = ce.SERIAL_HRR '+ paradicional +' and ce.SERIAL_TEVA = 4'
+
+ // alert(sqlCommand);	  
+  
+	  omniObj=new omnisoftGrid('omniObj','activosfijos','serial_ceva',sqlCommand,'',1020,550,'',1020,550,Array(false,false,false));
+	
+	  omniObj.addColumn('Serial','serial_ceva', 1,'hidden','','middle','#ffffcc');
+	  omniObj.addColumn('Apellido del Profesor','APELLIDO_EPL', 30,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Nombre del Profesor','NOMBRE_EPL', 30,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Area','nombre_are', 30,'string','','middle','#ffffcc');
+	  omniObj.addColumn('Horario','NOMBREHORARIO_HRR', 30,'string','','middle','#ffffcc');
+	  
+	  omniObj.showGrid('omniObj',20,482,1020,'menu','#FF9900');
+ 
+}
+
+</script></td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<table width="100%" height="58"  cellpadding="0" cellspacing="0" >
+<tr>
+<td class="menuborder"> </td>
+</tr>
+</table>
+</body>
+
+              
+</HTML>

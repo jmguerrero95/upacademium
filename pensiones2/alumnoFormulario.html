@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          PENSIONES <br>
+          ASIGNACION DE BECAS Y DESCUENTOS A ALUMNOS
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="62" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="148" height="21"  class="inputtitle">Apellido Paterno:</td>
+            <td width="297"><input name="apellidopaterno_alu" type="text" id="apellidopaterno_alu" readonly="yes" size="30" maxlength="40" onBlur="esconderToolTip()"    ></td>
+            <td width="125" class="inputtitle">Apellido Materno:</td>
+            <td width="225"><input name="apellidomaterno_alu" type="text" id="apellidomaterno_alu" readonly="yes" size="30" maxlength="40" onBlur="esconderToolTip()"    ></td>
+          </tr>
+
+          <tr>
+            <td height="18"  class="inputtitle">Nombre Paterno:</td>
+            <td ><input name="nombre1_alu" type="text" id="nombre1_alu" readonly="yes" size="30" maxlength="40" onBlur="esconderToolTip()"    ></td>
+            <td class="inputtitle" >Nombre Materno:</td>
+            <td ><input name="nombre2_alu" type="text" id="nombre2_alu" readonly="yes" size="30" maxlength="40" onBlur="esconderToolTip()"    ></td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Periodo :</td>
+            <td  >    <img  src="../images/camporequerido.gif">   	    <script>
+  var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per, nombre_per from periodo as per where   serial_suc ='+getCookie('serial_suc')+' order by nombre_per asc','250px',true,getURLParam('serial_per'));
+                  cserial_per.show();	  
+                    	  </script>	</td>
+						  
+			
+			<td>CREDITO IES
+				<img src="../images/camporequerido.gif">			  
+			  	<select name="ies_alu" id="ies_alu" class="combobox">
+				<option value=""></option>
+				<option value="SI">SI</option>
+                <option value="NO" selected="selected">NO</option>
+              </select>			  
+			</td> 
+			
+			<td>CREDITO IECE
+				<img src="../images/camporequerido.gif">			  
+			  	<select name="iece_alu" id="iece_alu" class="combobox">
+				<option value=""></option>
+				<option value="SI">SI</option>
+                <option value="NO" selected="selected">NO</option>
+              </select>			  
+			</td> 
+			  
+          </tr>
+
+
+
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30"  align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	document.PaginaDatos.apellidopaterno_alu.value=getURLParam('apellidopaterno_alu');
+	document.PaginaDatos.apellidomaterno_alu.value=getURLParam('apellidomaterno_alu');
+	document.PaginaDatos.nombre1_alu.value=getURLParam('nombre1_alu');
+	document.PaginaDatos.nombre2_alu.value=getURLParam('nombre2_alu');
+	document.PaginaDatos.iece_alu.value=getURLParam('iece_alu');
+	document.PaginaDatos.ies_alu.value=getURLParam('ies_alu');
+	
+	
+
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

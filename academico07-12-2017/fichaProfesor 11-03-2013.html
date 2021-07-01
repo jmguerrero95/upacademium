@@ -1,0 +1,219 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script type="text/javascript" src="../lib/fisheyes/jquery.js"></ script>
+<script type="text/javascript" src="../lib/fisheyes/interface.js"></script>
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript1.2" src="../lib/jscalendar/calendar.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/lang/calendar-es.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/calendar-setup.js" ></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+
+
+<!--[if lt IE 7]>
+ <style type="text/css">
+ .dock img { behavior: url(../lib/fisheyes/iepngfix.htc) }
+ </style>
+<![endif]-->
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+</HEAD>
+<BODY onLoad="initDisableRight();"  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td height="541" valign="top">
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top">
+                    <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td>                    <td width="482"  class="toptitle" > <center>
+MODULO
+                        ACADEMICO<br>FICHA DE PROFESORES</center></td>
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>  <td height="20" class="menuborder" >
+		<ul id="myMenu" class='zpHideOnLoad'>            </ul>        <script>
+              OmnisoftPerfilUsuario(moduloAcademico);
+            </script>
+</td>
+
+          </tr>
+          <tr>            <td height="412" valign="top" >
+			<div align="center">
+                <table width="100%" height="447" border="0" align="center" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="1123" height="447" colspan="2" >
+        <script>
+
+  var sql = 'select e.serial_epl, codigo_epl, suc.nombre_suc, apellido_epl, nombre_epl, direccion_epl, sexo_epl, generarol_epl, tipoEmpleado_epl, documentoIdentidad_epl, estadoCivil_epl, fechaIngreso_epl, telefonoTrabajo_epl, extension_epl, telefonoPersonal_epl, celular_epl, email_epl, estadoEmpleado_epl, titulacion_epl, nombre_tct, e.formaContrato_epl, disepl.tipo_disepl, disepl.carnet_conadis_disepl, disepl.num_carnet_dispel, disepl.porcentaje_disepl, disepl.serial_disepl, nombre_ciu, tipoDocumento_epl, documentoMilitar_epl, fechaSalida_epl, fechaVencimientoContrato_epl, comisiones_epl, foto_epl, contrato_epl, copiaCedula_epl, copiaPapeleta_epl, copiaLibreta_epl, curriculum_epl, copiaTitulo_epl, copiasReferencias_epl, tipoCuentaBanco_epl, numeroCuentaBanco_epl, porcentajeCostoAcumulado_epl, porcentajeCentroCostoAcumulado_epl, diasVacaciones_epl, estado_epl, elaboradoPor_epl, modificadoPor_epl, fechaModificacion_epl, aprobadoPor_epl, fechaAprobacion_epl, e.doccurriculum_epl, e.serial_ifi, e.serial_tct, e.serial_esc, fecha_epl, fechaNacimiento_epl, tipoLicencia_epl, e.asistencia_epl, discapacitado_epl,  e.usuario_epl, e.contrasenia_epl, e.EMAILUNIV_EPL, e.recordAcademico_epl, catprof_epl, e.serial_ciu, e.serial_prv, e.serial_par, e.serial_suc,  e.serial_ciu_epl, e.serial_pai, e.serial_nac, e.serial_esc FROM sucursal as suc, empleado e LEFT JOIN ciudad ciu ON ciu.serial_ciu = e.serial_ciu_epl LEFT JOIN provincia pr ON pr.serial_prv = ciu.serial_prv LEFT JOIN pais pa ON pa.serial_pai = pr.serial_pai LEFT JOIN escalafones es ON  e.serial_esc=es.serial_esc LEFT JOIN cargos car ON es.serial_car=car.serial_car LEFT JOIN institucionesfinancieras ifi ON e.serial_ifi = ifi.serial_ifi  LEFT JOIN discapacidad_epl disepl ON e.serial_epl = disepl.serial_epl LEFT JOIN tipocontratostrabajo tct ON e.serial_tct = tct.serial_tct where suc.serial_suc = e.serial_suc and tipoEmpleado_epl=\'PROFESOR\'and prospecto_epl =\'NO\' ';
+  
+  // prompt("",sql);
+   omniObj=new omnisoftGrid('omniObj','empleado','serial_epl',sql,'fichaProfesorsFormulario.html',1020,668,'fichaProfesorsFormulario.html',1020,668,Array(false,false,false));
+
+   omniObj.addColumn('Serial','serial_epl', 10,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Codigo','codigo_epl', 14,'readonly','','middle','#ffffcc');
+    omniObj.addColumn('Sucursal','nombre_suc', 11,'readonly','','middle','#ffffcc');
+
+   omniObj.addColumn('Apellido','apellido_epl', 20,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Nombre','nombre_epl', 20,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Direccion','direccion_epl', 20,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Sexo','sexo_epl', 12,'string','','middle','#ffffcc');
+     omniObj.addColumn('Genera Rol','generarol_epl', 8,'readonly','','middle','#ffffcc');
+   //omniObj.addColumn('Departamento','descripcion_dep', 20,'string','','middle','#ffffcc');
+   omniObj.addColumn('Tipo Empleado','tipoEmpleado_epl', 11,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Doc.Identidad','documentoIdentidad_epl', 9,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Estado Civil','estadoCivil_epl', 12,'string','','middle','#ffffcc');
+   omniObj.addColumn('Ingreso','fechaIngreso_epl', 12,'string','','middle','#ffffcc');
+   omniObj.addColumn('Telf Trabajo','telefonoTrabajo_epl', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Extension','extension_epl', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Telf Personal','telefonoPersonal_epl', 15,'integer','','middle','#ffffcc');
+   omniObj.addColumn('No Celular','celular_epl', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Email','email_epl', 9,'string','','middle','#ffffcc');
+   omniObj.addColumn('Estado','estadoEmpleado_epl', 8,'string','','middle','#ffffcc');
+   omniObj.addColumn('Titulacion','titulacion_epl', 15,'string','','middle','#ffffcc');
+   omniObj.addColumn('Relación Laboral Contrato','nombre_tct', 20,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Forma Contrato','formaContrato_epl', 15,'readonly','','middle','#ffffcc');
+   
+   
+   omniObj.addColumn('Tipo Discapacidad','tipo_disepl', 15,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Carnet Conadis','carnet_conadis_disepl', 15,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Num. cardet Conadis','num_carnet_dispel', 15,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Porcentaje Discap.','porcentaje_disepl', 15,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('serial_esc','serial_disepl', 5,'string','','middle','#ffffcc');
+   
+   omniObj.addColumn('Tipo Dcto','tipoDocumento_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Documento Militar','documentoMilitar_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Fecha Salida','fechaSalida_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Vencimiento Contrato','fechaVencimientoContrato_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Comisiones','comisiones_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Foto','foto_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Contrato','contrato_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Copia Cedula','copiaCedula_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Copia Papeleta','copiaPapeleta_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Copia Libreta','copiaLibreta_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('curriculum','curriculum_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Copia Titulo','copiaTitulo_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Copia Referencias','copiasReferencias_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Tipo Cuenta Banco','tipoCuentaBanco_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Numero Cuenta Banco','numeroCuentaBanco_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('porcentajeCostoAcum','porcentajeCostoAcumulado_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('PCentCostAcum','porcentajeCentroCostoAcumulado_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('diasVacaciones_epl','diasVacaciones_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('estado_epl','estado_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Elaborado Por','elaboradoPor_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Modificado Por','modificadoPor_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Fecha Modificacion','fechaModificacion_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Aprobado Por','aprobadoPor_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Fecha Aprobacion','fechaAprobacion_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Doc Curriculum','doccurriculum_epl', 1,'hidden','','middle','#ffffcc');
+   
+
+  
+   
+   //omniObj.addColumn('serial_desc','serial_desc', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_ifi','serial_ifi', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('e.serial_tct','serial_tct', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('e.serial_esc','serial_esc', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('fecha_epl','fecha_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('fechaNacimiento_epl','fechaNacimiento_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('tipoLicencia_epl','tipoLicencia_epl', 1,'hidden','','middle','#ffffcc');
+   //omniObj.addColumn('serial_prv','serial_prv', 1,'hidden','','middle','#ffffcc');
+   //omniObj.addColumn('serial_pai','serial_pai', 1,'hidden','','middle','#ffffcc');
+   //omniObj.addColumn('parroquia_epl','parroquia_epl', 1,'hidden','','middle','#ffffcc');
+   //omniObj.addColumn('serial_ciu','ciudad_ciu', 1,'hidden','','middle','#ffffcc');
+   //omniObj.addColumn('serial_suc','serial_suc', 1,'hidden','','middle','#ffffcc');
+   //omniObj.addColumn('serial_dep','serial_dep', 1,'hidden','','middle','#ffffcc');
+   //omniObj.addColumn('serial_car','serial_car', 1,'hidden','','middle','#ffffcc');
+   //omniObj.addColumn('prospecto_epl','prospecto_epl', 1,'hidden','','middle','#ffffcc');
+   //omniObj.addColumn('horasMes_epl','horasMes_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('asistencia_epl','asistencia_epl', 1,'hidden','','middle','#ffffcc');
+   //omniObj.addColumn('sistemaSalarioNeto_epl','sistemaSalarioNeto_epl', 1,'hidden','','middle','#ffffcc');
+   //omniObj.addColumn('horasDia_epl','horasDia_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('discapacitado_epl','discapacitado_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('usuario','usuario_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('passw','contrasenia_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Emailuni','EMAILUNIV_EPL', 1,'hidden','','middle','#ffffcc');   
+   omniObj.addColumn('Record Academico','recordAcademico_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Categoria','catprof_epl', 1,'hidden','','middle','#ffffcc');
+   
+   omniObj.addColumn('serial_ciu','serial_ciu', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_prv','serial_prv', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_par','serial_par', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_suc','serial_suc', 1,'hidden','','middle','#ffffcc');
+   
+   omniObj.addColumn('serial_ciu_epl','serial_ciu_epl', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_pai','serial_pai', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_nac','serial_nac', 1,'hidden','','middle','#ffffcc');   
+   omniObj.addColumn('serial_esc','serial_esc', 1,'hidden','','middle','#ffffcc');   
+ 
+   
+   omniObj.showGrid('omniObj',20,492,1020,'menu','#FF9900');
+
+
+
+</script></td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<table width="100%" height="58"  cellpadding="0" cellspacing="0" >
+<tr>
+<td class="menuborder"> </td>
+</tr>
+</table>
+
+
+
+</HTML>

@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/jscalendar/calendar.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/lang/calendar-es.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/calendar-setup.js" ></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+</head>
+
+<body >
+  <table width="1020" border="0" cellspacing="0" cellpadding="0" >
+
+    <tr  >
+      <td width="160" height="52"  class="ingeniumtoptitle"></td>
+      <td width="526"  class="maintoptitle fonttitle"><center>
+          ACTIVOS FIJOS DEPRECIACIONES<br>
+      <script>
+	  document.write(getURLParam('nombre_acf'));
+	   </script>
+
+
+      </center></td>
+      <td width="86"  class="logotoptitle"></td>
+    </tr>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_acf" type="hidden" id="serial_acf" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+				          document.PaginaDatos.serial_acf.value=getURLParam('serial_acf');
+
+
+      var serial_acf=document.PaginaDatos.serial_acf.value;
+      var sql='SELECT SERIAL_DDP, FECHA_DEPR,   DEPRECIACIONINICIAL_ACF, DEPRECIACIONMENSUAL_DDP, DEPRECIACIONACUMULADA_DDP,VALOR_ACF,VALOR_DDP,IF(VALOR_DDP=0 or ESTADO_ACF=\'BAJA\',0,VIDAUTIL_ACF*12-ROUND(DATEDIFF(FECHA_DEPR,FECHADEPRECIACION_ACF)/30,0))as MESESRESTANTES,ESTADO_DDP,detalledepreciaciones.SERIAL_ACF,detalledepreciaciones.SERIAL_DEPR from activosfijos,depreciaciones,detalledepreciaciones where activosfijos.serial_acf=detalledepreciaciones.serial_acf and detalledepreciaciones.serial_depr=depreciaciones.serial_depr and  detalledepreciaciones.serial_acf=masterkey';
+
+     omniObj=new omnisoftGridDetail('omniObj','serial_acf',serial_acf,'depreciaciones,detalledepreciaciones','serial_ddp',sql,document.PaginaDatos,Array(false,false));
+     omniObj.addColumn('Serial','serial_ddp', 10,'hidden','','middle','');
+     omniObj.addColumn('Fecha','fecha_depr', 12,'readonly','','middle','');
+     omniObj.addColumn('Depreciacion Inicial','depreciacioninicial_acf', 15,'readonly','','middle','');
+     omniObj.addColumn('Depreciacion Mensual','depreciacionmensual_ddp', 15,'readonly','','middle','');
+     omniObj.addColumn('Depreciacion Acumulada','depreciacionacumulada_ddp', 15,'readonly','','middle','');
+     omniObj.addColumn('Valor Compra','valor_acf', 15,'readonly','','middle','');
+     omniObj.addColumn('Valor Actual','valor_ddp', 15,'readonly','','middle','');
+     omniObj.addColumn('Meses a Depreciar','tiempoRestante_ddp', 15,'readonly','','middle','');
+     omniObj.addColumn('Estado','estado_ddp', 15,'readonly','','middle','');
+     omniObj.addColumn('serial_acf','serial_acf', 5,'hidden','','middle','','1');
+     omniObj.addColumn('serial_depr','serial_depr', 5,'hidden','','middle','','1');
+
+     omniObj.showGrid('omniObj',20,448,1020,'menu','#FF9900');
+
+
+
+
+ </script> </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</table>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_cli" type="hidden" id="serial_cli" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+   omnisoftLoadData(document.PaginaDatos,'iframe');
+
+      var serial_cli=document.PaginaDatos.serial_cli.value;
+      var sql='select  serial_ccl,cedula_ccl,apellido_ccl,nombre_ccl,cargo_ccl,telefonocasa_ccl,telefonooficina_ccl,fax_ccl,celular_ccl,email_ccl from clientecontacto where clientecontacto.serial_cli=masterkey';
+      omniObj=new omnisoftGridDetail('omniObj','serial_cli',serial_cli,'clienteContacto','serial_ccl',sql,document.PaginaDatos);
+
+
+     omniObj.addColumn('Serial','serial_ccl', 10,'hidden','','middle','');
+     omniObj.addColumn('Cedula','cedula_ccl', 13,'string','','middle','');
+     omniObj.addColumn('Apellido','apellido_ccl', 15,'string','','middle','');
+     omniObj.addColumn('Nombre','nombre_ccl', 15,'string','','middle','');
+     omniObj.addColumn('Cargo','cargo_ccl', 10,'string','','middle','');
+     omniObj.addColumn('Telefono Casa','telefonocasa_ccl', 10,'integer','','middle','');
+     omniObj.addColumn('Telefono Oficina','telefonooficina_ccl', 10,'integer','','middle','');
+     omniObj.addColumn('Fax','fax_ccl', 10,'integer','','middle','');
+     omniObj.addColumn('Celular','celular_ccl', 10,'integer','','middle','');
+     omniObj.addColumn('Email','email_ccl', 20,'string','','middle','');
+
+     omniObj.showGrid('omniObj',20,448,1020,'menu','#FF9900');
+
+
+
+
+ </script> </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+
+
+
+
+
+
+
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script language="javascript" src="../lib/tools/ValidarIdentificacion.js"></script>
+<script type="text/javascript" src="../lib/fisheyes/jquery.js"></script>
+<script type="text/javascript" src="../lib/fisheyes/interface.js"></script>
+
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+<script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript">
+function abrir2popup() 
+{
+a= window.open("Facturas.html","",
+"toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, width=500, height=185, top=85, left=140");
+b= window.open("generarFacturasFormularioFp.html","",
+"toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=yes, width=500, height=185, top=185, left=240");
+}
+</script>
+
+
+
+<script>
+function imprimirCreditoPorTomar(){
+		 
+		 var query='../lib/export/omnisoftCreditosPorTomar.php?serial_cpt='+document.PaginaDatos.serial_cpt.value;   
+		  var attributes='width=1020,height=650,scrollbars=yes,resizable=no,toolbar=no,location=no,status=no,menubar=no';  
+  	 	 omnisoftNewWindow=window.open(query,'OmnisofCreditosportomarFormulario',attributes);
+ 		 if (window.focus) {omnisoftNewWindow.focus()}
+}
+
+function DatosCreditoPendiente(alumno){
+
+  if(alumno>0){	
+  	
+  // consulta para tomar datos de carrera ,facultad y periodo
+   
+var SQLCommand='SELECT nombre_maa, nombre_car, nombre_fac, nombre_per, fecini_per, per.serial_sec,per.serial_per,ama.serial_ama FROM alumnomalla AS ama, malla AS maa, carrera AS car, facultad AS fac, periodo as per WHERE ama.serial_maa=maa.serial_maa AND maa.serial_car=car.serial_car AND car.serial_fac=fac.serial_fac AND maa.serial_maa_p=0 AND ama.serial_per=per.serial_per and ama.serial_alu='+alumno;		
+
+		//prompt("",SQLCommand);
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperardatosAlumno');
+		 objDBComando.executeQuery();
+	    		}
+}
+function recuperardatosAlumno(data) {
+	
+	document.PaginaDatos.nombre_car.value =" "; // 
+	document.PaginaDatos.nombre_per.value="";
+	for (i=1;i<=5;i++){
+	var datos=data.split('|')[i].split('~');
+	var aux=datos[5];
+		if(i==1){
+					document.PaginaDatos.nombre_fac.value=datos[2,2];
+					document.PaginaDatos.serial_per.value=datos[6];
+					document.PaginaDatos.serial_ama.value=datos[7];
+				}
+	if(datos[i].value!=" "){
+		document.PaginaDatos.nombre_car.value=document.PaginaDatos.nombre_car.value+datos[1]+"\n";
+		if(aux==1 ||aux==2){
+			document.PaginaDatos.nombre_per.value=document.PaginaDatos.nombre_per.value+datos[3];
+			document.PaginaDatos.fecini_per.value=datos[4];
+			}
+		}
+     }
+	}
+
+function registroFactura(){
+	// var query='../lib/export/omnisoftNotasAlumnoPeriodoFinan.php?serial_alu='+document.PaginaDatos.serial_alu1.value+'&serial_sec='+document.PaginaDatos.serial_sec.value+'&serial_car='+document.PaginaDatos.serial_car.value;
+      // var attributes='width=1020,height=650,scrollbars=yes,resizable=no,toolbar=no,location=no,status=no,menubar=no';
+        //   omnisoftNewWindow=window.open(query,'OmnisoftEstudiante',attributes);
+         //  if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+</script>
+<script>
+function  guardarFactura(){
+		 
+		 
+var agree=confirm("¿Esta seguro guardar los datos en la factura?  \n ");
+if (agree){
+     var SQLCommand=document.PaginaDatos.serial_alu.value+"|"+document.PaginaDatos.serial_cliu.value+"|"+document.PaginaDatos.fecha_caf.value+"|FACTURADO|0|0|0|0|"+document.PaginaDatos.nombre.value+"|"+document.PaginaDatos.codigoIdentificacion_alu.value+"|0|0|0|0|0|"+document.PaginaDatos.serial_suc.value+"|2012-10-06|0|0|FAC|0||"+serial_mmat+"|2012-10-06";
+			
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/IngresoDatosFactura.php",'datosInsertarP');
+		 objDBComando.executeQuery();	
+
+ 	 //////
+	window.opener.close();
+	 
+	 ////
+   
+	}
+else
+    alert("Proceso Cancelado") ;
+	
+			   
+		 
+		//facturarCreditosPendientes.html
+		//prompt("",SQLCommand);
+		
+}
+
+function datosInsertarP(data){
+var datos=data.split('|');
+  
+   var serial_caf=datos[0];
+ 
+
+//alert("hola");
+	   var ventana='./facturarCreditosPendientes.html?query='+datos[0];	
+	   //alert(ventana);         
+	   var attributes='width=1020,height=650,scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no';
+       omnisoftNewWindow=window.open(ventana,'Factura',attributes);      
+	   if (window.focus) {omnisoftNewWindow.focus(); window.close();}
+	   
+
+}	
+</script>
+	
+</head>
+
+
+<body>
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_cpt" type="hidden"  id="serial_cpt" class="hidden">
+<input name="serial_ama" type="hidden"  id="serial_ama" class="hidden">
+<input name="serial_suc" type="hidden"  id="serial_suc" class="hidden">
+<input name="serial_alu" type="hidden"  id="serial_alu" >
+<input name="serial_per" type="hidden"  id="serial_per" >
+<input name="codigo_alu" type="hidden"  id="codigo_alu" >
+<input name="serial_cliu" type="hidden"  id="serial_cliu" value="0" >
+<table width="847" border="0" cellspacing="0" cellpadding="0" >
+		<tr >     <td width="218" height="52"  class="ingeniumtoptitle"><td width="503"  class="maintoptitle fonttitle"><center>VENTAS<br>
+		CREDITOS POR FACTURAR 
+		</center><td width="130"  class="logotoptitle"></td>
+		</tr>
+		<tr>      <td height="30" colspan="3"> 
+  <table width="849"  border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">	 
+		<tr>      <td  colspan="3">  
+		
+		<table width="802"  border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+			<tr> <td  class="inputtitle"> Fecha: <input name="fecha_caf" type="text" id="fecha_caf" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()" >
+			  <table width="401" height="96" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000"  bordercolordark="#FFFFFF"class="formtable">	  
+				  <tr>  <td   class="inputtitle">Estudiante : <td > <input name="nombre" type="text" id="nombre" onBlur="esconderToolTip()" size="50" readonly="yes">				
+				  </tr>
+				  <tr>	<td   class="inputtitle">Identificación :</td> <td > <input type="text" name="codigoIdentificacion_alu"  id="codigoIdentificacion_alu" onBlur="esconderToolTip()" readonly="yes" size="15"></td></tr>
+				  <tr>	<td class="inputtitle">Nùmero de Matricula :</td><td ><input type="text" name="SERIAL_MMAT"  id="SERIAL_MMAT" onBlur="esconderToolTip()" readonly="yes" size="10"></td>
+				  </tr>						  						  
+	</table></td> <td><table width="20"  border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+			  <tr><td   class="inputtitle">Periodo Actual: <td> <input type="text" name="nombre_per1"  id="nombre_per1" onBlur="esconderToolTip()" class="string" readonly="yes" size="30">
+			  <td colspan="2" ><input type="text" name="fecini_per1"  id="fecini_per1" onBlur="esconderToolTip()" class="string" readonly="yes" size="20">  
+					    <td>  
+				      <td colspan="2" >			  </tr>
+			  <tr><td   class="inputtitle">Periodo Inicial: <td> <textarea name="nombre_per" style="width:80%"  type="text" id="nombre_per" size="100" class="string" readonly="yes"></textarea>
+			  												 <td><input type="text" name="fecini_per"  id="fecini_per" onBlur="esconderToolTip()" class="string" readonly="yes" size="20">
+			  												 <td colspan="2" >  </tr>
+	  		  <tr><td   class="inputtitle"> Facultad :    <td><input  name="nombre_fac" type="text" id="nombre_fac" size="45" class="string" readonly="yes"></td></tr>
+	  		  <tr><td   class="inputtitle"> Carrera :    <td> <label><textarea name="nombre_car" style="width:100%"  type="text" id="nombre_car" size="100" class="string" readonly="yes"></textarea>
+	  		  </label> <td width="148">
+</table></td>
+		  </tr> 
+		  <tr>
+		  <td height="25" colspan=8> 
+		<script>
+	
+		  omnisoftLoadData(document.PaginaDatos);
+		  document.PaginaDatos.fecha_caf.value=fechaSistema();
+		  document.PaginaDatos.serial_suc.value=getCookie('serial_suc');
+		  document.PaginaDatos.serial_alu.value=getURLParam('serial_alu');
+		//alert(getURLParam('serial_alu'));
+		  DatosCreditoPendiente(getURLParam('serial_alu'));
+		  document.PaginaDatos.codigoIdentificacion_alu.value=getURLParam('codigoIdentificacion_alu');
+		  document.PaginaDatos.nombre.value = getURLParam('apellidopaterno_alu')+' '+getURLParam('apellidomaterno_alu')+' '+getURLParam('nombre1_alu')+' '+getURLParam('nombre2_alu');
+		  document.PaginaDatos.SERIAL_MMAT.value=getURLParam('SERIAL_MMAT');
+		  document.PaginaDatos.nombre_per1.value=getURLParam('nombre_per');
+		  document.PaginaDatos.fecini_per1.value=getURLParam('fecini_per');
+		  document.PaginaDatos.codigo_alu.value=getURLParam('codigo_alu');
+		var serial_mmat=getURLParam('SERIAL_MMAT');
+				
+				
+		var sql="select dmat.serial_dmat, dmat.numerocreditos_dmat, dmat.creditosequivalentes_dmat, mat.nombre_mat, dmat.observaciones_dmat from detallemateriamatriculada as dmat, materia as mat where dmat.serial_mat=mat.serial_mat AND dmat.serial_mmat="+serial_mmat;
+		// 'generarFacturasFormulario.html',1020,535,'generarFacturasEditarFormulario.html',1020,535,Array(true,true,false));
+		//prompt("",sql);
+		var omniObj=new omnisoftGridDetail('omniObj','serial_mmat',serial_mmat,'detallemateriamatriculada','serial_mmat',sql,document.PaginaDatos,Array(true,true,false),'',450,230);
+		
+		omniObj.addColumn('Serial','serial_dmat,',1,'hidden','','middle','#ffffcc');
+		
+		omniObj.addColumn('Numero de Creditos','numerocreditos_dmat',10,'readonly','','middle','#ffffcc');
+		omniObj.addColumn('Creditos Equivalentes','creditosequivalentes_dmat', 10,'readonly','','middle','');	 
+		omniObj.addColumn('Materia','nombre_mat', 10,'readonly','','middle','');
+		omniObj.addColumn('Observaciones','observaciones_dmat', 10,'readonly','middlet','');	 
+		omniObj.showGrid('omniObj',20,200,800,'menu','#FF9900');		
+		
+		
+//	http://172.20.3.227/upacifico/upacademium/lib/server/cabecerafactura.php?query=1987|0|2012-10-06|FACTURADO|0|0|0|0|PICO GARRIDO GABRIEL ESTEBAN|1720941671|0|0|0|0|0|2|2012-10-06|0|0|FAC|0||22886|2012-10-06 Para comprobar datos ingresados en php	
+			
+	 </script></td>
+			  </tr>
+		<tr>  <td > 	  
+</td>
+			  
+		  </table></td>
+		</tr>
+		<tr >
+		  <td height="30" colspan="3" align="center" class="menuborder"> <table width="790" border="0" cellpadding="0" cellspacing="0"  >
+			  <tr>
+		<!--	<td width="227" class="menuborder"> <div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="guardarFactura()"> <img src="../images/save.png" width="48" height="48" border="0" align="middle" ></a>  Grabar</div></td> 			-->
+			<td width="227" class="menuborder"> <div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="guardarFactura()"> <img src="../images/Facturar.png" width="48" height="48" border="0" align="middle" ></a>  Grabar</div></td>
+				
+			
+				<td width="209" class="menuborder"><a href="#" onClick="imprimirCreditoPorTomar()"><img src="../images/impresora.png" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+				<td width="214" class="menuborder"><a href="#" onClick="imprimirActivoFijo()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+				<td width="140" class="menuborder"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></td>
+			  </tr>
+		  </table></td>
+		</tr>
+  </table>
+</table>
+</form>
+
+</body>
+</html>

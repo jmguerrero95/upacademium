@@ -1,0 +1,704 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+<script>
+function evaluar(){
+	//Control de suma de fechas
+	if(getURLParam('action')=='insert'){
+		var res;
+		var type;
+		var nTime;
+		type = document.PaginaDatos.tipoencuestaanterior_seg.value;
+		
+		switch(type){
+			case 'PRIMERA': 
+				nTime = 1;
+				break;
+			case 'SEGUNDA': 
+				nTime = 2;
+				break;
+			case 'TERCERA': 
+				nTime = 3;
+				break;			
+			case 'OTRA': 
+				nTime = 4;
+				break;			
+		}
+		res = document.PaginaDatos.fechaencuesta_seg.value;
+		var fec = res.split('-');
+		var myDate  = new Date (); 
+		myDate.setYear(fec[0]); 
+		myDate.setMonth(fec[1]);
+		myDate.setDate(fec[2]);
+		myDate.setYear (myDate.getYear() + nTime); 
+		dateSum = myDate.getYear()+"-"+myDate.getMonth()+"-"+myDate.getDate(); 	
+		document.PaginaDatos.fechaencuestaant_seg.value = dateSum ;		
+	}
+	
+	var primernombre;
+	var segundonombre;
+	//primer nombre
+	if (document.PaginaAlumno.primernombresi_alu.checked==true){
+		primernombre = "SI";
+	}else{
+		primernombre = "NO";
+	}
+	//segundo nombre
+	if (document.PaginaAlumno.segundonombresi_alu.checked==true){
+		segundonombre = "SI";
+	}else{
+		segundonombre = "NO";
+	}	
+	var SQLCommand="update alumno set apellidopaterno_alu='"+document.PaginaAlumno.apellidopaterno_alu.value+"',apellidomaterno_alu= '"+document.PaginaAlumno.apellidomaterno_alu.value+"', nombre1_alu='"+document.PaginaAlumno.nombre1_alu.value+"', nombre2_alu='"+document.PaginaAlumno.nombre2_alu.value+"', serial_sex = '"+document.PaginaAlumno.serial_sex.value+"', serial_eci = '"+document.PaginaAlumno.serial_eci.value+"',primernombresi_alu = '"+primernombre+"',segundonombresi_alu = '"+segundonombre+"' where serial_alu ="+document.PaginaDatos.serial_alu.value;
+	var res = omnisoftGrabar();
+	if( res != false){
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'');
+		objDBComando.executeQuery();	
+	}
+	
+}
+
+ var serial_sec=opener.serial_sec;
+
+	//alert('serial_sec:'+serial_sec);
+</script>
+<style type="text/css">
+<!--
+.style5 {color: #000066; font-weight: bold; font-size: 11px; }
+-->
+</style>
+<body scroll = "auto">
+<table width="" border="0" cellspacing="0" cellpadding="0" >
+<tr>
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO <br>
+          DETALLE DE ENCUESTA
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+</table>
+<form method="POST" enctype="multipart/form-data"  name="PaginaAlumno" onClick="highlight(event)" onKeyUp="highlight(event)">
+ <table width="780" border="1" cellspacing="0" cellpadding="0" class="formtable" >
+<!--BEGIN TABLE PASTE-->
+   <tr>
+      <td height="30" colspan="3"> 
+		   <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS PERSONALES ALUMNO</span></div></td>
+		  </tr>
+          <tr>
+            <td height="15"  class="style5">Primer Nombre: </td>
+            <td ><input name="nombre1_alu" id="nombre1_alu" type="text" class="" size="30" maxlength="40" onBlur="" />
+            <input type="checkbox" name="primernombresi_alu" id="primernombresi_alu" value=""></td>
+            <td class="style5">Segundo Nombre :</td>
+            <td ><span class="style5">
+              <input name="nombre2_alu" id="nombre2_alu" type="text" class="" size="30" maxlength="40"  />
+              <input type="checkbox" name="segundonombresi_alu" id="segundonombresi_alu" value="">
+            </span></td>
+          </tr>
+          <tr>
+            <td height="15"  class="style5">Apellido Paterno: </td>
+            <td ><img src="../images/camporequerido.gif">
+            <input name="apellidopaterno_alu" id="apellidopaterno_alu" type="text" class="" size="29" maxlength="40"   onBlur=""/></td>
+            <td class="style5">Apellido Materno: </td>
+            <td ><input name="apellidomaterno_alu" id="apellidomaterno_alu" type="text" class="" size="30" maxlength="40" /></td>
+          </tr>
+          <tr>
+            <td height="15"  class="style5">Direcci&oacute;n Domicilio: </td>
+            <td ><input name="direcciondomic_alu" id="direcciondomic_alu" type="text" class="" size="29" maxlength="40"   onBlur=""/></td>
+            <td class="style5">Email Personal:</td>
+            <td ><input name="mail_alu" id="mail_alu" type="text" class="" size="29" maxlength="40"   onBlur=""/></td>
+          </tr>
+          <tr>
+            <td height="15"  class="style5"># Telf Local:</td>
+            <td ><input name="telefodomic_alu" id="telefodomic_alu" type="text" class="" size="29" maxlength="40"   onBlur=""/></td>
+            <td class="style5"># Telf. Celular:</td>
+            <td ><input name="celular_alu" id="celular_alu" type="text" class="" size="29" maxlength="40"   onBlur=""/></td>
+          </tr>          
+          <tr>
+            <td height="15"  class="style5">Sexo</td>
+            <td ><span class=""><img src="../images/camporequerido.gif"><script>
+                 var cserial_sex=new omnisoftComboBox('cserial_sex','serial_sex','select serial_sex, descripcion_sex from sexo','90px',true,getURLParam('serial_sex1'));
+                     cserial_sex.show();
+	            </script></span></td>
+            <td class="style5">Estado Civil: </td>
+            <td ><span class=""><img src="../images/camporequerido.gif">   <script>
+                 var cserial_eci=new omnisoftComboBox('cserial_eci','serial_eci','select serial_eci,nombre_eci from estadocivil','90px',true,getURLParam('serial_eci1'));
+                     cserial_eci.show();
+					 
+	            </script></span></td>
+          </tr>
+		   <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS GRADUACION  </span></div></td>
+		  </tr>
+           <tr>
+             <td height="15"  class="style5">Titulo Obtenido: </td>
+             <td colspan="3" ><input name="nombre_car" id="nombre_car" type="text" class="" size="160" maxlength="40" onBlur="" /></td>
+           </tr>
+          <tr>
+            <td height="15"  class="style5">Fecha Graduacion </td>
+            <td ><input name="fectitulacion_ama" id="fectitulacion_ama" type="text" class="" size="30" maxlength="40" onBlur="" /></td>
+            <td class="style5">Fecha Egresamiento</td>
+            <td ><span class="style5">
+              <input name="fecegresamiento_ama" id="fecegresamiento_ama" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr> 
+		  
+<!--END TABLE PASTE-->
+ </table>
+</form>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_seg" type="hidden" id="serial_seg" class="hidden">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+<!--aqui-->
+
+  <table width="780" border="1" cellspacing="0" cellpadding="0" class="formtable" >
+     <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS SEGUIMIENTO</span></div></td>
+		  </tr>
+             <tr>
+            <td height="15"  class="style5">Tipo Encuesta: </td>
+            <td ><span class="style5">
+              <select name="tipoencuestaanterior_seg" id="tipoencuestaanterior_seg" class="combobox">                
+				<option value="PRIMERA">PRIMERA</option>
+                <option value="SEGUNDA">SEGUNDA</option>
+                <option value="TERCERA">TERCERA</option>
+                <option value="OTRA">OTRA</option>
+              </select>
+            </span></td>
+            <td class="style5">Fecha Encuesta :</td>
+            <td ><span class="style5">
+              <input name="fechaencuesta_seg" id="fechaencuesta_seg" type="text" class="date" size="30" maxlength="40"  />
+            </span></td>
+          </tr>
+             <tr>
+            <td height="15"  class="style5">Fecha Caducidad Encuesta: </td>
+            <td ><input name="fechaencuestaant_seg" id="fechaencuestaant_seg" type="text" class="emptytext" size="30" maxlength="40" onBlur="" /></td>
+            <td class="style5">Tiempo Encuesta: </td>
+            <td ><input name="otro_seg" id="otro_seg" type="text" class="emptytext"  size="30" maxlength="40" onBlur="" /></td>
+          </tr>
+		  
+
+	
+	<tr>
+            <td height="15" colspan="3"  class="style5">Tiempo que tardo en conseguir su primer trabajo despues de graduado: </td>
+            <td ><span class="style5">			  
+              <select name="tiempotardoprimertrabajodgraduado_seg" id="tiempotardoprimertrabajodgraduado_seg" class="combobox">
+                <option value="MENOS DE ANIO">MENOS DE UN AÑO</option>
+                <option value="DE UNO A DOS">DE UNO A DOS AÑOS</option>
+                <option value="MAS DE DOS ANIOS">MAS DE DOS AÑOS</option>
+              </select>
+            </span></td>
+    </tr> 
+		  <tr>
+            <td height="15" colspan="3"  class="style5">Tiempo que le tardo organizar su primer emprendiemiento despues de graduado: </td>
+            <td ><span class="style5">              
+              <select name="tiempotardoprimeremprendgraduado_seg" id="tiempotardoprimeremprendgraduado_seg" class="combobox">
+                <option value="NO EMPRENDIO">NO EMPRENDIO</option>
+                <option value="MENOS DE UN ANIO">MENOS DE UN AÑO</option>
+                <option value="DE 1 A TRES ANIOS">DE UNO A TRES AÑOS</option>
+                <option value="MAS DE TRES ANIOS">MAS DE TRES AÑOS</option>
+              </select>
+            </span></td>
+          </tr> 
+		   <tr>
+            <td height="15" colspan="3"  class="style5">Ingresos anuales al primer a&ntilde;o de graduado, o en el primer a&ntilde;o de su emprendimiento : </td>
+            <td ><span class="style5">
+              <input name="ingresoanualalprimeraniograduado_seg" id="ingresoanualalprimeraniograduado_seg" type="text" class="emptydecimal" size="30" maxlength="40"  />
+            </span></td>
+          </tr> 
+		
+		   <tr>
+            <td height="15" colspan="3"  class="style5">Monto Salarial en el primer trabajo luego de graduado  : </td>
+            <td ><span class="style5">              
+                <input name="montosalarialprimertrabajodgraduado_seg" type="text" id="montosalarialprimertrabajodgraduado_seg"  class="emptydecimal" size="20" maxlength="20">
+            </span></td>
+          </tr> 
+		   <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS TRABAJO</span></div></td>
+		  </tr>
+          <!--
+					direcciontrabajo_seg
+					ciudadtrabajo_seg
+					lugartrabajo_seg
+					tipoempresa_seg
+					relaciondependencia_seg
+					pctaccion_seg
+					ingresosanuales_seg
+					telefonotrabajo_seg
+					tiempoconseguirultimoempleo_seg
+					numpersonasacargo_seg
+					emailtrabajo_seg
+					funcionultimocargo_seg
+					funcionactual_seg
+					logotipoenwebupac_seg
+
+		  -->
+		  <tr>
+            <td height="15"  class="style5">Direccion:</td>
+            <td ><input name="direcciontrabajo_seg" id="direcciontrabajo_seg" type="text" class="emptytext" size="30" maxlength="40" onBlur="" /></td>
+            <td class="style5">Ciudad:</td>
+            <td ><script>
+				var cserial_ciu=new omnisoftComboBox('cserial_ciu','serial_ciu','select serial_ciu, nombre_ciu FROM ciudad order by nombre_ciu asc','130px',true,getURLParam('serial_ciu'));
+				cserial_ciu.show();
+			  </script></td>
+          </tr>
+		  <tr>
+            <td height="15"  class="style5">Lugar:</td>
+            <td ><input name="lugartrabajo_seg" id="lugartrabajo_seg" type="text" class="emptytext" size="30" maxlength="40" onBlur="" /></td>
+            <td class="style5">Tipo Empresa  : </td>
+            <td ><span class="style5">
+              <select name="tipoempresa_seg" id="tipoempresa_seg" class="combobox">                
+                <option value="EDUCACION">EDUCACION</option>
+                <option value="TRANSPORTE">TRANSPORTE</option>
+                <option value="BANCA">BANCA</option>
+                <option value="SALUD">SALUD</option>
+                <option value="ALIMENTACION">ALIMENTACION</option>
+                <option value="OTROSSERVICIOS">OTROS SERVICIOS</option>
+              </select>
+            </span></td>
+          </tr>
+		   <tr>
+            <td height="15"  class="style5">Relaci&oacute;n Depen.  :</td>
+            <td ><span class="style5">
+              <select name="relaciondependencia_seg" id="relaciondependencia_seg" class="combobox">
+                <option value="EMPLEADO">EMPLEADO</option>
+                <option value="EMPLEADO ACCIONISTA">EMPLEADO ACCIONISTA</option>
+                <option value="ACCIONISTA">ACCIONISTA</option>
+              </select>
+            </span></td>
+            <td class="style5">%Accion:</td>
+            <td ><span class="style5">
+              <input name="pctaccion_seg" id="pctaccion_seg" type="text" class="emptytext" size="30" maxlength="40"  />
+            </span></td>
+          </tr>
+		   <tr>
+            <td height="15"  class="style5">Ingresos Anuales  :</td>
+            <td ><input name="ingresosanuales_seg" type="text" id="ingresosanuales_seg"  class="emptydecimal" size="20" maxlength="20"></td>
+            <td class="style5">Tel&eacute;fono:</td>
+            <td ><span class="style5">
+              <input name="telefonotrabajo_seg" id="telefonotrabajo_seg" type="text" class="emptytext" size="30" maxlength="40"  />
+            </span></td>
+          </tr>
+		  <tr>
+            <td height="15" colspan="3"  class="style5">Tiempo que se tardo en conseguir el ultimo empleo  : </td>
+            <td ><span class="style5">
+              <input name="tiempoconseguirultimoempleo_seg" id="tiempoconseguirultimoempleo_seg" type="text" class="emptytext" size="30" maxlength="40"  />
+            </span></td>
+          </tr>
+		      
+		   <tr>
+            <td height="15" align="left"  class="style5"># de Personas a su cargo: </td>
+            <td height="15" align="left"  class="style5"><select name="numpersonasacargo_seg" id="numpersonasacargo_seg" class="combobox">
+              <option value="MENOR A 10">1 - 10</option>
+              <option value="MAYOR 10 A 20">10 - 10</option>
+              <option value="MAS DE 20">MAS DE 20</option>
+            </select></td>
+            <td height="15" align="left"  class="style5">Email Trabajo: </td>
+            <td ><span class="style5">
+              <input name="emailtrabajo_seg" id="emailtrabajo_seg" type="text" class="emptytext" size="30" maxlength="" onBlur="esconderToolTip()"  />
+            </span></td>
+          </tr> 
+		   <tr>
+            <td height="15"  class="style5">Funcion Ultimo Cargo :</td>
+            <td ><span class="style5">
+              <select name="funcionultimocargo_seg" id="funcionultimocargo_seg" class="combobox">                
+                <option value="TACTICO">TACTICO</option>
+                <option value="ESTRATEGICO">ESTRATEGICO</option>
+                <option value="OPERATIVO">OPERATIVO</option>
+              </select>
+            </span></td>
+            <td class="style5">Funcion Actual :</td>
+            <td ><span class="style5">
+              <select name="funcionactual_seg" id="funcionactual_seg" class="combobox">                
+                <option value="TACTICO">TACTICO</option>
+                <option value="ESTRATEGICO">ESTRATEGICO</option>
+                <option value="OPERATIVO">OPERATIVO</option>
+              </select>
+            </span></td>
+          </tr>
+		    <tr>
+            <td height="15" colspan="3"  class="style5">Estar&iacute;a de acuerdo en que, en la pagina web de la Universidad del Pacifico se incluya el logotipo de su empresa? </td>
+            <td ><span class="style5"> 	  
+              <select name="logotipoenwebupac_seg" id="logotipoenwebupac_seg" class="combo">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+             </span></td>
+          </tr> 
+ 
+            <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS NEGOCIO PROPIO</span></div></td>
+		  </tr>
+		  <tr>
+            <td width="103" height="31"  class="style5">Es usted due&ntilde;o del Negocio   : </td>
+            <td width="100" ><span class="style5"><img src="../images/camporequerido.gif"></span>
+              <select name="duenio_seg" id="duenio_seg" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+            </select></td>
+            <td width="208" class="style5">Nombre Negocio/Empresa: </td>
+            <td width="206" ><input name="nombre_seg" type="text" id="nombre_seg"  class="emptytext" size="40" maxlength="40"></td>
+          </tr>
+          <tr>
+            <td height="30" colspan="2"  class="style5 style2">En caso de la respuesta sea Positiva   :Fue esta su Tema de Tesis o Grupo de Gesti&oacute;n:</td>
+            <td  class="style5"><img src="../images/camporequerido.gif">
+              <select name="tematesis_seg" id="tematesis_seg" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="30"  class="style5">Cuantos Empleados tiene: </td>
+            <td ><input name="numempleados_seg" type="text" id="numempleados_seg"  class="emptydecimal" size="20" maxlength="20"></td>
+            <td  class="style5">Web Site: </td>
+            <td >
+              <input name="website_seg" type="text" id="website_seg"  class="emptytext" size="40" maxlength="40">            </td>
+          </tr>
+          <tr>
+            <td height="30"  class="style5">Tipo de Negocio  : </td>
+            <td height="31" colspan="2" ><span class="style5"><img src="../images/camporequerido.gif">
+                <select name="tipo_seg" id="tipo_seg" class="combobox">
+                  <option value="NEGOCIOS DE SERVICIO">NEGOCIOS DE SERVICIO</option>
+                  <option value="NEGOCIOS DE PRODUCCION O MANUFACTURA">NEGOCIOS DE PRODUCCION O MANUFACTURA</option>
+                  <option value="NEGOCIOS DE EXTRACCION">NEGOCIOS DE EXTRACCION</option>
+                  <option value="NEGOCIOS DE VENTAS AL POR MENOR (MINORISTAS)">NEGOCIOS DE VENTAS AL POR MENOR (MINORISTAS)</option>
+                  <option value="NEGOCIOS DE VENTAS AL POR MAYOR (MAYORISTAS)">NEGOCIOS DE VENTAS AL POR MAYOR (MAYORISTAS)</option><option value="EXPORTACION">EXPORTACION</option>
+                </select>
+            </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="30"  class="style5">Formas Jur&iacute;dicas del Negocio/Empresa:</td>
+            <td height="31" colspan="2" ><span class="style5"><img src="../images/camporequerido.gif">
+                <select name="tipojuridico_seg" id="tipojuridico_seg" class="combobox">
+                  <option value="EMPRESARIO INDIVIDUAL">EMPRESARIO INDIVIDUAL</option>
+                  <option value="SOCIEDAD LIMITADA">SOCIEDAD LIMITADA</option>
+                  <option value="SOCIEDAD ANONIMA">SOCIEDAD ANONIMA</option>
+                  <option value="ASOCIACIONES SIN ANIMO DE LUCRO">ASOCIACIONES SIN ANIMO DE LUCRO</option>
+                  <option value="COMUNIDAD DE BIENES">COMUNIDAD DE BIENES</option>
+				  <option value="SOCIEDAD COOPERATIVA">SOCIEDAD COOPERATIVA</option>
+				  <option value="SOCIEDAD DE CUENTAS EN PARTICIPACION">SOCIEDAD DE CUENTAS EN PARTICIPACION</option>
+				  <option value="OTROS">OTROS</option>
+                </select>
+            </span></td>
+            <td class="style5">Observaciones:<input name="observaciones_seg" type="text" id="observaciones_seg"  class="emptytext" size="50" maxlength="100"></td>
+          </tr>
+          
+          <tr>
+            <td height="31" colspan="2"  class="style5">Cu&aacute;l es el monto de facturaci&oacute;n de su Negocio/Empresa: </td>
+            <td class="style5"><img src="../images/camporequerido.gif">            
+            <input name="ingresosanualesnegprop_seg" type="text" id="ingresosanualesnegprop_seg"  class="emptydecimal" size="20" maxlength="20"></td>
+            <td class="style5">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31"  class="style5">Monto de Activos de su Empresa  : </td>
+            <td >            
+            <input name="montoactivos_seg" type="text" id="montoactivos_seg"  class="emptydecimal" size="20" maxlength="20">           </td>
+            <td class="style5"><a href="javascript:verDocumento();"></a></td>
+            <td class="style5">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Est&aacute; interesado que estudiantes de la Universidad  hagan pasant&iacute;as en su empresa:</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="pasantias_seg" id="pasantias_seg" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Est&aacute; interesado en ser MENTOR de estudiantes de la  Universidad:</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="mentor_seg" id="mentor_seg" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Est&aacute; interesado en Documentar como caso acad&eacute;mico su  negocio:</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="documentar_seg" id="documentar_seg" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Esta interesado en ser miembro de la Asociaci&oacute;n de  Graduados:</td>
+            <td ><span class="style5"><img src="../images/camporequerido.gif">
+                <select name="asociacion_seg" id="asociacion_seg" class="combobox">
+                  <option value="SI">SI</option>
+                  <option value="NO">NO</option>
+                </select>
+            </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31"  class="style5">Que sugerencias nos puede ofrecer para servicios de  valor que podr&iacute;a brindarle dicha asociaci&oacute;n : </td>
+            <td colspan="3" ><input name="sugerencia_seg" type="text" id="sugerencia_seg" size="100" maxlength="100" class="emptytext" ></td>
+          </tr>
+          <tr>
+            <td height="31"  class="style5">           
+                Productos nuevos que deba ofrecer la Universidad:            </td>
+            <td colspan="3" ><input name="productos_seg" type="text" id="productos_seg" size="100" maxlength="100" class="emptytext" ></td>
+          </tr>
+          <tr>
+            <td height="31"  class="style5">Qué opinión tiene acerca de la campaña de la Universidad:</td>
+            <td colspan="3" ><input name="opinion_seg" type="text" id="opinion_seg" size="100" maxlength="100" class="emptytext" ></td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Estar&iacute;a de acuerdo en tener publicidad de la  Universidad en su empresa</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="publicidad_seg" id="publicidad_seg" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Estar&iacute;a de acuerdo en que la publicidad de la  Universidad salga su empresa o personal como <strong>testimonio:</strong></td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="testimonio_seg" id="testimonio_seg" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          
+           <tr>
+             <td height="31">&nbsp;</td>
+             <td></td>
+             <td>&nbsp;</td>
+           </tr>
+           <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="evaluar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table>
+  </td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+         
+        </table></td>
+    </tr>
+  </table>
+<script>
+function cargarDocumento() {
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportFileHistoricoAcademico.php?campoarchivo=documento_hac&archivo='+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+function verDocumento() {
+   var attributes='width=550,height=250,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no, copyhistory=no, statusbar=no';
+                   omnisoftNewWindow=window.open('../historicoacademico/'+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+}
+</script>
+<script>
+   	omnisoftLoadData(document.PaginaDatos);	
+	
+    var serial_alu=opener.PaginaDatos.serial_alu.value;
+	document.PaginaDatos.serial_alu.value=serial_alu;
+	//Nueva encuesta pero hay encuestas anteriores
+	if(getURLParam('action')=='insert'){
+		document.PaginaDatos.fechaencuesta_seg.value = fechaSistema();	
+		var SQLCommand="select count(*) from seguimientograduado where serial_alu =" + serial_alu;
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'RecCount');
+		objDBComando.executeQuery();	  
+	}
+	var SQLCommand="select apellidopaterno_alu, apellidomaterno_alu, nombre1_alu, nombre2_alu,serial_sex,serial_eci,primernombresi_alu,segundonombresi_alu,direcciondomic_alu,telefodomic_alu,celular_alu,mail_alu from alumno where serial_alu =" + serial_alu;
+	var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperarDat');
+	objDBComando.executeQuery();	  
+	function recuperarDat(data){
+		var datos=data.split('|')[1].split('~');	
+		document.PaginaAlumno.apellidopaterno_alu.value = datos[0];
+		document.PaginaAlumno.apellidomaterno_alu.value = datos[1];	
+		document.PaginaAlumno.nombre1_alu.value = datos[2];
+		document.PaginaAlumno.nombre2_alu.value = datos[3];	
+		document.PaginaAlumno.serial_sex.value = datos[4];
+		document.PaginaAlumno.serial_eci.value = datos[5];	
+		
+		//primernombresi
+		switch(datos[6]){
+			case '': 
+				document.PaginaAlumno.primernombresi_alu.checked = false ;	
+				break;
+			case 'NO':
+				document.PaginaAlumno.primernombresi_alu.checked = false ;	
+				break;
+			case 'SI':
+				document.PaginaAlumno.primernombresi_alu.checked = true ;	
+				break;
+		}
+		//segundonombresi		
+		switch(datos[7]){
+			case '': 
+				document.PaginaAlumno.segundonombresi_alu.checked = false ;	
+				break;
+			case 'NO':
+				document.PaginaAlumno.segundonombresi_alu.checked = false ;	
+				break;
+			case 'SI':
+				document.PaginaAlumno.segundonombresi_alu.checked = true ;	
+				break;
+		}
+		document.PaginaAlumno.direcciondomic_alu.value = datos[8];	
+		document.PaginaAlumno.telefodomic_alu.value = datos[9];	
+		document.PaginaAlumno.celular_alu.value = datos[10];	
+		document.PaginaAlumno.mail_alu.value = datos[11];	
+var SQLGrad="select fectitulacion_ama, fecegresamiento_ama, carreraprincipal.nombre_crp as carrera, nombre_car from alumno as alu, sexo as sex left join alumnomalla on alumnomalla.serial_alu=alu.serial_alu left join malla on malla.serial_maa=alumnomalla.serial_maa and serial_maa_p=0 left join carrera on carrera.serial_car=malla.serial_car left join carreraprincipal on carreraprincipal.serial_crp=carrera.serial_crp left join facultad on facultad.serial_fac=carrera.serial_fac where alu.serial_sex = sex.serial_sex and alu.serial_alu = "+serial_alu;
+//prompt('sql',SQLGrad);
+	var objDBComando=new omnisoftDB(SQLGrad,"../lib/server/omnisoftSQLData.php",'recuperarDat2');
+	objDBComando.executeQuery();	
+		
+	}	
+//recuperar datos
+function recuperarDat2(datat){
+		var datost=datat.split('|')[1].split('~');	
+		document.PaginaAlumno.fectitulacion_ama.value = datost[0];
+		document.PaginaAlumno.fecegresamiento_ama.value = datost[1];
+		document.PaginaAlumno.nombre_car.value = datost[3]; 
+}
+function RecCount(data){
+	var datos=data.split('|')[1].split('~');	
+	if (datos[0]>0){
+			//alert("hay encuestas anteriores traer datos a nuevo form");
+
+		var SQLCommand="select tipoencuestaanterior_seg,fechaencuesta_seg,tiempotardoprimertrabajodgraduado_seg,tiempotardoprimeremprendgraduado_seg,fechaencuestaant_seg,ingresoanualalprimeraniograduado_seg,montosalarialprimertrabajodgraduado_seg,direcciontrabajo_seg,serial_ciu,lugartrabajo_seg,tipoempresa_seg,relaciondependencia_seg,pctaccion_seg,ingresosanuales_seg,telefonotrabajo_seg,tiempoconseguirultimoempleo_seg,numpersonasacargo_seg,emailtrabajo_seg,funcionultimocargo_seg,funcionactual_seg,logotipoenwebupac_seg,duenio_seg,nombre_seg,tematesis_seg,numempleados_seg,website_seg,tipo_seg,montoactivos_seg,ingresosanualesnegprop_seg,pasantias_seg,mentor_seg,documentar_seg,asociacion_seg,sugerencia_seg,productos_seg,opinion_seg,publicidad_seg,testimonio_seg,tipojuridico_seg,observaciones_seg,otro_seg,serial_alu from seguimientograduado where serial_alu = " + serial_alu;
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'putData');
+		objDBComando.executeQuery();	  
+		
+	}
+}
+function putData(data){
+	var datos=data.split('|')[1].split('~');	
+	document.PaginaDatos.tipoencuestaanterior_seg.value = datos[0];
+	document.PaginaDatos.fechaencuesta_seg.value = datos[1];
+	document.PaginaDatos.tiempotardoprimertrabajodgraduado_seg.value = datos[2];
+	document.PaginaDatos.tiempotardoprimeremprendgraduado_seg.value = datos[3];
+	document.PaginaDatos.fechaencuestaant_seg.value = datos[4];
+	document.PaginaDatos.ingresoanualalprimeraniograduado_seg.value = datos[5];
+	document.PaginaDatos.montosalarialprimertrabajodgraduado_seg.value = datos[6];
+	document.PaginaDatos.direcciontrabajo_seg.value = datos[7];
+	document.PaginaDatos.serial_ciu.value = datos[8];
+	document.PaginaDatos.lugartrabajo_seg.value = datos[9];
+	document.PaginaDatos.tipoempresa_seg.value = datos[10];
+	document.PaginaDatos.relaciondependencia_seg.value = datos[11];
+	document.PaginaDatos.pctaccion_seg.value = datos[12];
+	document.PaginaDatos.ingresosanuales_seg.value = datos[13];
+	document.PaginaDatos.telefonotrabajo_seg.value = datos[14];
+	document.PaginaDatos.tiempoconseguirultimoempleo_seg .value = datos[15];
+	document.PaginaDatos.numpersonasacargo_seg.value = datos[16];
+	document.PaginaDatos.emailtrabajo_seg.value = datos[17];
+	document.PaginaDatos.funcionultimocargo_seg.value = datos[18];
+	document.PaginaDatos.funcionactual_seg.value = datos[19];
+	document.PaginaDatos.logotipoenwebupac_seg.value = datos[20];
+	document.PaginaDatos.duenio_seg.value = datos[21];
+	document.PaginaDatos.nombre_seg.value = datos[22];
+	document.PaginaDatos.tematesis_seg.value = datos[23];
+	document.PaginaDatos.numempleados_seg.value = datos[24];
+	document.PaginaDatos.website_seg.value = datos[25];
+	document.PaginaDatos.tipo_seg.value = datos[26];
+	document.PaginaDatos.montoactivos_seg.value = datos[27];
+	document.PaginaDatos.ingresosanualesnegprop_seg.value = datos[28];
+	document.PaginaDatos.pasantias_seg.value = datos[29];
+	document.PaginaDatos.mentor_seg .value = datos[30];
+	document.PaginaDatos.documentar_seg.value = datos[31];
+	document.PaginaDatos.asociacion_seg.value = datos[32];
+	document.PaginaDatos.sugerencia_seg.value = datos[33];
+	document.PaginaDatos.productos_seg.value = datos[34];
+	document.PaginaDatos.opinion_seg.value = datos[35];
+	document.PaginaDatos.publicidad_seg.value = datos[36];
+	document.PaginaDatos.testimonio_seg.value = datos[37];
+	document.PaginaDatos.tipojuridico_seg.value = datos[38];
+	document.PaginaDatos.observaciones_seg.value = datos[39];
+	document.PaginaDatos.otro_seg.value = datos[40];
+	document.PaginaDatos.serial_alu.value = datos[41];
+}
+
+	
+</script>
+
+</form>
+
+</body>
+</html>

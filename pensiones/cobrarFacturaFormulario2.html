@@ -1,0 +1,459 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+ var clientevalido=true;
+
+
+function imprimirPagoPensiones() {
+            var attributes='';
+            var sURL='../lib/export/omnisoftPago.php?numerofactura='+document.PaginaDatos.numero_caf.value+'&serial_caf='+document.PaginaDatos.serial_caf.value+'&serial_cre='+document.PaginaDatos.serial_cre.value;
+            var sWidth=1000;
+            var sHeight=750;
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+
+               omnisoftNewWindow=window.open(sURL,'PDF',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+ }
+
+function recuperarDatosFactura(data) {
+//alert(data);
+   var datos=data.split('|');
+   if (datos[0]!='') {
+      alert(datos[0]);
+   }
+   else {
+       imprimirFactura();
+       opener.omniObj.lastPage();
+       window.close();
+   }
+
+}
+
+
+function grabarCobro() {
+
+	 var SQLCommand=document.PaginaDatos.serial_cre.value+"|"+document.PaginaDatos.serial_caf.value+"|"+document.PaginaDatos.serial_alu.value+"|"+getCookie('serial_suc')+"|"+document.PaginaDatos.serial_caf2.value;
+	// "+getURLParam('action')+"
+//	 prompt('prueba',SQLCommand);
+	 
+	 //getURLParam('nombre_sec');
+	 
+	 var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGrabarReciboCobro.php",'recuperarDatosFactura');
+		 objDBComando.executeQuery();
+
+
+}
+function numerar(que){ 
+	que = que.replace(",","");
+	//.replace(",",""); 
+	return (que); 
+}
+var row_aux='';
+var row_ant=-1;
+function procesarTotales(row) {
+
+	var cobrado=parseFloat(numerar(omniObj.grid.getFooterTemplate(2,1).getContent("box/text").element().innerHTML));
+	//alert(cobrado);
+	if(!isNaN(cobrado)){
+		document.getElementById('spanTotal').innerHTML=cobrado.toFixed(2);
+		var saldo=parseFloat(opener.PaginaDatos.total_caf.value)-parseFloat(cobrado);
+		//alert(parseFloat(opener.PaginaDatos.total_caf.value)+"-"+parseFloat(cobrado));
+		document.getElementById('spanSaldo').innerHTML=saldo.toFixed(2);
+	}else var saldo=0;
+	
+	var serial_forc=parseInt(omniObj.grid.getCellText(11,row));
+	var serial_dre=parseInt(omniObj.grid.getCellText(0,row));
+	//CONSULTAR LOS CAMPOS QUE DEBE VALIDAR EN LA FORMA DE COBRO	
+	//alert(serial_dre);
+	
+	//alert(serial_forc);
+	row_aux=row;
+	//alert(row_ant);
+	//alert(row_aux);
+
+	if(serial_forc>0 && (row_ant!=row_aux || row_ant==-1)){
+			objDB=new omnisoftDB('select SERIAL_FORC,NUMERODOC_FORC,FECHADOC_FORC,INSTITUCION_FORC,PLAZO_FORC,REFERENCIA_FORC,LOTE_FORC,TARHABIENTE_FORC,SERIAL_FORC from formacobro where SERIAL_FORC='+serial_forc,'../lib/server/omnisoftSQLData.php','omnisoftValidarDatos');
+		  setTimeout('objDB.executeQuery()',0);
+	}
+}
+
+
+
+function omnisoftValidarDatos(data)
+{
+		 var registros=data.split('~');
+		 // alert(registros);
+		 row_ant=row_aux;
+		 var n=0;
+		 var NUMERODOC_FORC=registros[1];
+		 var FECHADOC_FORC=registros[2];
+		 var INSTITUCION_FORC=registros[3];
+		 var PLAZO_FORC=registros[4];
+		 var REFERENCIA_FORC=registros[5];
+		 var LOTE_FORC=registros[6];
+		 var TARHABIENTE_FORC=registros[7];
+		 
+		 if(NUMERODOC_FORC=='SI'){
+		 	 if(omniObj.grid.getCellText(3,row_aux)=='' || omniObj.grid.getCellText(3,row_aux)==0){
+		 			alert('Debe ingresar el numero de documento..!!');
+					//omniObj.grid.selectedRow=2;
+					//omniObj.grid.setCellText('jjj',0,row_aux);
+					omniObj.grid.setCellSelected(true,3,row_aux);
+					//omniObj.grid.onCellSelectedChanged(true,3,row_aux);
+					
+					}
+		 }
+		 if(FECHADOC_FORC=='SI'){
+		 	if(omniObj.grid.getCellText(4,row_aux)=='' || omniObj.grid.getCellText(4,row_aux)==0){
+				alert('Debe ingresar la fecha del documento..!!');
+				omniObj.grid.setCellSelected(true,4,row_aux);
+				}
+		 
+		 } 
+	 	if(INSTITUCION_FORC=='SI') {
+			if(omniObj.grid.getCellText(5,row_aux)=='' || omniObj.grid.getCellText(5,row_aux)==0){
+				alert('Debe seleccionar la institucion..!!');
+				omniObj.grid.setCellSelected(true,5,row_aux);
+				}
+			
+		}	
+		if(PLAZO_FORC=='SI'){
+			if(omniObj.grid.getCellText(6,row_aux)=='' || omniObj.grid.getCellText(6,row_aux)==0){
+				alert('Debe ingresar el plazo..!!');
+				omniObj.grid.setCellSelected(true,6,row_aux);
+				}
+		
+		}
+		if(REFERENCIA_FORC=='SI'){
+			if(omniObj.grid.getCellText(7,row_aux)=='' || omniObj.grid.getCellText(7,row_aux)==0){
+				alert('Debe ingresar la referencia..!!');
+				omniObj.grid.setCellSelected(true,7,row_aux);
+				}
+		}
+		
+		if(LOTE_FORC=='SI'){
+			if(omniObj.grid.getCellText(8,row_aux)=='' || omniObj.grid.getCellText(8,row_aux)==0){
+				alert('Debe ingresar el lote..!!');
+				omniObj.grid.setCellSelected(true,8,row_aux);
+				}
+		
+		} 
+		if(TARHABIENTE_FORC=='SI'){
+			if(omniObj.grid.getCellText(8,row_aux)=='' || omniObj.grid.getCellText(8,row_aux)==0){
+				alert('Debe ingresar el nombre del Tarjeta Habiente..!!');
+				omniObj.grid.setCellSelected(true,8,row_aux);
+				}
+		} 
+}
+
+function recuperarDatosProductos(data) {
+   var datos=data.split('|');
+   omniObj.grid.masterKeyValue=document.PaginaDatos.serial_orp.value=datos[0];
+   omniObj.grid.executeQuery(omniObj.grid.rows);
+//   prompt('test',omniObj.grid.sqlCommand);
+
+//alert(datos[0]);
+}
+
+function procesarProductos() {
+if (validarCliente() ) {
+ document.PaginaDatos.action.value='edit';
+ top.opener.omniObj.grid.action='edit';
+ procesarCategoriaProducto();
+ var SQLCommand=document.PaginaDatos.serial_orp.value+"|"+document.PaginaDatos.serial_cap.value+"|"+document.PaginaDatos.fecha_orp.value+"|"+document.PaginaDatos.numero_orp.value+"|"+document.PaginaDatos.numerofactura_orp.value+"|"+document.PaginaDatos.serial_cli.value+"|"+document.PaginaDatos.ordencliente_orp.value+"|"+document.PaginaDatos.direccionentrega_orp.value+"|"+document.PaginaDatos.fechapago_orp.value+"|"+document.PaginaDatos.vendedor_orp.value+"|"+document.PaginaDatos.estado_orp.value+"|"+document.PaginaDatos.cobrador_orp.value+"|"+document.PaginaDatos.serial_forc.value+"|"+document.PaginaDatos.nombre_orp.value+"|"+document.PaginaDatos.cedula_orp.value+"|"+document.PaginaDatos.observaciones_orp.value+"|"+document.PaginaDatos.tipoCliente_orp.value;
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarFacturaVenta.php",'recuperarDatosProductos');
+      objDBComando.executeQuery();
+ }
+ }
+
+function validarCliente() {
+ if (clientevalido==false) {
+     document.PaginaDatos.razonSocial_cli.focus();
+     alert('ADVERTENCIA: EL CLIENTE '+document.PaginaDatos.razonSocial_cli.value+' TIENE FACTURAS PENDIENTES DE PAGO POR TANTO NO PUEDE FACTURAR!');
+     return false;
+  }
+  return true;
+}
+
+ function procesarCliente() {
+   omniObj.grid.fields[1].list[0]='select serial_dar,descripcion_dar,valor_dar from aranceles,detallearancel where aranceles.serial_ara=detallearancel.serial_ara and aranceles.serial_per='+document.PaginaDatos.serial_per.value;
+//alert(omniObj.grid.fields[1].list[0]);
+ 
+ //  omniObj.grid.sqlCommand='select serial_dfa, descripcion_dar,cantidad_dfa,valor_aal,cantidad_dfa*valor_aal as subtotal_dfa   FROM detallearancel,detallefactura  WHERE detallearancel.serial_dar=detallefactura.serial_dar  and detallefactura.serial_caf=masterkey';
+ //  alert(omniObj.grid.sqlCommand);
+
+ }
+
+
+
+
+ function procesarCategoriaProducto() {
+ var plazo=parseInt(plazootros) ;
+
+  if (document.PaginaDatos.serial_cap.options[document.PaginaDatos.serial_cap.selectedIndex].text=='ULTRAPASTEURIZADO')
+     plazo=parseInt(plazouht);
+
+ document.PaginaDatos.fechapago_orp.value=dateAdd(document.PaginaDatos.fecha_orp.value,plazo);
+
+ }
+
+
+ function cobrarFactura() {
+ var sqlcmd="cobrarFactura.html";
+                var   attributes='width=1020,height=480,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open(sqlcmd,'',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+ 
+ }
+
+ function imprimirFactura() {
+
+            var attributes='';
+            var sURL='../lib/export/omnisoftFacturaPDFApp.php?numerofactura='+document.PaginaDatos.serial_orp.value;
+            var sWidth=1000;
+            var sHeight=750;
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+
+               omnisoftNewWindow=window.open(sURL,'PDF',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+
+ }
+
+function validarFechaFactura() {
+    var mes=parseFloat(document.PaginaDatos.fecha_cab.value.substr(5,2))-1;
+    var fecha=new Date(document.PaginaDatos.fecha_cab.value.substr(0,4),mes,document.PaginaDatos.fecha_cab.value.substr(8,2));
+     var dias=dateDifference( new Date(), fecha);
+     if (dias>=0 && dias <=2)
+        return true;
+     else {
+           if (dias <0)
+           alert('Advertencia: No puede facturar '+ dias*-1+' dias posteriores al dia de hoy');
+           else
+           alert('Advertencia: No puede facturar '+ dias+' dias anteriores al dia de hoy');
+           document.PaginaDatos.fecha_cab.focus();
+     }
+     return false;
+     }
+	 
+ 	 
+</script>
+
+</head>
+
+
+<body>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_cre" type="hidden" id="serial_cre" class="hidden" >
+<input name="serial_caf" type="hidden" id="serial_caf" class="hidden" >
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+
+  <table width="918" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="217" height="52"  class="ingeniumtoptitle"></td>
+      <td width="578"  class="maintoptitle fonttitle"><center>
+          VENTAS<br>
+          RECIBO DE COBRO
+      </center></td>
+      <td width="126"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="137" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="118" height="21"  class="inputtitle">Fecha :</td>
+            <td width="90"><img  src="../images/camporequerido.gif">
+            <input name="fecha_cre" type="text" id="fecha_cre" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()" onChange="validarFechaFactura()" ></td>
+            <td width="111" class="inputtitle">&nbsp;</td>
+            <td width="112">&nbsp;</td>
+            <td width="118" class="inputtitle">Numero Recibo:</td>
+			
+            <td width="81" class="inputtitle"><input name="numero_cre" type="text" id="numero_cre" size="17" maxlength="15" class="integer" onBlur="esconderToolTip()" tipo="ING">
+<!--		    <td width="81" class="inputtitle"><input name="numero_cre" type="text" id="numero_cre" class="secuencia" size="17" maxlength="15"  onBlur="esconderToolTip()"  tipo="ING">
+		   -->
+            <!--<select name="tipoOrdenCompra_odc" id="tipoOrdenCompra_odc" class="combobox">
+                <option value="KARDEX">Productos con Kardex</option>
+                <option value="SIN KARDEX">Productos sin Kardex</option>
+              </select>--></td>
+            <td width="103" rowspan="2" class="inputtitle"><div align="center">Total Facturado
+            </div>
+            <div align="center"><span id="spanTotalFacturado" class="totales">0.00 </span></div>            </td>
+            <td width="83" rowspan="2" class="inputtitle"><div align="center">SALDO
+            </div>
+            <div align="center"><span id="spanSaldo" class="totales">0.00 </span></div>  </td>
+            <td width="80" rowspan="2" class="inputtitle"><div align="center">Total Cobrado</div>
+            <div align="center"><span id="spanTotal" class="totales">0.00 </span></div></td>
+            <td width="3" class="inputtitle"></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Alumno:</td>
+            <td colspan="3" class="inputtitle"><img  src="../images/camporequerido.gif">
+                <input name="alumno" type="text" id="alumno" size="70" maxlength="100"  readonly>
+            <td class="inputtitle">Factura:</td>
+            <td class="inputtitle"><input name="numero_caf" type="text" id="numero_caf"  size="17" maxlength="15"  onBlur="esconderToolTip()" ></td>
+            <td class="inputtitle"></td>
+          </tr>
+
+          <tr>
+            <td height="22"
+			class="inputtitle">Estado: </td>
+            
+			 <td height="22" colspan="1"><img  src="../images/camporequerido.gif" alt="">
+              <select name="estado_cre" id="estado_cre" class="combobox">
+                <option value="PAGADO">PAGADO</option>
+                <option value="ANULADO">ANULADO</option>
+              </select>
+			 </td>
+			 
+			 <td height="22" class="inputtitle"> Nota de Crédito </td>
+			             <td height="22" colspan="1">
+						 <script>
+						var sql2='select 0,"SELECCIONE" union select serial_caf, concat_ws(" ", "No:",numero_caf,"Total:",total_caf) from cabecerafactura where serial_alu = '+opener.document.PaginaDatos.serial_alu.value+' and tipo_caf = "NC" and actividad_caf <> "cerrada"';
+						
+ var cserial_caf2=new omnisoftComboBox('cserial_caf2','serial_caf2',sql2,'250px',false);
+ 
+// alert(sql2); 
+                     cserial_caf2.show();	 
+					 
+					  </script>        
+			</td>
+			 
+            <td height="22" class="inputtitle">Descripcion:</td>
+            <td height="22" colspan="4">
+              <input name="descripcion_cre" type="text" id="descripcion_cre" class="emptytext" size="70" maxlength="200"  onBlur="esconderToolTip()"  >
+            <td height="22"></td>
+          </tr>
+          <tr>
+            <td height="25" colspan=10> <script>
+   omnisoftLoadData(document.PaginaDatos);
+
+  // if (top.opener.omniObj.grid.action=='insert')
+      document.PaginaDatos.fecha_cre.value=fechaSistema();
+	  document.PaginaDatos.alumno.value=opener.document.PaginaDatos.alumno.value;
+	  document.PaginaDatos.numero_caf.value=opener.document.PaginaDatos.numero_caf.value;
+	  document.PaginaDatos.serial_caf.value=opener.document.PaginaDatos.serial_caf.value;
+
+	document. PaginaDatos.serial_alu.value=opener.document.PaginaDatos.serial_alu.value
+
+
+
+    var sql='select serial_dre, nombre_forc,valor_dre,numeroDocumento_dre,fecha_dre,nombre_ban, plazo_dre,referencia_dre,lote_dre,tarjetaHabiente_dre, detallerecibo.serial_forc,detallerecibo.serial_ban  FROM detallerecibo left join banco on banco.serial_ban=detallerecibo.serial_ban left join formacobro on detallerecibo.serial_forc=formacobro.serial_forc WHERE detallerecibo.serial_cre=masterkey';
+    var omniObj=new omnisoftGridDetail('omniObj','serial_cre',document.PaginaDatos.serial_cre.value,'detallerecibo','serial_dre',sql,document.PaginaDatos,Array(true,true),'',0,0,'procesarTotales');
+
+     omniObj.addColumn('Serial','serial_dre', 10,'hidden','','middle','');
+     omniObj.addColumn('Forma Cobro','nombre_forc', 25,'combobox',Array('select serial_forc,nombre_forc,codigo_forc from formacobro','serial_forc','nombre_forc'),'middle','');
+		   
+     omniObj.addColumn('Valor','valor_dre', 8,'double',Array('sum','valor_dre'),'right','','0','refresh');
+     omniObj.addColumn('Numero Documento','numeroDocumento_dre', 8,'integer','','middle','','0');
+     omniObj.addColumn('Fecha Documento','fecha_dre', 8,'string','','middle','','0');
+     omniObj.addColumn('Institucion','nombre_ifi', 12,'combobox',Array('select serial_ban,nombre_ban,codigo_ban from banco','serial_ban','nombre_ban'),'middle','');
+     omniObj.addColumn('Plazo (meses)','plazo_dre', 5,'integer','','right','','0');
+     omniObj.addColumn('Referencia','referencia_dre', 8,'string','','right','','0');
+     omniObj.addColumn('Lote','lote_dre', 8,'string','','right','','0');
+     omniObj.addColumn('Tarjeta Habiente','tarjetahabiente_dre', 20,'string','','right','','0');
+
+     omniObj.addColumn('serial_forc','serial_forc', 8,'hidden','','right','');
+     omniObj.addColumn('serial_ban','serial_ban', 8,'hidden','','right','');
+
+     omniObj.showGrid('omniObj',12,258,1020,'menu','#FF9900');
+
+
+ </script> </td>
+          </tr>
+
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center" class="menuborder"> <table width="906" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="48" height="58" class="menuborder">&nbsp;</td>
+            <td width="170" class="menuborder"><span style="visibility:visible"><a href="#" onClick="grabarCobro();omnisoftGrabar();"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></span></td>
+            <td width="203" class="menuborder"><a href="#" onClick="omnisoftGrabar()"><img src="../images/saveas.jpg" alt="Grabar Como" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="202" class="menuborder"><a href="#" onClick="imprimirPagoPensiones()"><img src="../images/impresora.png" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="149" class="menuborder"><a href="#" onClick="imprimirActivoFijo()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="134" class="menuborder"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+procesarTotales();
+
+	omnisoftLoadData(document.PaginaDatos);
+	document.getElementById('spanTotalFacturado').innerHTML=opener.PaginaDatos.total_caf.value;
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

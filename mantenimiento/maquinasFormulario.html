@@ -1,0 +1,184 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_maq" type="hidden" id="serial_maq" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+        MANTENIMIENTO
+        <br>
+          INGRESO DE MAQUINAS
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="280" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+	  <tr>
+	    <td width="153" height="25"  class="inputtitle">C&oacute;digo : </td>
+	    <td colspan="4" ><span class="inputtitle">
+	      <img  src="../images/camporequerido.gif">
+	      <input name="codigo_maq" type="text" id="codigo_maq"  class="autoincrement" size="10" maxlength="10"  onBlur="esconderToolTip()">
+	    </span></td>
+	    </tr>
+	  <tr>
+	    <td height="25"  class="inputtitle">Fabricante  : </td>
+	    <td colspan="2" ><span class="inputtitle">
+	      <input name="marca_maq" type="text" id="marca_maq" class="string" size="85" maxlength="100"  onBlur="esconderToolTip()" >
+	    </span></td>
+	    <td class="inputtitle">Pais Origen : </td>
+	    <td ><span class="inputtitle">
+	      <script>
+ var cserial_pai=new omnisoftComboBox('cserial_pai','serial_pai','select serial_pai,nombre_pai from pais order by nombre_pai ','120px',true,getURLParam('serial_pai','iframe'));
+                     cserial_pai.show();	  </script>
+	    </span></td>
+	  </tr>
+	  <tr>
+	    <td height="27"  class="inputtitle"> Tipo : </td>
+	    <td colspan="2" ><span class="inputtitle">
+	      <img  src="../images/camporequerido.gif">
+	      <input name="tipo_maq" type="text" id="tipo_maq" class="string" size="85" maxlength="100"  onBlur="esconderToolTip()" >
+	    </span></td>
+	    <td height="27"  class="inputtitle" width="121" >Fecha Fabricaci&oacute;n : </td>
+	    <td width="131" ><input name="fechafabricacion_maq" type="text" id="fechafabricacion_maq" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"></td>
+	  </tr>
+	  <tr>
+	    <td height="27"  class="inputtitle">Modelo : </td>
+	    <td colspan="2" ><span class="inputtitle">
+	      <input name="modelo_maq" type="text" id="modelo_maq" class="string" size="85" maxlength="100"  onBlur="esconderToolTip()" >
+	    </span></td>
+	    <td height="27"  class="inputtitle" >Tiempo  Vida Util : </td>
+	    <td ><span class="inputtitle">
+	      <input name="vidautil_maq" type="text" id="vidautil_maq" class="emptyinteger" size="10" maxlength="20"  onBlur="esconderToolTip()" >
+	    </span></td>
+	    </tr>
+	  
+	  <tr>
+	    <td height="27"  class="inputtitle">Identificacion : </td>
+	    <td colspan="2" ><span class="inputtitle">
+	      <img  src="../images/camporequerido.gif">
+	      <input name="numeroserie_maq" type="text" id="numeroserie_maq" class="string" size="35" maxlength="80"  onBlur="esconderToolTip()" >
+	    </span></td>
+	    <td height="27"  class="inputtitle" >Estado : </td>
+	    <td ><span class="inputtitle"><img  src="../images/camporequerido.gif">
+	      <select name="estado_maq" id="estado_maq" onChange="" class="combobox" >
+            <option value="ACTIVA" selected>Activa</option>
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="INACTIVA">Inactiva</option>
+          </select>
+	    </span></td>
+	    </tr>
+	  <tr>
+	    <td height="27"  class="inputtitle">Descripcion/Aplicacion : </td>
+	    <td height="27" colspan="4" ><span class="inputtitle">
+	      <input name="descripcion_maq" type="text" id="descripcion_maq" class="emptystring" size="100" maxlength="150"  onBlur="esconderToolTip()" >
+	    </span></td>
+	    </tr>
+	  
+	  
+	  <tr>
+	    <td height="29"  class="inputtitle">Area de trabajo:</td>
+	    <td width="261" ><script>
+          var cserial_are=new omnisoftComboBox('cserial_are','serial_are',"select serial_are, concat(codigo_are,\' =>  \',area_are) as area from area",'250px',true,getURLParam('serial_are'));
+                     cserial_are.show();
+	    </script></td>
+	    <td width="127" height="29"  class="inputtitle">Ubicaci&oacute;n  :</span></td>
+	    <td colspan="2" ><span class="inputtitle">
+	      <input name="ubicacion_maq" type="text" id="ubicacion_maq" class="emptystring" size="44" maxlength="80"  onBlur="esconderToolTip()" >
+	    </span></td>
+	  </tr>
+	  <tr>
+	    <td height="28"  class="inputtitle">Fecha &nbsp;Inicio :</td>
+	    <td height="28" colspan="4" ><img  src="../images/camporequerido.gif">
+	      <input name="fechafuncionamiento_maq" type="text" id="fechafuncionamiento_maq" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"></td>
+	    </tr>
+	  
+	  <tr>
+            <td height="26"  class="inputtitle">Observaciones   :</td>
+            <td colspan="4" ><span class="inputtitle">
+              <input name="observaciones_maq" type="text" id="observaciones_maq" class="emptystring" size="75" maxlength="100" value="NINGUNA"  onBlur="esconderToolTip()" >
+            </span></td>
+          </tr>
+          
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+
+</form>
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

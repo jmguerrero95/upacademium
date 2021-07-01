@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+  <style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+  </style>
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_cca" type="hidden" id="serial_cca" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+           RECEPCION DE LECHE<br>
+          CONTROL DE CALIDAD DEL AGUA POTABLE 
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="331" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+	  <tr>
+            <td height="18" colspan="8"  bgcolor="#000166"><div align="center" class="style1">IDENTIFICACION</div></td>
+          </tr>
+          <tr>
+            <td width="126" height="24"  class="inputtitle">C&oacute;digo :</td>
+            <td width="307"><img src="../images/camporequerido.gif"><input name="codigo_cca" type="text" id="codigo_per" size="8" maxlength="8" class="string"></td>
+            <td width="135" class="inputtitle">Fecha :</td>
+            <td width="227"><img src="../images/camporequerido.gif">
+              <input name="fechaidentificacion_cca" type="text" id="fechaidentificacion_cca" size="10" maxlength="10" class="date" onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Punto :</span></td>
+            <td ><img src="../images/camporequerido.gif">
+            <input name="punto_cca" type="text" id="punto_cca" size="40" maxlength="60" class="integer"></td>
+            <td class="inputtitle">Area  :</td>
+            <td ><img src="../images/camporequerido.gif">
+            <input name="area_cca" type="text" id="area_cca" size="40" maxlength="60" class="emptystring"></td>
+          </tr>
+          
+
+       <tr>
+            <td height="24" colspan="8"  bgcolor="#000066"><div align="center" class="style1 style1">RESULTADOS (PARAMETROS/VALORES NORMALES INEN 1108 ) </div></td>
+          </tr>   
+          
+           <tr>
+            <td width="126" height="24"  class="inputtitle">coliformes :</td>
+            <td width="307"><input name="coliformes_cca" type="text" id="coliformes_cca" size="40" maxlength="60" class="emptystring"></td>
+            <td width="135" class="inputtitle">Dureza  :</td>
+            <td width="227"><input name="dureza_cca" type="text" id="dureza_cca" size="40" maxlength="60" class="emptystring"></td>
+          </tr>
+          <tr>
+            <td height="29"  class="inputtitle">aerobios  :</span></td>
+            <td ><input name="aerobios_cca" type="text" id="aerobios_cca" size="40" maxlength="60" class="emptystring"></td>
+            <td class="inputtitle">CI Residual   :</td>
+            <td ><input name="ciresidual_cca" type="text" id="ciresidual_cca" size="40" maxlength="60" class="emptystring"></td>
+          </tr>
+		  <tr>
+		    <td height="23"  class="inputtitle">color olor sabor  :</td>
+            <td ><input name="colorolorsabor_cca" type="text" id="colorolorsabor_cca" size="40" maxlength="60" class="emptystring"></td>
+            <td class="inputtitle">O3 Residual   :</td>
+            <td ><input name="oresidual_cca" type="text" id="oresidual_cca" size="40" maxlength="60" class="emptystring"></td>
+		  <tr>
+            <td height="23"  class="inputtitle">Ph  :</td>
+            <td ><input name="ph_cca" type="text" id="ph_cca" size="40" maxlength="60" class="emptystring"></td>
+            <td class="inputtitle">Inspeccion Cisterna (Limpio)  :</td>
+            <td ><input name="cisterna_cca" type="text" id="cisterna_cca" size="40" maxlength="60" class="emptystring"></td>
+		  </tr>
+		  <tr>
+		    <td height="23"  class="inputtitle">Observaciones : </td>
+		    <td ><input name="observacionindividual_cca" type="text" id="observacionindividual_cca" size="40" maxlength="60" class="emptystring"></td>
+		    <td class="inputtitle">Acciones Correctivas : </td>
+		    <td ><input name="correctivos_cca" type="text" id="correctivos_cca" size="40" maxlength="60" class="emptystring"></td>
+	      </tr>
+		  <tr>
+		    <td height="23"  class="inputtitle">Ensayo Realizado por: </td>
+		    <td ><input name="realizadopor_cca" type="text" id="realizadopor_cca" size="40" maxlength="60" class="emptystring"></td>
+		    <td >&nbsp;</td>
+		    <td >&nbsp;</td>
+	      </tr>
+          
+       <tr>
+            <td height="24" colspan="8"  bgcolor="#000066"><div align="center" class="style1 style1">DATOS GENEREALES </div></td>
+          </tr>  
+		  
+		  <tr>
+            <td width="126" height="30"  class="inputtitle">Observaciones : </td>
+            <td width="307"><input name="observaciongeneral_cca" type="text" id="observaciongeneral_cca" size="40" maxlength="60" class="emptystring"></td>
+            <td width="135" class="inputtitle">Fecha  :</td>
+            <td width="227"><input name="fecharevision_cca" type="text" id="fecharevision_cca" size="40" maxlength="60" class="date"></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle">Revisado por   :</span></td>
+            <td colspan="3" ><input name="revisadopor_cca" type="text" id="revisadopor_cca" size="40" maxlength="60" class="emptystring"></td>
+          </tr> 
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script type="text/javascript">
+	Calendar.setup({
+		inputField     :    "fechaidentificacion_cca",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    true,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+	
+	Calendar.setup({
+		inputField     :    "fecharevision_cca",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    true,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+	
+	
+	
+</script>
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

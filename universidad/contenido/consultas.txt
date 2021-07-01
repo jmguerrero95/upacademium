@@ -1,0 +1,2 @@
+delete from detallecomprobante where serial_com in (
+select serial_com from comprobante where codigo_com like 'DPO%')

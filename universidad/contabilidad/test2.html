@@ -1,0 +1,124 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>Border hint example</title>
+<meta http-equiv="content-language" content=en>
+<meta name=robots content="DISALLOW">
+<meta http-equiv=expires content="Mon, 01 Jan 1990 00:00:00 GMT">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv=pragma content="no-cache">
+<meta name="revisit-after" content="1 day">
+<meta http-equiv="content-script-type" content="text/javascript">
+<link rel=stylesheet type="text/css" href="s.css">
+
+<script language="javascript1.2" src="../lib/hint/codethatsdk.js"></script>
+<script language="javascript1.2" src="../lib/hint/codethathintstd.js"></script>
+<script language="javascript1.2" src="../lib/hint/omnisoftHint.js"></script></head>
+<body leftmargin=0 topmargin=0 marginwidth=0 marginheight=0 bgcolor=#FFFFFF>
+<script language="javascript1.2">
+<!--
+var cthint3_html_xppre = "<table width=255 border=0 cellpadding=0 cellspacing=0><tr><td rowspan=2 valign=top><img src=\"img/tlc.gif\" width=22 height=31><\/td><td><img src=\"img/tc.gif\" width=219 height=20><\/td><td rowspan=2 valign=top><img src=\"img/rtt.gif\" width=13 height=31><\/td><td><img src=\"img/s.gif\" width=1 height=20><\/td><\/tr><tr><td background=\"img/bg.gif\" bgcolor=#FEFCE6 rowspan=3 align=center valign=middle>";
+var cthint3_html = "<table cellpadding=0 cellspacing=0 border=0> " +
+	"<tr><td valign=middle><img src=\"img/info_p.gif\" width=21 height=18><\/td> " +
+	"<td valign=middle><p style=\"font-size:12px;text-align:left;margin-left:4px;margin-right:0;margin-top:0;margin-bottom:0\">XPHint Sample<\/p><\/td><\/tr> " +
+	"<\/table>";
+var cthint3_html_xpaft = "<\/td><td><img src=\"img/s.gif\" width=1 height=11><\/td><\/tr><tr><td><img src=\"img/lc.gif\" width=22 height=7><\/td><td><img src=\"img/rn.gif\" width=13 height=7><\/td><td><img src=\"img/s.gif\" width=1 height=7><\/td><\/tr><tr><td rowspan=2 valign=bottom><img src=\"img/lbl.gif\" width=22 height=12><\/td><td rowspan=2 valign=bottom><img src=\"img/rbn.gif\" width=13 height=12><\/td><td><img src=\"img/s.gif\" width=1 height=11><\/td><\/tr><tr><td><img src=\"img/tb.gif\" width=219 height=1><\/td><td><img src=\"img/s.gif\" width=1 height=1><\/td><\/tr><\/table>";
+
+
+var cthint2_html_xppre = "<table width=100 border=0 cellpadding=0 cellspacing=0><tr><td rowspan=2 valign=top><img src=\"img/ltn.gif\" width=13 height=12><\/td><td><img src=\"img/tb.gif\" width=64 height=1><\/td><td rowspan=2 valign=top><img src=\"img/rtr.gif\" width=22 height=12><\/td><td><img src=\"img/s.gif\" width=1 height=1><\/td><\/tr><tr><td background=\"img/bg.gif\" bgcolor=#FEFCE6 rowspan=3 align=center valign=middle>";
+var cthint2_html = "<table cellpadding=0 cellspacing=0 border=0> " +
+	"<tr><td rowspan=2><img src=\"img/s.gif\" width=10 height=1><\/td> " +
+	"<td><img src=\"img/info_h.gif\" width=16 height=16><\/td><\/tr> " +
+	"<tr><td><p style=\"font-size:12px;text-align:left;margin-left:0;margin-right:0;margin-top:4px;margin-bottom:0\">XPHint Sample<\/p><\/td><\/tr> " +
+	"<\/table>";
+var cthint2_html_xpaft = "<\/td><td><img src=\"img/s.gif\" width=1 height=11><\/td><\/tr><tr><td><img src=\"img/ln.gif\" width=13 height=57><\/td><td><img src=\"img/rc.gif\" width=22 height=57><\/td><td><img src=\"img/s.gif\" width=1 height=57><\/td><\/tr><tr><td rowspan=2 valign=bottom><img src=\"img/lbb.gif\" width=13 height=31><\/td><td rowspan=2 valign=bottom><img src=\"img/brc.gif\" width=22 height=31><\/td><td><img src=\"img/s.gif\" width=1 height=11><\/td><\/tr><tr><td><img src=\"img/bc.gif\" width=64 height=20><\/td><td><img src=\"img/s.gif\" width=1 height=20><\/td><\/tr><\/table>";
+
+
+var cthint1_html_sxppre = "<table width=157 border=0 cellpadding=0 cellspacing=0><tr><td rowspan=2 valign=top><img src=\"img/s/ltl.gif\" width=22 height=12><\/td><td><img src=\"img/s/tb.gif\" width=121 height=1><\/td><td rowspan=2 valign=top><img src=\"img/s/rtn.gif\" width=13 height=12><\/td><td><img src=\"img/s.gif\" width=1 height=1><\/td><\/tr><tr><td background=\"img/s/bg.gif\" bgcolor=#FEFCE6 rowspan=3 align=center valign=middle>";
+var cthint1_html_s = ua.ie5up ? "<img src=\"img/s.gif\" width=1 height=1>" : "<p style=\"margin:0;font-size:1px;color:#999999\">.<\/p>";
+var cthint1_html_sxpaft = "<\/td><td><img src=\"img/s.gif\" width=1 height=11><\/td><\/tr><tr><td><img src=\"img/s/lc.gif\" width=22 height=4><\/td><td><img src=\"img/s/rn.gif\" width=13 height=4><\/td><td><img src=\"img/s.gif\" width=1 height=4><\/td><\/tr><tr><td rowspan=2 valign=bottom><img src=\"img/s/blc.gif\" width=22 height=31><\/td><td rowspan=2 valign=bottom><img src=\"img/s/rbb.gif\" width=13 height=31><\/td><td><img src=\"img/s.gif\" width=1 height=11><\/td><\/tr><tr><td><img src=\"img/s/bc.gif\" width=121 height=20><\/td><td><img src=\"img/s.gif\" width=1 height=20><\/td><\/tr><\/table>";
+var cthint1_html_xppre = "<table width=155 border=0 cellpadding=0 cellspacing=0><tr><td rowspan=2 valign=top><img src=\"img/ltl.gif\" width=22 height=12><\/td><td><img src=\"img/tb.gif\" width=119 height=1><\/td><td rowspan=2 valign=top><img src=\"img/rtn.gif\" width=13 height=12><\/td><td><img src=\"img/s.gif\" width=1 height=1><\/td><\/tr><tr><td background=\"img/bg.gif\" bgcolor=#FEFCE6 rowspan=3 align=center valign=middle>";
+var cthint1_html = "<table cellpadding=0 cellspacing=0 border=0><tr><td valign=middle><img src=\"img/attention.gif\" width=18 height=15><\/td><td valign=middle><p style=\"font-size:12px;margin-left:3px;margin-right:0;margin-top:0;margin-bottom:0\">XPHint Sample<\/p><\/td><\/tr><\/table>";
+var cthint1_html_xpaft = "<\/td><td><img src=\"img/s.gif\" width=1 height=11><\/td><\/tr><tr><td><img src=\"img/lc.gif\" width=22 height=2><\/td><td><img src=\"img/rn.gif\" width=13 height=2><\/td><td><img src=\"img/s.gif\" width=1 height=2><\/td><\/tr><tr><td rowspan=2 valign=bottom><img src=\"img/blc.gif\" width=22 height=31><\/td><td rowspan=2 valign=bottom><img src=\"img/rbb.gif\" width=13 height=31><\/td><td><img src=\"img/s.gif\" width=1 height=11><\/td><\/tr><tr><td><img src=\"img/bc.gif\" width=119 height=20><\/td><td><img src=\"img/s.gif\" width=1 height=20><\/td><\/tr><\/table>";
+
+var cthintSa = new CT_Hint(157,47,true,-50,9,
+	cthint1_html_sxppre + cthint1_html_s + cthint1_html_sxpaft,"","","",
+	{width:0,color:""},true,2,"Alpha(Opacity=55) ",0,0,5000);
+
+cthintSa.create();
+
+var cthinta = new CT_Hint(155,45,true,-54,5,
+	cthint1_html_xppre + cthint1_html + cthint1_html_xpaft,"","","",
+	{width:0,color:""},true,2,"Alpha(Opacity=80) ",0,0,5000);
+cthinta.create();
+
+
+var cthint1 = new CT_Hint(255, 50,true, 5, 5, cthint3_html_xppre+cthint3_html+cthint3_html_xpaft,"", "","",
+	{width:0,color:""},true,2,"",0,0,5000);
+
+
+
+
+
+cthint1.create();
+
+
+
+var cthint2 = new CT_Hint(100,100,true,-105,-105,
+	cthint2_html_xppre + cthint2_html + cthint2_html_xpaft,"","","",
+	{width:0,color:""},true,2,"Alpha(Opacity=80) ",0,0,5000);
+cthint2.create();
+
+var chint4html='<table width=302 border=0 cellpadding=0 cellspacing=0><tr> <td width="13" rowspan=2 valign=top><img src="img/ltt.gif" width=13 height=31></td>    <td width="256" height="20" background="img/tc.gif"><img src="img/tc.gif" width=1 height=20></td>    <td width="23" rowspan=2 valign=top><img src="img/trc.gif" width=22 height=31></td>    <td width="10"><img src="img/s.gif" width=1 height=1></td></tr><tr><td background="img/bg.gif" bgcolor=#FEFCE6 rowspan=3 align=center valign=middle><table width="253" border=0 cellpadding=0 cellspacing=0><tr>';
+chint4html=chint4html+' <td><img src="img/s.gif" width=10 height=1> <p style="font-size:12px;text-align:left;margin-left:0;margin-right:0;margin-top:4px;margin-bottom:0">Gesti&oacute;n  financiera </p></td>        </tr>      </table>';
+chint4html=chint4html+'</td><td><img src="img/s.gif" width=1 height=11></td></tr><tr><td><img src="img/ln.gif" width=13 height=57></td><td><img src="img/rc.gif" width=22 height=57></td><td><img src="img/s.gif" width=1 height=57></td></tr><tr><td rowspan=2 valign=bottom><img src="img/lbb.gif" width=13 height=31></td>    <td rowspan=2 valign=bottom><img src="img/rbb.gif" width=13 height=31></td>    <td><img src="img/s.gif" width=1 height=11></td></tr><tr>    <td background="img/bc.gif"><img src="img/bc.gif" width=64 height=20></td>    <td><img src="img/s.gif" width=1 height=20></td></tr></table>';
+
+var cthint4 = new CT_Hint(302,302,true,10,10,
+	chint4html,"","","",
+	{width:0,color:""},true,2,"Alpha(Opacity=80) ",0,0,5000);
+cthint4.create();
+
+//-->
+
+function getY( oElement )
+{
+  var iReturnValue = 0;
+  while( oElement != null ) {
+    iReturnValue += oElement.offsetTop;
+    oElement = oElement.offsetParent;
+  }
+  return iReturnValue;
+
+
+
+}
+
+
+function getX( oElement )
+{
+  var iReturnValue = 0;
+  while( oElement != null ) {
+    iReturnValue += oElement.offsetLeft;
+    oElement = oElement.offsetParent;
+  }
+  return iReturnValue;
+}
+
+
+</script>
+
+<p class=cp10><a class=ca5 href="#" onmouseover="cthint1.show()" onmouseout="cthint1.hide()">Put mouse over to see Hint with colored borders</a></p>
+
+<p class=cp10><a class=ca5 href="#" onmouseover="cthint2.show()" onmouseout="cthint2.hide()">Put mouse over to see Hint with colored borders</a></p>
+<p class=cp10><a class=ca5 href="#" onmouseover="cthintSa.show();cthinta.show()" onmouseout="cthintSa.hide();cthinta.hide()">Put mouse over to see Hint with colored borders</a></p>
+<p class=cp10><a class=ca5 href="#" onmouseover="cthint4.show()" onmouseout="cthint4.hide();">Put mouse over to see Hint with colored borders</a></p>
+<p class=cp10><a class=ca5 href="#" onmouseover="omniHint.show()" onmouseout="omniHint.hide();">Put 
+  mouse over to see Hint with colored borders</a></p>
+<p class=cp10><a href="http://www.omnisoft.cc" onMouseOver="omniHint.show()" onmouseout="omniHint.hide()"><img src="../images/bot_gestionfinanciera_a.gif" width="220" height="37" border="0" name="imagen" id="imagen"></a></p>
+<script>
+var y=getY(document.getElementById('imagen'));
+alert(y);
+var omniHint=new omnisoftHint(40,y,'prueba');
+omniHint.create();
+
+</script>
+</body></html>

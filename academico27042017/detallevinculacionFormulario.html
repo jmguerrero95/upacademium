@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+
+<script>
+function seleccionarMateria(){
+
+cserial_mat.objDBComando.sqlCommand='SELECT serial_mat, nombre_mat FROM materia AS mat LEFT JOIN seccion AS sec ON mat.serial_sec = sec.serial_sec WHERE mat.serial_sec = '+opener.PaginaDatos.serial_sec.value+' AND mat.serial_are ='+document.PaginaDatos.serial_are.value+' AND estado_mat =\'ACTIVO\' ORDER BY nombre_mat ASC';
+
+
+/*
+prompt('sql','select concat(dma.serial_mat,\'^\',numerocreditos_dma) as serial, nombre_mat from materia as mat, detallemalla as dma, malla as maa where mat.serial_mat = dma.serial_mat and maa.serial_maa = dma.serial_maa and maa.serial_maa='+opener.PaginaDatos.serial_maa.value+'  and serial_niv='+document.PaginaDatos.serial_niv.value);*/
+//   cserial_mataux.objDBComando.sqlCommand='select  dma.serial_mat, mat.nombre_mat FROM materia as mat, detallemalla as dma where //mat.serial_mat = dma.serial_mat and serial_niv='+document.PaginaDatos.serial_niv.value;
+	cserial_mat.objDBComando.executeQuery();
+}
+
+
+
+</script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_vcp" type="hidden" id="serial_vcp" class="hidden">
+<input name="serial_epl" type="hidden" id="serial_epl" class="hidden">
+<!--<input name="tipo_cap" type="hidden" id="tipo_cap" class="hidden">-->
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>          
+          DETALLE DE VINCULACION CON LA COMUNIDAD DEL PROFESOR 
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="125" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+		  
+
+            <td width="116" height="29"  class="inputtitle"> Programa: </td>
+            <td><img src="../images/camporequerido.gif"><input name="programa_vcp" type="text" id="programa_vcp" size="60" maxlength="65" class="emptystring" ></td>
+            <td class="inputtitle">Horas de Dedicación: </td>
+            <td><img src="../images/camporequerido.gif"><input name="horadedicacion_vcp" type="text" id="horadedicacion_vcp" size="10" maxlength="5" class="integer" ></td>
+          </tr>
+          
+          <tr>
+            <td height="30"  class="inputtitle">Fecha:</td>
+            <td ><img src="../images/camporequerido.gif">
+            <input name="fecha_vcp" type="text" id="fecha_vcp" size="20" maxlength="5" class="date" ></td>
+            <td class="inputtitle">&nbsp;</td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="30"  class="inputtitle">Tipo:</td>
+            <!--<td width="273" colspan="3"><input name="tipo_vcp" type="text" id="tipo_vcp" size="50" maxlength="65" class="emptystring" ></td>-->
+			
+			<td >  
+				<img src="../images/camporequerido.gif">			  
+			  <select name="tipo_vcp" id="tipo_vcp" class="combobox">
+				<option value="" selected="selected"></option>
+                <option value="CURSOS DE FORMACION CONTINUA" >Cursos de Formación Continua</option>
+				<option value="CONSULTORIOS PSICOLOGICOS">Consultorios Psicológicos</option>
+				<option value="SERVICIOS DE SALUD">Servicios de Salud</option>
+				<option value="CONSULTORIOS JURIDICOS">Consultorios Jurídicos</option>
+				<option value="PROGRAMA DE ATENCION CULTURAL">Programas  de Atención Cultural</option>
+				<option value="OTROS">Otros</option>
+              </select>			</td>      
+			
+			
+            <td width="102" class="inputtitle">Observación:</td>
+            <td width="103" ><input name="observacion_vcp" type="text" id="observacion_vcp"  size="30" maxlength="150" class="emptystring" onBlur="esconderToolTip()"></td>			
+          </tr>
+		  
+		   
+          <!--
+		  <tr>          		
+			<td height="31"  class="inputtitle">Participación: </td>
+            <td >  
+				<img src="../images/camporequerido.gif">			  
+			  <select name="participacion_cap" id="participacion_cap" class="combobox">
+				<option value="EXPOSITOR">Expositor</option>
+                <option value="ASISTENTE" selected="selected">Asistente</option>
+				<option value="INVITADO" selected="selected">Anvitado</option>
+              </select>			  
+			</td>            
+          </tr>
+		  --->
+          
+          
+          
+ 
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<script>
+			
+   	omnisoftLoadData(document.PaginaDatos);
+
+  //  var serial_mins=(getURLParam('action')=='insert')? 0:getURLParam('serial_mins');
+	//alert('serial_mins'+serial_mins);
+	document.PaginaDatos.serial_epl.value=opener.PaginaDatos.serial_epl.value;
+	document.PaginaDatos.serial_vcp.value=opener.PaginaDatos.serial_vcp.value;
+	//document.PaginaDatos.serial_cap.value=opener.PaginaDatos.serial_cap.value;
+
+	
+	//document.PaginaDatos.serial_maa.value=opener.PaginaDatos.serial_maa.value;
+
+	//alert('Serial malla '+document.PaginaDatos.serial_maa.value);
+	 //alert('serial_ama:'+opener.PaginaDatos.serial_ama.value); 
+	//var serial_maa=opener.PaginaDatos.serial_maa.value;
+	 //alert('serial_maa11222:'+opener.PaginaDatos.serial_maa.value); 
+
+</script>
+
+</form>
+
+</body>
+</html>

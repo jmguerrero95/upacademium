@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/aw/lib/aw.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftGrid.js"></script>
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script></head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          INVENTARIOS<br>
+          AUTOMATIZACION ORDENES DE COMPRA 
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="162" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="24"  class="inputtitle">Familia :</td>
+            <td><input name="nombre_cap" type="text" id="nombre_cap" class="number" size="16" maxlength="16"  onBlur="esconderToolTip()"table="categoriaproducto" serial="serial_cap" info="codigo_cap"></td>
+          </tr>
+          <tr> 
+            <td width="149" height="24"  class="inputtitle">Producto :</td>
+            <td width="650"> <input name="nombre_prd" type="text" id="nombre_prd" class="string" size="7" maxlength="7"  onBlur="esconderToolTip()"  table="producto" serial="serial_prd" info="codigo_prd"  ></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Minimo:</td>
+            <td ><select name="minimo_oca" id="minimo_oca" class="combobox">
+                <option value="Mínimo Ingresado">M&iacute;nimo Ingresado</option>
+                <option value="Mínimo Sugerido">M&iacute;nimo Sugerido</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Maximo:</td>
+            <td ><select name="maximo_oca" id="maximo_oca" class="combobox">
+                <option value="Máximo Ingresado">M&aacute;ximo Ingresado</option>
+                <option value="Máximo Sugerido">M&aacute;ximo Sugerido</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Valor del Minimo:</td>
+            <td ><input name="valorMinimo_oca" type="text" id="valorMinimo_oca" class="number" size="16" maxlength="16"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Valor del Maximo:</td>
+            <td ><input name="valorMaximo_oca" type="text" id="valorMaximo_oca" size="16" maxlength="16" class="number"></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >       <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

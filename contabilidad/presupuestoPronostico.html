@@ -1,0 +1,281 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftMenu.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<link href="../lib/zpmenu/themes/images.css" rel="stylesheet" type="text/css">
+<link href="../lib/grid/styles/omnisoftGrid.css" rel="stylesheet" type="text/css">
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script>
+
+function procesarConsulta() {	
+		
+	pregunta = confirm("Desea Generar el Ingreso?");		
+		if (pregunta !="0")
+		{ 
+			var query1='pronostico.php?query1=|';	   
+			  
+			//  var objFieldInput  = document.PaginaDatos.getElementsByTagName('input');
+			  var objFieldSelect = document.PaginaDatos.getElementsByTagName('select');
+			
+				 /*for (var i=0; i<objFieldInput.length; i++)
+					query1=query1+'|'+objFieldInput[i].name+'="'+objFieldInput[i].value+'"';*/
+			
+				 for (var i=0; i<objFieldSelect.length; i++){
+					//query=query+'|'+objFieldSelect[i].name+'="'+objFieldSelect[i].value+'"';		
+					query1 = query1 + objFieldSelect[i].value+'|';
+					}
+							
+				   query1 = query1 + getCookie('serial_dep');
+				   //alert(query1);
+				//   var attributes='width=1020,height=650,scrollbars=yes,resizable=yes,toolbar=yes,location=yes,status=yes,menubar=yes';
+						
+				   
+				   var attributes='width=900,height=600,toolbar=NO,location=NO,directories=NO,status=no,menubar=no, scrollbars=yes,copyhistory=no,statusbar=no';
+				omnisoftNewWindow=window.open(query1,'OmnisofRegistro',attributes);
+				if (window.focus) {omnisoftNewWindow.focus()}	   
+	         
+	}
+	
+}
+
+
+function seleccionarPeriodo(){
+  //cserial_per.objDBComando.sqlCommand='select per.serial_per, per.nombre_per from calendariounificado as cun, periodo as per where per.serial_per = cun.serial_per and year(now()) < year(per.fecini_per) and per.serial_suc = '+document.PaginaDatos.serial_suc.value+' and per.activo_per = "SI" and per.serial_per not in (select serial_per from pronostico) group by nombre_per order by fecini_per'; 
+  //concat(per.serial_per,"|",per.fecini_per)
+//    cserial_per.objDBComando.sqlCommand='select per.serial_per, per.nombre_per from calendariounificado as cun, periodo as per where per.serial_per = cun.serial_per and 2009 < year(per.fecini_per) and per.serial_suc = '+document.PaginaDatos.serial_suc.value+' and per.activo_per = "SI" and per.serial_per not in (select serial_per from pronostico) group by nombre_per order by fecini_per';   
+
+cserial_per.objDBComando.sqlCommand = 'select concat_ws("*",per.serial_per,per.fecini_per), per.nombre_per from calendariounificado as cun, periodo as per where per.serial_per = cun.serial_per and 2009 < year(per.fecini_per) and per.serial_suc = '+document.PaginaDatos.serial_suc.value+' and per.activo_per = "SI" and per.serial_per not in (select serial_per from pronostico) group by nombre_per order by fecini_per';   
+  
+ // prompt("","select per.serial_per, per.nombre_per from calendariounificado as cun, periodo as per where per.serial_per = cun.serial_per and year(now()) < year(per.fecini_per) and per.serial_suc = "+document.PaginaDatos.serial_suc.value+" and per.activo_per = 'SI' group by nombre_per order by fecini_per")
+  cserial_per.objDBComando.executeQuery();  
+  //'+document.PaginaDatos.serial_per.value+'
+}
+
+</script>
+</head>
+
+<style type="text/css">
+<!--
+.style1 {	color: #FFFFFF;
+	font-weight: bold;
+}
+-->
+</style>
+<!--<BODY onLoad="initDisableRight();"  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+-->
+</HEAD>
+
+<body>
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+      <td height="541" valign="top">
+
+  	  </td>
+    <td height="541" valign="top">									
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top">
+                    <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td>                   
+					 <td width="482"  class="toptitle" > 
+					 	<center>MODULO DE GESTION FINACIERA<br>
+								Generación Automática	
+                    	</center>
+					</td>					
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>  <td height="20" class="menuborder" >
+		<ul id="myMenu" class='zpHideOnLoad'>    </ul>  
+		     <script>
+              OmnisoftPerfilUsuario(moduloContabilidad);			  
+            </script></td>
+          </tr>
+          <tr>            
+		  <td height="412" valign="top" >
+			<div align="center">
+                <table  width="100%" height="467"  border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+                  <tr>
+                    <td height="465" colspan="2" class="inputtitle" >					
+					<table align="center"  height="71" >					
+                      <tr>
+                        <td width="50" height="17"  class="inputtitle">Sede:</td>
+                        <td><script> 						
+						var cserial_suc = new omnisoftComboBox('cserial_suc','serial_suc','select serial_suc, NOMBRE_SUC from sucursal order by NOMBRE_SUC desc','250px',false,'','',seleccionarPeriodo);
+                     	cserial_suc.show();						
+						</script>                        
+						</td>                        
+						<tr>
+						<td width="50" height="17"  class="inputtitle">Periodo:</td>						
+						<td><script> 						
+						
+						var cserial_per = new omnisoftComboBox('cserial_per','serial_per','select per.serial_per, per.nombre_per from calendariounificado as cun, periodo as per where per.serial_per = cun.serial_per and year(now()) < year(per.fecini_per) and per.serial_suc = '+getCookie('serial_suc')+' and per.activo_per = "SI" and per.serial_per not in (select serial_per from pronostico) group by nombre_per order by fecini_per','250px',false,'','');
+		
+//prompt("","select per.serial_per, per.nombre_per from calendariounificado as cun, periodo as per where per.serial_per = cun.serial_per and year(now()) < year(per.fecini_per) and per.serial_suc = '+document.PaginaDatos.serial_suc.value+' and per.activo_per = 'SI' and per.serial_per not in (select serial_per from pronostico) group by nombre_per order by fecini_per")
+						
+		//alert("select per.serial_per, per.nombre_per from calendariounificado as cun, periodo as per where per.serial_per = cun.serial_per and year(now()) < year(per.fecini_per) and per.serial_suc = '+getCookie('serial_suc')+' and per.activo_per = 'SI' group by nombre_per order by fecini_per")
+                     	
+						cserial_per.show();						
+						</script>                        
+						</td>                        
+						
+						</tr>
+                <!--
+				    <tr>
+                        <td width="50" height="17"  class="inputtitle">Año:</td>
+                        <td>
+						<script>
+						//var fecha = getFullYear();
+					//alert(fecha);
+						//combo1.options[1] = 'hola11';
+					</script>
+					
+						 
+					<select name="año" id="año" class="combobox">
+                		<option value="2009"> 2009</option>
+						<option value="2010"selected="selected"> 2010 </option>
+                		<option value="2011"> 2011 </option>
+						<option value="2012"> 2012 </option>
+						<option value="2013"> 2013 </option>
+						<option value="2014"> 2014 </option>
+						<option value="2015"> 2015 </option>
+						<option value="2016"> 2016 </option>
+						<option value="2017"> 2017 </option>
+						<option value="2018"> 2018 </option>
+						<option value="2019"> 2019 </option>
+						<option value="2020"> 2020 </option>
+              	</select>					
+						                        						
+						
+						</td>                        
+					</tr>   					   			   				                         					 
+				-->	
+					<tr>
+                        <td width="50" height="17"  class="inputtitle">Generar Por?:</td>
+                        <td>
+						<script>
+						//var fecha = getFullYear();
+					//alert(fecha);
+						//combo1.options[1] = 'hola11';
+					</script>
+							
+				<!--
+				<select name="generar" id="generar" class="combobox">
+                		<option value="credito"> Crédito </option>
+						<option value="matricula"> Matricula </option>
+						
+              	</select>					
+				-->		                        						
+						
+						</td>                        
+					</tr>   					   			   				                         					 
+					   				  			  
+					 </table>
+					 
+					 <table align="center" >
+					 <tr>
+                        <td height="34"  class="inputtitle"><a href="#" onClick="procesarConsulta()"><img src="../images/insertar.png" alt="Generar Presupuesto" width="64" height="64" border="0"></a></td>
+						
+						<td height="34"  class="inputtitle"><a href="preOperativoPronostico.html" ><img src="../images/buscar.png" alt="Ver Presupuesto General" width="64" height="64" border="0"></a></td>
+						
+						<td height="34"  class="inputtitle"><a href="../modulos/modulos.html" ><img src="../images/home.png" alt="Inicio" width="64" height="64" border="0"></a></td>                        
+                        
+                      </tr>
+                    </table>
+			</td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<table width="100%" height="58"  cellpadding="0" cellspacing="0" >
+<tr>
+<td class="menuborder"> </td>
+</tr>
+</table>
+</form>
+</body>
+<script>
+//omnisoftLoadData(document.PaginaDatos);
+//OmnisoftPerfilUsuarioFormulario();
+</script>
+
+
+
+</HTML>
+

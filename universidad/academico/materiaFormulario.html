@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mat" type="hidden" id="serial_mat" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          ACADEMICO<br>
+          MATERIAS </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="131" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+         
+          <tr>
+            <td width="142" height="26"  class="inputtitle">Area : </td>
+            <td width="357"><img src="../images/camporequerido.gif">
+            <script>
+                 var cserial_are=new omnisoftComboBox('cserial_are','serial_are','SELECT serial_are,  nombre_are FROM area','180px',false,getURLParam('serial_are'));
+				 			 
+                     cserial_are.show();
+	          </script></td>
+            <td width="62" class="inputtitle" >Tipo : </td>
+            <td width="234"><select name="tipo_mat" id="tipo_mat" class="combobox">
+              <option value="CUALITATIVO">Cualitativo</option>
+              <option value="CUANTITATIVO">Cuantitativo</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="29"  class="inputtitle">Nombre Materia :</td>
+            <td><img src="../images/camporequerido.gif"><input name="nombre_mat" type="text" id="nombre_mat" class="string" size="50" maxlength="25"  onBlur="esconderToolTip()"></td>
+            <td class="inputtitle">Estado : </td>
+            <td><select name="estado_mat" id="estado_mat" class="combobox">
+              <option selected value="ACTIVO">Activo</option>
+              <option value="INACTIVO">Inactivo</option>
+            </select></td>
+          </tr>
+          
+          <tr>
+            <td height="25"  class="inputtitle">C&oacute;digo  :</td>
+            <td colspan="3" ><img src="../images/camporequerido.gif"><input name="codigo_mat" type="text" id="codigo_mat" class="string" size="5" maxlength="5"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="25"  class="inputtitle">Observaciones : </td>
+            <td colspan="3" ><input name="observaciones_mat" type="text" id="observaciones_mat" class="emptystring" size="50" maxlength="25"  onBlur="esconderToolTip()"></td>
+          </tr>
+          
+          <tr>
+            <td height="24"  class="inputtitle">Contenido : </td>
+            <td  class="inputtitle"><input name="contenido_mat" type="text" id="contenido_mat"  class="emptytext" size="30" maxlength="255">
+			  
+		<a href="#" onClick="cargarContenido()">
+            <image alt="Cargar Contenido" src="../images/buscar.png" width="20" heigth="20" name="contenido">
+          </a></td>
+      <td colspan="2" class="inputtitle" ><a href="javascript:verContenido();">Ver 
+	  contenido</a></td>	  
+          </tr>
+          
+          
+          
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+function cargarContenido() {
+
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportFile.php?campoarchivo=contenido_mat&archivo='+document.PaginaDatos.contenido_mat.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+
+function verContenido() {
+   var attributes='width=350,height=250,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no, copyhistory=no, statusbar=no';
+                   omnisoftNewWindow=window.open('../contenido/'+document.PaginaDatos.contenido_mat.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+
+</script>
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	
+</script>
+</body>
+</html>

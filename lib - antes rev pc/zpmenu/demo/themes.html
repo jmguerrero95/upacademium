@@ -1,0 +1,277 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+	<title>Zapatec DHTML Menu Widget - Menu with different themes</title>
+	<script type="text/javascript" src="../utils/utils.js"></script>
+	<script type="text/javascript" src="../src/menu.js"></script>
+	<link href="../doc/css/zpcal.css" rel="stylesheet" type="text/css">
+	<link href="../doc/css/template.css" rel="stylesheet" type="text/css">
+	<link rel="SHORTCUT ICON" href="http://www.zapatec.com/website/main/favicon.ico">
+		<style type="text/css">
+		<!--
+		.themes { 
+			margin: 16px;
+			padding: 16px;
+			border: solid 1px black;
+			background-color:#BBD3E6;
+			/* background: url("themes/lightgreen/arrow_down.gif") yellow no-repeat 0 50%;*/
+			width: 250px;
+		}
+		-->
+	</style>
+	<link rel="SHORTCUT ICON" href="http://www.zapatec.com/website/main/favicon.ico">
+			<script type="text/javascript">
+			var themeArray = ["images","winxp1","win2k","office_blue","office_gray","winxpVert","lightblue","greengray","clearskies","osx","rectangles","wood","pink_blocks","lbluecyl", "planks", "stop_n_go", "blue_shield", "redeye", "zapatec_theme", "contrast_blue", "bluecylinder", "zebra_red", "rounded", "special_green"];
+
+			function setActiveTheme(sel) {
+				var i = 0, o, a = sel.options, myTheme;
+				//first disable all themes
+				while (o = a[i++]) {
+					myTheme = document.getElementById("theme-" + o.value);
+					if (myTheme)
+					myTheme.disabled = true;
+				}
+
+				//Now enable the one that was chosen
+				myTheme = document.getElementById("theme-" + sel.value);
+				if (myTheme) {
+					myTheme.disabled = false;
+				}
+			};
+
+			function setMyTheme(theme) {
+				var myTheme;
+		
+				for (ii = 0; ii < themeArray.length; ii++) {
+					myTheme = document.getElementById("theme-" + themeArray[ii]);
+					if (myTheme) {
+						myTheme.disabled = true;
+					}
+				}
+				myTheme = document.getElementById("theme-" + theme);
+				if (myTheme) {
+					myTheme.disabled = false;
+				}
+			}
+
+	/*
+	Opera fix - Opera doesn't change menu width automatically after STYLE substitution.
+	When a them changes, dynamically clone original UL/LI menu contents, remove old Zapatec Menu,
+	and instantiate a new Zapatec Menu
+	*/
+	function showMenu() {
+		var ul = document.getElementById('myMenu');	// Point to Original menu internals
+		var div = document.getElementById('view');	// Div for DHTML Zapatec menu
+		var clone = ul.cloneNode(true);	// Clone Original menu internals 
+		clone.id = 'clonedMenu';	// Set Menu id for Zapatec.Menu
+		while (div.firstChild) {
+			div.removeChild(div.firstChild);	// remove ANY old Cloned menu
+		}
+		div.appendChild(clone);	// Put Cloned menu in target div container
+		var menu = new Zapatec.Menu('clonedMenu', {});  // Instantiate Zapatec Menu
+	}
+
+		</script>
+
+<link rel='stylesheet' href='../themes/office_blue.css' media='all' type='text/css' title='office_blue' id='theme-office_blue'>
+<!-- various stylesheets. Only one active at the time -->
+<link rel='alternate stylesheet' href='../themes/images.css' media='all' type='text/css' title='images' id='theme-images'>
+<link rel='alternate stylesheet' href='../themes/winxp1.css' media='all' type='text/css' title='winxp1' id='theme-winxp1'>
+<link rel='alternate stylesheet' href='../themes/win2k.css' media='all' type='text/css' title='win2k' id='theme-win2k'>
+<link rel='alternate stylesheet' href='../themes/office_gray.css' media='all' type='text/css' title='office_gray' id='theme-office_gray'>
+<link rel='alternate stylesheet' href='../themes/winxpVert.css' media='all' type='text/css' title='winxpVert' id='theme-winxpVert'>
+<link rel='alternate stylesheet' href='../themes/lightblue.css' media='all' type='text/css' title='lightblue' id='theme-lightblue'>
+<link rel='alternate stylesheet' href='../themes/greengray.css' media='all' type='text/css' title='greengray' id='theme-greengray'>
+<link rel='alternate stylesheet' href='../themes/clearskies.css' media='all' type='text/css' title='clearskies' id='theme-clearskies'>
+<link rel='alternate stylesheet' href='../themes/osx.css' media='all' type='text/css' title='osx' id='theme-osx'>
+<link rel='alternate stylesheet' href='../themes/rectangles.css' media='all' type='text/css' title='rectangles' id='theme-rectangles'>
+<link rel='alternate stylesheet' href='../themes/wood.css' media='all' type='text/css' title='wood' id='theme-wood'>
+<link rel='alternate stylesheet' href='../themes/pink_blocks.css' media='all' type='text/css' title='pink_blocks' id='theme-pink_blocks'>
+<link rel='alternate stylesheet' href='../themes/bluecylinder.css' media='all' type='text/css' title='bluecylinder' id='theme-bluecylinder'>
+<link rel='alternate stylesheet' href='../themes/lbluecyl.css' media='all' type='text/css' title='lbluecyl' id='theme-lbluecyl'>
+<link rel='alternate stylesheet' href='../themes/stop_n_go.css' media='all' type='text/css' title='stop_n_go' id='theme-stop_n_go'>
+<link rel='alternate stylesheet' href='../themes/blue_shield.css' media='all' type='text/css' title='blue_shield' id='theme-blue_shield'>
+<link rel='alternate stylesheet' href='../themes/redeye.css' media='all' type='text/css' title='redeye' id='theme-redeye'>
+<link rel='alternate stylesheet' href='../themes/zapatec_theme.css' media='all' type='text/css' title='zapatec_theme' id='theme-zapatec_theme'>
+<link rel='alternate stylesheet' href='../themes/contrast_blue.css' media='all' type='text/css' title='contrast_blue' id='theme-contrast_blue'>
+<link rel='alternate stylesheet' href='../themes/planks.css' media='all' type='text/css' title='planks' id='theme-planks'>
+<link rel='alternate stylesheet' href='../themes/zebra_red.css' media='all' type='text/css' title='zebra_red' id='theme-zebra_red'>
+<link rel='alternate stylesheet' href='../themes/rounded.css' media='all' type='text/css' title='rounded' id='theme-rounded'>
+<link rel='alternate stylesheet' href='../themes/special_green.css' media='all' type='text/css' title='special_green' id='theme-special_green'>
+
+
+	
+</head>
+<body onload="showMenu();setMyTheme('office_blue')">
+
+	<div class="zpStandard">
+
+	<div class="topMenuHeader">
+		<div class="logo">
+			<a href='http://www.zapatec.com'><img src='../doc/images/logoNew.gif' alt='Zapatec logo' border='0'></a>
+		</div>
+		<div class="btn1">
+			<a href="https://www.zapatec.com/zadmin/buy.jsp">
+				<img src="../doc/images/buttonBuy.png" alt='Buy Zapatec Menu' border="0">
+			</a>
+		</div>
+
+		<div class="btn1">
+			<a href="http://www.zapatec.com/website/main/pricing.jsp">
+				<img src="../doc/images/buttonPricing.png" alt='Pricing for Zapatec Menu' border="0">
+			</a>
+		</div>
+	</div>
+
+	<div class="pageMain">
+	
+	<a href="icons.html" style="float:right; margin-right:2em; margin-top:.5em;" accesskey="N">
+			<img border="0" src="next.png" alt="Next Javascript Menu Example"></a>
+		<div class='zpCalSubheader' style='text-align:center'>Menu with different themes</div>
+
+		<br/>	
+		<div class='zpCalDemoText'>
+		<ul>
+		<li>This demo uses <b>ALL</b> themes.</li>
+		<li>Pick different themes from the drop down menu and see how it affects the menu's look.</li>
+		</ul>
+		</div>
+	</div>
+
+		<ul id="myMenu" class='zpHideOnLoad'>
+				<li id='file'>
+				<a href="#">File</a><br>
+				<ul>
+					<li id='new'> <img border='0' src='../themes/icon/icon_new.gif'> <a href='#'>New...</a> </li>
+					<li> <img border='0' src='../themes/icon/icon_open.gif'> <a href="#">Open</a></li>
+					<li><hr> </li>
+					<li> <a href="#">Send To</a><img border='0' src='../themes/icon/icon_blank.gif'> 
+					<ul>
+						<li><img border='0' src='../themes/icon/icon_mailrecipient.gif'><a href="#">Mail Recipient</a></li>
+						<li><img border='0' src='../themes/icon/icon_routing.gif'><a href="#">Routing Recipient</a></li>
+						<li><img border='0' src='../themes/icon/icon_exchange.gif'><a href="#">Exchange Folder</a></li>
+						<li><hr> </li>
+						<li><img border='0' src='../themes/icon/icon_powerpoint.gif'><a href="#">Microsoft Power Point</a></li>
+					
+					</ul>
+					
+					</li>
+					<li><img border='0' src='../themes/icon/icon_save.gif'> <a href="#">Save</a></li>
+					<li><img border='0' src='../themes/icon/icon_blank.gif'> <a href="#">Save As</a></li>
+					<li><img border='0' src='../themes/icon/icon_save_asweb.gif'> <a href="#">Save As Web Page</a> </li>
+					<li><img border='0' src='../themes/icon/icon_filesearch.gif'> <a href="#">File Search</a></li>
+					<li><hr> </li>
+					<li><img border='0' src='../themes/icon/icon_blank.gif'> <a href="#">Page Setup...</a></li>
+					<li><img border='0' src='../themes/icon/icon_printpreview.gif'> <a href="#">Print Preview</a> </li>
+					<li><img border='0' src='../themes/icon/icon_print.gif'> <a href="#">Print...</a></li>
+					<li><hr> </li>
+					<li><img border='0' src='../themes/icon/icon_blank.gif'> <a href="#">Exit</a></li>
+
+				</ul>
+				</li>
+				<li id='edit'>
+				<a href="#">Edit</a><br>
+				<ul>
+					<li><img border='0' src='../themes/icon/icon_cut.gif'> <a href='#'>Cut</a>  </li>
+					<li><img border='0' src='../themes/icon/icon_copy.gif'> <a href="#">Copy</a> </li>
+					<li><img border='0' src='../themes/icon/icon_office.gif'> <a href='#'>Office Clipboard...</a>  </li>
+					<li><img border='0' src='../themes/icon/icon_paste.gif'> <a href="#">Paste</a> </li>
+					<li><hr> </li>
+					<li><img border='0' src='../themes/icon/icon_find.gif'> <a href="#">Find...</a> </li>
+					<li><img border='0' src='../themes/icon/icon_blank.gif'> <a href="#">Clear</a>
+					<ul>
+						<li><img border='0' src='../themes/icon/icon_blank.gif'><a href="#">Format</a></li>
+						<li><img border='0' src='../themes/icon/icon_blank.gif'><a href="#">Content</a></li>
+					</ul>
+					</li>
+
+
+				</ul>
+				</li>
+				
+				<li>
+				<a href="#">View</a><br>
+				<ul>
+					<li><img border='0' src='../themes/icon/icon_normal.gif'> <a href='#'>Normal</a>  </li>
+					<li><img border='0' src='../themes/icon/icon_web.gif'> <a href="#">Web Layout</a> </li>
+					<li><img border='0' src='../themes/icon/icon_reading.gif'> <a href='#'>Reading Layout</a>  </li>
+					<li><img border='0' src='../themes/icon/icon_outline.gif'> <a href="#">Outline</a> </li>
+					<li><hr> </li>
+					<li><img border='0' src='../themes/icon/icon_docmap.gif'> <a href="#">Document Map</a> </li>
+					<li><img border='0' src='../themes/icon/icon_thumb.gif'> <a href="#">Thumbnail</a> </li>
+					<li><img border='0' src='../themes/icon/icon_hf.gif'> <a href="#">Header and Footer</a> </li>
+				</ul>
+				</li>
+
+				<li id='help'>
+				<a href="#">Help</a><br>
+				<ul>
+					<li><img border='0' src='../themes/icon/icon_help.gif'> <a href='#'>Online Help</a>  </li>
+					<li><img border='0' src='../themes/icon/icon_blank.gif'> <a href="#">Assistance</a> </li>
+					<li><img border='0' src='../themes/icon/icon_blank.gif'> <a href='#'>Check for Update</a>  </li>
+					<li><img border='0' src='../themes/icon/icon_blank.gif'> <a href="#">Register</a> </li>
+					<li><img border='0' src='../themes/icon/icon_blank.gif'> <a href="#">About Us</a> </li>
+
+				</ul>
+				</li>
+
+
+		</ul>
+
+		<div id="view"></div>
+		<br/>
+		<br/>
+		<br/>
+		<div class='themes'>
+			Change the theme in the drop down menu and it will change in the menu above.
+			<select id="f_theme" onchange="setActiveTheme(this);showMenu()">
+				<option value="winxp1">Windows XP Version 1</option>
+				<option value="win2k">Windows 2000</option>
+				<option value="images">Image based</option>
+				<option value="office_blue" selected='selected'>Office 2003 Blue</option>
+				<option value="office_gray">Office 2003 Gray</option>
+				<option value="lightblue">Light Blue</option>
+				<option value="greengray">Green &amp; Gray Brick</option>
+				<option value="clearskies">Clear Skies</option>
+				<option value="osx">Mac OSX Like</option>
+				<option value="rectangles">Rectangles</option>
+				<option value="wood">Wood</option>
+				<option value="pink_blocks">Pink Blocks</option>
+				<option value="bluecylinder">Blue Cylinder</option>
+				<option value="lbluecyl">Light Blue Cylinder</option>
+				<option value="stop_n_go">Stop-N-Go</option>
+				<option value="blue_shield">Blue Shield</option>
+				<option value="redeye">Red Eye</option>
+				<option value="contrast_blue">Contrast Blue</option>
+				<option value="planks">Planks</option>
+				<option value="zapatec_theme">Zapatec Theme</option>
+				<option value="zebra_red">Zebra Red</option>
+				<option value="rounded">Rounded</option>
+				<option value="special_green">Special Green</option>
+
+			</select>
+		</div>
+
+	<script type="text/javascript">
+		showMenu();
+		
+	</script>
+	
+	<noscript>
+		<br/>
+	  This page uses a 
+		<a href='http://www.zapatec.com/website/main/products/prod2/'>
+		Javascript Menu</a>, but your browser does not support Javascript.
+		<br/>
+		<br/>
+	</noscript>
+
+	<br/><br/><br/>
+	<div id="divFooter" class="footer" style='text-align:center; margin-top:2em'>
+		&copy; 2004 <strong> <a href='http://www.zapatec.com/'>Zapatec, Inc.</a> </strong>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/aw/lib/aw.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftGrid.js"></script>
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script></head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          GESTION FINANCIERA<br>
+          SECUENCIA DE DOCUMENTOS 
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="265" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td height="24"  class="inputtitle">Tipo de Documento:</td>
+            <td colspan="3"><select name="tipo_sdo" id="tipo_sdo" class="combobox">
+                <option value="Factura">Factura</option>
+                <option value="Notas de Venta">Nota de Venta</option>
+                <option value="Gu&iacute;as de Remision">Gu&iacute;as de Remisi&oacute;n</option>
+                <option value="Retenciones">Retenciones</option>
+                <option value="Nota de Cr&eacute;dito">Nota de Cr&eacute;dito</option>
+                <option value="Nota de D&eacute;bito">Nota de D&eacute;bito</option>
+                <option value="Retenciones">Retenciones</option>
+                <option value="Liquidacion-Compra">Liquidaci&oacute;n Compra</option>
+                <option value="Modelo-Contable">Modelo Contable</option>
+                <option value="Recibo-Cobro">Recibo Cobro</option>
+                <option value="Cierre-Caja">Cierre Caja</option>
+                <option value="Depositos">Dep&oacute;sitos</option>
+                <option value="Recibo-Pago">Recibo Pago</option>
+                <option value="Generacion-Archivo-Banco">Generaci&oacute;n Archivo 
+                Banco</option>
+                <option value="Inversiones-Prestamos">Inversiones Pr&eacute;stamos</option>
+                <option value="Indices-Financieros">Indices Financieros</option>
+                <option value="Conciliacion-Bancaria">Conciliaci&oacute;n Bancaria</option>
+                <option value="Presupuesto-Contable">Presupuesto Contable</option>
+                <option value="Orden-Compra">Orden Compra</option>
+                <option value="Liquidacion-Importacion">Liquidaci&oacute;n Importaci&oacute;n</option>
+                <option value="Ingreso-Bodega">Ingreso de Bodega</option>
+                <option value="Egreso-Bodega">Egreso de Bodega</option>
+                <option value="Orden-Embarque">Orden de Embarque</option>
+                <option value="Toma-Fisica-Inventarios">Toma F&iacute;sica Inventarios</option>
+                <option value="Inventario-Inicial">Inventario Inicial</option>
+                <option value="Depreciaciones">Depreciaciones</option>
+                <option value="Planificacion-Mantenimiento">Planificaci&oacute;n 
+                Mantenimiento</option>
+                <option value="Registro-Mantenimiento">Registro Mantenimiento</option>
+                <option value="Orden-Mantenimiento">Orden de Mantenimiento</option>
+                <option value="Orden-Pedido">Orden Pedido</option>
+                <option value="Cotizacion">Cotizaci&oacute;n</option>
+                <option value="Telemarketing">Telemarketing</option>
+                <option value="Calculo-Comisiones">C&aacute;lculo Comisiones</option>
+                <option value="Servicio-Cliente">Servicio al Cliente</option>
+                <option value="Encuesta">Encuesta</option>
+                <option value="Competencia">Competencia</option>
+                <option value="Quejas-Sugerencias">Quejas y Sugerencias</option>
+                <option value="Store-Audit">Store Audit</option>
+                <option value="Rol-Pagos">Rol Pagos</option>
+                <option value="Cuestionario-Personal">Cuestionario Personal</option>
+                <option value="Evaluacion-Personal">Evaluaci&oacute;n Personal</option>
+                <option value="Capacitacion-Personal">Capacitaci&oacute;n Personal</option>
+                <option value="Novedades-Personal">Novedades Personal</option>
+                <option value="Prestamos-Personal">Pr&eacute;stamos Personal</option>
+                <option value="Asistencia-Personal">Asistencia Personal</option>
+                <option value="Orden-ProduccionZ">Orden de Producci&oacute;n</option>
+                <option value="Determinacion-Costos-Indirecto">Determinaci&oacute;n 
+                Costos Indirecto</option>
+                <option value="Receta-Produccion">Receta Producci&oacute;n</option>
+                <option value="Requerimiento-Produccion">Requerimiento Producci&oacute;n</option>
+                <option value="Receta-Centro-Costo">Receta Centro Costo</option>
+                <option value="Costeo-Centro-Costo">Costeo Centro Costo</option>
+                <option value="Trazabilidad-Lotes">Trazabilidad Lotes</option>
+                <option value="Fichas-Tecnicas">Fichas T&eacute;cnicas</option>
+                <option value="Registro-Control-Calidad">Registro Control Calidad</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td width="181" height="24"  class="inputtitle">Sucursal:</td>
+            <td colspan="3"><input name="nombre_suc" type="text" id="nombre_suc" class="numero" size="30" maxlength="30" onBlur="esconderToolTip()"table="sucursal" serial="serial_suc" info="codigo_suc">            </td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Codigo Sucursal SRI:</td>
+            <td colspan="3" ><input name="secuencialSucursal_sdo" type="text" id="secuencialSucursal_sdo" class="numero" size="3" maxlength="3" onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Codigo Actividad SRI:</td>
+            <td colspan="3" ><input name="secuencialActividad_sdo" type="text" id="secuencialActividad_sdo" class="numero" size="3" maxlength="3" onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Secuencia Numerica:</td>
+            <td ><input name="numero_sdo" type="text" id="numero_sdo" class="number" size="11" maxlength="11" onBlur="esconderToolTip()"></td>
+            <td class="inputtitle">Stock M&iacute;nimo:</td>
+            <td ><input name="stockMinimo_sdo" type="text" id="stockMinimo_sdo" class="integer" size="10" maxlength="10" onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Talonario Desde:</td>
+            <td colspan="3" ><input name="talonarioDesde_sdo" type="text" id="talonarioDesde_sdo" class="number" size="11" maxlength="11"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Talonario Hasta:</td>
+            <td colspan="3" ><input name="talonarioHasta_sdo" type="text" id="talonarioHasta_sdo" class="number" size="11" maxlength="11"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Autorizado SRI:</td>
+            <td colspan="3" ><select name="autorizaSRI_sdo" id="autorizaSRI_sdo" class="combobox">
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Numero Autorizacion SRI:</td>
+            <td colspan="3" ><input name="autorizacionSRI_sdo" type="text" id="autorizacionSRI_sdo" class="text" size="10" maxlength="10" onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="26"  class="inputtitle">Fecha Caducidad:</td>
+            <td width="250" ><input name="fechaCaducidad_sdo" type="text" id="fechaCaducidad_sdo" class="date" size="12" maxlength="10" ></td>
+            <td width="156"  class="inputtitle">Copias Autorizadas:</td>
+            <td width="208" ><input name="copiasAutorizadas_sdo" type="text" id="copiasAutorizadas_sdo" class="text" size="10" maxlength="10" onBlur="esconderToolTip()"></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >       <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

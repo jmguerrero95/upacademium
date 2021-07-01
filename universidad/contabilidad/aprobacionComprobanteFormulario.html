@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script></head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          GESTION FINANCIERA<br>
+          COMPROBANTE CONTABLE 
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="89" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="128" height="24"  class="inputtitle">Tipo :</td>
+            <td width="281"><span class="style1 style4 style5">
+              <input name="numero_tic" type="text" id="numero_tic" size="10" maxlength="10" class="number" style="background-color:#FFFF00" readonly  table="procesarTipoComprobante" serial="serial_tic" info="codigo_tic">
+              </span></td>
+            <td width="80" class="inputtitle">Numero :</td>
+            <td width="276"><span class="style1 style4 style5"> 
+              <input name="codigo_com" type="text" id="codigo_com" size="10" maxlength="10" class="string" readonly="yes" style="background-color:#FFFF00">
+              </span></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Fecha:</td>
+            <td ><span class="style1 style4 style5"> 
+              <input name="fecha_com" type="text" id="fecha_com" class="date" size="10" maxlength="10"  onBlur="esconderToolTip(); formularioGrabado=0;">
+              </span></td>
+            <td width "110" class="inputtitle">Autorizado:</td>
+            <td ><span class="style1 style4 style5"> 
+              <input name="autorizado_com" type="text" class="string" id="autorizado_com" readonly="yes" onBlur="esconderToolTip()" value="NO" size="5" maxlength="2" style="background-color:#FFFF00" >
+              </span></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Concepto:</td>
+            <td colspan="3" ><input name="concepto_com" type="text" class="string" id="concepto_com2" value="" size="50" formulariograbado="0;&quot;"></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+	OmnisoftPerfilUsuarioFormulario();
+  var fhoy=new Date();
+  var mes =fhoy.getUTCMonth()+1;
+  if (document.PaginaDatos.fecha_com.value=='')
+  document.PaginaDatos.fecha_com.value=fhoy.getYear()+'-'+mes+'-'+  fhoy.getUTCDate();
+
+		Calendar.setup({
+		inputField     :    "fecha_com",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+     MaskInput(document.PaginaDatos.debe_det, "9^.99");
+     MaskInput(document.PaginaDatos.haber_det, "9^.99");
+     procesarTipoComprobante();
+
+     document.PaginaDatos.concepto_com.focus();
+
+function omnisoftLoadDetail(data){
+//if (data!=undefined) {
+//alert(data);
+
+serial_det=parseInt(data[0]);
+
+document.PaginaDatos.serial_suc.value=parseInt(data[1]);
+document.PaginaDatos.serial_dep.value=parseInt(data[2]);
+document.PaginaDatos.serial_fon.value=parseInt(data[3]);
+document.PaginaDatos.serial_plc.value=parseInt(data[4]);
+document.PaginaDatos.referencia_det.value=data[5];
+document.PaginaDatos.descripcion_det.value=data[6];
+document.PaginaDatos.debe_det.value=parseFloat(data[7]);
+document.PaginaDatos.haber_det.value=parseFloat(data[8]);
+//}
+}
+</script>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

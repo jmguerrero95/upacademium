@@ -1,0 +1,400 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action" class="hidden">
+<input name="serial_epl" type="hidden" id="serial_epl" class="hidden">
+<input name="parroquia_epl" type="hidden" id="parroquia_epl" class="hidden" value="1">
+<input name="prospecto_epl" type="hidden" id="prospecto_epl" class="hidden" value="NO">
+
+
+  <table width="1020"  cellspacing="0" cellpadding="0" border=1  bordercolordark="#FFFFFF" bordercolorlight="#000000"  class="formtable">
+    <tr>
+      <td height="20" colspan="6" class="formtitle" ><div align="center">DATOS
+          PERSONALES</div></td>
+      <td width="100" rowspan="5" ><img src="../fotos/foto.jpg"  name="imgfoto" width="100" height="100"></td>
+    </tr>
+    <tr>
+      <td width="56" height="28" class="inputtitle" >C&oacute;digo: </td>
+      <td width="192" class="inputtitle" ><img src="../images/camporequerido.gif"><input name="codigo_epl" type="text" id="codigo_epl"  class="autoincrement" size="10" maxlength="10"  onBlur="esconderToolTip()" table="empleado" fieldid="serial_epl"></td>
+      <td width="103" class="inputtitle" >C&oacute;digo Anterior: </td>
+      <td width="169" class="inputtitle" ><input name="codigoAnterior_epl" type="text" id="codigoAnterior_epl" class="emptytext" size="10" maxlength="10"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+      <td width="105" class="inputtitle">Foto: </td>
+      <td width="279" class="inputtitle">
+      <input name="foto_epl" type="text" id="foto_epl" size="30" maxlength="255" class="emptytext"  ><a href="#" onclick="cargarFoto()"><image alt="Cargar Foto" src="../images/buscar.png" width="20" heigth="20" name="foto" ></a>      </td>
+    </tr>
+    <tr>
+      <td height="19" class="inputtitle" >Nombre: </td>
+      <td height="19" class="inputtitle" ><img src="../images/camporequerido.gif">
+<input name="nombre_epl" type="text" id="nombre_epl" class="string" size="35" maxlength="35"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+      <td class="inputtitle" >Apellido: </td>
+      <td class="inputtitle" ><img src="../images/camporequerido.gif"><input name="apellido_epl" type="text" id="apellido_epl" class="string" size="35" maxlength="35"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px">      </td>
+      <td class="inputtitle">Fecha Nacimiento: </td>
+      <td class="inputtitle"><img src="../images/camporequerido.gif"><input name="fechaNacimiento_epl" type="text" id="fechaNacimiento_epl" class="date" size="10" maxlength="10" value="0000-00-00"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >G&eacute;nero: </td>
+      <td height="20" class="inputtitle" ><img src="../images/camporequerido.gif"><select name="sexo_epl" id="sexo_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="FEMENINO">Femenino</option>
+          <option value="MASCULINO">Masculino</option>
+        </select></td>
+      <td class="inputtitle" >Estado Civil: </td>
+      <td class="inputtitle" ><img src="../images/camporequerido.gif"><select name="estadoCivil_epl" id="estadoCivil_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="SOLTERO">SOLTERO(a)</option>
+          <option value="CASADO">CASADO(a)</option>
+          <option value="DIVORCIADO">DIVORCIADO(a)</option>
+          <option value="VIUDO">VIUDO(a)</option>
+          <option value="UNION LIBRE">UNION LIBRE</option>
+        </select></td>
+      <td class="inputtitle">Estado: </td>
+      <td class="inputtitle"><img src="../images/camporequerido.gif"><select name="estadoEmpleado_epl" id="estadoEmpleado_epl" readonly class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="INACTIVO">Inactivo</option>
+          <option value="ACTIVO">Activo</option>
+        </select></td>
+    </tr>
+    <tr>
+      <td height="19" class="inputtitle" >Sueldo: </td>
+      <td height="19" class="inputtitle" ><input name="sueldo_epl" type="text" id="sueldo_epl" class="emptydouble" size="10" maxlength="10"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px" ></td>
+      <td class="inputtitle" >Tipo Licencia:</td>
+      <td class="inputtitle" ><input name="tipoLicencia_epl" type="text" id="tipoLicencia_epl" class="emptystring" size="5" maxlength="5"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+      <td class="inputtitle">Discapacitado: </td>
+      <td class="inputtitle"><select name="discapacitado_epl" id="discapacitado_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+        <option value="SI" selected>Si</option>
+        <option value="NO">No</option>
+      </select></td>
+    </tr>
+  </table>
+
+  <table width="1020"  cellspacing="0" cellpadding="0" border=1  bordercolordark="#FFFFFF" bordercolorlight="#000000"  class="formtable">
+    <tr>
+      <td height="22" colspan="9" class="formtitle" ><div align="center"> IDENTIFICACION</div></td>
+    </tr>
+    <tr>
+      <td width="85" height="20" class="inputtitle" >C&eacute;dula Militar: </td>
+      <td width="134" class="inputtitle" ><input name="documentoMilitar_epl" type="text" id="documentoMilitar_epl" class="emptytext" size="16" maxlength="16"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+      <td width="81" class="inputtitle" >Carnet IESS: </td>
+      <td width="135" class="inputtitle" ><input name="carnetIess_epl" type="text" id="carnetIess_epl" class="emptytext" size="16" maxlength="16"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+      <td width="115" class="inputtitle">Tipo Identificaci&oacute;n: </td>
+      <td width="144" class="inputtitle"><img src="../images/camporequerido.gif">
+        <select name="tipoDocumento_epl" id="tipoDocumento_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="CEDULA" selected="selected">Cédula</option>
+          <option value="RUC">R.U.C</option>
+          <option value="PASAPORTE">Pasaporte</option>
+      </select></td>
+      <td colspan="2" class="inputtitle">Dcto Identificaci&oacute;n:</td>
+      <td width="143" ><img src="../images/camporequerido.gif"><input name="documentoIdentidad_epl" type="text" id="documentoIdentidad_epl" class="cedula" size="16" maxlength="16"  onBlur="validarDocumento();" style="font-family:Tahoma; font-size:10px"></td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Banco:</td>
+      <td height="20" class="inputtitle" >
+	        <script>
+ var cserial_ifi=new omnisoftComboBox('cserial_ifi','serial_ifi','select serial_ifi,nombre_ifi from institucionesfinancieras where tipo_ifi like \'Banco%\' order by nombre_ifi','250px',true,getURLParam('serial_ifi','iframe'));
+                    cserial_ifi.show();
+  	  </script>
+	  
+	  
+      </td>
+      <td class="inputtitle" >&nbsp;</td>
+      <td class="inputtitle" >&nbsp; </td>
+      <td class="inputtitle">Cuenta Bancaria:</td>
+      <td class="inputtitle"><select name="tipoCuentaBanco_epl" id="tipoCuentaBanco_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="CUENTA AHORROS">Cuenta de Ahorros</option>
+          <option value="CUENTA CORRIENTE">Cuenta Corriente</option>
+          <option value="CUENTA VIRTUAL">Cuenta Virtual</option>
+        </select> </td>
+      <td colspan="2" class="inputtitle">Nro Cuenta: </td>
+      <td class="inputtitle"><input name="numeroCuentaBanco_epl" type="text" id="numeroCuentaBanco_epl" class="emptytext" size="16" maxlength="16"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+    </tr>
+  </table>
+  <table width="1020"  cellspacing="0" cellpadding="0" border=1  bordercolordark="#FFFFFF" bordercolorlight="#000000"  class="formtable">
+    <tr>
+      <td height="20" colspan="9" class="formtitle" ><div align="center">LOCALIZACION</div></td>
+    </tr>
+    <tr>
+      <td width="87" height="20" class="inputtitle" >Direcci&oacute;n: </td>
+      <td width="154" class="inputtitle" ><img src="../images/camporequerido.gif"><input name="direccion_epl" type="text" id="direccion_epl" class="string" size="25" maxlength="35"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+      <td width="77" class="inputtitle" >Nro. Casa: </td>
+      <td width="153" class="inputtitle" ><input name="numeroCasa_epl" type="text" id="numeroCasa_epl" class="emptytext" size="5" maxlength="5"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+      <td width="127" class="inputtitle">Tel&eacute;fono Casa: </td>
+      <td width="131" class="inputtitle">
+      <input name="telefonoPersonal_epl" type="text" id="telefonoPersonal_epl" class="emptyinteger" size="20" maxlength="20"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+      <td width="62" class="inputtitle">Celular:</td>
+      <td width="107" class="inputtitle"><input type="text" name="celular_epl" id="celular_epl" class="emptyinteger" size="20" maxlength="20" onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+      <td width="102" >&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >&nbsp;</td>
+      <td height="20" class="inputtitle" >&nbsp; </td>
+      <td class="inputtitle" >Email:</td>
+      <td class="inputtitle" ><input name="email_epl" type="text" id="email_epl" class="emptyemail" size="35" maxlength="65"  onBlur="esconderToolTip();"  style="font-family:Tahoma; font-size:10px">      </td>
+      <td class="inputtitle">Tel&eacute;fono Oficina:</td>
+      <td class="inputtitle"><input name="telefonoTrabajo_epl" type="text" id="telefonoTrabajo_epl" class="emptyinteger" size="20" maxlength="20"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px">      </td>
+      <td class="inputtitle">Extensi&oacute;n</td>
+      <td class="inputtitle"><input name="extension_epl" type="text" id="extension_epl" class="emptyinteger" size="5" maxlength="5"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px">      </td>
+      <td class="inputtitle">&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Pais/Provincia:</td>
+      <td height="20" colspan="3" class="inputtitle" >
+      <script>
+ var cserial_prv=new omnisoftComboBox('cserial_prv','serial_prv','select provincia.serial_prv,concat(nombre_pai,\'-\',nombre_prv) as nombre from pais,provincia where pais.serial_pai=provincia.serial_pai and continente_pai=\'Ame\' order by nombre_pai,nombre_prv','250px',false,getURLParam('serial_prv','iframe'));
+                    cserial_prv.show();
+  	  </script>	  </td>
+      <td class="inputtitle">Ciudad:</td>
+      <td colspan="2" class="inputtitle">
+	         	    <img src="../images/camporequerido.gif"><script>
+ var cserial_ciu_epl=new omnisoftComboBox('cserial_ciu_epl','serial_ciu_epl','select serial_ciu,nombre_ciu from ciudad where serial_prv>=1 and serial_prv<=22 order by nombre_ciu ','180px',true,getURLParam('serial_ciu_epl','iframe'));
+                     cserial_ciu_epl.show();	  </script>
+	  </td>
+      <td colspan="2" class="inputtitle"><p> 
+	         	    <script>
+// var cparroquia_epl=new omnisoftComboBox('cparroquia_epl','parroquia_epl','select serial_par,nombre_par from parroquia order by nombre_par ','250px',true,getURLParam('parroquia_epl','iframe'));
+  //                   cparroquia_epl.show();	
+    </script>
+	  
+	  </td>
+    </tr>
+  </table>
+  <table width="1020"  cellspacing="0" cellpadding="0" border=1  bordercolordark="#FFFFFF" bordercolorlight="#000000"  class="formtable">
+    <tr>
+      <td height="20" colspan="8" class="formtitle" ><div align="center">INFORMACION
+          LABORAL</div></td>
+    </tr>
+    <tr>
+      <td width="94" height="20" class="inputtitle" >Fecha Ingreso: </td>
+      <td width="128" class="inputtitle" > <input name="fechaIngreso_epl" type="text" id="fechaIngreso_epl" class="date" size="15" maxlength="15" value="0000-00-00"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+      <td width="84" class="inputtitle" >Fecha Salida: </td>
+      <td width="133" class="inputtitle" ><input name="fechaSalida_epl" type="text" id="fechaSalida_epl" class="date" size="15" maxlength="15" value="0000-00-00"  onBlur="esconderToolTip()" readonly="true" style="font-family:Tahoma; font-size:10px"></td>
+      <td width="120" class="inputtitle">Tipo Empleado: </td>
+      <td width="179" class="inputtitle"><img src="../images/camporequerido.gif">
+        <select name="tipoEmpleado_epl" id="tipoEmpleado_epl" class="combo" onChange="verificarTipoEmpleado();" style="font-family:Tahoma; font-size:10px">
+          <option value="TERCIARIZADO">Tercerizado</option>
+          <option value="DIRECTO">Directo</option>
+          <option value="SERVICIOS PROFESIONALES">Servicios Profesionales</option>
+          <option value="COMISIONISTA">Comisionista</option>
+          <option value="SUELDO+FACTURA COMISIONES">Sueldo+Factura Comisiones</option>
+      </select></td>
+      <td width="86" class="inputtitle">Terciarizadora:</td>
+      <td width="178" class="inputtitle">
+	  	         	    <script>
+ var cserial_ter=new omnisoftComboBox('cserial_ter','serial_ter','select serial_ter,razonSocial_pvd from terciarizadora,proveedor where proveedor.serial_pvd=terciarizadora.serial_pvd order by razonSocial_pvd ','200px',true,getURLParam('serial_ter','iframe'));
+                     cserial_ter.show();	
+    </script>	  </td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Departamento:</td>
+      <td height="20" colspan="3" class="inputtitle" >
+	  	         	<img src="../images/camporequerido.gif">    <script>
+ var cserial_dep=new omnisoftComboBox('cserial_dep','serial_dep','select serial_dep,concat(descripcion_age,\'-\',descripcion_dep) as nombre from agencia,departamentos where agencia.serial_age=departamentos.serial_age  and  consolidado_dep=\'N\' order by descripcion_age,descripcion_dep ','250px',true,getURLParam('serial_dep','iframe'));
+                     cserial_dep.show();
+    </script>      </td>
+      <td class="inputtitle">Cargo/Escalafon:</td>
+      <td colspan="3" class="inputtitle"><img src="../images/camporequerido.gif">
+	  	         	    <script>
+ var cserial_esc=new omnisoftComboBox('cserial_esc','serial_esc','SELECT serial_esc, concat( nombre_car, \'-\', nombre_tes ) AS nombre FROM  tipoescalafones, cargos, escalafones WHERE cargos.serial_car = escalafones.serial_car AND tipoescalafones.serial_tes = escalafones.serial_tes ORDER BY nombre_car,nombre_tes','250px',true,getURLParam('serial_esc','iframe'));
+                     cserial_esc.show();
+    </script>      </td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Genera Rol:</td>
+      <td height="20" class="inputtitle" ><select name="generaRol_epl" id="generaRol_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+        <option value="SI" selected>Si</option>
+        <option value="NO">No</option>
+            </select></td>
+      <td class="inputtitle" >Aporta al IESS:</td>
+      <td class="inputtitle" ><select name="aportaIESS_epl" id="aportaIESS_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+        <option value="SI" selected>Si</option>
+        <option value="NO">No</option>
+      </select></td>
+      <td class="inputtitle" >Control  Asistencia:</td>
+      <td class="inputtitle" ><select name="asistencia_epl" id="asistencia_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+        <option value="SI" selected>Si</option>
+        <option value="NO">No</option>
+      </select></td>
+      <td class="inputtitle">Salario Neto:</td>
+      <td class="inputtitle"><select name="sistemaSalarioNeto_epl" id="sistemaSalarioNeto_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+        <option value="SI" selected>Si</option>
+        <option value="NO">No</option>
+      </select></td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Turno:</td>
+      <td height="20" colspan="5" class="inputtitle" >
+	  <script>
+ var cserial_tur=new omnisoftComboBox('cserial_tur','serial_tur','select serial_tur,nombre_tur from turnos','250px',true,getURLParam('serial_tur','iframe'));
+                     cserial_tur.show();
+    </script>
+	  </td>
+      <td class="inputtitle">Comisiones: </td>
+      <td class="inputtitle"><select name="comisiones_epl" id="comisiones_epl" class="combo" style="font-family:Tahoma; font-size:10px; width:160px">
+          <option value="NO COMISIONA" selected>No Comisiona</option>
+          <option value="SI COMISIONA">Si Comisiona</option>
+          <option value="NOMINA,FACTURA">Nomina,Factura</option>
+          <option value="NOMINA">Nomina</option>
+          <option value="COMNISIONISTA-FREELANCE">Comisionistas-FreeLance</option>
+        </select></td>
+    </tr>
+  </table>
+  <table width="1020"  cellspacing="0" cellpadding="0" border=1  bordercolordark="#FFFFFF" bordercolorlight="#000000"  class="formtable">
+    <tr>
+      <td height="20" colspan="10" class="formtitle" ><div align="center">INFORMACION
+          CONTRACTUAL</div></td>
+    </tr>
+    <tr>
+      <td width="91" height="20" class="inputtitle" >Tipo Contrato: </td>
+      <td colspan="2" class="inputtitle" >
+	  <script>
+ var cserial_tct=new omnisoftComboBox('cserial_tct','serial_tct','select serial_tct,nombre_tct from tipocontratostrabajo  order by nombre_tct','250px',true,getURLParam('serial_tct','iframe'));
+                    cserial_tct.show();
+  	  </script>
+        * </td>
+      <td width="114" class="inputtitle" >Forma Contrato:</td>
+      <td colspan="2" class="inputtitle"><select name="formaContrato_epl" id="formaContrato_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="TIEMPO PARCIAL" selected>Tiempo Parcial</option>
+          <option value="TIEMPO COMPLETO">Tiempo Completo</option>
+        </select> </td>
+      <td width="128" class="inputtitle">Fecha Vencimiento:</td>
+      <td colspan="3" class="inputtitle"><input name="fechaVencimientoContrato_epl" type="text" id="fechaVencimientoContrato_epl" class="date" size="15" maxlength="15" value="0000-00-00"  onBlur="esconderToolTip()" readonly="true" style="font-family:Tahoma; font-size:10px"></td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Requisitos:</td>
+      <td width="112" height="20" class="inputtitle" >C&eacute;dula: <select name="copiaCedula_epl" id="copiaCedula_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="SI">Si</option>
+          <option value="NO">No</option>
+        </select></td>
+      <td width="122" height="20" class="inputtitle" >Papeleta: <select name="copiaPapeleta_epl" id="copiaPapeleta_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="SI">Si</option>
+          <option value="NO">No</option>
+        </select></td>
+      <td class="inputtitle" >Libreta: <select name="copiaLibreta_epl" id="copiaLibreta_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="SI">Si</option>
+          <option value="NO">No</option>
+        </select></td>
+      <td width="97" class="inputtitle">Carnet: <select name="copiaCarnet_epl" id="copiaCarnet_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="SI">Si</option>
+          <option value="NO">No</option>
+        </select></td>
+      <td width="156" class="inputtitle">T&iacute;tulo: <select name="copiaTitulo_epl" id="copiaTitulo_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="SI">Si</option>
+          <option value="NO">No</option>
+        </select></td>
+      <td class="inputtitle">Referencia:
+        <select name="copiasReferencias_epl" id="copiasReferencias_epl" class="combo" style="font-family:Tahoma; font-size:10px">
+          <option value="SI">Si</option>
+          <option value="NO">No</option>
+        </select></td>
+      <td colspan="3" class="inputtitle">&nbsp; </td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Contrato:</td>
+      <td height="20" colspan="3" class="inputtitle" ><input name="contrato_epl" type="text" id="contrato_epl"  class="emptytext" size="30" maxlength="255"><a href="#" onclick="cargarArchivo()"><image alt="Cargar Contrato" src="../images/buscar.png" width="20" heigth="20" name="contrato" ></a></td>
+      <td colspan="2" class="inputtitle" ><a href="javascript:verContrato();">Ver
+        contrato</a></td>
+      <td class="inputtitle">Horas al Mes:</td>
+      <td width="46" class="inputtitle"><input name="horasMes_epl" type="text" id="horasMes_epl" class="emptyinteger" size="3" maxlength="3"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+      <td width="81" class="inputtitle">Horas al Dia:</td>
+      <td width="51" class="inputtitle"><input name="horasDia_epl" type="text" id="horasDia_epl" class="emptydouble" size="3" maxlength="3"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+    </tr>
+  </table>
+</form>
+
+<script>
+function cargarFoto() {
+
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportPhoto.php?campofoto=foto_epl&foto='+document.PaginaDatos.foto_epl.value,'OmnisoftPhoto',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+function cargarArchivo() {
+
+
+   var attributes='width=350,height=250,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportFile.php?campoarchivo=contrato_epl&archivo='+document.PaginaDatos.contrato_epl.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+
+function verContrato() {
+   var attributes='width=950,height=650,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=yes,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../contratos/'+document.PaginaDatos.contrato_epl.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+</script>
+
+
+
+
+<script>
+
+   omnisoftLoadData(document.PaginaDatos,'iframe');
+   document.PaginaDatos.prospecto_epl.value='NO';
+   if (document.PaginaDatos.foto_epl.value!='')
+   document.PaginaDatos.imgfoto.src='../fotos/'+document.PaginaDatos.foto_epl.value;
+ </script>
+</body>
+</html>

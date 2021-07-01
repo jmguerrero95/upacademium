@@ -1,0 +1,238 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script type="text/javascript" src="../lib/fisheyes/jquery.js"></script>
+<script type="text/javascript" src="../lib/fisheyes/interface.js"></script>
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/omnisoftTools.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<script language="javascript1.2" src="../lib/tools/omnisoftProgressBar.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+</script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+
+
+<!--[if lt IE 7]>
+ <style type="text/css">
+ .dock img { behavior: url(../lib/fisheyes/iepngfix.htc) }
+ </style>
+<![endif]-->
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+function generarAsistenciaAlumnos() {
+ //document.getElementById('progress').style.visibility='visible';
+// progressBar();
+ var SQLCommand=document.PaginaDatos.serial_dho.value+"|"+document.PaginaDatos.fecha_aalu.value;
+// prompt("",SQLCommand);
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarAsistenciaAlumnos.php",'recuperarDatos');
+     objDBComando.executeQuery();
+    // if (getURLParam('action')=='insert')
+     //top.opener.omniObj.lastPage();
+ }
+  var sqlCommand='';
+function recuperarDatos(data) {
+//alert('Hola');
+var datos=data.split('|');
+
+		sqlCommand="select serial_aalu,codigo_alu,concat_ws(' ',apellidopaterno_alu,apellidomaterno_alu,nombre1_alu,nombre2_alu) alumno,FECHACLASE_DHO,fecha_aalu, asiste_aalu, observaciones_aalu from asistenciaalumno,detallemateriamatriculada,materiamatriculada,alumno,horario,detallehorario where asistenciaalumno.serial_dmat=detallemateriamatriculada.serial_dmat and detallemateriamatriculada.serial_mmat=materiamatriculada.SERIAL_MMAT and materiamatriculada.SERIAL_ALU=alumno.serial_alu and horario.SERIAL_HRR=detallemateriamatriculada.serial_hrr and horario.SERIAL_HRR=detallehorario.SERIAL_HRR and detallehorario.SERIAL_DHO="+document.PaginaDatos.serial_dho.value+" and detallehorario.SERIAL_DHO=asistenciaalumno.serial_dho";
+	//prompt('test',sqlCommand);
+   omniObj.grid.sqlCommand=sqlCommand;
+   omniObj.rTitle='ASISTENCIA: '+ document.PaginaDatos.serial_dho.options[document.PaginaDatos.serial_dho.selectedIndex].text;
+   omniObj.grid.executeQuery(omniObj.grid.rows);
+   
+   
+   
+ //omniObj.grid.masterKeyValue=document.PaginaDatos.serial_acal.value=datos[5];
+   
+   
+   var nombres = '\n';
+   
+   for (var i = 0; i< datos.length; i++){
+   		nombres = nombres + datos[i] + ' \n ';
+   }
+   
+    if(datos[0].length > 0) {  
+   		//alert(nombres);
+	 	alert('LOS ESTUDIANTES: \n' + nombres + ' \n  NO APARECERAN POR FALTA DE PAGO');
+	   
+	 }
+   
+}
+ 
+function ConsultarEmpleado(ci_epl){
+//var serial_usr=;
+
+   if (ci_epl==null || trim(ci_epl)=="") {
+
+       alert('Error Grave:  Usuario NO permitido!');
+       window.close();
+   }
+else {
+		 cserial_dho.objDBComando.sqlCommand='select serial_dho,concat_ws(\'-\',apellido_epl,nombre_epl,INICIO_HORA,FIN_HORA,nombre_mat) as materia  from detallehorario,horas,horario,empleado,materia where  horario.SERIAL_EPL=empleado.SERIAL_EPL and horario.serial_mat=materia.serial_mat and horario.serial_hrr=detallehorario.serial_hrr and detallehorario.SERIAL_HORA=horas.SERIAL_HORA and detallehorario.FECHACLASE_DHO=\''+document.PaginaDatos.fecha_aalu.value+'\' and empleado.documentoidentidad_epl=\''+ci_epl+'\'';
+	cserial_dho.objDBComando.executeQuery();   
+	  //prompt('','select serial_dho,concat_ws(\'-\',apellido_epl,nombre_epl,INICIO_HORA,FIN_HORA,nombre_mat) as materia  from detallehorario,horas,horario,empleado,materia where  horario.SERIAL_EPL=empleado.SERIAL_EPL and horario.serial_mat=materia.serial_mat and horario.serial_hrr=detallehorario.serial_hrr and detallehorario.SERIAL_HORA=horas.SERIAL_HORA and detallehorario.FECHACLASE_DHO=\''+document.PaginaDatos.fecha_aalu.value+'\' and empleado.documentoidentidad_epl=\''+ci_epl+'\'');
+	     //  setTimeout('objDB.executeQuery()',0);
+ 
+//time(now())
+	}
+}
+function ltrim(s) {     return s.replace(/^\s+/, ""); }  
+function rtrim(s) {     return s.replace(/\s+$/, ""); }  
+function trim(s) {     return rtrim(ltrim(s)); }
+
+function intro(e,ci_epl){
+		
+		tecla=(document.all) ? e.keyCode : e.which;
+		
+		if(tecla==13) {
+		
+		window.event.keyCode=0;
+		ConsultarEmpleado(ci_epl);
+		//alert("has apretado intro");
+		
+		}
+
+}
+function ActualizarBusquedas(){
+	if(document.PaginaDatos.clave_usr.value!=''){
+	  	ConsultarEmpleado(document.PaginaDatos.clave_usr.value);
+	  	generarAsistenciaAlumnos();
+	  }
+}
+//-->
+</script>
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+</HEAD>
+<BODY onLoad="initDisableRight();"   LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0  >
+ <form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)" >
+  <input name="action" type="hidden" id="action">
+<table width="101%" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td height="541" valign="top">
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top">
+                    <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td>                    <td width="482"  class="toptitle" > <center>
+MODULO ACADEMICO<br>
+                         CONTROL DE ASISTENCIA ALUMNOS
+
+
+                    </center></td>
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+
+                  </tr>
+                </table>
+
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>            <td  valign="top" >
+			<div align="center">
+ 
+                <table width="100%"  border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                <td valign="top" class="menuborder"><table><tr>
+				   <td class="inputtitle">Fecha:</td><td ><img src="../images/camporequerido.gif"><input name="fecha_aalu" type="text" id="fecha_aalu" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"  onChange="ActualizarBusquedas()"></td>
+                  <td class="inputtitle">C.I.:</td>
+                      <td class="inputtitle">  <input name="clave_usr" type="password" id="clave_usr" class="string" size="20" maxlength="32"  onBlur="esconderToolTip();" onKeyPress="intro(event,this.value)"  ></td>
+                      <td class="inputtitle"> Materia </td>
+                  <td class="inputtitle">
+                <script>
+                     var cserial_dho=new omnisoftComboBox('cserial_dho','serial_dho','select serial_dho,observaciones_dho from detallehorario where 1=2','500px',false,getURLParam('serial_dho'));
+                     cserial_dho.show();
+					// document.PaginaDatos.serial_epl.onchange=procesarEmpleado;
+                 </script></td>
+               <td class="inputtitle"><a href="#" onClick="generarAsistenciaAlumnos()"><img src="../images/history.png" alt="Mostrar Alumnos" width="32" height="32" border="0">Mostrar Alumnos</a></td></tr></table></td>
+               
+
+                </tr>
+                  <tr>
+                    <td  colspan="3" >
+<script>
+    document.PaginaDatos.fecha_aalu.value=fechaSistema();
+    //document.PaginaDatos.fechainicio.value=document.PaginaDatos.fechainicio.value.substr(0,8)+'01';
+    //document.PaginaDatos.fechafin.value=fechaSistema()
+   // var serial_epl=getURLParam('serial_epl');
+
+ 
+sqlCommand="select serial_aalu,codigo_alu,concat_ws(' ',apellidopaterno_alu,apellidomaterno_alu,nombre1_alu,nombre2_alu) alumno, FECHACLASE_DHO,fecha_aalu, asiste_aalu, observaciones_aalu from asistenciaalumno,detallemateriamatriculada,materiamatriculada,alumno,horario,detallehorario where asistenciaalumno.serial_dmat=detallemateriamatriculada.serial_dmat and detallemateriamatriculada.serial_mmat=materiamatriculada.SERIAL_MMAT and materiamatriculada.SERIAL_ALU=alumno.serial_alu and horario.SERIAL_HRR=detallemateriamatriculada.serial_hrr and horario.SERIAL_HRR=detallehorario.SERIAL_HRR  and 1=2";
+   //prompt('test',sqlCommand);
+
+   omniObj=new omnisoftGrid('omniObj','asistenciaalumno','serial_aalu',sqlCommand,'asistenciaFormulario.html',800,550,'asistenciaFormulario.html',800,550,Array(false,false,false));
+
+
+     omniObj.addColumn('Serial','serial_aalu', 10,'hidden','','middle','');
+	 omniObj.addColumn('Codigo','codigo_alu', 10,'readonly','','middle','');
+     omniObj.addColumn('Alumno','alumno', 50,'readonly','','middle','');
+     omniObj.addColumn('Fecha Clases','FECHACLASE_DHO', 10,'readonly','','middle','');
+	 omniObj.addColumn('Fecha Registro','fecha_aalu', 10,'readonly','','middle','');
+     omniObj.addColumn('Asiste','asiste_aalu', 8,'checkbox','','middle','');
+     omniObj.addColumn('Observaciones','observaciones_aalu', 28,'string','','middle','');
+
+   omniObj.showGrid('omniObj',13,355,900,'menu','#FF9900');
+
+//  omniObj.rTitle='ASISTENCIA: '+ getURLParam('apellido_epl')+ ' '+getURLParam('nombre_epl') + " DEL "+document.PaginaDatos.fechainicio.value +"/"+document.PaginaDatos.fechafin.value;
+
+</script></td>
+		</tr>
+		</table>
+		
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+ </form>
+</BODY>
+
+
+</HTML>

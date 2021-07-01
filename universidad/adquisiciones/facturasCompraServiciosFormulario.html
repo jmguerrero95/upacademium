@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/aw/lib/aw.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftGrid.js"></script>
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script></head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          INVENTARIOS<br>
+          FACTURA &quot;COMPRA&quot; SERVICIOS 
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="160" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td height="24"  class="inputtitle">Tipo :</td>
+            <td><select name="tipoOrdenCompra_odc" onChange="tipoOrden()">
+                <!--  <option value="Procesada">Procesada</option> -->
+                <!--<option value="Automatica">Automatica</option>-->
+                <option value="Otra">Servicios</option>
+              </select></td>
+            <td width="110" class="inputtitle">Numero :</td>
+            <td width="276"><span class="style1 style4 style5">
+              <input name="numeroDocumento_odc" type="text" id="numeroDocumento_odc" size="10" maxlength="10" class="number" style="background-color:#FFFF00" readonly>
+              </span></td>
+          </tr>
+          <tr> 
+            <td width="128" height="24"  class="inputtitle">Fechal :</td>
+            <td width="281"> <input name="fecha_odc" type="text" id="fecha_odc" class="date" size="20" maxlength="20"  onBlur="esconderToolTip(); formularioGrabado=0;" onChange="verificarFechaMenor();calculaFechaEntrega();"></td>
+            <td width "110" class="inputtitle">Fecha Entrega:</td>
+            <td><input name="fechaEntrega_odc" type="text" id="fechaEntrega_odc" class="date" size="10" maxlength="10"  onBlur="esconderToolTip(); formularioGrabado=0;" onChange="verificarFechaMenor();"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Proveedor:</td>
+            <td ><input name="razonSocial_pvd" type="text" id="razonSocial_pvd" class="string" size="20" maxlength="20"  onBlur="esconderToolTip()" table="proveedor" serial="serial_pvd" info="codigo_pvd"></td>
+            <td width "110" class="inputtitle">Plazo :</td>
+            <td ><input name="nombre_forp " type="text" id="nombre_forp " class="date" size="10" maxlength="10"  onBlur="esconderToolTip(); formularioGrabado=0;" onChange="verificarFechaMenor();" table="formaspago" serial="serial_forp" info="codigo_forp"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Autorizacion SRI:</td>
+            <td ><span class="style1 style4 style5"> 
+              <input name="numeroDocumento_odc2" type="text" id="numeroDocumento_odc2" size="10" maxlength="10" class="number"  >
+              </span></td>
+            <td width "110" class="inputtitle">Fecha Caducidad:</td>
+            <td ><span class="style1 style4 style5">
+              <input name="fechaCaducidad_odc" type="text" id="fechaCaducidad_odc" size="10" maxlength="10" class="date"  >
+              </span></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">RUC:</td>
+            <td ><span class="style1 style4 style5"> 
+              <input name="ruc_odc" type="text" id="ruc_odc2" size="13" maxlength="13" class="number"  >
+              </span></td>
+            <td width "110" class="inputtitle">Distribucion :</td>
+            <td ><select name="distribucion">
+                <option value="Manual">Manual</option>
+                <option value="Automatica">Automatica</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Observaciones:</td>
+            <td colspan="3" ><input name="observaciones_odc" type="text" id="observaciones_odc2" class="string" size="110" maxlength="200"  onBlur="esconderToolTip(); formularioGrabado=0;"></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >       <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

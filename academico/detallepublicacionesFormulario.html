@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+<script>
+/*function seleccionarModalidad(){
+
+	//alert('horario_no');
+	   var sql='SELECT serial_pmod, descripcion_pmod    FROM publicacionmodalidad where serial_pti= '+document.PaginaDatos.serial_pti.value+' order by descripcion_pmod';
+	
+//prompt('horario',sql);
+cserial_pmod.objDBComando.sqlCommand=sql;
+cserial_pmod.objDBComando.executeQuery();
+}
+*/</script>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_pbl" type="hidden" id="serial_pbl" class="hidden">
+<input name="serial_epl" type="hidden" id="serial_epl" class="hidden">
+<!--<input name="tipo_cap" type="hidden" id="tipo_cap" class="hidden">-->
+
+  <table width="875" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="486"  class="maintoptitle fonttitle"><center>
+          
+          DETALLE DE PUBLICACIONES DEL PROFESOR 
+      </center></td>
+      <td width="200"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="2"> <table width="887" height="135" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+        <tr>
+		    <td width="128" height="29"  class="inputtitle"> Nombre de Publicaci&oacute;n: </td>
+            <td colspan="2"><img src="../images/camporequerido.gif"><input name="nombre_pbl" type="text" id="nombre_pbl" size="60" maxlength="100" class="emptystring" ></td>
+			<td width="98" height="29"  class="inputtitle"> Nombre de la Revista: </td>
+            <td width="166"><input name="nombre_revista_articulo_pbl" type="text" id="nombre_revista_articulo_pbl" size="40" maxlength="100" class="emptystring" ></td>
+            <td class="inputtitle" colspan="2">Revista Indexada: </td>
+            <td width="113" >
+            	<select name="revista_indexada_articulo_pbl" id="revista_indexada_articulo_pbl" class="combo" style="font-family:Tahoma; font-size:10px">
+        		<option value="SI">SI</option>
+        		<option value="NO">NO</option>
+   			</select></td>
+       </tr>
+          
+       <tr>
+		 	<td class="inputtitle" >Fecha publicaci&oacute;n: </td>
+            <td width="183" ><img src="../images/camporequerido.gif">
+            <input name="fecha_pbl" type="date" id="fecha_pbl" size="10" maxlength="10" class="date" ></td>
+		 	<td width="98" height="37" class="inputtitle" >Participación Libro: </td>
+			<td width="166" class="inputtitle">
+			<select name="participacion_pbl" id="participacion_pbl" class="combobox">
+        		<option value="AUTOR">AUTOR</option>
+				<option value="COAUTOR">COAUTOR</option>
+				<option value="NINGUNO">NINGUNO</option>
+      		</select> </td>
+	  		<td width="49" class="inputtitle">Numero ISBN:</td>
+            <td>
+			<input name="numero_ISBN_pbl" type="text" id="numero_ISBN_pbl" class="text" size="20" maxlength="20"  onBlur="esconderToolTip()"    ></td>
+       </tr>
+	   
+	   <tr>
+		  <td width="128" class="inputtitle">Estado de Publicación:</td>
+          <td colspan="2"><select name="estado_pbl" id="estado_pbl" class="combobox">
+        		<option value="PUBLICADO">PUBLICADO</option>
+				<option value="ACEPTADO PARA PUBLICACION">ACEPTADO PARA PUBLICACIÓN</option>
+				<option value="NINGUNO">NINGUNO</option>
+      		</select></td>
+		   <td width="98" class="inputtitle">Base de Datos Indexada revis. :</td>
+           <td colspan="2"><select name="basedatos_revista_indexada_pbl" id="basedatos_revista_indexada_pbl" class="combobox">
+        		<option value="0"></option>
+				<option value="ISI WEB OF KONWLEDGE">ISI WEB OF KONWLEDGE</option>
+				<option value="SCIMAGO JOURNAL RANK">SCIMAGO JOURNAL RANK (SCOPUS)</option>
+				<option value="LATIN INDEX">LATIN INDEX</option>
+      		</select></td>
+		</tr>
+		
+	    <tr>
+            <td width="128" class="inputtitle">Revisión Libro:</td>
+            <td width="70" ><select name="revision_pbl" id="revision_pbl" class="combo" style="font-family:Tahoma; font-size:10px">
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+            </select></td>	
+			<td height="30"  class="inputtitle">Tipo Publicaci&oacute;n: </td>
+            <td colspan = "3"> <script>
+								var sqlMod ="select serial_pmod,concat_ws(' ',nombre_pti,descripcion_pmod) as tipo from publicacionmodalidad as pmod,publicaciontipo as pti where pmod.serial_pti= pti.serial_pti order by tipo";
+								var cserial_pmod=new omnisoftComboBox('cserial_pmod','serial_pmod',sqlMod,'400px',true,getURLParam('serial_pmod'));
+                     cserial_pmod.show();
+					
+					 
+	          				</script></td>
+            <td width="62" class="inputtitle"> </td>
+            <td width="113" ></td>
+          </tr>
+          <tr>
+            <td height="30"  class="inputtitle">Forma de publicaci&oacute;n:</td>
+            
+			<!--<td width="273" colspan="3"><input name="tipo_pbl" type="text" id="tipo_pbl" size="50" maxlength="65" class="emptystring" ></td> -->
+			<td >  
+				<img src="../images/camporequerido.gif">			  
+			  <select name="forma_pbl" id="forma_pbl" class="combobox">
+			  	<option value="" selected="selected"></option>
+				<option value="IMPRESA">Impresa</option>
+                <option value="DIGITAL">Digital</option>
+              </select>			</td>            
+			
+            <td width="183" class="inputtitle">Observación:</td>
+            <td colspan="2" ><input name="observacion_pbl" type="text" id="observacion_pbl"  size="50" maxlength="150" class="emptystring" onBlur="esconderToolTip()"></td>			
+          </tr> 
+       </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="767" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="140" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="140" height="30" border="0"></a></div></td>
+            <td width="422"></td>
+            <td width="205"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<script>
+			
+   	omnisoftLoadData(document.PaginaDatos);
+  
+	document.PaginaDatos.serial_epl.value=opener.PaginaDatos.serial_epl.value;
+	document.PaginaDatos.serial_pbl.value=opener.PaginaDatos.serial_pbl.value;
+	
+</script>
+
+</form>
+
+</body>
+</html>

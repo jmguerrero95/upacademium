@@ -1,0 +1,193 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::Factura de Servicios</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script type="text/javascript" src="../lib/fisheyes/jquery.js"></script>
+<script type="text/javascript" src="../lib/fisheyes/interface.js"></script>
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+<!--
+function MM_preloadImages() { //v3.0
+	var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+	var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+	if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+	var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+	var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+	d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+	if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+	for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+	if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+	var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+	if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+<style type="text/css">
+.style3 {font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #FFFFFF; }
+.style4 {
+	color: #FFFFFF;
+	font-weight: bold;
+}
+</style>
+
+</HEAD>
+<BODY onLoad="initDisableRight();" onkeydown="keyHandler(event.keyCode);" BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+<style>
+	.titulos {color: #FFFFFF; font-size: 16px;font-family: Arial, Helvetica, sans-serif;}
+</style>
+<script src="../lib/omnisoftGrid.js"></script>
+<script src="../lib/omnisoftAcciones.js"></script>
+<div style="position:absolute;left:0px;top:0px;display:none">
+	<form name="formSearchFilter"><input type="hidden" name="searchFilter" value=""><input type="hidden" name="searchGUIFilter" value=""></form>
+</div>
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cía. Ltda. www.omnisoft.cc y Baldoré Cía. Ltda. www.baldore.com';</script>
+<script>
+function llamarInsercion(){
+	window.open('clienteFormulario.php','','width=900,height=680');	
+}
+</script>
+
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" bgcolor="F2F3F3">
+<tr>
+	<td height="541" valign="top">
+	<div align="center">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>
+		<div align="right">
+		<table width="100%" height="45" border="0" cellpadding="0" cellspacing="0">
+		<tr valign="top">			<td width="40%" height="45" valign="bottom" background="../images/ind_03_middle.jpg"><img src="../images/logo_ingenium.gif" width="507" height="45"></td>
+<td width="25%" valign="bottom" background="../images/ind_03_middle.jpg"> <div align="center"><font color="#FFFFFF" size="3" face="Arial, Helvetica, sans-serif"><strong>M&oacute;dulo Inventarios <br>Inventarios<br>Factura de Servicios</strong></font></div></td>
+			<td width="6%" valign="bottom" background="../images/ind_03_middle.jpg"> <div align="right"><font color="#003366" size="3" face="Arial, Helvetica, sans-serif"><strong><img name="imgFoto" id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></strong></font></div></td>
+			<td width="15%" valign="middle" background="../images/ind_03_middle.jpg"><div align="left"></div>
+			<div align="center"><font color="#003366"><strong><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif">
+			<script>
+			document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr'));
+			</script>
+			</font></strong></font></div></td>
+			<td width="12%" valign="bottom" background="../images/ind_03_middle.jpg"></td>
+			<td width="2%" background="../images/ind_03_middle.jpg">&nbsp;</td>
+		</tr>
+		</table>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+		</tr>
+		</table>
+		</div></td>
+	</tr>
+	<tr>
+	<td height="20" background="../images/bg_blue_v.jpg">
+		            <ul id="myMenu" class='zpHideOnLoad'>            </ul>
+           <script>
+              OmnisoftPerfilUsuario(moduloInventarios);
+            </script>
+		</td>
+	</tr>
+	<tr>
+		<td height="28" valign="top">
+		<table width="100%" height="27" border="0" cellpadding="0" cellspacing="0" background="../images/botones_03.gif">
+		<tr>
+			<td width="34"><div align="center"></div></td>
+			<td width="67"><div align="center" id="divInsertar" style="visibility:hidden"><a href="#" onClick="OmnisoftInsertarFila('facturasCompraServiciosFormulario.html',990,630);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image47','','../images/bot_insertar_b.gif',1)"><img src="../images/bot_insertar.gif" alt="Insertar" name="Image47" width="50" height="27" border="0"></a></div></td>
+			<td width="56"><div align="center" id="divEditar" style="visibility:hidden"><a href="#" onClick="OmnisoftEditarFila('facturasCompraServiciosFormulario.html',990,630);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image48','','../images/bot_editar_b.gif',1)"><img src="../images/bot_editar.gif" alt="Editar" name="Image48" width="52" height="27" border="0"></a></div></td>
+			<td width="56"><div align="center" id="divBuscar" style="visibility:hidden"><a href="#" onClick="OmnisoftBuscar();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image49','','../images/bot_buscar_b.gif',1)"><img src="../images/bot_buscar.gif" alt="Buscar" name="Image49" width="51" height="27" border="0"></a></div></td>
+			<td width="52"><div align="center" id="divEliminar" style="visibility:hidden"><a href="#" onClick="OmnisoftEliminarFila();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image50','','../images/bot_eliminar_b.gif',1)"><img src="../images/bot_eliminar.gif" alt="Eliminar" name="Image50" width="50" height="27" border="0"></a></div></td>
+			<td width="66"><div align="center" id="divCorreo" style="visibility:hidden"><a href="#" onClick="OmnisoftCorreo();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image51','','../images/bot_correo_b.gif',1)"><img src="../images/bot_correo.gif" alt="Correo" name="Image51" width="50" height="27" border="0"></a></div></td>
+			<td width="61"><div align="center" id="divGraficar" style="visibility:hidden"><a href="#" onClick="OmnisoftGraficar('ordenCompraGrafico.html',550,250);"onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image52','','../images/bot_graficar_b.gif',1)"><img src="../images/bot_graficar.gif" alt="Graficar" name="Image52" width="52" height="27" border="0"></a></div></td>
+			<td width="65"><div align="center" id="divImprimir" style="visibility:hidden"><a href="#" onClick="OmnisoftImprimir('ordenCompraPDF.php',500,500);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image53','','../images/bot_imprimir_b.gif',1)"><img src="../images/bot_imprimir.gif" alt="Imprimir" name="Image53" width="50" height="27" border="0"></a></div></td>
+			<td width="65"><div align="center" id="divImprimirComprobante" style="visibility:hidden"><a href="#" onClick="imprimirComprobate('capacitacionPDF.php',500,500);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image53','','../images/bot_imprimirRegistro_b.gif',1)"><img src="../images/bot_imprimirRegistro.gif" alt="Imprimir" name="Image53" width="50" height="27" border="0"></a></div>
+			<td width="69"><div align="center" id="divAyuda" style="visibility:hidden"><a href="#" onClick="OmnisoftAyuda();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image54','','../images/bot_ayuda_b.gif',1)"><img src="../images/bot_ayuda.gif" alt="Ayuda" name="Image54" width="51" height="27" border="0"></a></div></td>
+			<td width="81"><div align="center" id="divAcerca" style="visibility:hidden"><a href="#" onClick="OmnisoftAcercaDe('../modulos/acerca.html',550,340);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image25','','../images/bot_acercad_b.gif',1)"><img src="../images/bot_acercad.gif" alt="Acerca de" name="Image25" width="51" height="27" border="0"></a></div></td>
+			<td width="55"><div align="center" id="divSalir" style="visibility:hidden"><a href="javascript:history.go(-1);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image56','','../images/bot_salir_b.gif',1)"><img src="../images/bot_salir.gif" alt="Salir"  name="Image56" width="52" height="27" border="0"></a></div></td>
+			<td width="76"><div align="center" id="divHome" style="visibility:hidden"><a href="../modulos/modulos.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image57','','../images/bot_home_b.gif',1)"><img src="../images/bot_home.gif" alt="Home" name="Image57" width="51" height="27" border="0"></a></div></td>
+			<td width="88"><div align="center" id="divInicio" style="visibility:hidden"><a href="javascript:omnisoftGoToPage(-Infinity);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image21','','../images/bot_inicio_b.gif',1)"><img src="../images/bot_inicio.gif" alt="Inicio" name="Image21" width="50" height="27" border="0"></a></div></td>
+			<td width="71"><div align="center" id="divAnterior" style="visibility:hidden"><a href="javascript:omnisoftGoToPage(-1);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image22','','../images/bot_anterior_b.gif',1)"><img src="../images/bot_anterior.gif" alt="Anterior" name="Image22" width="50" height="27" border="0"></a></div></td>
+			<td width="84"><div align="center" id="divSiguiente" style="visibility:hidden"><a href="javascript:omnisoftGoToPage(1);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image23','','../images/bot_siguiente_b.gif',1)"><img src="../images/bot_siguiente.gif" alt="Siguiente" name="Image23" width="50" height="27" border="0"></a></div></td>
+			<td width="77"><div align="center" id="divFin" style="visibility:hidden"><a href="javascript:omnisoftGoToPage(Infinity);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image24','','../images/bot_ultimo_b.gif',1)"><img src="../images/bot_ultimo.gif" alt="Ultimo" name="Image24" width="50" height="27" border="0"></a></div></td>
+			<td width="85"><div align="center" id="divXML" style="visibility:hidden"><a href="#" onClick="OmnisoftXML('ordenCompraXML.php',500,500);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image26','','../images/bot_xml_b.gif',1)"><img src="../images/bot_xml.gif" alt="Exportar a XML" name="Image26" width="50" height="27" border="0"></a></div></td>
+			<td width="72"><div align="center" id="divExcel" style="visibility:hidden"><a href="#" onClick="OmnisoftExcel('ordenCompraExcel.php',500,500);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image27','','../images/bot_excel_b.gif',1)"><img src="../images/bot_excel.gif" alt="Exportar a Excel" name="Image27" width="50" height="27" border="0"></a></div></td>
+			<td width="50"><div align="center"></div></td>
+		</tr>
+        </table>
+		</td>
+	</tr>
+	<tr>
+		<td height="412" valign="top" bgcolor="#EBF2FE">
+		<div align="center">
+		<table width="100%" height="447" border="0" align="center" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="1123" height="447" colspan="2" bgcolor="#FFFFFF">
+			<script>
+				var SQLCommand="select "
+					+ " serial_odc, "
+					+ " numeroDocumento_odc, "
+					+ " fecha_odc, "
+					+ " razonsocial_pvd, "
+					+ " total_odc, "
+					+ " tipoOrdenCompra_odc, "
+					+ " fechaEntrega_odc, "
+					+ " observaciones_odc, "
+					+ " nombre_forp, "
+					+ " estado_odc, "
+					+ " concat(nombre_usr,\' \',apellido_usr), "
+					+ " modificadoPor_odc, "
+					+ " fechaModificacion_odc, "
+					+ " aprobadoPor_odc, "
+					+ " fechaAprobacion_odc, "
+					+ " pvd.serial_pvd, "
+					+ " forp.serial_forp, elaboradoPor_odc "
+				+ " from "
+					+ " formaspago forp, "
+					+ " proveedor pvd, "
+					+ " usuario usu, "
+					+ " ordendecompra odc "
+				+ " where "
+					+ " forp.serial_forp=odc.serial_forp and"
+					+ " pvd.serial_pvd=odc.serial_pvd"
+					+ " and usu.serial_usr=odc.elaboradoPor_odc"
+					+ " and tipoOrdenCompra_odc='Otra'";
+
+				OmnisoftGrid('maingrid','ordenCompra.html','ordenCompraFormulario.html','mysql://root:mysql@localhost/erpbaldore?persist','ordendecompra','serial_odc',SQLCommand);
+				OmnisoftAddColumn('maingrid','Serial','serial_odc', 10,'readonly','','','middle','');
+				OmnisoftAddColumn('maingrid','No.','numeroDocumento_odc', 60,'readonly','','','middle','');
+				OmnisoftAddColumn('maingrid','Fecha','fecha_odc', 110,'readonly','','','middle','');
+				OmnisoftAddColumn('maingrid','Proveedor','razonsocial_pvd', 250,'readonly','','','middle','');
+				OmnisoftAddColumn('maingrid','Total','total_odc', 100,'readonly','','','middle','');
+				OmnisoftAddColumn('maingrid','Tipo OC','tipoOrdenCompra_odc', 70,'readonly','','','middle','');
+				OmnisoftAddColumn('maingrid','Entrega','fechaEntrega_odc', 65,'readonly','','','middle','');
+				OmnisoftAddColumn('maingrid','Observaciones','observaciones_odc', 220,'readonly','','','middle','');
+				OmnisoftAddColumn('maingrid','Forma de Pago','nombre_forp', 120,'readonly','','','middle','');
+				OmnisoftAddColumn('maingrid','Estado','estado_odc', 70,'readonly','','','middle','');
+				OmnisoftAddColumn('maingrid','Elaborado Por','elaboradoPor_odc', 150,'hidden','','','middle','');
+				OmnisoftAddColumn('maingrid','Modificado Por','modificadoPor_odc', 220,'hidden','','','middle','');
+				OmnisoftAddColumn('maingrid','Fecha Modificacion','fechaModificacion_odc', 220,'hidden','','','middle','');
+				OmnisoftAddColumn('maingrid','Aprobado Por','aprobadoPor_odc', 220,'hidden','','','middle','');
+				OmnisoftAddColumn('maingrid','Fecha Aprobacion','fechaAprobacion_odc', 220,'hidden','','','middle','');
+				OmnisoftAddColumn('maingrid','serial proveedor','serial_pvd', 220,'hidden','','','middle','');
+				OmnisoftAddColumn('maingrid','serial formaspago','serial_forp', 220,'hidden','','','middle','');
+				OmnisoftShowGrid(23,440,1020,'menu','#CCF2FF');
+			</script>
+			</td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+</HTML>

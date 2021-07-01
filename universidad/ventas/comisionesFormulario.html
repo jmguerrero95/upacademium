@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+   var serial_cms=getURLParam('serial_cms');
+
+   if (serial_cms=='' || serial_cms==null) {
+
+       serial_cms=getCookie('serial_cms');
+//       alert(serial_odc);
+
+   }
+
+function recuperarDatos(data) {
+  omniObj.grid.masterKeyValue=data;
+  omniObj.grid.executeQuery(omniObj.grid.rows);
+
+//alert(data);
+}
+
+function procesarComisiones() {
+
+
+ var SQLCommand=document.PaginaDatos.fecha_cms.value+"|"+document.PaginaDatos.numero_cms.value+"|"+document.PaginaDatos.fechainicio_cms.value+"|"+document.PaginaDatos.fechafin_cms.value;
+
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarComisiones.php","recuperarDatos");
+      objDBComando.executeQuery();
+
+
+// setTimeout('window.location.reload()',1500);
+
+
+ }
+
+
+
+</script>
+
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_cms" type="hidden" id="serial_cms" class="hidden" >
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          VENTAS<br>
+          COMISIONES</center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="165" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="125" height="20"  class="inputtitle">Numero :</td>
+            <td><img  src="../images/camporequerido.gif"><input name="numero_cms" type="text" id="numero_cms" class="autoincrement" size="10" maxlength="10"  table="comisiones" fieldid="serial_cms"onBlur="esconderToolTip()"  >        </td>
+            <td class="inputtitle">Fecha:</td>
+            <td colspan="2"><span class="inputtitle">
+              <input name="fecha_cms" type="text" id="fecha_cms" class="date" size="10" maxlength="10" >
+            </span></td>
+            <td width="10" class="inputtitle"></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Fecha Inicio :</td>
+            <td width="484" class="inputtitle"><img  src="../images/camporequerido.gif">
+
+		      <input name="fechainicio_cms" type="text" id="fechainicio_cms" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"  ></td>
+            <td width="95" class="inputtitle"> Fecha Fin:</td>
+            <td width="149" class="inputtitle"><input name="fechafin_cms" type="text" id="fechafin_cms" class="date" size="10" maxlength="10" ></td>
+            <td width="44" class="inputtitle"><a href="#" onClick="procesarComisiones()"><img alt="Calcular Comisiones" src="../images/rss.png" width="32" height="32" border="0"></a></td>
+            <td class="inputtitle"></td>
+          </tr>
+
+          <tr>
+            <td height="25" colspan=6> <script>
+   omnisoftLoadData(document.PaginaDatos);
+
+   if (top.opener.omniObj.grid.action=='insert')
+      document.PaginaDatos.fecha_cms.value=fechaSistema();
+
+    var serial_cms=getURLParam('serial_cms');
+
+
+    var sql='select serial_dco, cobrador_dco, comision_dco from detallecomisiones where serial_cms=masterkey';
+    omniObj=new omnisoftGridDetail('omniObj','serial_cms',serial_cms,'detallecomisiones','serial_dco',sql,document.PaginaDatos);
+
+     omniObj.addColumn('Serial','serial_dco', 10,'hidden','','middle','');
+     omniObj.addColumn('Comisionista','cobrador_dco', 28,'readonly','','right','');
+     omniObj.addColumn('Comision','comision_dco', 10,'readonly','sum','right','');
+
+     omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');
+
+
+ </script> </td>
+          </tr>
+          <tr>
+            <td height="32" colspan=6 class="inputtitle"> Creado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoCreadoPor" id="FotoCreadoPor">
+<input name="creadopor_cms" type="text" id="creadopor_cms" size="28" maxlength="30"  onBlur="esconderToolTip()"    readonly>
+              Modificado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoModificadoPor" id="FotoModificadoPor">
+<input name="modificadopor_cms" type="text" id="modificadopor_cms"  size="28" maxlength="30"  onBlur="esconderToolTip()"  readonly  >
+              Autorizado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoAutorizadoPor" id="FotoAutorizadoPor">
+<input name="autorizadopor_cms" type="text" id="autorizadopor_cms" size="28" maxlength="30"  onBlur="esconderToolTip()"   readonly >            </td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="150" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="169"></td>
+            <td width="130"><a href="javascript:imprimirFactura()"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a><a href="javascript:imprimirFactura()"></a></td>
+            <td width="205"></td>
+            <td width="151"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+<input name="creadopor_cms" type="hidden" id="creadopor_cms" class="hidden" value="1">
+<input name="modificadopor_cms" type="hidden" id="modificadopor_cms" class="hidden" value="1"  >
+<input name="autorizadopor_cms" type="hidden" id="autorizadopor_cms" class="hidden"  value="1" >
+
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

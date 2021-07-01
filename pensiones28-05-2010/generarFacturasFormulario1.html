@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+			  <script>
+
+ function validarFacturaCaducada() {
+  var fhoy=new Date();
+  var fecha=document.PaginaDatos.fechaCaducidad_facc.value.split('-');
+  var ffecha=new Date(fecha[0],fecha[1]-1,fecha[2]);
+  if (fhoy.getTime()>ffecha.getTime()) {
+     alert('Advertencia: La factura está caducada!');
+  return false;
+  }
+
+   return true;
+    }
+
+function recuperarDatos(data) {
+  // alert(data);
+}
+
+
+function actualizarDatosProveedor() {
+   var SQLCommand='update proveedor set fechacaducidad_pvd=\''+document.PaginaDatos.fechaCaducidad_facc.value+'\', numeroautorizacion_pvd=\''+document.PaginaDatos.autorizacionSRI_facc.value+'\' where serial_pvd='+document.PaginaDatos.serial_pvd.value;
+   var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftDataManager.php",'recuperarDatos');
+
+      objDBComando.executeQuery();
+
+}
+
+
+function grabarFacturaCompra() {
+  if (validarFacturaCaducada()) {
+    actualizarDatosProveedor();
+    omnisoftGrabar();
+  }
+  else
+  document.PaginaDatos.fechaCaducidad_facc.focus();
+}
+
+function cargarDatos() {
+          seleccionarProveedor();
+
+}
+
+function recuperarDatosComprobante(data) {
+alert(data);
+  var datos=data.split('|');
+  if (datos[0]=='')
+      alert(datos[0]);
+  else alert('Comprobante Contable generado satisfactoriamente!');
+
+}
+
+function procesarComprobanteContable() {
+ if (document.PaginaDatos.estado_facc.value=="APROBADA") {
+   var SQLCommand=document.PaginaDatos.fecha_facc.value+'|'+document.PaginaDatos.concepto_facc.value+'|6|'+document.PaginaDatos.serial_facc.value+'|'+document.PaginaDatos.serial_pvd.value;
+   alert(SQLCommand);
+   var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftContabilizar.php",'recuperarDatosComprobante');
+
+      objDBComando.executeQuery();
+ }
+}
+
+function procesarTotales(row) {
+ document.getElementById('stotal').innerHTML=omniObj.grid.getFooterTemplate(5,0).getContent("box/text").element().innerHTML;
+//document.PaginaDatos.total_facc.value=omniObj.grid.getCellText(5,row);
+//document.PaginaDatos.subtotal_facc.value=omniObj.grid.getCellText(5,row);
+//document.PaginaDatos.iva12_facc.value=omniObj.grid.getCellText(7,row);
+//document.PaginaDatos.iva0_facc.value=omniObj.grid.getCellText(8,row);
+
+
+}
+
+
+
+			function seleccionarProveedor() {
+
+   		         var datos=document.PaginaDatos.serial_pvdaux.value.split('¬');
+                          document.PaginaDatos.serial_pvd.value=datos[0];
+                          document.PaginaDatos.autorizacionSRI_facc.value=datos[1];
+                          document.PaginaDatos.fechaAutorizacionSRI_facc.value=datos[2];
+                          document.PaginaDatos.fechaCaducidad_facc.value=datos[3];
+                        //  document.getElementById('stotal').innerHTML=omniObj.grid.getFooterTemplate(8,0).getContent("box/text").element().innerHTML;
+
+			}
+</script>
+<style type="text/css">
+<!--
+.estiloTotal {
+	font-size: 24px;
+	color: #FF0000;
+}
+-->
+</style>
+</head>
+
+<body >
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          MODULO DE GESTION FINANCIERA<br>
+          REGISTRO DE COMPRAS DE SERVICIOS
+        </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_facc" type="hidden" id="serial_facc" class="hidden" >
+<input name="serial_pvd" type="hidden" id="serial_pvd" class="hidden" >
+
+
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="220" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="25"  class="inputtitle">Fecha :</td>
+            <td width="119"><input name="fecha_facc" type="text" id="fecha_facc" class="dates" size="10" maxleng th="10"  onBlur="esconderToolTip()"  readonly="yes" ></td>
+            <td width="74" class="inputtitle">&nbsp;</td>
+            <td width="71" class="inputtitle">Numero:</td>
+            <td class="inputtitle"><input name="numero_facc" type="text" id="numero_facc"  size="25" maxlength="20"  onBlur="esconderToolTip()" readonly="yes"  class="autoincrement"  table='facturacompra' fieldid='serial_facc' > </td>
+            <td width="138" class="inputtitle">Cliente:</td>
+            <td colspan="2" class="inputtitle"><input name="apellidopaterno_alu" type="text" id="apellidopaterno_alu"  size="50" maxlength="50"  onBlur="esconderToolTip()"   class="autosuggest" table="alumno" serial="serial_alu" info="nombre1_alu"></td>
+            <td width="118" rowspan="3" class="inputtitle" > <div align="center">
+                <span id="stotal" class="estiloTotal"> 0.00</span>
+            </div>
+            </label></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Tipo:</td>
+            <td><label>
+              <select name="tipoDocumento_facc" id="tipoDocumento_facc" class="combo">
+                <option value="FACTURASERVICIOS" selected>FACTURA</option>
+                <option value="NOTA VENTA SERVICIOS">NOTA DE VENTA</option>
+                                          </select>
+            </label></td>
+            <td colspan="2"  class="inputtitle">&nbsp;</td>
+            <td  class="inputtitle">&nbsp;</td>
+            <td  class="inputtitle"><!-- Fecha Pago:--></td>
+            <td  class="inputtitle"><input name="fechaCancelacion_facc" type="text" id="fechaCancelacion_facc" class="date" size="10" maxleng th="10"  onBlur="esconderToolTip()"   ></td>
+            <td class="inputtitle">&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="74" height="24"  class="inputtitle">Factura:</td>
+            <td>
+			<span class="inputtitle">
+            <input name="numeroDocumento_facc" type="text" id="numeroDocumento_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()"   class="text"  >
+            </span></td>
+            <td colspan="2"  class="inputtitle"> Autorizacion :            </td>
+            <td width="82"  class="inputtitle"><input name="autorizacionSRI_facc" type="text" id="autorizacionSRI_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()"   class="emptyinteger" ></td>
+            <td  class="inputtitle"><input name="fechaAutorizacionSRI_facc" type="text" id="fechaAutorizacionSRI_facc"  size="10" maxlength="10"  onBlur="esconderToolTip()"  class="emptydates"  ></td>
+            <td width="105"  class="inputtitle">Fecha Caducidad : </td>
+            <td width="120" class="inputtitle"><input name="fechaCaducidad_facc" type="text" id="fechaCaducidad_facc"  size="10" maxlength="10"  onBlur="esconderToolTip()"   class="emptydates"  ></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Concepto:</td>
+            <td colspan="5" ><input name="concepto_facc" type="text" id="concepto_facc" class="emptystring" size="100" maxlength="250"  onBlur="esconderToolTip()"></td>
+            <td class="inputtitle" >Estado:</td>
+            <td ><select name="estado_facc" id="estado_facc" class="combobox" onchange="procesarComprobanteContable()">
+              <option value="PENDIENTE" selected>PENDIENTE</option>
+              <option value="APROBADA">APROBADA</option>
+              <option value="PAGADA">PAGADA</option>
+              <option value="ANULADA">ANULADA</option>
+            </select></td>
+            <td >&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td colspan=9> <script>
+    omnisoftLoadData(document.PaginaDatos);
+    var serial_facc=0;
+    if (getURLParam('action')=='edit')
+     serial_facc=getURLParam('serial_facc');
+    var sql='SELECT SERIAL_DODC, otrosproductos_dodc,CANTIDADRECIBIDAUNIDADES_DODC ,costo_dodc,  DESCUENTODOLARES_DODC, (CANTIDADRECIBIDAUNIDADES_DODC*costo_dodc)*(1-DESCUENTODOLARES_DODC) as SUBTOTAL_DODC,    TOTAL_DODC, IVA_DODC, IVA0_DODC FROM facturacompra,detalleordendecompra where   detalleordendecompra.serial_odc=facturacompra.serial_facc and facturacompra.serial_facc=masterkey';
+    omniObj=new omnisoftGridDetail('omniObj','serial_odc',serial_facc,'detalleordendecompra','serial_dodc',sql,document.PaginaDatos,Array(true,true),'',0,0,'procesarTotales');
+
+     omniObj.addColumn('Serial','serial_dodc', 10,'hidden','','middle','');
+     omniObj.addColumn('Servicio','otrosproductos_dodc', 22,'string','','middle','');
+     omniObj.addColumn('Unidades','cantidadRecibidaUnidades_dodc', 10,'integer','','right','');
+     omniObj.addColumn('Costo','costo_dodc', 10,'double','sum','right','','0','refresh');
+     omniObj.addColumn('Descuento','descuentoDolares_dodc', 10,'double','sum','right','','0','refresh');
+     omniObj.addColumn('Subtotal','subtotal_dodc', 12,'readonly',Array('sum','(CANTIDADRECIBIDAUNIDADES_DODC*costo_dodc)*(1-DESCUENTODOLARES_DODC)'),'right','','0');
+
+     omniObj.addColumn('total','total_dodc', 12,'hidden','sum','middle','','1');
+     omniObj.addColumn('iva12','iva_dodc', 12,'hidden','sum','middle','','1');
+     omniObj.addColumn('iva0','iva0_dodc', 12,'hidden','sum','middle','','1');
+//     omniObj.addColumn('serial_odc','serial_odc', 12,'hidden','','middle','','1');
+
+
+  omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');
+
+
+
+
+
+ </script> </td>
+          </tr>
+          <tr>
+            <td height="21" class="inputtitle">Subtotal:</td>
+            <td height="21" class="inputtitle"><input name="subtotal_facc" type="text" id="subtotal_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="21" colspan="2" class="inputtitle">Iva 12%</td>
+            <td height="21" class="inputtitle"><input name="iva12_facc" type="text" id="iva12_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="21" class="inputtitle">Iva 0%</td>
+            <td height="21" class="inputtitle"><input name="iva0_facc" type="text" id="iva0_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="21" class="inputtitle">Total</td>
+            <td height="21" class="inputtitle"><input name="total_facc" type="text" id="total_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+          </tr>
+          <tr>
+            <td height="24" class="inputtitle">Stock Actual:</td>
+            <td height="24" class="inputtitle"><input name="stockactual_dodc" type="text" id="stockactual_dodc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="24" colspan="2" class="inputtitle">Unidades de Embalaje:</td>
+            <td height="24" class="inputtitle"><input name="unidadesEmbalaje_dodc" type="text" id="unidadesEmbalaje_dodc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="24" class="inputtitle">Unidad de Medida</td>
+            <td height="24" class="inputtitle"><input name="unidadMedida_dodc" type="text" id="unidadMedida_dodc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="24" class="inputtitle">Costo Promedio</td>
+            <td height="24" class="inputtitle"><input name="costoPromedio_dodc" type="text" id="costoPromedio_dodc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+          </tr>
+          <tr>
+            <td height="32" colspan=9 class="inputtitle"> Creado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoCreadoPor" id="FotoCreadoPor">
+<input name="elaboradoPor_facc" type="text" id="elaboradoPor_facc" size="28" maxlength="30"  class="emptyinteger" onBlur="esconderToolTip()"    readonly>
+              Modificado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoModificadoPor" id="FotoModificadoPor">
+<input name="modificadoPor_facc" type="text" id="modificadoPor_facc"  size="28" maxlength="30"  class="emptyinteger"  onBlur="esconderToolTip()"  readonly  >
+              Autorizado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoAutorizadoPor" id="FotoAutorizadoPor">
+<input name="aprobadoPor_facc" type="text" id="aprobadoPor_facc" size="28" maxlength="30"  class="emptyinteger"  onBlur="esconderToolTip()"   readonly >            </td>
+          </tr>
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="150" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:grabarFacturaCompra()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="143"></td>
+            <td width="152"><a href="javascript:omnisoftCancelar()"><img src="../images/imprimir.jpg" alt="" width="150" height="30" border="0"></a></td>
+            <td width="209"></td>
+            <td width="151"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+<script>
+      	if (getURLParam('action')=='insert') {
+
+            document.PaginaDatos.fecha_facc.value=fechaSistema();
+            document.PaginaDatos.fechaCancelacion_facc.value=fechaSistema();
+
+
+         }
+         else
+             setTimeout('cargarDatos()',500);
+
+
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+           </form>
+
+</body>
+</html>

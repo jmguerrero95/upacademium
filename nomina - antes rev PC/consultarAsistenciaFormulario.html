@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<script language="javascript1.2" src="../lib/tools/omnisoftProgressBar.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+
+function recuperarDatos(data) {
+alert(data);
+ProgressDestroy();
+document.getElementById('progress').style.visibility='hidden';
+
+}
+
+function importarAsistencia() {
+var SQLCommand=document.PaginaDatos.archivo_asi.value+"|";
+ document.getElementById('progress').style.visibility='visible';
+    alert(SQLCommand);
+     progressBar();
+
+     var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftImportarAsistencia.php",'recuperarDatos');
+     objDBComando.executeQuery();
+
+}
+
+
+
+function imprimirRolPagos() {
+             var attributes='';
+            var sURL='../lib/export/omnisoftRolPagosGeneralPDFApp.php?';
+            var sWidth=1000;
+            var sHeight=750;
+            var sFields='';
+            var fields;
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+               sURL=sURL+'serial_rop='+document.PaginaDatos.serial_rop.value;
+               omnisoftNewWindow=window.open(sURL,'PDF',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+}
+
+function EmpledosSede(){
+	omniObj.grid.sqlCommand="SELECT serial_asi,apellido_epl,nombre_epl,entrada_asi,salida_asi,SUBTIME(salida_asi,entrada_asi)horas_laboradas,estado_asi,observaciones_asi,atraso_asi,permiso_asi,observaciones_asi,empleado.serial_epl FROM empleado,asistencia WHERE asistencia.serial_epl=empleado.serial_epl and empleado.prospecto_epl='NO' and tipoempleado_epl<>'PROFESOR' and serial_suc='"+document.PaginaDatos.serial_suc.value+"' and asistencia.fecha_asi='"+getURLParam('fecha_asi')+"'";
+	//prompt('test',"SELECT serial_asi,apellido_epl,nombre_epl,entrada_asi,salida_asi,SUBTIME(salida_asi,entrada_asi)horas_laboradas,estado_asi,observaciones_asi,atraso_asi,permiso_asi,observaciones_asi,empleado.serial_epl FROM empleado,asistencia WHERE asistencia.serial_epl=empleado.serial_epl and empleado.prospecto_epl='NO' and tipoempleado_epl<>'PROFESOR' and serial_suc='"+document.PaginaDatos.serial_suc.value+"' and asistencia.fecha_asi='"+getURLParam('fecha_asi')+"'");
+	omniObj.grid.executeQuery(omniObj.grid.rows);
+}
+</script>
+
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_rop" type="hidden" id="serial_rop" class="hidden" >
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          NOMINA Y RECURSOS HUMANOS<br>
+          CONSULTAR ASISTENCIA
+      </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="136" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000" class="formtable">
+          <tr>
+            <td width="174" height="20"  class="inputtitle">Fecha :</td>
+            <td width="185"><img src="../images/camporequerido.gif"><input name="fecha_asi" type="text" id="fecha_asi" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"  readonly="yes"></td>
+            <td width="185" class="inputtitle">Sede :</td>
+            <td width="369"><script>
+						var cserial_suc=new omnisoftComboBox('cserial_suc','serial_suc','select serial_suc,nombre_suc from sucursal order by nombre_suc','250px',true,getCookie('serial_suc'),'','');
+                     	
+						cserial_suc.show();	  
+						document.PaginaDatos.serial_suc.onchange=EmpledosSede;
+						</script>   </td>
+          </tr>
+
+        <tr>
+            <td height="33" colspan=4> <script>
+   omnisoftLoadData(document.PaginaDatos);
+   if (getURLParam('action')=='insert')
+      document.PaginaDatos.fecha_asi.value=fechaSistema();
+    var fecha_asi=getURLParam('fecha_asi');
+
+
+    var sql="SELECT serial_asi,apellido_epl,nombre_epl,entrada_asi,salida_asi,SUBTIME(salida_asi,entrada_asi)horas_laboradas,estado_asi,observaciones_asi,atraso_asi,permiso_asi,observaciones_asi,empleado.serial_epl FROM empleado,asistencia WHERE asistencia.serial_epl=empleado.serial_epl and empleado.prospecto_epl='NO' and tipoempleado_epl<>'PROFESOR' and serial_suc='"+getCookie('serial_suc')+"' and asistencia.fecha_asi='"+getURLParam('fecha_asi')+"'";
+
+    omniObj=new omnisoftGridDetail('omniObj','fecha_asi',fecha_asi,'asistencia','serial_asi',sql,document.PaginaDatos,Array(false,false));
+
+     omniObj.addColumn('Serial','serial_asi', 10,'hidden','','middle','');
+     omniObj.addColumn('Apellido','apellido_epl', 18,'readonly','','middle','');
+     omniObj.addColumn('Nombre','nombre_epl', 18,'readonly','','middle','');
+     omniObj.addColumn('Entrada','entrada_asi', 8,'hour','','middle','');
+     omniObj.addColumn('Salida','salida_asi', 8,'hour','','middle','');
+	 omniObj.addColumn('Horas laboradas','horas_laboradas', 10,'hour','','middle','');
+     omniObj.addColumn('Estado','estado_asi', 10,'readonly','','middle','');
+     omniObj.addColumn('Observacion','observaciones_asi', 20,'string','','middle','');
+     omniObj.addColumn('Atraso','atraso_asi', 5,'integer','','middle','');
+     omniObj.addColumn('Permiso','permiso_asi', 5,'integer','','middle','');
+   	 omniObj.addColumn('Serial_epl','serial_epl', 10,'hidden','','middle','');
+
+
+  omniObj.showGrid('omniObj',17,400,1020,'menu','#FF9900');
+
+
+ </script> </td>
+          </tr>
+          
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:window.close()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690">
+            <div align="center" id="divImprimir" style="visibility:visible"><a href="#"  onClick="javascript:window.print()"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a></div></td>
+
+            </td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+<span id="progress" class="hide">
+<FORM name=dialog id=dialog>
+<TABLE border=2  bgcolor="#FFFFCC">
+<TR><TD ALIGN="center">
+Procesando<BR>
+</TD></TR>
+<TR><td>
+<span  style="background:url(../images/bar.gif); background-position:0%" id="barImg"><img src="../images/box.gif" width="123" height="12"/></span>
+</TD></TR></TABLE>
+</FORM>
+</span>
+
+</body>
+</html>

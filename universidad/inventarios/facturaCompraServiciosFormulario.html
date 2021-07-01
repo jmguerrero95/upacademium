@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/omnisoft.js">
+</script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_com" type="hidden" id="serial_com" class="hidden" >
+<input name="serial_tic" type="hidden" id="serial_tic" class="hidden">
+<input name="serial_usr" type="hidden" id="serial_usr" class="hidden">
+<input name="serial_per" type="hidden" id="serial_per" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          INVENTARIOS<br>
+          FACTURACION
+        </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="25"  class="inputtitle">Fecha :</td>
+            <td colspan="2"><input name="fecha_fac" type="text" id="fecha_fac" class="date" size="10" maxleng th="10"  onBlur="esconderToolTip()"  ></td>
+            <td width="72" class="inputtitle">N&uacute;mero :            </td>
+            <td width="334" class="inputtitle"><input name="numero_com" type="text" id="numero_com" class="integer" size="10" maxlength="10"  onBlur="esconderToolTip()" readonly   ></td>
+            <td width="114">&nbsp;</td>
+            <td width="117">&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="67" height="24"  class="inputtitle">Proveedor:</td>
+            <td colspan="2"><input name="razonSocial_pvd" type="text" id="razonSocial_pvd" class="autosuggest" size="40" maxlength="40"  onBlur="esconderToolTip()"  table="proveedor" serial="serial_pvd" info="codigo_pvd"></td>
+            <td  class="inputtitle">Fecha Autorizacion :            </td>
+            <td  class="inputtitle"><input name="fechaAutorizacion_fac" type="text" id="fechaAutorizacion_fac" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()" readonly   ></td>
+            <td class="inputtitle">Fecha Caducidad : </td>
+            <td><span class="inputtitle">
+              <input name="fechaCaducidad_fac" type="text" id="fechaCaducidad_fac" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()" readonly   >
+            </span></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Concepto </td>
+            <td colspan="6" ><input name="concepto_fac" type="text" id="concepto_fac" class="string" size="100" maxlength="250"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td colspan=7> <script>
+   omnisoftLoadData(document.PaginaDatos);
+
+    var serial_fac=getURLParam('serial_fac');
+    var sql='select serial_dfac,concat(codigo_suc,\'-\',descripcion_dep) as descripcion_dep,nombre_fon,concat(codigo_plc,\'-\',nombre_plc) as cuenta,referencia_det,descripcion_det,debe_det,haber_det,detalleComprobante.serial_desc,detalleComprobante.serial_fon,detalleComprobante.serial_plc,detalleComprobante.serial_com from sucursal,departamentos,sucursaldepartamentos,plancontable,fondos,detalleComprobante where sucursaldepartamentos.serial_desc=detalleComprobante.serial_desc and departamentos.serial_dep=sucursaldepartamentos.serial_dep and sucursal.serial_suc=sucursaldepartamentos.serial_suc and  plancontable.serial_plc=detalleComprobante.serial_plc and fondos.serial_fon=detalleComprobante.serial_fon and serial_com=masterkey';
+    omniObj=new omnisoftGridDetail('omniObj','serial_com',serial_fac,'detallecomprobante','serial_det',sql,document.PaginaDatos);
+
+     omniObj.addColumn('Serial','serial_det', 10,'hidden','','middle','');
+     omniObj.addColumn('Servicio','descripcion_dep', 15,'combobox',Array('SELECT serial_desc,  concat(codigo_suc,\'-\',descripcion_dep) as descripcion , nombre_suc FROM sucursal, departamentos, sucursaldepartamentos WHERE sucursal.serial_suc = sucursaldepartamentos.serial_suc AND departamentos.serial_dep = sucursaldepartamentos.serial_dep','serial_desc','codigo_suc,descripcion_dep'),'middle','');
+    omniObj.addColumn('Cantidad','nombre_fon', 10,'combobox',Array('select serial_fon,nombre_fon,codigo_fon from fondos','serial_fon','nombre_fon'),'middle','');
+
+    omniObj.addColumn('Precio','cuenta', 20,'combobox',Array('select serial_plc,concat(codigo_plc,\'-\',nombre_plc)as cuenta, nombre_plc from plancontable where tipo_plc<>\'Mayor\' ','serial_plc','codigo_plc,nombre_plc'),'middle','');
+
+
+     omniObj.addColumn('Total','referencia_det', 10,'string','','middle','');
+/*     omniObj.addColumn('Descripcion','descripcion_det', 15,'string','','middle','');
+
+     omniObj.addColumn('Debe','debe_det', 10,'double','sum','right','');
+     omniObj.addColumn('Haber','haber_det', 10,'double','sum','right','');
+     omniObj.addColumn('departamento','serial_desc', 2,'hidden','','middle','','1');
+     omniObj.addColumn('fondo','serial_fon', 2,'hidden','','middle','','1');
+     omniObj.addColumn('cuenta','serial_plc', 2,'hidden','','middle','','1');
+
+  */
+
+  omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');
+
+
+
+
+
+
+ </script> </td>
+          </tr>
+          <tr>
+            <td height="32" colspan=7 class="inputtitle"> Creado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoCreadoPor" id="FotoCreadoPor">
+<input name="creadoPor" type="text" id="creadoPor" size="28" maxlength="30"  onBlur="esconderToolTip()"    readonly>
+              Modificado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoModificadoPor" id="FotoModificadoPor">
+<input name="modificadoPor" type="text" id="modificadoPor"  size="28" maxlength="30"  onBlur="esconderToolTip()"  readonly  >
+              Autorizado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoAutorizadoPor" id="FotoAutorizadoPor">
+<input name="autorizadoPor" type="text" id="autorizadoPor" size="28" maxlength="30"  onBlur="esconderToolTip()"   readonly >            </td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><a href="#"  onClick="javascript:omnisoftGrabar()"><a href="#"  onClick="javascript:omnisoftGrabar()"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></a></a></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></a></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<input name="creadoPor_com" type="hidden" id="creadoPor_com" class="hidden" value="1">
+<input name="modificadoPor_com" type="hidden" id="modificadoPor_com" class="hidden" value="1"  >
+<input name="autorizadoPor_com" type="hidden" id="autorizadoPor_com" class="hidden"  value="1" >
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

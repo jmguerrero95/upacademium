@@ -1,0 +1,264 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::Perfil - Acción</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	color: navy;
+	font-weight: bold;
+	font-size: 18px;
+}
+.style4 {
+	color: #000066;
+	font-size: 12px;
+}
+-->
+</style>
+
+<script language='javascript' src="../lib/omnisoftTools.js"></script>
+<link href="../lib/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/omnisoftValidar.js"></script>
+<script language="javascript" src= "../lib/cookies.js" ></script>
+<script language="javascript" src="../lib/jsrs/jsrsClient.js"></script>
+<script language="javascript" src="../lib/jsrs/omnisoftComboBoxClient.js"></script>
+<script language="javascript" src="../lib/omnisoftMenu.js"></script>
+<style type="text/css">
+<!--
+.style5 {color: navy}
+.style7 {
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style9 {
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	color: navy;
+}
+.Estilo35 {font-size: 14px}
+.Estilo39 {color: #0000FF}
+.Estilo40 {font-size: 14px; color: #0000FF; }
+-->
+</style>
+</head>
+
+<body>
+
+<form  name="PaginaDatos" onKeyUp="highlight(event)" onClick="highlight(event)" method="POST">
+<input name="action" type="hidden" id="action">
+<input name="serial_acp" type="hidden" id="serial_acp" class="hidden">
+
+<table width="893" border="0" cellspacing="0" cellpadding="0" background="../images/bg_blue_v.jpg">
+<tr>
+	<td width="893" height="37" background="../images/logo_ingenium.gif"><div align="center"><span class="style1">SISTEMA::Perfil Acci&oacute;n</span></div></td>
+</tr>
+<tr>
+	<td height="30">
+	<table width="883" height="71" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+	  <td width="235" background="../images/titulos.jpg" class="style1 style4 style5">Perfil:</td>
+	  <td colspan="5" background="../images/titulos.jpg">
+	   <input name="serial_pfl" type="text" id="serial_pfl" class="string" size="20" maxlength="20"  onBlur="esconderToolTip()">
+	   	   </td>
+	 </tr>
+
+	<tr>
+	  <td background="../images/titulos.jpg" class="style1 style4 style5">Proceso :</td>
+	  <td colspan="5" background="../images/titulos.jpg">
+	      <input name="serial_prc" type="text" id="serial_prc" class="string" size="20" maxlength="20"  onBlur="esconderToolTip()">
+	  </td>
+	 </tr>
+	  
+
+	  <tr>
+	    <td height="22" colspan="6" background="../images/titulos.jpg" class="style1 style4 style5"><div align="center" class="Estilo35 Estilo39">Barra de Herramientas</div></td>
+	    </tr>
+	  <tr>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Insertar un nuevo registro:</td>
+	    <td width="68" background="../images/titulos.jpg"><label></label>
+	      <label>
+	      <select name="INSERTAR_ACP" id="INSERTAR_ACP" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+          </select>
+	      </label></td>
+	    <td width="230" background="../images/titulos.jpg"><span class="style1 style4 style5">Editar un registro: </span></td>
+	    <td background="../images/titulos.jpg"><select name="editar_acp" id="editar_acp" class="comboBox">
+          <option value="NO">No</option>
+          <option value="SI">Si</option>
+        </select></td>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Buscar :</td>
+	    <td bordercolor="#ECE9D8" background="../images/titulos.jpg" bgcolor="#ECE9D8"><select name="buscar_acp" id="buscar_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	  </tr>
+	  <tr>
+	    <td bordercolor="#ECE9D8" background="../images/titulos.jpg" bgcolor="#ECE9D8"><span class="style1 style4 style5">Eliminar : </span></td>
+	    <td background="../images/titulos.jpg"><select name="eliminar_acp" id="eliminar_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Eviar Correo Electr&oacute;nico : </td>
+	    <td background="../images/titulos.jpg"><select name="enviocorreo_acp" id="enviocorreo_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	    <td background="../images/titulos.jpg"><span class="style1 style4 style5">Graficar : </span></td>
+	    <td background="../images/titulos.jpg"><select name="graficar_acp" id="graficar_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	  </tr>
+	  <tr>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Imprimir Grilla o Pantalla: </td>
+	    <td background="../images/titulos.jpg"><select name="imprimir_acp" id="imprimir_acp" class="comboBox">
+          <option value="NO">No</option>
+          <option value="SI">Si</option>
+        </select></td>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Imprimir Comprobante :</td>
+	    <td background="../images/titulos.jpg"><select name="imprimirComprobante_acp" id="imprimirComprobante_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	    <td background="../images/titulos.jpg"><span class="style1 style4 style5">Ayuda : </span></td>
+	    <td background="../images/titulos.jpg"><select name="ayuda_acp" id="ayuda_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	  </tr>
+	  <tr>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Acerca del Sistema Ingenium: </td>
+	    <td background="../images/titulos.jpg"><select name="acercade_acp" id="acercade_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	    <td background="../images/titulos.jpg"><span class="style1 style4 style5">Salir del Sistema:</span></td>
+	    <td background="../images/titulos.jpg"><select name="salir_acp" id="salir_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	 </tr>
+	  <tr>
+	    <td height="22" colspan="6" background="../images/titulos.jpg" class="style1 style4 style5"><div align="center" class="Estilo40">Barra de Desplazamiento </div></td>
+	    </tr>
+	  <tr>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Inicio:</td>
+	    <td background="../images/titulos.jpg"><select name="principio_acp" id="principio_acp" class="comboBox">
+          <option value="NO">No</option>
+          <option value="SI">Si</option>
+        </select></td>
+	    <td background="../images/titulos.jpg"><span class="style1 style4 style5">Anterior : </span></td>
+	    <td background="../images/titulos.jpg"><select name="anterior_acp" id="anterior_acp" class="comboBox">
+          <option value="NO">No</option>
+          <option value="SI">Si</option>
+        </select></td>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Siguiente : </td>
+	    <td background="../images/titulos.jpg"><select name="siguiente_acp" id="siguiente_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	  </tr>
+	  <tr>
+	    <td background="../images/titulos.jpg"><span class="style1 style4 style5">&Uacute;ltimo : </span></td>
+	    <td background="../images/titulos.jpg"><select name="ultimo_acp" id="ultimo_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	    <td background="../images/titulos.jpg">&nbsp;</td>
+	    <td background="../images/titulos.jpg">&nbsp;</td>
+	    <td background="../images/titulos.jpg">&nbsp;</td>
+	    <td background="../images/titulos.jpg">&nbsp;</td>
+	  </tr>
+	  <tr>
+	    <td height="22" colspan="6" background="../images/titulos.jpg" class="style1 style4 style5"><div align="center"><span class="Estilo40">Descarga y Manejo de la Infomaci&oacute;n </span></div></td>
+	    </tr>
+	  <tr>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Bajar Pantalla en formato  Excel :</td>
+	    <td background="../images/titulos.jpg"><select name="envioexcel_acp" id="envioexcel_acp" class="comboBox">
+          <option value="NO">No</option>
+          <option value="SI">Si</option>
+        </select></td>
+	    <td bordercolor="#000000" background="../images/titulos.jpg"><span class="style1 style4 style5">Bajar Pantalla en formato XML : </span></td>
+	    <td background="../images/titulos.jpg"><select name="envioxml_acp" id="envioxml_acp" class="comboBox">
+          <option value="NO">No</option>
+          <option value="SI">Si</option>
+        </select></td>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Filtrar : </td>
+	    <td background="../images/titulos.jpg"><select name="filtrar_acp" id="filtrar_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	  </tr>
+	  <tr>
+	    <td height="22" colspan="6" background="../images/titulos.jpg" class="style1 style4 style5"><div align="center"><span class="Estilo40">Inserci&oacute;n de Registros </span></div></td>
+	    </tr>
+	  <tr>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Guardar Registro: </td>
+	    <td background="../images/titulos.jpg"><select name="guardar_acp" id="guardar_acp" class="comboBox">
+          <option value="NO">No</option>
+          <option value="SI">Si</option>
+        </select></td>
+	    <td background="../images/titulos.jpg"><span class="style1 style4 style5">Cancelar Registro: </span></td>
+	    <td background="../images/titulos.jpg"><select name="cancelar_acp" id="cancelar_acp" class="comboBox">
+          <option value="NO">No</option>
+          <option value="SI">Si</option>
+        </select></td>
+	    <td background="../images/titulos.jpg">&nbsp;</td>
+	    <td background="../images/titulos.jpg">&nbsp;</td>
+	  </tr>
+	  <tr>
+	    <td height="22" colspan="6" background="../images/titulos.jpg" class="style1 style4 style5"><div align="center"><span class="Estilo40">Otras Seguridades </span></div></td>
+	    </tr>
+	  <tr>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Navegar o Visualizar la Pantalla:</td>
+	    <td background="../images/titulos.jpg"><select name="navegar_acp" id="navegar_acp" class="comboBox">
+          <option value="NO">No</option>
+          <option value="SI">Si</option>
+        </select></td>
+	    <td background="../images/titulos.jpg"><span class="style1 style4 style5">Aprobar Documentos : </span></td>
+	    <td width="73" background="../images/titulos.jpg"><select name="aprobardocumento_acp" id="aprobardocumento_acp" class="comboBox">
+          <option value="NO">No</option>
+          <option value="SI">Si</option>
+        </select></td>
+	    <td height="22" background="../images/titulos.jpg" class="style1 style4 style5">Anular Documento :</td>
+	    <td background="../images/titulos.jpg"><select name="anularDocumento_acp" id="anularDocumento_acp" class="comboBox">
+            <option value="NO">No</option>
+            <option value="SI">Si</option>
+        </select></td>
+	  </tr>
+	</table>
+	</td>
+</tr>
+  
+<tr bgcolor="ccccff">
+	<td height="30" align="center">
+	<table width="893" border="0" cellpadding="0" cellspacing="0" background="../images/bg_blue_v.jpg">
+		<tr>
+			<td width="265"><div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="checkForm(document.PaginaDatos);"><img src="../images/aceptar.gif" width="52" height="49" border="0" align="left"></a></div></td>
+			<td width="45">&nbsp;</td>
+			<td width="557"><div align="right" id="divCancelar" style="visibility:visible"><a href="javascript:window.close();"><img src="../images/cancelar.gif" width="52" height="49" border="0" align="right"></a></div></td>
+            <td width="26">&nbsp;</td>
+		</tr>
+	</table>
+	</td>
+</tr>
+</table>
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	//OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

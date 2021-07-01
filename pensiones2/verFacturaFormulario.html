@@ -1,0 +1,175 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+
+function recuperarDatos(data) {
+//alert(data);
+var datos=data.split('|');
+   omniObj.grid.masterKeyValue=document.PaginaDatos.serial_odc.value=datos[0];
+   omniObj.grid.executeQuery(omniObj.grid.rows);
+
+
+//alert(datos[0]);
+}
+
+function generarOrdenCompra() {
+ document.PaginaDatos.action.value='edit';
+ top.opener.omniObj.grid.action='edit';
+ var SQLCommand=document.PaginaDatos.fecha_odc.value+"|"+document.PaginaDatos.numeroDocumento_odc.value+"|"+document.PaginaDatos.fechaEntrega_odc.value+"|"+document.PaginaDatos.plazoDias_odc.value+"|"+document.PaginaDatos.serial_pvd.value+"|"+document.PaginaDatos.fechaInicio_odc.value+"|"+document.PaginaDatos.fechaFin_odc.value+"|"+document.PaginaDatos.diasReposicion_odc.value+"|"+document.PaginaDatos.estado_odc.value+"|"+document.PaginaDatos.observaciones_odc.value;
+//alert(SQLCommand);
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarOrdenCompra.php",'recuperarDatos');
+      objDBComando.executeQuery();
+
+ }
+</script>
+
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_caf" type="hidden" id="serial_caf" class="hidden" >
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          FACTURA DE<br>
+          <script> document.write(getURLParam('apellido_alu')+ '  '+getURLParam('nombre_alu')); </script>
+      </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="69" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="58" height="25"  class="inputtitle">Mes :</td>
+            <td width="97"><input name="nombre_mes" type="text" id="nombre_mes" size="20" maxlength="20" readonly onBlur="esconderToolTip()"  ></td>
+            <td width="76" class="inputtitle">N&uacute;mero : </td>
+            <td width="174" class="inputtitle"><input name="numero_caf" type="text" id="numero_caf" size="10" maxlength="10"  onBlur="esconderToolTip()"  readonly   ></td>
+            <td width="62" class="inputtitle">Estado:</td>
+            <td width="280" class="inputtitle"><label>
+              <select name="estado_caf" id="estado_caf" class="combo">
+                <option value="EMITIDA" selected>EMITIDA</option>
+                <option value="IMPRESA">IMPRESA</option>
+                <option value="ANULADA">ANULADA</option>
+              </select>
+            </label></td>
+            <td width="67" class="inputtitle">Fecha :</td>
+            <td width="89" class="inputtitle"><input name="fecha_caf" type="text" id="fecha_caf"  size="20" maxlength="20"  onBlur="esconderToolTip()"  readonly   ></td>
+          </tr>
+          
+
+
+          <tr>
+            <td height="40" colspan=8> <script>
+//   omnisoftLoadData(document.PaginaDatos);
+   document.PaginaDatos.nombre_mes.value=getURLParam('nombre_mes');
+   document.PaginaDatos.fecha_caf.value=getURLParam('fecha_caf');
+   document.PaginaDatos.numero_caf.value=getURLParam('numero_caf');
+   document.PaginaDatos.estado_caf.value=getURLParam('estado_caf');
+   
+   
+   var serial_caf=getURLParam('serial_caf');
+   //alert(serial_caf);
+
+    var sql='select serial_dfa, nombre_ara,   valor_aal, valorajuste_aal, serial_caf,aranceles.serial_ara,serial_alu,serial_plc, serial_plce from aranceles,detallefactura where aranceles.serial_ara=detallefactura.serial_ara  and serial_caf=masterkey';
+//    prompt('test',sql);
+    omniObj=new omnisoftGridDetail('omniObj','serial_caf',serial_caf,'detallecabecera','serial_dfa',sql,document.PaginaDatos);
+
+     omniObj.addColumn('Serial','serial_dfa', 10,'hidden','','middle','');
+     omniObj.addColumn('Arancel','nombre_ara', 20,'readonly','','middle','');
+     omniObj.addColumn('Valor','valor_ara', 12,'readonly','sum','middle','');
+
+    omniObj.showGrid('omniObj',12,290,1020,'menu','#FF9900');
+
+
+ </script> </td>
+          </tr>
+          
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar();"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690">
+            <div align="center" id="divImprimir" style="visibility:visible"><a href="#"  onClick="javascript:window.print();"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a></div></td>
+
+            </td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<input name="elaboradoPor_odc" type="hidden" id="elaboradoPor_odc" class="hidden" value="1">
+<input name="modificadoPor_odc" type="hidden" id="modificadoPor_odc" class="hidden" value="1"  >
+<input name="aprobadoPor_odc" type="hidden" id="aprobadoPor_odc" class="hidden"  value="1" >
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

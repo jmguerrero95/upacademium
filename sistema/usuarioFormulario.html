@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script>
+function cargarEmpleado() {
+var nombreempleado=document.PaginaDatos.serial_epl.options[document.PaginaDatos.serial_epl.selectedIndex].text.split('-');
+if (nombreempleado.length>1) {
+var apellido=nombreempleado[0].split(' ');
+var nombre=nombreempleado[1].split(' ');
+
+document.PaginaDatos.apellido_usr.value=apellido[0];
+document.PaginaDatos.apellido2_usr.value=apellido[1];
+document.PaginaDatos.nombre_usr.value=nombre[0];
+document.PaginaDatos.nombre2_usr.value=nombre[1];
+}
+}
+function actualizarClave() {
+document.PaginaDatos.clave_usr.className='string';
+}
+</script>
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_usr" type="hidden" id="serial_usr" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+        SISTEMA<br>USUARIOS
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="307" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="131" height="25"  class="inputtitle">C&oacute;digo
+              :</td>
+            <td colspan="3"><span class="inputtitle"><img  src="../images/camporequerido.gif"></span>
+            <input name="codigo_usr" type="text" id="codigo_usr" class="string" size="10" maxlength="10"  onBlur="esconderToolTip()"    ></td>
+            <td class="inputtitle">Clave:</td>
+            <td width="158"><img  src="../images/camporequerido.gif"><label>
+              <input name="clave_usr" type="password" id="clave_usr"  size="20" maxlength="32"  onBlur="esconderToolTip()" onChange="actualizarClave()" >
+            </label></td>
+            <td width="107" rowspan="4"><img src="../fotos/foto.jpg"  name="imgfoto" width="100" height="100"></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle"><span class="style1 style4 style5">Es empleado? :</span></td>
+            <td colspan="3" ><span class="inputtitle"><img  src="../images/camporequerido.gif">
+              <select name="esempleado" id="esempleado" onChange="procesarEmpleado()">
+                <option value="SI">SI</option>
+                <option value="NO" selected>NO</option>
+              </select>
+            </span></td>
+            <td height="28"  class="inputtitle"><span class="style1 style4 style5">Fecha :</span></td>
+            <td ><img  src="../images/camporequerido.gif">
+              <input name="fecha_usr" type="text" id="fecha_usr" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle">Perfil : </td>
+            <td height="28" colspan="5" ><img  src="../images/camporequerido.gif">
+              <script>
+              var cserial_pfl=new omnisoftComboBox('cserial_pfl','serial_pfl','select serial_pfl,nombre_pfl from upperfil','350px',true,getURLParam('serial_pfl'));
+                     cserial_pfl.show();
+
+					   </script>            </td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle"><div id="divtempleado" style="visibility:hidden" > Empleado:</div></td>
+            <td colspan="5" > <div id="divempleado" style="visibility:hidden"> <script>
+              var cserial_epl=new omnisoftComboBox('cserial_epl','serial_epl','select serial_epl,concat(apellido_epl,\'-\',nombre_epl) as nombre  from empleado  where estadoEmpleado_epl=\'ACTIVO\' order by apellido_epl,nombre_epl','350px',true,getURLParam('serial_epl'),' ',cargarEmpleado);
+                     cserial_epl.show();
+
+					   </script></div></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle">Primer Nombre
+              :</td>
+            <td colspan="3" ><span class="inputtitle"><img  src="../images/camporequerido.gif"></span>
+            <input name="nombre_usr" type="text" id="nombre_usr" class="string" size="50" maxlength="60"  onBlur="esconderToolTip()"></td>
+            <td width="116" class="inputtitle">Primer Apellido :</td>
+            <td colspan="2" ><img  src="../images/camporequerido.gif">
+            <input name="apellido_usr" type="text" id="apellido_usr" class="string" size="50" maxlength="60"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle">Segundo Nombre
+            :</td>
+            <td colspan="3" ><input name="nombre2_usr" type="text" id="nombre2_usr" class="string" size="50" maxlength="60"  onBlur="esconderToolTip()"></td>
+            <td class="inputtitle">Segundo Apellido :</td>
+            <td colspan="2" ><input name="apellido2_usr" type="text" id="apellido2_usr" class="emptystring" size="50" maxlength="60"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle" >Tel&eacute;fono :</td>
+            <td width="139" ><input name="telefono_usr" type="text" id="telefono_usr" class="number" size="15" maxlength="15"  onBlur="esconderToolTip()"></td>
+            <td width="67"  class="inputtitle">Extensión :</td>
+            <td width="71" ><input name="extension_usr" type="text" id="extension_usr" class="number" size="5" maxlength="5"  onBlur="esconderToolTip()"></td>
+            <td class="inputtitle"><span class="style1 style4 style5">Celular </span>:</td>
+            <td colspan="2" ><input name="celular_usr" type="text" id="celular_usr" class="number" size="10" maxlength="10"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle"><span class="style1 style4 style5">Correo Electr&oacute;nico :</span></td>
+            <td colspan="3" ><input name="email_usr" type="text" id="email_usr" class="emptyemail" size="50" maxlength="64"  onBlur="esconderToolTip()"></td>
+            <td class="inputtitle"><span class="style1 style4 style5">Estado :</span></td>
+            <td colspan="2" ><span class="inputtitle"><img  src="../images/camporequerido.gif"></span>
+              <select name="estado_usr" id="estado_usr" class="combo">
+              <option value="ACTIVO" selected>Activo</option>
+              <option value="INACTIVO">Inactivo</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle"><span class="style1 style4 style5">IP Acceso :</span></td>
+            <td colspan="3" ><input name="ipacceso_usr" type="text" id="ipacceso_usr" class="emptystring" size="16" maxlength="16"  onBlur="esconderToolTip()"></td>
+            <td class="inputtitle"><span class="style1 style4 style5">En el sistema :</span></td>
+            <td colspan="2" ><select name="enelsistema_usr" id="enelsistema_usr" class="combo">
+              <option value="SI" selected>Si</option>
+              <option value="NO">No</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle"><span class="style1 style4 style5">Cambio :</span></td>
+            <td colspan="3" ><span class="inputtitle"><img  src="../images/camporequerido.gif"></span>
+              <select name="cambio_usr" id="cambio_usr" class="combo">
+              <option value="SI" >Si</option>
+              <option value="NO" selected>No</option>
+            </select></td>
+            <td class="inputtitle"><span class="style1 style4 style5">Modo de Acceso :</span></td>
+            <td colspan="2" ><select name="modoacceso_usr" id="modoacceso_usr" class="combo">
+              <option value="LOCAL" selected>Local</option>
+              <option value="REMOTO">Remoto</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle"><span class="style1 style4 style5">Foto  :</span></td>
+            <td colspan="6" ><input name="foto_usr" type="input" id="foto_usr" class="emptystring" size="100" maxlength="255"  onBlur="esconderToolTip()"><a href="#" onclick="cargarFoto()"><image alt="Cargar Foto" src="../images/buscar.png" width="20" heigth="20" name="foto" ></a></td>
+          </tr>
+
+      </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+
+<script>
+function cargarFoto() {
+
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportPhoto.php?campofoto=foto_usr&foto='+document.PaginaDatos.foto_usr.value,'OmnisoftPhoto',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+function procesarEmpleado() {
+
+if (document.PaginaDatos.esempleado.value=="SI") {
+  document.getElementById('divtempleado').style.visibility="visible";
+  document.getElementById('divempleado').style.visibility="visible";
+  
+}
+
+else {
+  document.getElementById('divtempleado').style.visibility="hidden";
+  document.getElementById('divempleado').style.visibility="hidden";
+
+} 
+    
+}
+</script>
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	
+	  if (document.PaginaDatos.foto_usr.value!='')
+   document.PaginaDatos.imgfoto.src='../fotos/'+document.PaginaDatos.foto_usr.value;
+ 	if (getURLParam('action')=='insert') {
+	   document.PaginaDatos.fecha_usr.value=fechaSistema();
+	   document.PaginaDatos.serial_epl.value=-99;
+	   document.PaginaDatos.foto_usr='FOTO.JPG';
+	   
+	 }  
+	else if (getURLParam('serial_epl')>0)
+	        document.PaginaDatos.esempleado.value="SI";   
+	procesarEmpleado();
+ 
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+
+</body>
+</html>

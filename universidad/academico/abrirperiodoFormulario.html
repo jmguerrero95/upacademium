@@ -1,0 +1,149 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script></head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_per" type="hidden" id="serial_per" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+           ACADEMICO<br>
+           ABRIR PERIODO
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="140" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="126" height="24"  class="inputtitle">C&oacute;digo :</td>
+            <td colspan="3"><img src="../images/camporequerido.gif"><input name="codigo_per" type="text" id="codigo_per" size="8" maxlength="8" class="string"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Nombre Período :</td>
+            <td colspan="3" ><img src="../images/camporequerido.gif"><input name="nombre_per" type="text" id="nombre_per" size="80" maxlength="80" class="string"></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Fecha Inicio :</td>
+            <td width="338" ><img src="../images/camporequerido.gif"><input name="fecini_per" type="text" id="fecini_per" size="10" maxlength="10" class="date" onBlur="esconderToolTip()"></td>
+            <td width="86" class="inputtitle">Fecha Fin :</td>
+            <td width="245" ><img src="../images/camporequerido.gif">
+            <input name="fecfin_per" type="text" id="fecfin_per" size="10" maxlength="10" class="date" onBlur="esconderToolTip()"></td>
+          </tr>
+          
+         
+		  <tr>
+		    <td height="23"  class="inputtitle">Abrir Periodo:</td>
+            <td colspan="3" ><img src="../images/camporequerido.gif">
+              <select name="activo_per" id="activo_per" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select></td>
+          
+          <tr>
+            <td height="23"  class="inputtitle">Observaciones :</td>
+            <td colspan="3" ><input name="observaciones_per" type="text" id="observaciones_per" size="80" maxlength="100" class="emptystring"></td>
+          </tr>
+          
+          
+          
+          
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script type="text/javascript">
+	Calendar.setup({
+		inputField     :    "fecini_per",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    true,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+	
+	Calendar.setup({
+		inputField     :    "fecfin_per",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    true,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+	
+	
+	
+</script>
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

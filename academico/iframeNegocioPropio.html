@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <div align="left">
+              <script>
+   omnisoftLoadData(document.PaginaDatos,'iframe');
+      var serial_alu=document.PaginaDatos.serial_alu.value;
+//+getURLParam('serial_alu','iframe')+''
+
+    var sql='SELECT serial_npa,duenio_npa ,nombre_npa,tematesis_npa,numempleados_npa ,website_npa ,tipo_npa ,montoactivos_npa,ingresosanuales_npa ,pasantias_npa,mentor_npa,documentar_npa,asociacion_npa ,sugerencia_npa,productos_npa ,opinion_npa,publicidad_npa,testimonio_npa,tipojuridico_npa,observaciones_npa,apellidopaterno_alu,apellidomaterno_alu,nombre1_alu,nombre2_alu,negocioPropioAlumno.serial_alu FROM negocioPropioAlumno join alumno on alumno.serial_alu = negocioPropioAlumno.serial_alu  where negocioPropioAlumno.serial_alu='+serial_alu;
+//prompt('sql',sql);
+   	 
+	  var     omniObj=new omnisoftGridDetail('omniObj','serial_alu',serial_alu,'negocioPropioAlumno','serial_npa',sql,document.PaginaDatos,Array(true,true,true),'detalleNegocioPropioFormulario.html',805,700);
+
+  	 omniObj.addColumn('Serial','serial_npa', 1,'hidden','','middle','');
+     omniObj.addColumn('Dueño','duenio_npa', 5,'string','','center','');
+     omniObj.addColumn('Nombre Negocio','nombre_npa', 20,'string','','center','');
+	 omniObj.addColumn('Tesis','tematesis_npa', 5,'date','','middle','');
+	 omniObj.addColumn('Empleados','numempleados_npa', 10,'string','','middle','');
+	 omniObj.addColumn('Web Site','website_npa', 25,'string','','middle','');
+	 omniObj.addColumn('Tipo','tipo_npa', 25,'string','','middle','');
+	 omniObj.addColumn('Monto Activos','montoactivos_npa', 10,'string','','middle','');
+	 omniObj.addColumn('Ingresos Anuales','ingresosanuales_npa', 20,'string','','middle','');
+	 omniObj.addColumn('Pasantias','pasantias_npa', 1,'hidden','','middle','');
+	 omniObj.addColumn('Mentor','mentor_npa', 1,'hidden','','middle','');
+ 	 omniObj.addColumn('Documentar','documentar_npa', 1,'hidden','','middle','');
+ 	 omniObj.addColumn('Asociacion','asociacion_npa', 1,'hidden','','middle','');
+ 	 omniObj.addColumn('Sugenrencia','sugerencia_npa', 1,'hidden','','middle','');
+ 	 omniObj.addColumn('Productos','productos_npa', 1,'hidden','','middle','');
+	 omniObj.addColumn('Opinion','opinion_npa', 1,'hidden','','middle','');
+ 	 omniObj.addColumn('Publicidad','publicidad_npa', 1,'hidden','','middle','');	
+ 	 omniObj.addColumn('Testimonio','testimonio_npa', 1,'hidden','','middle','');
+	 omniObj.addColumn('TipoJuridico','tipojuridico_npa', 1,'hidden','','middle','');	
+ 	 omniObj.addColumn('Observaciones','observaciones_npa', 1,'hidden','','middle','');
+ 	 omniObj.addColumn('apellidopaterno_alu','apellidopaterno_alu', 1,'hidden','','middle',''); 	 
+	 omniObj.addColumn('apellidomaterno_alu','apellidomaterno_alu', 1,'hidden','','middle',''); 	 
+	 omniObj.addColumn('nombre1_alu','nombre1_alu', 1,'hidden','','middle',''); 	 
+	 omniObj.addColumn('nombre2_alu','nombre2_alu', 1,'hidden','','middle',''); 	 	 
+	 omniObj.addColumn('Serial alu','serial_alu', 1,'hidden','','middle','');
+     omniObj.showGrid('omniObj',20,389,1020,'menu','#FF9900');
+
+            </script>
+            </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+
+</body>
+</html>

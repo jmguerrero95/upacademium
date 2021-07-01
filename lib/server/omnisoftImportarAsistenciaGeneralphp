@@ -1,0 +1,235 @@
+<html>
+<head>
+<link href="../styles/omnisoft.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" action='omnisoftImportarAsistencia.php'>
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          RECURSOS HUMANOS<br>
+          IMPORTACION DE MARCAS DEL LECTOR
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+
+
+
+<?php
+
+include('../adodb/adodb.inc.php');
+include('../../config/config.inc.php');
+
+
+function omnisoftConnectDB() {
+global $DBConnection;
+$dblink = NewADOConnection($DBConnection);
+
+return $dblink;
+}
+?>
+
+<?php
+
+
+function omnisoftImportFile() {
+  global  $_FILES,$_POST,$omnisoftMINUTOSTOLERANCIA;
+  $prefijoslector=Array('','A','B','C');
+  $dir_asistencia=$_SERVER['DOCUMENT_ROOT'].'/ingenium2/asistencia';
+
+$archivo=$dir_asistencia.'/'.$_FILES['archivo_asi']['name'];
+
+if (is_uploaded_file($_FILES['archivo_asi']['tmp_name'])) {
+    copy($_FILES['archivo_asi']['tmp_name'], $archivo);
+} else {
+   echo "Error: No se puede cargar el archivo:".$_FILES['archivo_asi']['name']."|";
+    return  0;
+}
+
+
+   $dblink=omnisoftConnectDB();
+   $dblink->SetFetchMode(ADODB_FETCH_NUM);
+
+    if (!($fp = fopen($archivo, "r"))) {
+        echo "<script> document.PaginaDatos.mensaje.value='Error: No se puede abrir el archivo:".$_FILES['archivo_asi']['name']."</script>";
+        return 0;
+     }
+
+
+//        echo $InsertCmd;
+
+     $inicio=true;
+
+     while (!feof($fp)) {
+        $contenido=fgets($fp);
+        $registro=explode(',',$contenido);
+        $prefijo=intval(substr($registro[3],6,1));
+
+        $codigo_epl=$prefijoslector[$prefijo].substr($registro[3],7,3);
+  //      echo $codigo_epl."--".$contenido."<br>";
+         $horas=($registro[5]>9)?trim($registro[5]):'0'.trim($registro[5]);
+         $minutos=($registro[6]>9)?trim($registro[6]):'0'.trim($registro[6]);
+
+        $hora=$horas.":".$minutos.":00" ;
+
+        $fecha="200".trim($registro[9])."-".trim($registro[7])."-".trim($registro[8]);
+/*        if ($inicio) {
+        $inicio=false;
+        $SQLCmd="select serial_asi from asistencia where fecha_asi ='".$fecha."'";
+
+        $rsVerifica=$dblink->Execute($SQLCmd);
+
+        if ($rsVerifica && $rsVerifica->RecordCount()>0 ) {
+           fclose($fp);
+          echo "<script> document.PaginaDatos.mensaje.value='Advertencia: El Archivo ya fue importado anteriormente, no se importó el archivo!';   </script>";
+          return 1;
+
+
+        }
+
+
+        }  */
+        $SQLCmd="select serial_epl,asistencia_epl, domingoentrada_tur,lunesentrada_tur,martesentrada_tur,miercolesentrada_tur,juevesentrada_tur,viernesentrada_tur,sabadoentrada_tur from empleado left join turnos on turnos.serial_tur=empleado.serial_tur where codigoanterior_epl ='".$codigo_epl."'";
+//       echo $SQLCmd."<br>";
+        $rsEmpleado=$dblink->Execute($SQLCmd);
+  //        echo "$codigo_epl-$hora-$fecha <br>";
+          if ($rsEmpleado && $rsEmpleado->RecordCount()>0)   {
+             $SQLCmd="select serial_asi,entrada1_asi,salida1_asi, entrada2_asi,salida2_asi, entrada3_asi,salida3_asi from asistencia where serial_epl=".$rsEmpleado->fields[0]. " and fecha_asi='".$fecha."'";
+//             echo $SQLCmd."<br>";
+             $rsAsistencia=$dblink->Execute($SQLCmd);
+             if ($rsAsistencia && $rsAsistencia->RecordCount()>0) {
+//               echo "asistencia: " .$rsAsistencia->fields[2]."<br>";
+                if (strlen($rsAsistencia->fields[2])==0)  {
+                     if ($hora!=$rsAsistencia->fields[1])
+                     $UpdateCmd="update asistencia set salida1_asi='".$hora."' where serial_asi=".$rsAsistencia->fields[0];
+                }
+                else
+                if (strlen($rsAsistencia->fields[3])==0) {
+                    if ($hora!=$rsAsistencia->fields[2])
+                     $UpdateCmd="update asistencia set entrada2_asi='".$hora."' where serial_asi=".$rsAsistencia->fields[0];
+                }
+                else
+                if (strlen($rsAsistencia->fields[4])==0)  {
+                    if ($hora!=$rsAsistencia->fields[3])
+                     $UpdateCmd="update asistencia set salida2_asi='".$hora."' where serial_asi=".$rsAsistencia->fields[0];
+                }
+                else
+                if (strlen($rsAsistencia->fields[5])==0) {
+                    if ($hora!=$rsAsistencia->fields[4])
+
+                     $UpdateCmd="update asistencia set entrada3_asi='".$hora."' where serial_asi=".$rsAsistencia->fields[0];
+                }
+                else
+                if (strlen($rsAsistencia->fields[6])==0) {
+                    if ($hora!=$rsAsistencia->fields[5])
+
+                     $UpdateCmd="update asistencia set salida3_asi='".$hora."' where serial_asi=".$rsAsistencia->fields[0];
+                }
+
+//                echo $UpdateCmd."<br>";
+                $dblink->Execute($UpdateCmd);
+
+             }
+             else {
+                 $atraso=0;
+                 if ($rsEmpleado->fields[1]=='SI') {
+
+                      $afecha=explode('-',$fecha);
+//                      echo "fecha=".$fecha."<br>";
+                      $sfecha= mktime(0, 0, 0, $afecha[1]  , $afecha[2], $afecha[0]);
+                      $dia=date('w',$sfecha)+2;
+//                     echo "dia=".$dia. "horario=".$rsEmpleado->fields[$dia]." hora=".$hora."<br>";
+
+                      if ($rsEmpleado->fields[$dia]!='00:00:00') {
+
+                      $ahora=explode(":",$hora);
+                      $horario=explode(":",$rsEmpleado->fields[$dia]);
+                      $atraso=($ahora[0]-$horario[0])*60+ ($ahora[1]-$horario[1]);
+//                      echo "atraso=".$atraso."<br>";
+                      if ($atraso<0 || $atraso <= $omnisoftMINUTOSTOLERANCIA) $atraso=0;
+                      }
+
+                 }
+
+                 $InsertCmd="insert into asistencia (SERIAL_ASI, SERIAL_EPL, FECHA_ASI, ENTRADA1_ASI, SALIDA1_ASI, ESTADO_ASI, atraso_asi, permiso_asi, observaciones_asi) values (0,'";
+                 $InsertCmd.= $rsEmpleado->fields[0]."','".$fecha."','".$hora."',NULL,'FALTA MARCA',". $atraso.",0,'')" ;
+//                 echo $InsertCmd. "<br>";
+                $dblink->Execute($InsertCmd);
+          }
+          }
+     }
+
+   fclose($fp);
+  echo "<script> document.PaginaDatos.mensaje.value='Archivo importado exitosamente!'; top.opener.omniObj.lastPage();  </script>";
+  return 1;
+}
+
+if (isset($_FILES['archivo_asi'])) {
+?>
+
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="76" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="149" height="26"  class="inputtitle">Archivo a Cargar:</td>
+            <td width="650">
+				<img src="../../images/camporequerido.gif">
+				<input type="file" name="archivo_asi" id="archivo_asi" maxlength=255 size=100>
+                                		                				</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle"></td>
+            <td >
+			<a href="#" onClick="javascript:document.PaginaDatos.submit()"><img src="../../images/importar.png">Importar Marcas</a>
+	</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Mensaje</td>
+            <td ><input type="text" name="mensaje" id="mensaje" maxlength=255 size=150 readonly="yes">  </td>
+
+          </tr>
+
+      </table></td>
+    </tr>
+<?php
+
+   omnisoftImportFile();
+
+
+}
+else {
+?>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="76" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="149" height="26"  class="inputtitle">Archivo a Cargar:</td>
+            <td width="650">
+				<img src="../../images/camporequerido.gif">
+				<input type="file" name="archivo_asi" id="archivo_asi" maxlength=255 size=100>
+                                		                				</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle"></td>
+            <td >
+			<a href="#" onClick="javascript:document.PaginaDatos.submit()"><img src="../../images/importar.png">Importar Marcas</a>
+            </td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Mensaje</td>
+            <td ><input type="text" name="mensaje" id="mensaje" maxlength=255 size=150 readonly="yes">  </td>
+
+          </tr>
+
+      </table></td>
+    </tr>
+
+
+
+<?php
+}
+?>
+
+  </table>
+</body>
+</html>
+

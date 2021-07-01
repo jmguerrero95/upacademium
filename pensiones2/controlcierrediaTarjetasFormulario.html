@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+/*$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);*/
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script language="javascript" src="../lib/tools/ValidarIdentificacion.js"></script>
+<script>
+
+function CopiarRegistro() {
+	SQLCommand="insert into cierredia_control (serial_cdc,serial_cid,serial_forc,serial_dre,valor_cdc,comision_cdc,estado_cdc,fecha_cdc,fechaefec_cdc,descripcion_cdc) select  0,serial_cid,serial_forc,serial_dre,valor_cdc,comision_cdc,estado_cdc,fecha_cdc,'"+document.PaginaDatos.fechaefec_cdc.value+"', concat_ws(' ',descripcion_cdc,'(Copia)',"+document.PaginaDatos.serial_cdc.value+") from cierredia_control where serial_cdc="+document.PaginaDatos.serial_cdc.value;
+	//prompt('ddd',SQLCommand);
+	var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftDataManager.php");
+	objDBComando.executeQuery();
+								  
+	  opener.omniObj.lastPage();
+	  window.close();
+
+}
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+<body>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_cdc" type="hidden" id="serial_cdc" class="hidden">
+  <table width="709" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="212" height="52"  class="ingeniumtoptitle"></td>
+      <td width="370"  class="maintoptitle fonttitle"><center>
+          MODULO PENSIONES<br>
+          COPIA DE REGISTRO 
+      </center></td>
+      <td width="127"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="709" height="91" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000"  bordercolordark="#FFFFFF"class="formtable">
+          <tr>
+      		 <td height="24" colspan="6" class="formtitle"><div align="center"><span class="style1">DATOS DEL REGISTRO</span></div></td>
+		  </tr>
+		  
+		 <tr>
+            <td height="23"  class="inputtitle">Fecha :</td>
+            <td><input name="fechaefec_cdc" type="text" id="fechaefec_cdc" size="10" maxlength="15" readonly="yes"  class="date"></td>
+			<td width="132"   class="inputtitle">Forma de Cobro:</td>
+            <td width="172" colspan="2"><span id="cierre_dia"></span>   <input name="nombre_forc" type="text" id="nombre_forc" size="30" maxlength="15" readonly="yes"  class="text"></td>
+          </tr>
+	      <tr>
+            <td width="132" height="21"  class="inputtitle">Copiar registro: </td>
+            <td colspan="4"><input name="descripcion_cdc" type="text" id="descripcion_cdc" size="100" maxlength="15" readonly="yes"  class="text">
+			 <!--<span id="nombre_forc"></span> -->		    </td>
+	      </tr>
+		  <tr>
+            <td height="21"  class="inputtitle">Valor :</td>
+            <td><input name="valor_cdc" type="text" id="valor_cdc" size="20" maxlength="15" readonly="yes"  class="double" ></td>
+			<td width="132"   class="inputtitle">Comisión:</td>
+            <td width="172" colspan="2"><span id="cierre_dia"></span>   <input name="comision_cdc" type="text" id="comision_cdc" size="20" maxlength="15" readonly="yes"  class="double"></td>
+          </tr>
+<script>
+   omnisoftLoadData(document.PaginaDatos);
+  // alert(document.PaginaDatos.serial_cdc.value);
+   if (getURLParam('action')=='insert'){
+  /* 		document.PaginaDatos.fechaacre_acd.value=fechaSistema();
+		document.PaginaDatos.serial_cdc.value='PENDIENTE';*/
+   }
+   
+       </script>
+		
+        </table></td>
+    </tr>
+    <tr>
+		<td height="30" colspan="3" align="center" class="menuborder"> <table width="707" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="185" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:CopiarRegistro()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Copiar</a></div></td>
+            <td width="199"><div  id="mostrar_contabilizar" style="display:none;"><a href="#"  onClick=""><img src="../images/comprobante.png" alt="" width="48" height="48" border="0" align="middle">Contabilizar</a></div></td>
+            <td width="179"><div  id="mostrar_imprimir" style="display:none;"><a href="#"  onClick=""><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir Comprobante</a></div></td>
+            <td width="90"></td>
+            <td width="54"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+
+</body>
+</html>

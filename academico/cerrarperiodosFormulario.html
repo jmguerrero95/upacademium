@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_per" type="hidden" id="serial_per" class="hidden">
+<input name="serial_suc" type="hidden" id="serial_suc" class="hidden">
+<input name="serial_usr" type="hidden" id="serial_usr" class="hidden">
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO <br>
+          CERRAR PERIODOS ACADEMICOS
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="170" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="175" height="24"  class="inputtitle">C&oacute;digo :</td>
+            <td colspan="2"> <img  src="../images/camporequerido.gif"><input name="codigo_per" type="text" id="codigo_per" class="autoincrement" fieldid="serial_per" table="periodo" maxlength="15"  size="20" onBlur="esconderToolTip()" ></td>
+            <td class="inputtitle">Programa : </td>
+            <td colspan="2"><img src="../images/camporequerido.gif">
+            <script>                var cserial_sec=new omnisoftComboBox('cserial_sec','serial_sec','select serial_sec, nombre_sec from seccion','180px',false,getURLParam('serial_sec')) ;		
+                     cserial_sec.show();
+		      </script></td>
+			  
+			  
+          </tr>
+
+          <tr>
+            <td height="24"  class="inputtitle">Nombre : </td>
+            <td colspan="2" ><input name="nombre_per" type="text" id="nombre_per" class="string" fieldid="serial_per" readonly="yes" maxlength="65"  size="60" onBlur="esconderToolTip()"    ></td>
+            <td class="inputtitle">Activo : </td>
+            <td colspan="2" ><select name="activo_per" id="activo_per" class="combobox">
+              <option selected value="SI">Si</option>
+              <option value="NO">No</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Fecha Inicio (aaaa-mm-dd) :</td>
+            <td colspan="2" ><img  src="../images/camporequerido.gif"><input name="fecini_per" type="text" id="fecini_per" class="date" value="0000-00-00" disabled="false" size="10" maxlength="10" readonly="yes"  onBlur="esconderToolTip()"></td>
+            <td width="149" class="inputtitle">Fecha Fin (aaaa-mm-dd) : </td>
+            <td colspan="2" ><img  src="../images/camporequerido.gif">
+            <input name="fecfin_per" type="text" id="fecfin_per" size="10" maxlength="10" class="date" value="0000-00-00" disabled="false" onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Matricula Ordinaria </td>
+            <td width="133" class="inputtitle">Del :
+            <input name="fechamatriculaordini_per" type="text" id="fechamatriculaordini_per" size="10" maxlength="10" class="date" value="0000-00-00" disabled="false" onBlur="esconderToolTip()"></td>
+            <td width="130" class="inputtitle">Al :
+            <input name="fechamatriculaordfin_per" type="text" id="fechamatriculaordfin_per" size="10" maxlength="10" class="date" value="0000-00-00" disabled="false" onBlur="esconderToolTip()"></td>
+            <td  class="inputtitle">Matricula Extraordinaria </td>
+            <td width="100" class="inputtitle">Del :
+            <input name="fechamatriculaextraordini_per" type="text" id="fechamatriculaextraordini_per" size="10" maxlength="10" class="date" value="0000-00-00" disabled="false" onBlur="esconderToolTip()"></td>
+            <td width="104"  class="inputtitle">Al :
+            <input name="fechamatriculaextraordfin_per" type="text" id="fechamatriculaextraordfin_per" size="10" maxlength="10" class="date" value="0000-00-00" disabled="false" onBlur="esconderToolTip()"></td></tr>
+          <tr>
+            <td height="24"  class="inputtitle">Fecha m&aacute;x. Cambios y Retiros </td>
+            <td class="inputtitle">Del :
+              <input name="fechaCambioini_per" type="text" id="fechaCambioini_per" size="10" maxlength="10" class="date" value="0000-00-00" disabled="false" onBlur="esconderToolTip()"></td>
+            <td class="inputtitle">Al :
+            <input name="fechaCambioFin_per" type="text" id="fechaCambioFin_per" size="10" maxlength="10" class="date" value="0000-00-00" disabled="false" onBlur="esconderToolTip()"></td>
+            <td  class="inputtitle">Fecha Ex&aacute;menes Finales </td>
+              <td  class="inputtitle">Del :
+                <input name="fechaexamfini_per" type="text" id="fechaexamfini_per" size="10" maxlength="10" class="date" value="0000-00-00" disabled="false" onBlur="esconderToolTip()"></td>
+              <td  class="inputtitle">Al :
+                <input name="fechaexamffin_per" type="text" id="fechaexamffin_per" size="10" maxlength="10" class="date" value="0000-00-00" disabled="false" onBlur="esconderToolTip()"></td></tr>
+          <tr>
+            <td height="24"  class="inputtitle">Inicio de Clases  :</td>
+            <td colspan="2" ><img  src="../images/camporequerido.gif">
+            <input name="fechainicioclas_per" type="text" id="fechainicioclas_per" size="10" maxlength="10" class="date" value="0000-00-00" disabled="false" onBlur="esconderToolTip()"></td>
+            <td class="inputtitle">Es intensivo? </td>
+            <td colspan="2" ><select name="intensivo_per" id="intensivo_per" disabled="false" class="combobox">
+              <option  selected value="NO">No</option>
+			  <option  value="SI">Si</option>
+              
+            </select></td>
+          </tr>
+	
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	//document.PaginaDatos.serial_suc.value=getURLParam('serial_suc');
+//	document.PaginaDatos.serial_suc.value=getCookie('serial_suc');
+	//alert(document.PaginaDatos.serial_suc.value);
+	
+	//alert(getCookie('serial_suc'));
+	document.PaginaDatos.serial_usr.value=getCookie('serial_usr');
+	
+	
+	if (getURLParam('action')=='insert')
+	   document.PaginaDatos.fecini_per.value=fechaSistema();
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script>
+function cargarFoto() {
+	var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+    omnisoftNewWindow=window.open('../lib/server/omnisoftImportPhoto.php?campofoto=foto_epl&foto='+document.PaginaDatos.foto_alu.value,'OmnisoftPhoto',attributes);
+    if (window.focus) {omnisoftNewWindow.focus()}
+	omnisoftProcesarCambios();
+}
+function mostrarProvincia(){
+   cserial_prv.objDBComando.sqlCommand='select -99,\'TODOS\' UNION select serial_prv, nombre_prv from provincia where serial_pai='+document.PaginaDatos.serial_pai.value;
+	cserial_prv.objDBComando.executeQuery();
+}
+
+function mostrarCiudad(){
+   cserial_ciu.objDBComando.sqlCommand='select -99,\'TODOS\' UNION select serial_ciu, nombre_ciu from ciudad where serial_prv='+document.PaginaDatos.serial_prv.value;
+	cserial_ciu.objDBComando.executeQuery();
+
+}
+</script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    
+    <tr>
+      <td width="1020" height="30" colspan="2"> <table width="1020" height="100" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+      		<td height="20" colspan="6" class="formtitle" ><div align="center">DATOS PERSONALES</div></td>
+		  </tr>
+		  <tr>
+            <td width="121" height="25"  class="inputtitle">Nombre:</td>
+          <td width="171">
+				<img src="../images/camporequerido.gif">
+		    <input name="nombre_pad" id="nombre_pad" type="text" class="string" size="30" maxlength="30"  />		  	</td>
+		  	<td width="121" height="25" class="inputtitle">Apellido:</td>
+		  <td width="180">
+				<img src="../images/camporequerido.gif">
+		    <input name="apellido_pad" id="apellido_pad" type="text" class="string" size="35" maxlength="40" /> 			</td>
+			<td width="154" height="25" class="inputtitle">Parentesco:</td>
+		  <td width="259">
+			<img src="../images/camporequerido.gif">
+			<script>
+				var cserial_prt = new omnisoftComboBox('cserial_ptr','serial_prt','SELECT serial_prt, codigo_prt FROM  parentesco','200px',getURLParam('serial_prt'));
+				cserial_prt.show();
+			</script>		  </td>
+		  </tr>
+          <tr>
+		  	<td height="25" class="inputtitle">Fecha Nacimiento:</td>
+			<td height="25">
+				<img src="../images/camporequerido.gif">
+				<input name="fecnac_pad" id="fecnac_pad" type="text" class="date" size="12" maxlength="10">			</td>
+			<td height="25" class="inputtitle">Tipo Identificacion:</td>
+			<td height="25">
+				<img src="../images/camporequerido.gif">
+				<select name="tipoIdentificacion_pad" id="tipoIdentificacion_pad">
+				<option value="C">C&eacute;dula</option>
+				<option value="P">Pasaporte</option>
+				</select>			</td>
+			<td height="25" class="inputtitle">N&uacute;mero Identificaci&oacute;n:</td>
+            <td height="25">
+				<img src="../images/camporequerido.gif">
+            	<input name="codigoIdentificacion_pad" type="text" id="codigoIdentificacion_pad" size="15" maxlength="13" class="cedula" onBlur="validarDocumento();">			</td>
+          </tr>
+          <tr>
+            <td height="25" class="inputtitle">Direcci&oacute;n:</td>
+            <td height="25">
+				<img src="../images/camporequerido.gif">
+            	<input name="direccion_pad" type="text" id="direccion_pad" size="30" maxlength="80" class="string"  onBlur="esconderToolTip()">			</td>
+			<td height="25" class="inputtitle">Tel&eacute;fono:</td>
+            <td height="25">
+				<input name="telefono_pad" type="text" id="telefono_pad" size="15" maxlength="9" class="text"  onBlur="esconderToolTip()">			</td>
+						<td height="25" class="inputtitle">Celular:</td>
+            <td height="25">
+				<input name="celular_pad" type="text" id="celular_pad" size="15" maxlength="9" class="text"  onBlur="esconderToolTip()">			</td>
+          </tr>
+		  <tr>
+		  	<td height="25" class="inputtitle">e-mail:</td>
+            <td height="25">
+				<input name="mail_pad" type="text" id="mail_pad" size="30" maxlength="50" class="string"  onBlur="esconderToolTip()">			</td>
+			<td height="25" class="inputtitle">Estado Civil:</td>
+			<td height="25">
+            	<script>
+				var cserial_eci=new omnisoftComboBox('cserial_eci','serial_eci','SELECT serial_eci, nombre_eci FROM estadocivil ORDER BY nombre_eci','200px',true,getURLParam('serial_eci'));
+				cserial_eci.show();
+				</script>            </td>
+		  	<td height="25" class="inputtitle">Nacionalidad:</td>
+			<td height="25">
+			<script>
+				var cserial_nac=new omnisoftComboBox('cserial_nac','serial_nac','SELECT serial_nac, nombre_nac FROM nacionalidad ORDER BY nombre_nac','200px',true,getURLParam('serial_nac'));
+				cserial_nac.show();
+			</script>			</td>
+		  </tr>
+		  <tr>
+			<td height="25" class="inputtitle">Pa&iacute;s</td>
+			<td height="25">
+			<script>
+				var cserial_pai=new omnisoftComboBox('cserial_pai','serial_pai','SELECT serial_pai, nombre_pai FROM pais ORDER BY nombre_pai','200px',false,getURLParam('serial_pai'),'',mostrarProvincia);
+				cserial_pai.show();
+			</script>			</td>
+			<td height="25" class="inputtitle">Provincia</td>
+			<td height="25">
+			<script>
+				var cserial_prv=new omnisoftComboBox('cserial_prv','serial_prv','SELECT serial_prv, nombre_prv FROM provincia WHERE serial_pai='+getURLParam('serial_pai')+'ORDER BY nombre_prv','200px',false,getURLParam('serial_prv'),'',mostrarCiudad);
+				cserial_prv.show();
+			</script>			</td>
+			<td height="25" class="inputtitle">Ciudad</td>
+			<td height="25">
+			<script>
+				var cserial_ciu=new omnisoftComboBox('cserial_ciu','serial_ciu','SELECT serial_ciu, nombre_ciu FROM ciudad WHERE serial_prv='+getURLParam('serial_prv')+' ORDER BY nombre_ciu','200px',false,getURLParam('serial_ciu'));
+				cserial_ciu.show();
+			</script>			</td>
+		  </tr>
+		  <tr>
+		  	<td height="25" class="inputtitle">N&uacute;mero Dependientes:</td>
+			<td height="25">
+				<img src="../images/camporequerido.gif">
+				<input type="text" name="numeroDependientes_pad" id="numeroDependientes_pad" size="15" maxlength="15" class="text" onBlur="esconderToolTip()">			</td>
+		  	<td height="25" class="inputtitle">Fallecido:</td>
+			<td height="25">
+				<img src="../images/camporequerido.gif">
+				<select name="fallecido_pad" id="fallecido_pad">
+				<option value="N">No</option>
+				<option value="S">Si</option>
+				</select>			</td>
+			<td height="25" class="inputtitle">ID Padre</td>
+			<td height="25">
+				<img src="../images/camporequerido.gif">
+				<input type="text" name="id_padre" id="id_padre" size="15" maxlength="15" class="text" onBlur="esconderToolTip()">			</td>
+		  </tr>
+		  <tr>
+      		<td height="20" colspan="6" class="formtitle" ><div align="center">INFORMACION LABORAL</div></td>
+		  </tr>
+          <tr>
+		  	<td height="25" class="inputtitle">Empresa:</td>
+            <td height="25">
+				<img src="../images/camporequerido.gif">
+				<script>
+				var cserial_emp=new omnisoftComboBox('cserial_emp','serial_emp','SELECT serial_emp, nombre_emp FROM empresa ORDER BY nombre_emp','200px',getURLParam('serial_emp'));
+				cserial_emp.show();
+				</script>			</td>
+		  	<td height="25" class="inputtitle">Profesi&oacute;n:</td>
+            <td height="25" colspan="3">
+				<img src="../images/camporequerido.gif">
+				<script>
+				var cserial_cpr=new omnisoftComboBox('cserial_cpr','serial_cpr','SELECT serial_cpr, nombre_cpr FROM codigoprofesion ORDER BY nombre_cpr','200px',getURLParam('serial_cpr'));
+				cserial_cpr.show();
+				</script>			</td>
+		  </tr>
+		  <tr>
+		  	<td height="25" class="inputtitle">Cargo:</td>
+            <td height="25">
+				<img src="../images/camporequerido.gif">
+				<input name="cargo_pad" id="cargo_pad" type="text" class="text" size="30" maxlength="255">			</td>
+			<td height="25" class="inputtitle">Antig&uuml;edad Laboral:</td>
+			<td height="25" colspan="3">
+				<input type="text" name="antiguedad_pad" id="antiguedad_pad" size="5" maxlength="15" class="text" onBlur="esconderToolTip()">			</td>
+		  </tr>
+		  <tr>
+			<td height="25" class="inputtitle">Sueldo:</td>
+            <td height="25">
+				<input name="sueldo_pad" type="text" id="sueldo_pad" size="15" maxlength="16" class="float"  onBlur="esconderToolTip()">			</td>
+			<td height="25" class="inputtitle">Otros Ingresos:</td>
+            <td height="25">
+				<input name="otrosingresos_pad" type="text" id="otrosingresos_pad" size="15" maxlength="16" class="float"  onBlur="esconderToolTip()">			</td>
+			<td height="25" class="inputtitle">Total Ingresos:</td>
+            <td height="25">
+				<input name="totalingresos_pad" type="text" id="totalingresos_pad" size="15" maxlength="16" class="float"  onBlur="esconderToolTip()">			</td>
+		  </tr>
+		  <tr>
+      		<td height="20" colspan="6" class="formtitle" ><div align="center">INFORMACION FINANCIERA</div></td>
+		  </tr>
+		  <tr>
+			<td height="25" class="inputtitle">Referencia Bancaria1:</td>
+            <td height="25">
+				<input type="text" name="referenciaBan1_pad" id="referenciaBan1_pad" class="text" size="20" maxlength="255" onBlur="esconderToolTip()">			</td>
+			<td height="25" class="inputtitle">Tipo Cuenta:</td>
+			<td height="25">
+				<img src="../images/camporequerido.gif">
+				<select name="tipoCuentaBan1_pad" id="tipoCuentaBan1_pad">
+				<option value="A">Ahorros</option>
+				<option value="C">Corriente</option>
+				</select>			</td>
+			<td height="25" class="inputtitle">Cuenta Bancaria 1:</td>
+            <td height="25">
+				<input type="text" name="cuentaBan1_pad" id="cuentaBan1_pad" class="text" size="20" maxlength="255" onBlur="esconderToolTip()">			</td>
+		  </tr>
+		  <tr>
+		  	<td height="25" class="inputtitle">Referencia Bancaria2:</td>
+            <td height="25">
+				<input type="text" name="referenciaBan2_pad" id="referenciaBan2_pad" class="text" size="20" maxlength="255" onBlur="esconderToolTip()">			</td>
+			<td height="25" class="inputtitle">Tipo Cuenta:</td>
+			<td height="25">
+				<img src="../images/camporequerido.gif">
+				<select name="tipoCuentaBan2_pad" id="tipoCuentaBan2_pad">
+				<option value="A">Ahorros</option>
+				<option value="C">Corriente</option>
+				</select>			</td>
+			<td height="25" class="inputtitle">Cuenta Bancaria2:</td>
+            <td height="25">
+				<input type="text" name="cuentaBan2_pad" id="cuentaBan2_pad" class="text" size="20" maxlength="255" onBlur="esconderToolTip()">			</td>
+		  </tr>
+		  <tr>
+		  	<td height="25" class="inputtitle">Tarjeta1:</td>
+			<td height="25">
+				<img src="../images/camporequerido.gif">
+				<select name="nombreTarjetaCred1_pad" id="nombreTarjetaCred1_pad">
+				<option value="A">American Express</option>
+				<option value="M">MasterCard</option>
+				<option value="V">Visa</option>
+				<option value="D">Dinners</option>
+				<option value="O">Otra</option>
+				</select>			</td>
+			<td height="25" class="inputtitle">N&uacute;mero Tarjeta1:</td>
+            <td height="25" colspan="3">
+				<input name="nTarjetaCredito1_pad" type="text" id="nTarjetaCredito1_pad" size="15" maxlength="50" class="text"  onBlur="esconderToolTip()">			</td>
+		  </tr>
+		  <tr>
+		  	<td height="25" class="inputtitle">Tarjeta2:</td>
+			<td height="25">
+				<img src="../images/camporequerido.gif">
+				<select name="nombreTarjetaCred2_pad" id="nombreTarjetaCred2_pad">
+				<option value="A">American Express</option>
+				<option value="M">MasterCard</option>
+				<option value="V">Visa</option>
+				<option value="D">Dinners</option>
+				<option value="O">Otra</option>
+				</select>			</td>
+			<td height="25" class="inputtitle">N&uacute;mero Tarjeta2:</td>
+            <td height="25" colspan="3">
+				<input name="nTarjetaCredito2_pad" type="text" id="nTarjetaCredito2_pad" size="15" maxlength="50" class="text"  onBlur="esconderToolTip()">			</td>
+		  </tr>
+		  <tr>
+		  	<td height="20" colspan="6" class="formtitle" ><div align="center">BIENES DEL PADRE</div></td>
+		  </tr>
+		  <tr>
+		  	<td height="25" class="inputtitle">Tipo Vehiculo:</td>
+            <td height="25">
+				<input name="tipoVehiculo_pad" id="tipoVehiculo_pad" type="text" class="emptytext" size="35" maxlength="255">			</td>
+            <td height="25" class="inputtitle">A&ntilde;o Vehiculo:</td>
+            <td height="25">
+				<input name="anioVehiculo_pad" type="text" id="anioVehiculo_pad" size="15" maxlength="10" class="integer" onBlur="esconderToolTip()">			</td>
+			<td height="25" class="inputtitle">Avaluo Vehiculo:</td>
+            <td height="25">
+				<input name="avaluoVehiculo_pad" type="text" id="avaluoVehiculo_pad" size="20" maxlength="16" class="emptyfloat" onBlur="esconderToolTip()">			</td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

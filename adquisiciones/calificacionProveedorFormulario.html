@@ -1,0 +1,142 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_cpvd" type="hidden" id="serial_cpvd" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          INVENTARIOS<br>
+          CALIFICACION DE PROVEEDORES
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="194" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+	  <tr>
+	    <td height="24"  class="inputtitle">Fecha  :</td>
+	    <td ><img  src="../images/camporequerido.gif">
+	      <input name="fecha_cpvd" type="text" id="fecha_cpvd" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"></td></tr>
+	  <tr>
+	    <td height="24"  class="inputtitle">Proveedor  :</td>
+	    <td ><script>
+          var cserial_pvd=new omnisoftComboBox('cserial_pvd','serial_pvd',"select serial_pvd, concat(codigo_pvd,\' =>  \',razonSocial_pvd) as proveedores from proveedor where estado_pvd=\'Activo\' order by codigo_pvd",'280px',true,getURLParam('serial_pvd'));
+                     cserial_pvd.show();
+	    </script></td>
+	    </tr>
+	  <tr>
+            <td height="24"  class="inputtitle">Acci&oacute;n   :</td>
+            <td >
+						                	  <script>
+          var cserial_ptp=new omnisoftComboBox('cserial_ptp','serial_ptp',"select serial_ptp, concat(codigo_ptp,\' \',descripcion_ptp)as puntos from puntosproveedor order by codigo_ptp",'280px',true,getURLParam('serial_ptp'));
+                     cserial_ptp.show();
+	  </script>			</td>
+          </tr>
+          <tr>
+            <td width="145" height="24"  class="inputtitle"><span class="style1 style4 style5">Calificaci&oacute;n Proveedor :</span></td>
+            <td width="654"><img  src="../images/camporequerido.gif"><input name="calificacioncredito_cpvd" type="text" id="calificacioncredito_cpvd" class="integer" size="5" maxlength="5"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle"><span class="style1 style4 style5">Calificaci&oacute;n Evento  :</span></td>
+            <td><input name="calificacion_cpvd" type="text" id="calificacion_cpvd" class="integer" size="5" maxlength="5"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Nivel :</td>
+            <td><script>
+          var cserial_nivcp=new omnisoftComboBox('cserial_nivcp','serial_nivcp','select serial_nivcp, concat(codigonivel_nivcp,\' => \',descripcion_nivcp) as niveles from nivelcalificacionproveedor order by codigonivel_nivcp','300px',true,getURLParam('serial_nivcp'));
+                     cserial_nivcp.show();
+	        </script></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Documento que Genera :</td>
+            <td><input name="documentogenera_cpvd" type="number" id="documentogenera_cpvd" class="integer" size="15" maxlength="15"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Creado Por :</td>
+            <td><img  src="../images/camporequerido.gif"><script>
+          var ccreadopor_cpvd=new omnisoftComboBox('ccreadopor_cpvd','creadopor_cpvd',"select serial_epl, concat(apellido_epl,\' \',nombre_epl) as creado from empleado where estadoempleado_epl=\'Activo\' order by apellido_epl",'300px',true,getURLParam('creadopor_cpvd'));
+                     ccreadopor_cpvd.show();
+	        </script></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+
+</form>
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

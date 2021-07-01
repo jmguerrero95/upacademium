@@ -1,0 +1,18 @@
+
+JSFromHell.com | http://jsfromhell.com
+======================================
+
+Name: Masked Input v1.0
+URI: http://jsfromhell.com/forms/masked-input
+Author: jonasraoni
+Created: 2005.08.08
+Modified: 2005.11.19
+Description:
+Class to mask inputs (does not work right on opera).
+
+To keep yourself updated, sign up the ATOM feed at:
+http://jsfromhell.com/atom-en.xml
+
+- We don't assume any responsibility for any kind of damage, direct or indirect, that can be raised by the utilization of our site or any other site that's available through hiperlinks in our site.
+- We authorize the copy and modification of all the codes on the site, since if you keep the original author name.
+- In case of errors on the scripts or new feature requests, please contact the author directly.

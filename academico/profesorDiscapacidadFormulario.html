@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+var sql='';
+function seleccionarMateria() {
+sql='SELECT distinct serial_mat, nombre_mat FROM materia  WHERE serial_are ='+document.PaginaDatos.serial_are.value+' and serial_sec= '+document.PaginaDatos.serial_sec.value+' order by nombre_mat';
+  cserial_mat.objDBComando.sqlCommand=sql;
+  //prompt('sql',sql);
+  cserial_mat.objDBComando.executeQuery();
+  }
+  
+ function seleccionarAreaMateria() {
+sql='SELECT distinct serial_mat, nombre_mat FROM materia  WHERE serial_are ='+document.PaginaDatos.serial_are.value+' order by nombre_mat';
+  cserial_mat.objDBComando.sqlCommand=sql;
+  //prompt('sql',sql);
+  cserial_mat.objDBComando.executeQuery();
+  } 
+  function esInteger(e){
+var charCode
+if (navigator.appName == "Netscape"){
+charCode = e.which
+}
+else{
+charCode = e.keyCode} 
+if (charCode < 48 || charCode > 57){
+alert("Por favor teclee solo números en este campo!"); 
+return false
+}
+else{
+return true}
+}
+  
+</script>
+<script>
+omnisoftLoadData(document.PaginaDatos);
+	document.PaginaDatos.serial_sec.value=opener.PaginaDatos.serial_sec.value;
+	//alert(document.PaginaDatos.serial_sec);
+</script>
+
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_disepl" type="hidden" id="serial_disepl" class="hidden">
+<input name="serial_epl" type="hidden" id="serial_epl" class="hidden">
+
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO<br>
+          DISCAPACIDAD DEL PROFESOR
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="10" colspan="3"> <table width="752" height="56" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          
+          <TR>
+		<td width="108" height="20" class="inputtitle" >Tpo Discapacidad Empleado: </td>
+		<td width="101" class="inputtitle" ><select name="tipo_disepl" id="tipo_disepl" class="combo" style="font-family:Tahoma; font-size:10px">
+        		<option value="NINGUNA">Ninguna</option>
+                <option value="AUDITIVA">Auditiva</option>
+                <option value="FISICA">Fisica</option>
+				<option value="INTELECTUAL">Intelectual</option>
+                <option value="LENGUAJE">Lenguaje</option>
+                <option value="PSICOLOGICO">Psicologico</option>
+				<option value="VISUAL">Visual</option>
+		
+      </select>
+		<td width="66" height="20" class="inputtitle" >Carnet de Conadis : </td>
+		<td width="67" class="inputtitle" ><select name="carnet_conadis_disepl" id="carnet_conadis_disepl" class="combo" style="font-family:Tahoma; font-size:10px">
+        <option value="SI">Si</option>
+        <option value="NO">No</option>
+      </select>
+		<td width="67" height="20" class="inputtitle" >N&ordm; Carnet Conadis : </td>
+		<td width="120" class="inputtitle" ><input name="num_carnet_dispel" type="text" id="num_carnet_dispel" class="emptytext" size="25" maxlength="10"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px">  
+	  <td width="98" height="40" class="inputtitle" >Porcentaje de Discapacidad : </td>
+		    <td width="107" class="inputtitle" ><input name="porcentaje_disepl" type="text" id="porcentaje_disepl" class="emptytext" size="15" maxlength="4" onKeyPress='return esInteger(event)' style="font-family:Tahoma; font-size:10px">  
+	</TR>
+
+        </table></td>
+    </tr>
+       <tr >
+      <td height="30" colspan="3" align="center"> <table width="723" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="150" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="388"></td>
+            <td width="213"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+	
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	document.PaginaDatos.serial_epl.value=opener.PaginaDatos.serial_epl.value;
+	//alert('serial_epl:'+document.PaginaDatos.serial_epl.value);
+
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

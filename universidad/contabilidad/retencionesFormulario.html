@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/aw/lib/aw.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftGrid.js"></script>
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script></head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          GESTION FINANCIERA<br>
+          COMPROBANTE DE RETENCION 
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="122" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="133" height="24"  class="inputtitle">No. Documento:</td>
+            <td width="291"><span class="style1 style4 style5"> 
+              <input name="suc" type="text" id="suc3" size="3" maxlength="3" class="string" style="font-family:Tahoma; font-size:10px">
+              <input name="sec" type="text" id="sec2" size="3" maxlength="3" class="string" style="font-family:Tahoma; font-size:10px">
+              <input name="numeroDocumento_ret" type="text" id="numeroDocumento_ret2" size="7" maxlength="7" class="string" style="font-family:Tahoma; font-size:10px">
+              </span></td>
+            <td width="102" class="inputtitle">Fecha Retencion:</td>
+            <td width="269"><span class="style1 style4 style5"> 
+              <input name="fecha_ret" type="text" id="fecha_ret2" class="date" readonly="yes" size="18" maxlength="18"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px">
+              </span></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Tipo:</td>
+            <td ><span class="style1 style4 style5"> 
+              <select name="tipoDocumento_ret" id="select" class="combo" onChange="cambio(); verPersonaje();" style="font-family:Tahoma; font-size:10px">
+                <option value=""></option>
+                <option value="Retencion_Cliente">Retención al Cliente</option>
+                <option value="Retencion_Proveedor">Retención del Proveedor</option>
+              </select>
+              </span></td>
+            <td width "110" class="inputtitle">Tipo Documento:</td>
+            <td ><span class="style1 style4 style5"> 
+              <input name="tipoFactura_ret" type="text" id="tipoFactura_ret" readonly="yes" class="string" style="font-family:Tahoma; font-size:10px">
+              </span></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Cliente/Proveedor:</td>
+            <td colspan="3" ><select name="serial" id="select2" onChange="verRetenciones();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:300px;">
+              </select></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">&nbsp;</td>
+            <td colspan="3" ><select name="serial_doc" id="select4" onChange="verValorRetencion();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:300px;">
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Valor Retencion:</td>
+            <td colspan="3" ><input name="valor_ret" type="text" id="valor_ret2" size="12" maxlength="11" class="string" style="font-family:Tahoma; font-size:10px" readonly="yes"></td>
+          </tr>
+          <tr> </tr>
+        </table></td>
+		<tr>
+		<td height="26" colspan="8" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">DETALLE</span></div></td>
+	</tr>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+SELECT dma.serial_dma,
+       nombre_mat, 
+       numerocreditos_dma, 
+       tipocredito_dma, 
+       nombre_niv, 
+       mat.serial_mat,
+       are.serial_are,
+       niv.serial_niv,
+       esp.serial_esp
+FROM 
+     area AS are,
+     nivel as niv,
+     especialidad as esp,
+     detallemalla AS dma,
+     materia AS mat 
+WHERE 
+      are.serial_are = mat.serial_are AND
+      niv.serial_niv=dma.serial_niv and 
+      esp.serial_esp=mat.serial_esp and
+      mat.serial_mat = dma.serial_mat 
+      AND serial_maa=masterkey
+------------------------------------------------------------------
+SELECT   mat.serial_mat,  
+         nombre_mat 
+FROM
+     carrera AS car, 
+     especialidad AS esp, 
+     materia AS mat 
+WHERE 
+      car.serial_car = esp.serial_car AND
+      esp.serial_esp = mat.serial_esp AND 
+      esp.serial_esp ='+document.PaginaDatos.serial_esp.value;
+----------------------------------------------------------------------------
+SELECT   dma.serial_dma, nombre_mat, numerocreditos_dma, mat.serial_mat, esp.serial_esp
+FROM   detallemalla AS dma,
+       malla AS maa,
+       especialidad AS esp,
+       materia AS mat
+WHERE mat.serial_mat = dma.serial_mat AND
+      maa.serial_maa = dma.serial_maa
+--------------------------------------------------------------------------------
+SELECT dma.serial_dma, nombre_mat, numerocreditos_dma, tipocredito_dma, nombre_niv, 
+       mat.serial_mat,are.serial_are,niv.serial_niv
+FROM     area AS are, 
+         nivel as niv,
+         detallemalla AS dma, 
+         especialidad AS esp,
+         materia AS mat 
+WHERE 
+      are.serial_are = mat.serial_are AND 
+      niv.serial_niv=dma.serial_niv and 
+      esp.serial_esp=mat.serial_esp
+      mat.serial_mat = dma.serial_mat
+      and esp.serial_esp=53

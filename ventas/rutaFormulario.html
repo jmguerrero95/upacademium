@@ -1,0 +1,200 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_rut" type="hidden" id="serial_rut" class="hidden">
+<input name="vendedor_rut" type="hidden" id="vendedor_rut" class="hidden">
+
+  <table width="876" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="188" height="52"  class="ingeniumtoptitle"></td>
+      <td width="538"  class="maintoptitle fonttitle"><center>
+          MARKETING Y VENTAS<br>
+          RUTAS
+      </center></td>
+      <td width="150"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="876" height="156" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="16"  class="inputtitle">Region/zona:</td>
+            <td colspan="3"  class="inputtitle"><img  src="../images/camporequerido.gif">
+			                	  <script>
+                 var cserial_zon=new omnisoftComboBox('cserial_zon','serial_zon','select serial_zon,concat(nombre_reg,\'-\',nombre_zon) as nombre from region,zona where region.serial_reg=zona.serial_reg order by nombre_reg,nombre_zon','250px',true,getURLParam('serial_zon'));
+                     cserial_zon.show();
+	  </script>			</td>
+          </tr>
+
+          <tr>
+            <td height="18"  class="inputtitle">Codigo:</td>
+            <td width="213"  class="inputtitle"><img  src="../images/camporequerido.gif"><input name="codigo_rut" type="text" id="codigo_rut" class="autoincrement" size="6" maxlength="6" table="ruta" fieldid="codigo_rut" style="font-family:Tahoma; font-size:10px"  onBlur="esconderToolTip(); formularioGrabado=0;"></td>
+            <td width="165"  class="inputtitle">Nombre:</td>
+            <td width="348"  class="inputtitle"><img  src="../images/camporequerido.gif"><input name="nombre_rut" type="text" id="nombre_rut" class="string" size="30" maxlength="60"   onBlur="esconderToolTip();"></td>
+          </tr>
+          <tr>
+            <td width="140" height="24"  class="inputtitle">Gerente de Ventas:</td>
+            <td  class="inputtitle"><img  src="../images/camporequerido.gif">
+				    <script>
+
+			var sql = "select serial_epl, concat(apellido_epl,' ',nombre_epl), deps.serial_desc, deps.serial_dep, epl.serial_desc FROM empleado epl, sucursaldepartamentos deps where epl.serial_desc=deps.serial_desc and  estadoempleado_epl='Activo'  ORDER BY apellido_epl,nombre_epl";
+
+            var cgerenteVentas_rut=new omnisoftComboBox('cgerenteVentas_rut','gerenteventas_rut',sql,'250px',true,getURLParam('gerenteventas_rut'));
+                     cgerenteVentas_rut.show();
+
+	    </script>			</td>
+            <td  class="inputtitle">Jefe de Ventas:</td>
+            <td  class="inputtitle"><img  src="../images/camporequerido.gif">				    <script>
+
+			var sql = "select serial_epl, concat(apellido_epl,' ',nombre_epl), deps.serial_desc, deps.serial_dep, epl.serial_desc FROM empleado epl, sucursaldepartamentos deps where epl.serial_desc=deps.serial_desc and  estadoempleado_epl='Activo' and prospecto_epl='NO' ORDER BY apellido_epl,nombre_epl";
+
+            var cjefeVentas_rut=new omnisoftComboBox('cjefeVentas_rut','jefeventas_rut',sql,'250px',true,getURLParam('jefeventas_rut'));
+                     cjefeVentas_rut.show();
+
+	    </script></td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Supervisor de Ventas: </td>
+            <td height="18"  class="inputtitle"><img  src="../images/camporequerido.gif"><script>
+			var sql = "select serial_epl, concat(apellido_epl,' ',nombre_epl), deps.serial_desc, deps.serial_dep, epl.serial_desc FROM empleado epl, sucursaldepartamentos deps where epl.serial_desc=deps.serial_desc and  estadoempleado_epl='Activo' and prospecto_epl='NO' ORDER BY apellido_epl,nombre_epl";
+            var csupervisor_rut=new omnisoftComboBox('csupervisor_rut','supervisor_rut',sql,'250px',true,getURLParam('supervisor_rut'));
+                     csupervisor_rut.show();
+
+			</script>			</td>
+            <td height="18"  class="inputtitle">Cobrador:</td>
+            <td height="18"  class="inputtitle"><img  src="../images/camporequerido.gif">
+			    <script>
+//			var sql = "SELECT serial_cli, razonSocial_pvd FROM proveedor where estado_pvd='ACTIVO' and tipo_pvd=\'SERVICIOS\' ORDER BY razonSocial_pvd";
+/* 			var sql = "SELECT serial_cli, razonSocial_cli FROM cliente order by razonSocial_cli";
+
+            var ccobrador_rut=new omnisoftComboBox('ccobrador_rut','cobrador_rut',sql,'250px',true,getURLParam('cobrador_rut'));
+                     ccobrador_rut.show();    */
+
+			</script>
+
+
+                        	<input name="cobrador_rut" type="text" id="cobrador_rut" class="emptystring" size="30" maxlength="60"   onBlur="esconderToolTip();"></td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Distribuidor:</td>
+            <td height="18" colspan="3"  class="inputtitle"><img  src="../images/camporequerido.gif"><input name="razonsocial_cli" type="text" id="razonsocial_cli" class="autosuggest" size="40" maxlength="60"   onBlur="esconderToolTip();" table="cliente" serial="vendedor_rut" fieldid="serial_cli" info="codigo_cli"  ></td>
+          </tr>
+
+          <tr>
+            <td height="18"  class="inputtitle">Limite Norte:</td>
+            <td height="18"  class="inputtitle"><input name="limitenorte_rut" type="text" id="limitenorte_rut" class="emptytext" size="30" maxlength="60"   onBlur="esconderToolTip();"></td>
+            <td height="18"  class="inputtitle">Limite Sur:</td>
+            <td height="18"  class="inputtitle"><input name="limitesur_rut" type="text" id="limitesur_rut" class="emptytext" size="30" maxlength="100"   onBlur="esconderToolTip();"></td>
+          </tr>
+
+          <tr>
+            <td height="18"  class="inputtitle">Limite Este:</td>
+            <td height="18"  class="inputtitle"><input name="limiteeste_rut" type="text" id="limiteeste_rut" class="emptytext" size="30" maxlength="100"   onBlur="esconderToolTip();"></td>
+            <td height="18"  class="inputtitle">Limite Oeste:</td>
+            <td height="18"  class="inputtitle"><input name="limiteoeste_rut" type="text" id="limiteoeste_rut" class="emptytext" size="30" maxlength="100"   onBlur="esconderToolTip();"></td>
+          </tr>
+
+          <tr>
+            <td height="24" colspan="4"  class="inputtitle">
+			<script>
+   omnisoftLoadData(document.PaginaDatos);
+
+    var serial_rut=getURLParam('serial_rut');
+var sql='SELECT serial_clir, secuencia_clir, razonsocial_cli,nombre_scl, jefe_scl,clientesucursal.nombre_ciu,nombre_prv,direccion_scl, numerocasa_scl,  telefono_scl, clienteruta.serial_scl  FROM clienteruta, cliente,clientesucursal  WHERE  clientesucursal.serial_scl=clienteruta.serial_scl AND cliente.serial_cli=clientesucursal.serial_cli and clienteruta.serial_rut=masterkey';
+var    omniObj=new omnisoftGridDetail('omniObj','serial_rut',serial_rut,'clienteruta','serial_clir',sql,document.PaginaDatos);
+
+     omniObj.addColumn('Serial','serial_clir', 10,'hidden','','middle','');
+     omniObj.addColumn('Secuencia','secuencia_clir', 10,'string','','middle','');
+    omniObj.addColumn('Cliente','cliente', 20,'combobox',Array('select serial_scl,concat(razonsocial_cli,\'-\',nombre_scl) as cliente, codigo_cli from cliente,clientesucursal where cliente.serial_cli=clientesucursal.serial_cli','serial_scl','codigo_cli,razonsocial_cli'),'middle','');
+    omniObj.addColumn('Sucursal','nombre_scl', 15,'readonly','','','middle','');
+    omniObj.addColumn('Jefe','jefe_scl', 12,'readonly','','','middle','');
+    omniObj.addColumn('Provincia','nombre_prv', 15,'readonly','','','middle','');
+    omniObj.addColumn('Ciudad','nombre_ciu', 15,'readonly','','','middle','');
+    omniObj.addColumn('Direccion','direccion_scl', 20,'readonly','','','middle','');
+    omniObj.addColumn('Numero','numerocasa_scl', 12,'readonly','','','middle','');
+    omniObj.addColumn('Telefono','telefono_scl', 12,'readonly','','','middle','');
+    omniObj.addColumn('serial_scl','serial_scl', 10,'hidden','','','middle','');
+
+  omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');
+
+
+
+
+
+
+ </script>
+
+			&nbsp;</td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr>
+      <td width="188" height="31"> <div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+      <td width="538"></td>
+      <td width="150"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+    </tr>
+  </table>
+  </td>
+    </tr>
+  </table>
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

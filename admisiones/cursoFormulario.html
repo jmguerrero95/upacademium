@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+<script>
+
+function procesarSeccion() {
+   cserial_cic.objDBComando.sqlCommand='select serial_cic,nombre_cic from ciclo where serial_sec='+document.PaginaDatos.serial_sec.value;
+                          cserial_cic.objDBComando.executeQuery();
+			}
+
+function procesarCiclo() {
+   cserial_esp.objDBComando.sqlCommand='select serial_esp,nombre_esp from especialidad where serial_cic='+document.PaginaDatos.serial_cic.value;
+         cserial_esp.objDBComando.executeQuery();
+			}
+
+</script>
+
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_niv" type="hidden" id="serial_niv" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO DE ADMISIONES <br>
+          REGISTRO DE CURSOS
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="153" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          
+
+          <tr>
+            <td width="175" height="18"  class="inputtitle">Seccion :</td>
+            <td width="622" colspan="2" >    <img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_sec=new omnisoftComboBox('cserial_sec','serial_sec','select serial_sec,nombre_sec from seccion order by nombre_sec','250px',true,getURLParam('serial_sec'),'',procesarSeccion);
+                     cserial_sec.show();	  </script>	</td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Ciclo:</td>
+            <td colspan="2" >   <img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_cic=new omnisoftComboBox('cserial_cic','serial_cic','select serial_cic,nombre_cic from ciclo where serial_sec='+getURLParam('serial_sec') ,'250px',false,getURLParam('serial_cic'),'',procesarCiclo);
+                     cserial_cic.show();	  </script>	</td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Especialidad:</td>
+            <td colspan="2" >  <img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_esp=new omnisoftComboBox('cserial_esp','serial_esp','select serial_esp,nombre_esp from especialidad where serial_cic='+getURLParam('serial_cic'),'250px',true,getURLParam('serial_esp'));
+                     cserial_esp.show();	  </script>	</td>
+          </tr>
+          
+          <tr>
+            <td height="21"  class="inputtitle">Codigo :</td>
+            <td colspan="2" ><img  src="../images/camporequerido.gif"><input name="codigo_niv" type="text" id="codigo_niv" size="15" maxlength="15" class="string"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Nombre:</td>
+            <td colspan="2" ><img  src="../images/camporequerido.gif" alt="">
+            <input name="nombre_niv" type="text" id="nombre_niv" size="30" maxlength="30" class="string"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Nivel:</td>
+            <td colspan="2" ><select name="nivel_niv" id="nivel_niv" class="comboBox">
+              <option value="BASICA">BASICA</option>
+              <option value="BACHILLERATO">BACHILLERATO</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Ultimo nivel?:</td>
+            <td colspan="2" ><label>
+              <select name="ultimo_niv" id="ultimo_niv" class="comboBox">
+                <option value="NO">NO</option>
+                <option value="SI">SI</option>
+              </select>
+            </label></td>
+          </tr>
+          
+
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

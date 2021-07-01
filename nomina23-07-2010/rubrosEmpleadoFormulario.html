@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+var datosGenerados=false;
+function grabarRubrosEmpleado() {
+  if (datosGenerados==true || getURLParam('action')=='edit') {
+     document.PaginaDatos.action.value='edit';
+     top.opener.omniObj.grid.action='edit';
+     omnisoftGrabar();
+  }
+  else alert('Advertencia:  Por favor genere los rubros del Rol de Pagos antes de grabar!');
+
+}
+
+function recuperarDatos(data) {
+//alert(data);
+datosGenerados=true;
+var datos=data.split('|');
+   omniObj.grid.masterKeyValue=document.PaginaDatos.serial_erp.value=datos[0];
+   omniObj.grid.executeQuery(omniObj.grid.rows);
+}
+
+function generarRubrosEmpleado() {
+
+ var SQLCommand='INDIVIDUAL|'+document.PaginaDatos.fecha_erp.value+"|"+document.PaginaDatos.serial_perrol.value+"|"+document.PaginaDatos.serial_epl.value+"|"+document.PaginaDatos.serial_erp.value+"|"+document.PaginaDatos.nombre_erp.value+"|"+document.PaginaDatos.estado_erp.value+"|"+document.PaginaDatos.observacion_erp.value;
+// prompt('test',SQLCommand);
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarRubrosEmpleado.php",'recuperarDatos');
+     objDBComando.executeQuery();
+     if (getURLParam('action')=='insert')
+     top.opener.omniObj.lastPage();
+
+
+ }
+
+ function imprimirRolPagosIndividual() {
+            var attributes='';
+            var sURL='../lib/export/omnisoftRolPagosIndividual.php?';
+            var sWidth=1000;
+            var sHeight=750;
+            var sFields='';
+            var fields;
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+               sURL=sURL+'serial_epl='+document.PaginaDatos.serial_epl.value;
+               sURL=sURL+'&serial_erp='+document.PaginaDatos.serial_erp.value;
+//               alert(sURL);
+               omnisoftNewWindow=window.open(sURL,'PDF',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+
+
+ }
+</script>
+
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_erp" type="hidden" id="serial_erp" class="hidden" >
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          ROLES DE PAGO<br>
+          REGISTRO DE RUBROS X EMPLEADO
+        </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="186" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000" class="formtable">
+          <tr>
+            <td height="20"  class="inputtitle">Fecha :</td>
+            <td><img src="../images/camporequerido.gif"><input name="fecha_erp" type="text" id="fecha_erp" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"  ></td>
+            <td width="132" class="inputtitle">Descripci&oacute;n :  </td>
+            <td width="146" class="inputtitle"><input name="nombre_erp" type="text" id="nombre_erp" class="emptytext" size="35" maxlength="60"  onBlur="esconderToolTip()"   ></td>
+            <td class="inputtitle">Estado : </td>
+            <td class="inputtitle"><img src="../images/camporequerido.gif"><select name="estado_erp" id="estado_erp" class="combobox">
+              <option value="PENDIENTE" selected>PENDIENTE</option>
+              <option value="APROBADO">APROBADO</option>
+            </select></td>
+            <td class="inputtitle">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td height="25"  class="inputtitle">Empleado:</td>
+            <td colspan="3">
+            <img src="../images/camporequerido.gif">
+			       	    <script>
+ var cserial_epl=new omnisoftComboBox('cserial_epl','serial_epl','select serial_epl,concat(apellido_epl,\' \',nombre_epl) as nombre from empleado where ESTADOEMPLEADO_EPL=\'ACTIVO\' and generarol_epl=\'SI\' and tipoempleado_epl<>\'PROFESOR\' order by apellido_epl,nombre_epl','250px',true,getURLParam('serial_epl'));
+                     cserial_epl.show();	  </script>
+            </td>
+            <td class="inputtitle">&nbsp;</td>
+            <td class="inputtitle">&nbsp;</td>
+            <td class="inputtitle">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="25"  class="inputtitle">Periodo:</td>
+            <td colspan="3"><img src="../images/camporequerido.gif">
+			       	    <script>
+ var cserial_perrol=new omnisoftComboBox('cserial_perrol','serial_perrol','select serial_perrol,descripcion_perrol from periodorol where estado_perrol=\'SI\'','250px',true,getURLParam('serial_perrol'));
+                     cserial_perrol.show();	  </script>			</td>
+            <td class="inputtitle">&nbsp;</td>
+            <td class="inputtitle">&nbsp;</td>
+            <td class="inputtitle">&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td width="156" height="34"  class="inputtitle">Observaciones : </td>
+            <td colspan="3"><span class="inputtitle">
+              <input name="observacion_erp" type="text" id="observacion_erp" class="emptytext" size="80" maxlength="200"  onBlur="esconderToolTip()"  >
+            </span></td>
+            <td width="148" class="inputtitle">&nbsp;</td>
+            <td width="89" class="inputtitle">&nbsp;</td>
+            <td width="84" class="inputtitle"><a href="#" onClick="generarRubrosEmpleado()"><img src="../images/history.png" alt="Generar Rubros del Empleado" width="32" height="32" border="0"></a></td>
+          </tr>
+
+
+          <tr>
+            <td height="40" colspan=7> <script>
+   omnisoftLoadData(document.PaginaDatos);
+//   alert(document.PaginaDatos.action.value);
+   if (getURLParam('action')=='insert')
+      document.PaginaDatos.fecha_erp.value=fechaSistema();
+    var serial_erp=getURLParam('serial_erp');
+//alert(serial_erp);
+
+    var sql='SELECT SERIAL_DRP, nombre_rgr,tipo_rgr,valor_drp,detallerolpagos.serial_rgr,serial_erp FROM rubrogeneralrolpagos,detallerolpagos where rubrogeneralrolpagos.serial_rgr=detallerolpagos.serial_rgr and serial_erp=masterkey';
+
+    omniObj=new omnisoftGridDetail('omniObj','serial_erp',serial_erp,'detallerolpagos','serial_drp',sql,document.PaginaDatos,Array(false,false));
+
+     omniObj.addColumn('Serial','serial_drp', 10,'hidden','','middle','');
+     omniObj.addColumn('Rubro','nombre_rgr', 30,'readonly','','middle','');
+     omniObj.addColumn('Tipo','tipo_rgr', 12,'readonly','','middle','');
+
+
+     omniObj.addColumn('Valor','valor_drp', 16,'double','sum','middle','');
+     omniObj.addColumn('serial_rgr','serial_rgr', 12,'hidden','','middle','');
+     omniObj.addColumn('serial_erp','serial_erp', 12,'hidden','','middle','');
+
+
+
+
+  omniObj.showGrid('omniObj',13,308,1020,'menu','#FF9900');
+
+
+ </script> </td>
+          </tr>
+          <tr>
+            <td height="32" colspan=7 class="inputtitle"> Creado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoCreadoPor" id="FotoCreadoPor">
+<input name="creadoPor" type="text" id="creadoPor" size="28" maxlength="30"  onBlur="esconderToolTip()"    readonly>
+              Modificado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoModificadoPor" id="FotoModificadoPor">
+<input name="modificadoPor" type="text" id="modificadoPor"  size="28" maxlength="30"  onBlur="esconderToolTip()"  readonly  >
+              Autorizado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoAutorizadoPor" id="FotoAutorizadoPor">
+<input name="autorizadoPor" type="text" id="autorizadoPor" size="28" maxlength="30"  onBlur="esconderToolTip()"   readonly >            </td>
+          </tr>
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+             <div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:grabarRubrosEmpleado()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690">
+            <div align="center" id="divImprimir" style="visibility:visible"><a href="#"  onClick="javascript:imprimirRolPagosIndividual();"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a></div></td>
+
+            </td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

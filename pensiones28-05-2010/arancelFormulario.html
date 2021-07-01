@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+<script> 
+    function procesarTipoArancel() {
+	  if (document.PaginaDatos.tipo_ara.options[document.PaginaDatos.tipo_ara.selectedIndex].text=="FIJO") {
+	     document.getElementById('divTituloPeriodo').style.visibility='hidden';
+		 document.getElementById('divPeriodo').style.visibility='hidden';
+	  }
+	  else {
+	     document.getElementById('divTituloPeriodo').style.visibility='visible';
+		 document.getElementById('divPeriodo').style.visibility='visible';
+	  
+	  
+	  }
+	     
+	}
+</script>
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_ara" type="hidden" id="serial_ara" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          PENSIONES <br>
+          REGISTRO DE ARANCELES
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="194" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="149" height="24"  class="inputtitle">C&oacute;digo :</td>
+            <td colspan="3"> <img  src="../images/camporequerido.gif"><input name="codigo_ara" type="text" id="codigo_ara" class="autoincrement" fieldid="serial_ara" table="aranceles" maxlength="5"  size="5" onBlur="esconderToolTip()"    ></td>
+          </tr>
+
+          <tr>
+            <td height="24"  class="inputtitle">Tipo:</td>
+            <td colspan="3" ><img  src="../images/camporequerido.gif"><select name="tipo_ara" id="tipo_ara" class="comboBox" onChange="procesarTipoArancel()">
+              <!--<option value="FIJO">FIJO</option>-->
+              <option value="VARIABLE">VARIABLE</option>
+            </select>
+              (Fijo: Es el mismo para todos los periodos academicos, Variable: cambia de periodo a periodo)</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle"><div id="divTituloPeriodo" style="visibility:hidden"> Periodo :</div></td>
+            <td colspan="3" >  <div id="divPeriodo" style="visibility:hidden">   <img  src="../images/camporequerido.gif">   	    <script>
+			var sql='';
+			    if (getCookie('serial_suc')>1)
+	            sql= 'select serial_per,nombre_per from periodo where serial_suc='+getCookie('serial_suc');
+				else
+	            sql= 'select serial_per,nombre_per from periodo'; 
+				 		
+ var cserial_per=new omnisoftComboBox('cserial_per','serial_per',sql,'250px',true,getURLParam('serial_per'));
+                     cserial_per.show();	  </script></div>	</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Nombre :</td>
+            <td colspan="3" ><img  src="../images/camporequerido.gif"><input name="nombre_ara" type="text" id="nombre_ara" size="40" maxlength="100" class="string"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Graba IVA?:</td>
+            <td colspan="3" ><img  src="../images/camporequerido.gif"><label>
+              <select name="iva_ara" id="iva_ara" class="comboBox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+            </label></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Fecha:</td>
+            <td colspan="3" ><img  src="../images/camporequerido.gif"><input name="fecha_ara" type="text" id="fecha_ara" size="10" maxlength="10" class="date"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Prioridad:</td>
+            <td width="284" ><img  src="../images/camporequerido.gif"><input name="prioridad_ara" type="text" id="prioridad_ara" size="10" maxlength="10" class="integer" value="1"></td>
+            <td width="182" class="inputtitle">Es Credito?: </td>
+            <td width="182" ><select name="credito_ara" id="credito_ara" class="comboBox">
+			              <option value="SI">SI</option>
+                         <option value="NO">NO</option>
+                        </select></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Estado:</td>
+            <td colspan="3" ><img  src="../images/camporequerido.gif"><select name="estado_ara" id="estado_ara" class="comboBox">
+              <option value="ACTIVO">Activo</option>
+              <option value="INACTIVO">Inactivo</option>
+            </select></td>
+          </tr>
+          
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	if (getURLParam('action')=='insert')
+	   document.PaginaDatos.fecha_ara.value=fechaSistema();
+	   procesarTipoArancel();
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

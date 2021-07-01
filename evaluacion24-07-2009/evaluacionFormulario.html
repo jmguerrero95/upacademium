@@ -1,0 +1,195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<script language="javascript1.2" src="../lib/tools/omnisoftProgressBar.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script>
+
+function recuperarDatos(data) {
+//alert('entra');
+//alert(data);
+//ProgressDestroy();
+//document.getElementById('progress').style.visibility='hidden';
+datosGenerados=true;
+var datos=data.split('|');
+   omniObj.grid.masterKeyValue=document.PaginaDatos.serial_eva.value=datos[0];
+   omniObj.grid.executeQuery(omniObj.grid.rows);
+}
+
+function generarValoresEvaluacion() {
+ /*document.getElementById('progress').style.visibility='visible';
+
+  progressBar();*/
+
+ var SQLCommand=document.PaginaDatos.serial_eva.value+"|"+document.PaginaDatos.numpreguntas_eva.value+"|"+document.PaginaDatos.numrespuestas_eva.value+"|"+document.PaginaDatos.serial_trsp.value;
+prompt('sql',SQLCommand);
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarValoresEvaluacion.php",'recuperarDatos');
+     objDBComando.executeQuery();
+   /*  if (getURLParam('action')=='insert')
+     top.opener.omniObj.lastPage();*/
+
+
+ }
+
+  
+</script>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_eva" type="hidden" id="serial_eva" class="hidden">
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          EVALUACIONES <br>
+          REGISTRO DE EVALUACIONES
+        </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="171" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="184" height="24"  class="inputtitle">Tipo Evaluación:</td>
+            <td colspan="5" >
+			<img  src="../images/camporequerido.gif">
+		  <script>
+                 var cserial_teva=new omnisoftComboBox('cserial_teva','serial_teva','select serial_teva,tipo_teva from tipo_evaluadores order by tipo_teva','250px',true,getURLParam('serial_teva'));
+                     cserial_teva.show();
+	  </script>          </tr>
+	  
+          <tr>
+            <td height="24"  class="inputtitle">Codigo:</td>
+            <td colspan="5" ><img  src="../images/camporequerido.gif"><input name="codigo_eva" type="text" class="string" id="codigo_eva"   onBlur="esconderToolTip()" size="15" maxlength="10"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Nombre:</td>
+            <td colspan="5" ><img  src="../images/camporequerido.gif"><input name="nombre_eva" type="text" class="string" id="nombre_eva"   onBlur="esconderToolTip()" size="100" maxlength="100"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Porcentaje:</td>
+            <td width="121" ><img  src="../images/camporequerido.gif"><input name="porcentaje_eva" type="text" class="integer" id="porcentaje_eva"   onBlur="esconderToolTip()" size="10" maxlength="6"></td>
+            <td class="inputtitle">Nro. Preguntas: </td>
+            <td class="inputtitle"><img  src="../images/camporequerido.gif"><input name="numpreguntas_eva" type="text" class="integer" id="numpreguntas_eva"   onBlur="esconderToolTip()" size="10" maxlength="6"></td>
+            <td class="inputtitle">Nro.Respuestas:</td>
+            <td class="inputtitle"><img  src="../images/camporequerido.gif"><input name="numrespuestas_eva" type="text" class="integer" id="numrespuestas_eva"   onBlur="esconderToolTip()" size="10" maxlength="6"></td>
+          </tr>
+
+ <tr> 
+            <td width="184" height="24"  class="inputtitle">Tipo Respuesta:</td>
+            <td colspan="4" >
+			<img  src="../images/camporequerido.gif">
+					<script>
+				     var cserial_trsp=new omnisoftComboBox('cserial_trsp','serial_trsp','select serial_trsp,tipo_trsp from tipo_respuesta order by tipo_trsp','250px',true,getURLParam('serial_trsp'));
+                     cserial_trsp.show();
+	  </script>                                                         
+            <td ><a href="#" onClick="generarValoresEvaluacion()"><img src="../images/history.png" alt="Generar Valores Evaluación" width="32" height="32" border="0"></a>             </tr>
+          <tr>
+            <td height="40" colspan=7> <script>
+
+   omnisoftLoadData(document.PaginaDatos);
+
+    var serial_eva=(getURLParam('action')=='insert')?0:getURLParam('serial_eva');
+   //alert(document.PaginaDatos.serial_maa.value);
+    var sql='select respuesta.serial_rsp,codigo_rsp,nombre_rsp,valor_rsp,orden_rsp,respuesta.serial_eva from respuesta  left join evaluacion on respuesta.SERIAL_EVA=evaluacion.SERIAL_EVA where respuesta.serial_eva=masterkey';
+//prompt('sql',sql);
+
+    var     omniObj=new omnisoftGridDetail('omniObj','serial_eva',serial_eva,'respuesta','serial_rsp',sql,document.PaginaDatos,Array(true,true,true),'respuestaFormulario.html',801,190);
+
+   omniObj.addColumn('Serial','serial_rsp', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Codigo','codigo_rsp', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Respuesta','nombre_rsp', 20,'string','','middle','#ffffcc');
+   omniObj.addColumn('Valor','valor_rsp', 20,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Orden','orden_rsp',10,'integer','','middle','#ffffcc');
+  // omniObj.addColumn('Area','nombre_arev', 15,'string','','middle','#ffffcc');
+//   omniObj.addColumn('Evaluación','nombre_eva', 25,'string','','middle','#ffffcc');
+   omniObj.addColumn('serial evaluacion','serial_eva', 1,'hidden','','middle','#ffffcc'); 
+   omniObj.showGrid('omniObj',10,228,1020,'menu','#FF9900');
+
+            </script></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

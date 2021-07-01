@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script></head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          GESTION FINANCIERA<br>
+          (DETALLE) COMPROBANTE CONTABLE 
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="107" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="133" height="24"  class="inputtitle">Tipo :</td>
+            <td width="256"><span class="style1 style4 style5"> 
+              <input name="tipo_com" type="text" id="tipo_com" class="string" size="40" maxlength="45" readonly="yes" value="nombreComprobante">
+              </span></td>
+            <td width="134" class="inputtitle">Fecha :</td>
+            <td width="272"><span class="style1 style4 style5"> 
+              <input name="fecha_com" type="text" id="fecha_com" class="date" size="15" maxlength="12" readonly="yes">
+              </span></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Codigo Comprobante:</td>
+            <td ><span class="style1 style4 style5">
+              <input name="codigo_com" type="text" id="codigo_com" class="string" size="40" maxlength="30" readonly="yes">
+              </span></td>
+            <td width "110" class="inputtitle">Estado Comprobante:</td>
+            <td ><span class="style1 style4 style5"> 
+              <input name="estado_com" type="text" id="estado_com" class="string" size="15" maxlength="10" readonly="yes">
+              </span></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Monto:</td>
+            <td colspan="3" ><input name="monto_com" type="text" id="monto_com" class="number" size="20" maxlength="18" readonly="yes"></td>
+          </tr>
+          <tr> 
+            <td height="33"  class="inputtitle">Concepto:</td>
+            <td colspan="3" ><input name="concepto_com" type="text" id="concepto_com" value="" size="60" readonly="readonly"></td>
+
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	OmnisoftPerfilUsuarioFormulario();
+</script>
+<script type="text/javascript">
+	Calendar.setup({
+		inputField     :    "fechaDeposito_drec",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    true,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+
+</script>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

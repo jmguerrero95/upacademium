@@ -1,0 +1,243 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftAcciones.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script>
+
+function justificarFaltas(){
+	 window.open("justificarFaltasFormulario0.html","Faltas","width=900,height=420,scrollbars=NO") 
+	}
+	
+function recuperarD(data) {
+datosGenerados=true;
+var datos=data.split('|');
+//alert(datos);
+ // omniObj.grid.masterKeyValue=document.PaginaDatos.serial_acal.value=datos[4];
+   omniObj.grid.executeQuery(omniObj.grid.rows);
+}
+
+function generarAsistencias() {
+alert('entro_generarAsistencias');
+
+		 var SQLCommand=serial_sec+"|"+serial_nts+"|";
+		 
+		prompt('generarAsistencias:..',SQLCommand);
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarDetalleAsistencias.php",'recuperarD');
+		  objDBComando.executeQuery();
+
+}
+ 
+//if (getURLParam('action')=='insert')
+//omnisoftLoadData(document.PaginaDatos);
+var activo_per=getURLParam('activo_per','iframe');
+var serial_nts=getURLParam('serial_nts','iframe');
+//alert('serial_nts: '+serial_nts);
+var serial_hrr=getURLParam('serial_hrr','iframe');
+//alert('serial_hrr: '+serial_hrr);
+var fecha_nts=getURLParam('fecha_nts','iframe');
+//alert('fecha_nts: '+fecha_nts);
+var serial_suc=getURLParam('serial_suc','iframe');
+//alert('serial_suc: '+serial_suc);
+var serial_sec=getURLParam('serial_sec','iframe');
+var serial_per=getURLParam('serial_per','iframe');
+var serial_mat=getURLParam('serial_mat','iframe');
+var serial_epl=getURLParam('serial_epl','iframe');
+var nombre_sec=getURLParam('nombre_sec','iframe');
+var nombre_per=getURLParam('nombre_per','iframe');
+var nombre_epl=getURLParam('nombre_epl','iframe');
+var apellido_epl=getURLParam('apellido_epl','iframe');
+var nombre_mat=getURLParam('nombre_mat','iframe');
+//var ntotalclases_nts=getURLParam('ntotalclases_nts','iframe');
+</script>
+
+<style type="text/css">
+</style>
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_nts" type="hidden" id="serial_nts" class="hidden" >
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+ 
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="199" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="26"  class="inputtitle">Fecha : </td>
+            <td height="26" colspan="4">
+            <input name="fecha_nts" id="fecha_nts" type="text" size="12" maxlength="13" readonly></td>
+          </tr>
+          <tr>
+            <td height="26"  class="inputtitle">Programa :</td>
+            <td width="343"><span class="inputtitle">
+              <input name="nombre_sec" type="text" id="nombre_sec" size="50" maxlength="200"   onBlur="esconderToolTip()"  >
+            </span></td>
+            <td width="66" class="inputtitle"> Periodo :</td>
+            <td height="26" colspan="2" class="inputtitle"><input name="nombre_per" type="text" id="nombre_per" size="45" maxlength="200"   onBlur="esconderToolTip()"  ></td>
+          </tr>
+          <tr>
+            <td height="26"  class="inputtitle">Profesor :</td>
+            <td height="26" colspan="4"><span class="inputtitle">
+              <input name="profesor" type="text" id="profesor" size="75" maxlength="200"   onBlur="esconderToolTip()"  >
+            </span></td>
+          </tr>
+
+          <tr>
+            <td height="32"  class="inputtitle">Materia (Nombre-horario) :  </td>
+            <td height="32" colspan="2"><span class="inputtitle">
+              <input name="nombre_mat" type="text" id="nombre_mat" size="75" maxlength="200"   onBlur="esconderToolTip()"  >
+            </span></td>
+            <td height="32" colspan="2" class="inputtitle"><div align="center">
+              <input name="button" type="button" onclick="justificarFaltas()" value="Justificar Faltas">
+            </div></td>
+          </tr>
+          <tr>
+            <td width="194" height="28"  class="inputtitle">Observaciones : </td>
+            <td height="28" colspan="2"><span class="inputtitle">
+              <input name="observaciones_nts" type="text" id="observaciones_nts" class="emptytext" size="75" maxlength="200"   onBlur="esconderToolTip()"  >
+            </span></td>
+			
+            <td width="194" height="28" class="inputtitle"><span class="inputtitle">            Generar Asistencias Alumnos :</span></td>
+            <td width="112" height="28" class="inputtitle"><a href="#" onClick="generarAsistencias()"><img src="../images/history.png" alt="Generar Asistencias" width="27" height="26" border="0"></a></td>
+          </tr>
+          <!--<tr>
+            <td height="28"  class="inputtitle">Acta de Apelaci&oacute;n : </td>
+            <td class="inputtitle">
+              <input name="apelacionacta_nal" type="text" id="apelacionacta_nal"  class="emptytext" size="50" maxlength="255">
+            <a href="#" onClick="cargarContenido()">
+            <image alt="Cargar Contenido" src="../images/buscar.png" width="20" heigth="20" name="apelacionactas">
+          </a></td>
+            <td height="28" colspan="3" class="inputtitle"><a href="javascript:verContenido();">Ver 
+	  contenido</a></td>
+          </tr>-->
+				  
+       <tr>
+            <td height="40" colspan=5><script>
+
+   omnisoftLoadData(document.PaginaDatos);
+
+   var serial_nts=(getURLParam('action')=='insert')?0:getURLParam('serial_nts');
+  // if (getURLParam('action')=='insert')
+    
+     // alert( 'activo_per..:'+activo_per);	
+//aqui va notasalumnos con notas como maestro	
+    var sql='SELECT serial_das, concat(apellidopaterno_alu,\' \',apellidomaterno_alu) AS apellidos, concat(nombre1_alu,\' \',nombre2_alu) AS nombres, asistencias_das, finjust_das, estadofinjust_das, fjust_das, estadofjust_das, totalclases_das, estadototalclases_das, observaciones_das, serial_dho, detalleasistencia.serial_dmat, serial_nts FROM detalleasistencia join detallemateriamatriculada on detalleasistencia.serial_dmat = detallemateriamatriculada.serial_dmat join materiamatriculada on detallemateriamatriculada.serial_mmat = materiamatriculada.serial_mmat join alumno on materiamatriculada.serial_alu = alumno.serial_alu WHERE serial_nts = '+getURLParam('serial_nts','iframe')+' ORDER BY apellidopaterno_alu, apellidomaterno_alu'; 
+//prompt('sql',sql);
+    var omniObj=new omnisoftGridDetail('omniObj','serial_nts',serial_nts,'detalleasistencia','serial_das',sql,document.PaginaDatos,Array(false,false),'',0,0);
+
+	var activo_per=parent.activo_per;
+	 //alert(activo_per);	
+     omniObj.addColumn('Serial','serial_das', 1,'hidden','','middle','');
+	 omniObj.addColumn('Apellidos','apellidos', 20,'readonly','','middle','');
+	 omniObj.addColumn('Nombres','nombres', 20,'readonly','','middle','');
+	 //if (activo_per=='SI')
+  	 omniObj.addColumn('Asistencias','asistencias_das', 7,'readonly','','center','','0','');
+	  omniObj.addColumn('Inasistencias','finjust_das', 8,'readonly','','center','','0','');
+	 omniObj.addColumn('Estado','estadofinjust_das', 7,'readonly','','center','','0','');
+	 omniObj.addColumn('Faltas Justificadas','fjust_das', 8,'readonly','','center','','0','');
+	 omniObj.addColumn('Estado','estadofjust_das', 7,'readonly','','center','','0','');
+	 //else
+//omniObj.addColumn('Costo','costo_dodc', 10,'double','sum','right','','0','refresh');
+     omniObj.addColumn('Total Clases','totalclases_das', 6,'readonly','','center','','0');
+	 omniObj.addColumn('Estado','estadototalclases_das', 7,'readonly','','center','');
+	 //omniObj.addColumn('serial notasalumnos','serial_nts', 1,'hidden','','middle','');
+	 omniObj.addColumn('Observaciones','observaciones_das', 15,'string','','middle','');
+     omniObj.addColumn('serial detalle horario','serial_dho', 1,'hidden','','middle','');
+	 omniObj.addColumn('serial detalle matricula','serial_dmat', 1,'hidden','','middle','');
+	 omniObj.addColumn('serial notas','serial_nts', 1,'hidden','','middle','');
+		 
+  	 omniObj.showGrid('omniObj',13,325,1020,'menu','#FF9900');
+
+
+            </script></td>
+       </tr>
+        </table></td>
+    </tr>
+    <!--<tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>-->
+  </table>
+
+</form>
+<script>
+//document.PaginaDatos.serial_nts.value = serial_nts;
+document.PaginaDatos.fecha_nts.value = fecha_nts;
+document.PaginaDatos.nombre_sec.value = nombre_sec;
+document.PaginaDatos.nombre_per.value = nombre_per;
+document.PaginaDatos.profesor.value = apellido_epl + " " + nombre_epl;
+document.PaginaDatos.nombre_mat.value = nombre_mat;
+//document.PaginaDatos.ntotalclases_nts.value = ntotalclases_nts;
+//document.PaginaDatos.serial_nts.value = serial_nts;
+</script>
+</body>
+</html>

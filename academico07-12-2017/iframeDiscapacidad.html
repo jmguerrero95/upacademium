@@ -1,0 +1,226 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftAcciones.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script language="javascript" src="../lib/tools/ValidarIdentificacion.js"></script>
+
+<script>
+function cargarFoto() {
+	var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+    omnisoftNewWindow=window.open('../lib/server/omnisoftImportPhoto.php?campofoto=foto_epl&foto='+document.PaginaDatos.foto_alu.value,'OmnisoftPhoto',attributes);
+    if (window.focus) {omnisoftNewWindow.focus()}
+	omnisoftProcesarCambios();
+}
+
+function seleccionarPeriodo(){
+ //cserial_per.objDBComando.sqlCommand='select serial_per, nombre_per from periodo where serial_sec = '+document.PaginaDatos.serial_sec.value+' and serial_suc='+getCookie('serial_suc')+' and activo_per=\'SI\' order by nombre_per asc';
+  //cserial_per.objDBComando.executeQuery();
+
+  
+  mostrarCalificacion();
+  }
+ 
+function mostrarProvincia(){
+   cserial_prv.objDBComando.sqlCommand='select -99,\'SELECCIONE\' UNION select serial_prv, nombre_prv from provincia where serial_pai='+document.PaginaDatos.serial_pai.value;
+	cserial_prv.objDBComando.executeQuery();
+}
+
+function mostrarCiudad(){
+   cserial_ciu.objDBComando.sqlCommand='select -99,\'SELECCIONE\' UNION select serial_ciu, nombre_ciu from ciudad where serial_prv='+document.PaginaDatos.serial_prv.value;
+	cserial_ciu.objDBComando.executeQuery();
+}
+
+
+function mostrarParroquia(){
+   cserial_par.objDBComando.sqlCommand='select -99,\'SELECCIONE\' UNION select serial_par, nombre_par from parroquia where serial_ciu='+document.PaginaDatos.serial_ciu.value;
+	cserial_par.objDBComando.executeQuery();
+}
+function mailUPAC(){
+	
+	document.PaginaDatos.mailuniv_alu.value=trim(document.PaginaDatos.nombre1_alu.value)+'.'+trim(document.PaginaDatos.apellidopaterno_alu.value)+'@upacifico.edu.ec';
+	
+}
+
+function mostrarCalificacion(){
+   cserial_cale.objDBComando.sqlCommand='select -99,\'SELECCIONE\' union SELECT serial_cale, nombre_cale FROM calificacionequivalencia where serial_sec='+document.PaginaDatos.serial_sec.value;
+   cserial_cale.objDBComando.executeQuery();
+   
+   
+}
+</script>
+<script>
+
+
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+<input name="serial_suc" type="hidden" id="serial_suc" class="hidden">
+<input name="serial_usr" type="hidden" id="serial_usr" class="hidden">
+  <table width="905" border="0" cellspacing="0" cellpadding="0" >
+    <!--<tr >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO DE ADMISIONES<br>
+          INSCRIPCIONES ALUMNOS NUEVOS
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>-->
+    <tr>
+      <td height="30" colspan="3"> <table width="905" height="201"  border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000"  bordercolordark="#FFFFFF"class="formtable">
+          <tr>
+   		    <td height="66" colspan="15" class="formtitle"><div align="center">DISCAPACIDAD</div></td>
+		  </tr>
+		  
+		  <tr>
+            <td width="98" height="58"  class="inputtitle">Tipo Discapacidad  :</td>
+            <td colspan="2">
+				<img src="../images/camporequerido.gif"><input name="tipo_discapacidad" id="tipo_discapacidad" type="text" class="string" size="29" maxlength="40"   onBlur="mailUPAC();"/></td>
+		  	<td width="230" class="inputtitle">Numero Carnet de Conadis </td>
+			<td colspan="5"><span class="inputtitle">
+			<input name="numero_carnet" id="numero_carnet" type="text" class="emptystring" size="30" maxlength="40"  />
+				</span></td>
+			
+			
+		    
+		  </tr>
+		  <tr>
+		    <td height="75"  class="inputtitle">Carnet Conadis: </td>
+		    <td colspan="2"><img src="../images/camporequerido.gif">
+	        <input name="carnet_conadis" id="carnet_conadis" type="text" class="string" size="30" maxlength="40" onBlur="mailUPAC();" /></td>
+		    <td class="inputtitle">Porcentaje de discapacidad  :</td>
+		    <td colspan="5">
+	        <input name="porcentaje_discapacidad" id="porcentaje_discapacidad" type="text" class="emptystring" size="30" maxlength="40" /></td>
+		   
+	    </tr>
+         
+		  
+		  
+        </table></td>
+    </tr>
+    <!--<tr>
+		<td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>-->
+    </tr>
+  </table>
+
+</form>
+<script>
+function cargarFoto() {
+
+
+   var attributes='width=500,height=400,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportPhoto.php?campofoto=foto_alu&foto='+document.PaginaDatos.foto_alu.value,'OmnisoftPhoto',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+ 
+ 
+ 
+}
+</script>
+
+<script>
+   omnisoftLoadData(document.PaginaDatos);
+
+   if (getURLParam('action')=='insert')
+   
+   document.PaginaDatos.fechaInscripcion_alu.value=fechaSistema();
+   </script>
+
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	  if (document.PaginaDatos.foto_alu.value!='')
+   document.PaginaDatos.imgfoto.src='../fotos/'+document.PaginaDatos.foto_alu.value;
+//	OmnisoftPerfilUsuarioFormulario();
+	document.PaginaDatos.serial_suc.value=getCookie('serial_suc');
+	document.PaginaDatos.serial_usr.value=getCookie('serial_usr');
+	//alert(getCookie('serial_suc'));
+</script>
+
+
+</body>
+</html>

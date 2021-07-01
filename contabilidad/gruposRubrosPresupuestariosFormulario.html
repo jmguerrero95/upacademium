@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+function imprimirMalla() {
+             var attributes='';
+            var sURL='../lib/export/omnisoftMallasReporte.php?';
+            var sWidth=1000;
+            var sHeight=750;
+            var sFields='';
+            var fields;
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+               sURL=sURL+'serial_maa='+document.PaginaDatos.serial_maa.value;
+               omnisoftNewWindow=window.open(sURL,'PDF',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftAcciones.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+//alert('hola');
+// alert('serial_maa:..'+opener.PaginaDatos.serial_maa.value);
+
+function totalcreditos(){
+ serial_malla=getURLParam('serial_maa');
+//alert(serial_malla);
+
+objDB=new omnisoftDB('SELECT detallemalla.serial_dma, sum( numerocreditos_dma ) AS numerocreditos, nivel.serial_niv FROM area, nivel, detallemalla, materia WHERE area.serial_are = materia.serial_are AND nivel.serial_niv = detallemalla.serial_niv AND materia.serial_mat = detallemalla.serial_mat AND serial_maa = '+serial_malla+' GROUP BY serial_maa','../lib/server/omnisoftSQLData.php','creditosDatos');
+  setTimeout('objDB.executeQuery()',0);
+}
+
+ function creditosDatos(data)
+{
+		 var registros=data.split('~');
+		// alert('registros: '+registros);
+		 var n=0;
+		  document.PaginaDatos.totalcreditostitulo_maa.value=registros[1];
+		  creditosLenguas();
+}		  
+
+function creditosLenguas(){
+//alert('entro...creditosLenguas');
+ serial_malla=getURLParam('serial_maa');
+objDB=new omnisoftDB('SELECT detallemalla.serial_dma, sum( numerocreditos_dma ) AS numerocreditos, nivel.serial_niv FROM area, nivel, detallemalla, materia WHERE area.serial_are = materia.serial_are AND nivel.serial_niv = detallemalla.serial_niv AND materia.serial_mat = detallemalla.serial_mat AND materia.serial_are =11 AND serial_maa = '+serial_malla+' GROUP BY materia.serial_are','../lib/server/omnisoftSQLData.php','lenguasDatos');
+  setTimeout('objDB.executeQuery()',0);
+  //prompt('creditosLenguas','SELECT detallemalla.serial_dma, sum( numerocreditos_dma ) AS numerocreditos FROM area, nivel, detallemalla, materia WHERE area.serial_are = materia.serial_are AND nivel.serial_niv = detallemalla.serial_niv AND materia.serial_mat = detallemalla.serial_mat AND materia.serial_are =11 AND serial_maa = '+serial_malla+' GROUP BY materia.serial_are');
+}
+
+function lenguasDatos(data)
+{
+	//	alert('lenguasDatos');
+		//alert(data);
+		 var registros=data.split('~');
+		// alert('registros: '+registros);
+		 var n=0;
+		  document.PaginaDatos.creditosidiomas_maa.value=registros[1];
+}	
+
+function seleccionarTitulo() {
+   cserial_car.objDBComando.sqlCommand='select car.serial_car, nombre_car from carrera as car WHERE serial_fac ='+document.PaginaDatos.serial_fac.value;
+  cserial_car.objDBComando.executeQuery();
+}
+
+function seleccionarEspecialidad() {
+   cserial_esp.objDBComando.sqlCommand='select serial_esp, nombre_esp from especialidad where serial_car ='+document.PaginaDatos.serial_car.value;
+    cserial_esp.objDBComando.executeQuery();
+	
+	  cserial_maa_p.objDBComando.sqlCommand='select 0 as serial_maa,\'- NIGUNA -\' as mallabasica UNION select serial_maa,concat(codigo_maa,\' \',nombre_maa) as mallabasica from malla where serial_maa_p=0 and serial_maa not in ('+document.PaginaDatos.serial_maa.value+') and serial_car='+document.PaginaDatos.serial_car.value;
+    cserial_maa_p.objDBComando.executeQuery();
+}
+
+function calcularCreditos(){
+//creditostotales_maa
+var suma1;
+suma1=parseInt(document.PaginaDatos.creditosidiomas_maa.value) + parseInt(document.PaginaDatos.creditoselectivasab_maa.value);
+//alert('suma1:  '+suma1);
+var suma2;
+suma2=parseInt(document.PaginaDatos.totalcreditostitulo_maa.value) - suma1;
+//alert('suma2:  '+suma2);
+document.PaginaDatos.creditostotales_maa.value=suma2;
+//alert(document.PaginaDatos.creditostotales_maa.value);
+var suma3;
+suma3=suma2 + parseInt(document.PaginaDatos.creditostalleres_maa.value) + parseInt(document.PaginaDatos.creditosespmayor_maa.value) + parseInt(document.PaginaDatos.creditosespmenor_maa.value);
+//alert('suma3:  '+suma3);
+
+document.PaginaDatos.creditostotalgeneral_maa.value=suma3;
+//creditostotalgeneral_maa
+ 
+//document.PaginaDatos.creditostotales_maa.value=document.PaginaDatos.totalcreditostitulo_maa.value - (document.PaginaDatos.creditosidiomas_maa.value + document.PaginaDatos.creditoselectivasab_maa.value);
+//Var1 = parseInt(document.form1.efectivo.value) + parseInt(document.form1.cheque.value) + parseInt(document.form1.tarjeta.value)
+}
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_grp" type="hidden" id="serial_grp" class="hidden" >
+  <table width="805" height="378" border="0" cellpadding="0" cellspacing="0" >
+    <tr  >
+      <td width="222" height="52"  class="ingeniumtoptitle"></td>
+      <td width="582"  class="maintoptitle fonttitle"><center>
+        FINANCIERO<br>
+Tipos de Productos Presupuestarios
+      </center></td>
+      <td width="1"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="780" height="270" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          
+            <td width="124" height="24"  class="inputtitle">C&oacute;digo :</td>
+            <td width="252"><img src="../images/camporequerido.gif">
+              <input name="codigo_grp" type="text" id="codigo_grp" size="12" maxlength="14" class="string" ></td>
+            <td width="95" class="inputtitle">Categoría :</td>
+            <td width="299" colspan="3"><img src="../images/camporequerido.gif"> <script>		
+			                var cserial_trp=new omnisoftComboBox('cserial_trp','serial_trp','SELECT serial_trp, concat_ws(" ",descripcion_trp," -> ",tipo_trp," -> ", automatico_trp) FROM `tiposrubrospresupuestarios` order by descripcion_trp desc','255px',true,getURLParam('serial_trp'));
+                     cserial_trp.show();
+				
+					
+	            </script>            </td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Tipo de Producto Presupuestario :</td>
+            <td height="24" colspan="5" ><img src="../images/camporequerido.gif"><input name="descripcion_grp" type="text" id="descripcion_grp" size="100" maxlength="110" class="string"></td>
+          
+          <tr>
+            <td height="18" colspan="10"  bgcolor="#000166"><div align="center" class="style1">Productos</div></td>
+          </tr>
+
+
+        <tr>
+            <td height="40" colspan=9><script>
+   omnisoftLoadData(document.PaginaDatos);
+
+   
+      //document.PaginaDatos.fecini_maa.value=fechaSistema();
+	//alert(getURLParam('action'));
+    var serial_grp=(getURLParam('action')=='insert')?0:getURLParam('serial_grp');
+	//alert('Serial malla'+serial_maa);
+
+   //alert(document.PaginaDatos.serial_maa.value);
+   // var sql='SELECT detallemalla.serial_dma, nombre_are, nombre_mat, nombre_niv, if( numerocreditos_dma IS NULL , 0, numerocreditos_dma ) AS numerocreditos, tipocredito_dma, materia.serial_mat, area.serial_are, nivel.serial_niv, nivel.serial_sec, detallemalla.serial_maa FROM area, nivel, detallemalla, materia WHERE area.serial_are = materia.serial_are AND nivel.serial_niv = detallemalla.serial_niv AND materia.serial_mat = detallemalla.serial_mat and serial_maa=masterkey';
+//prompt('sql',sql);
+
+
+var sql='SELECT sgp.serial_sgrp, codigo_sgrp, descripcion_sgrp, descripcion_grp, descripcion_trp, tipo_trp, automatico_trp  FROM subgruposrubrospresupuestarios as sgp, gruposrubrospresupuestarios as gp, tiposrubrospresupuestarios as trp WHERE sgp.serial_grp = gp.serial_grp and trp.serial_trp = gp.serial_trp and gp.serial_grp ='+getURLParam('serial_grp');
+
+//alert(sql);
+
+    omniObj=new omnisoftGridDetail('omniObj','serial_sgrp',serial_grp,'subgruposrubrospresupuestarios','serial_sgrp',sql,document.PaginaDatos,Array(true,true,true),'subGruposRubrosPresupuestariosFormulario.html',600,300);
+		
+	 omniObj.addColumn('Serial','serial_sgrp', 1,'hidden','','middle','');
+	 omniObj.addColumn('Código','codigo_sgrp', 6,'string','','middle','');
+	 omniObj.addColumn('Productos','descripcion_sgrp', 20,'string','','middle','');
+	 omniObj.addColumn('Tipo de Producto','descripcion_grp', 20,'string','','middle','');	
+	 omniObj.addColumn('Categoría','descripcion_trp', 25,'string','','middle','');	
+	 omniObj.addColumn('Tipo','tipo_trp', 6,'string','','middle','');	
+	 omniObj.addColumn('Automático?','automático_trp', 3,'string','','middle','');	
+	 
+	 omniObj.showGrid('omniObj',8,308,800,'menu','#FF9900');
+            </script></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690">
+			 <div align="center" id="divImprimir" style="visibility:visible"><a href="#"  onClick="javascript:imprimirMalla()"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a></div>
+			</td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="142" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+omnisoftLoadData(document.PaginaDatos);
+	function procesarTotales(row) {
+	//alert('omniObj.....'+omniObj.grid.getFooterTemplate(4,0).getContent("box/text").element().innerHTML);	
+	document.getElementById('spanTotal').innerHTML=omniObj.grid.getFooterTemplate(4,0).getContent("box/text").element().innerHTML;
+	//alert(omniObj.grid.getFooterTemplate(4,0).getContent("box/text").element().innerHTML);*/
+}
+</script>
+<script>
+//omnisoftLoadData(document.PaginaDatos);
+ //var serial_sgrp=(getURLParam('action')=='edit')? 0:getURLParam('serial_sgrp');
+ //var serial_malla;
+ //serial_malla=getURLParam('serial_sgrp')
+//alert(serial_malla);
+//totalcreditos();
+
+</script>
+
+</body>
+</html>

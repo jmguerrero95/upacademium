@@ -1,0 +1,164 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script type="text/javascript" src="../lib/fisheyes/jquery.js"></script>
+<script type="text/javascript" src="../lib/fisheyes/interface.js"></script>
+
+<script language="javascript1.2" src="../lib/omnisoft.js">
+<script language="javascript1.2" src="../lib/omnisoftTools.js">
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<script language="javascript1.2" src="../lib/tools/omnisoftProgressBar.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+</script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+
+
+<!--[if lt IE 7]>
+ <style type="text/css">
+ .dock img { behavior: url(../lib/fisheyes/iepngfix.htc) }
+ </style>
+<![endif]-->
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+function procesarEmpleado() {
+    omniObj.grid.sqlCommand="SELECT serial_hex, fecha_hex,apellido_epl,  nombre_epl,  hora50_hex,hora100_hex, hora50_hex+hora100_hex as total,observacion_hex from  empleado AS emp,horasextras as hex WHERE hex.serial_epl = emp.serial_epl and emp.serial_epl="+document.PaginaDatos.serial_epl.value+"  and fecha_hex>='"+document.PaginaDatos.fechainicio.value+"' and fecha_hex<='"+document.PaginaDatos.fechafin.value+"'";
+   omniObj.rTitle='REPORTE DE HORAS EXTRAS DE '+ getURLParam('apellido_epl')+ ' '+getURLParam('nombre_epl') + " DEL "+document.PaginaDatos.fechainicio.value +" AL  "+document.PaginaDatos.fechafin.value;
+
+   omniObj.grid.executeQuery(omniObj.grid.rows);
+
+}
+//-->
+</script>
+
+</HEAD>
+<BODY onLoad="initDisableRight();"  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td height="541" valign="top">
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top">
+                    <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td>                    <td width="482"  class="toptitle" > <center>
+MODULO
+                        DE NOMINA Y RECURSOS HUMANOS<br>
+                         CONSULTA DE HORAS EXTRAS POR EMPLEADO
+
+
+                    </center></td>
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+
+                  </tr>
+                </table>
+
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>            <td height="412" valign="top" >
+			<div align="center">
+
+                <table width="100%" height="447" border="0" align="center" cellpadding="0" cellspacing="0">
+
+                <tr>
+                                <form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+
+                <td class="menuborder"><table><tr><td class="inputtitle">Empleado:</td><td class="inputtitle">
+                <script>
+                     var cserial_epl=new omnisoftComboBox('cserial_epl','serial_epl','select serial_epl,concat(apellido_epl,\' \',nombre_epl) as nombre from empleado where prospecto_epl=\'NO\' order by apellido_epl,nombre_epl','400px',false,getURLParam('serial_epl'));
+                     cserial_epl.show();
+                 </script></td><td class="inputtitle">Fecha Inicio:</td><td ><img src="../images/camporequerido.gif"><input name="fechainicio" type="text" id="fechainicio" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"  ></td><td class="inputtitle">Fecha Fin:</td><td class="inputtitle"><img src="../images/camporequerido.gif"><input name="fechafin" type="text" id="fechafin" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"  ></td><td><a href="#" onClick="procesarEmpleado()"><img src="../images/history.png" alt="Procesar Asistencia" width="32" height="32" border="0"></a></td></tr></table></td>
+                </form>
+
+                </tr>
+                  <tr>
+                    <td width="1123" height="447" colspan="3" >
+<script>
+    document.PaginaDatos.fechainicio.value=fechaSistema();
+    document.PaginaDatos.fechafin.value=fechaSistema()
+
+    var serial_epl=getURLParam('serial_epl');
+    var sqlCommand="SELECT serial_hex, fecha_hex,apellido_epl,  nombre_epl,  hora50_hex, hora100_hex, hora50_hex+hora100_hex as total,observacion_hex from  empleado AS emp,horasextras as hex WHERE hex.serial_epl = emp.serial_epl and emp.serial_epl='"+getURLParam('serial_epl')+"' ";
+   omniObj=new omnisoftGrid('omniObj','horasextras','serial_hex',sqlCommand,'horasExtrasFormulario.html',1020,660);
+
+   omniObj.addColumn('Serial','serial_hex', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Fecha','fecha_hex', 10,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Apellido','apellido_epl', 25,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Nombre','nombre_epl', 25,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Horas 50','hora50_hex', 10,'readonly','sum','middle','#ffffcc');
+   omniObj.addColumn('Horas 100','hora100_hex', 10,'readonly','sum','middle','#ffffcc');
+   omniObj.addColumn('Total Horas','total', 10,'readonly','sum','middle','#ffffcc');
+   omniObj.addColumn('Observacion','observacion_hex', 15,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('serial_perrol','serial_perrol', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_epl','serial_epl', 1,'hidden','','middle','#ffffcc');
+
+
+   omniObj.showGrid('omniObj',20,482,1020,'menu','#FF9900');
+
+   omniObj.rTitle='REPORTE DE HORAS EXTRAS DE '+ getURLParam('apellido_epl')+ ' '+getURLParam('nombre_epl') + " DEL "+document.PaginaDatos.fechainicio.value +" AL  "+document.PaginaDatos.fechafin.value;
+
+</script></td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<table width="100%" height="58"  cellpadding="0" cellspacing="0" >
+<tr>
+<td class="menuborder"> </td>
+</tr>
+</table>
+</body>
+
+
+</HTML>

@@ -1,0 +1,151 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/aw/lib/aw.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftGrid.js"></script>
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script></head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          GESTION FINANCIERA<br>
+          ENTIDADES FINANCIERAS 
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="550" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td height="24"  class="inputtitle">Pais:</td>
+            <td><input name="serial_pai" type="text" id="serial_pai" class="emptystring" size="10" onBlur="esconderToolTip()"table="pais" serial="serial_pai" info="codigo_pai"></td>
+          </tr>
+          <tr> 
+            <td width="181" height="24"  class="inputtitle">Provincia:</td>
+            <td width="618"> <input name="serial_prv" type="text" id="serial_prv" class="emptystring" size="10" onBlur="esconderToolTip()"table="provincia" serial="serial_prv" info="codigo_prv"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Ciudad:</td>
+            <td ><input name="serial_ciu" type="text" id="serial_ciu" class="emptystring" size="10" onBlur="esconderToolTip()"table="ciudad" serial="serial_ciu" info="codigo_ciu"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Codigo:</td>
+            <td ><input name="codigo_ifi" type="text" id="codigo_ifi4" class="emptystring" size="10" onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Nombre:</td>
+            <td ><input name="nombre_ifi" type="text" class="emptystring" id="nombre_ifi" onBlur="esconderToolTip()" size="50" maxlength="100"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Tipo:</td>
+            <td ><select name="tipo_ifi" class="comboBox">
+                <option value="Banco Nacional">Banco Nacional</option>
+                <option value="Banco Internacional">Banco Internacional</option>
+                <option value="Cooperativa de Ahorros">Cooperativa de Ahorros</option>
+                <option value="Sociedad Financiera">Sociedad Financiera</option>
+                <option value="Mutualista">Mutualista</option>
+                <option value="Otros">Otros</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Direccion:</td>
+            <td ><input name="direccion_ifi" type="text" class="emptystring" id="direccion_ifi" onBlur="esconderToolTip()" size="50" maxlength="100"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Telefono 1:</td>
+            <td ><input name="telefono1_ifi" type="text" class="emptynumber" id="telefono1_ifi" onBlur="esconderToolTip()" size="10" maxlength="10"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Telefono 2:</td>
+            <td ><input name="telefono2_ifi" type="text" class="emptynumber" id="telefono2_ifi" onBlur="esconderToolTip()" size="10" maxlength="10"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Fax:</td>
+            <td ><input name="fax_ifi" type="text" class="emptynumber" id="fax_ifi" onBlur="esconderToolTip()" size="10" maxlength="10"></td>
+          </tr>
+          <tr> 
+            <td height="27"  class="inputtitle">Oficial Credito:</td>
+            <td ><input name="oficialCredito_ifi" type="text" class="emptystring" id="oficialCredito_ifi" onBlur="esconderToolTip()" size="40" maxlength="40"></td>
+          </tr>
+          <tr>
+            <td height="29"  class="inputtitle">Telefono (Of. Credito):</td>
+            <td ><input name="octelefono_ifi" type="text" class="emptynumber" id="octelefono_ifi" onBlur="esconderToolTip()" size="10" maxlength="10"></td>
+          </tr>
+          <tr> 
+            <td height="31"  class="inputtitle">E-mail (Of. Credito):</td>
+            <td ><input name="ocemail_ifi" type="text" class="emptyemail" id="ocemail_ifi" onBlur="esconderToolTip()" size="50" maxlength="64"></td>
+          </tr>
+          <tr> 
+            <td height="27"  class="inputtitle">Sobrenombre (Of. Credito):</td>
+            <td ><input name="ocsobrenombre_ifi" type="text" class="emptystring" id="ocsobrenombre_ifi" onBlur="esconderToolTip()" size="30" maxlength="30"></td>
+          </tr>
+          <tr> 
+            <td height="26"  class="inputtitle">Cumplea&ntilde;os (Of. Credito):</td>
+            <td ><input name="ocaniversario_ifi" type="text" class="emptydate" id="ocaniversario_ifi" onBlur="esconderToolTip()" size="10" maxlength="10"></td>
+          </tr>
+          <tr> 
+            <td height="29"  class="inputtitle">Gerente:</td>
+            <td ><input name="gerente_ifi" type="text" class="emptystring" id="gerente_ifi" onBlur="esconderToolTip()" size="40" maxlength="40"></td>
+          </tr>
+          <tr> 
+            <td height="26"  class="inputtitle">Gerente Telefono:</td>
+            <td ><input name="gtelefono_ifi" type="text" class="emptynumber" id="gtelefono_ifi" onBlur="esconderToolTip()" size="10" maxlength="10"></td>
+          </tr>
+          <tr> 
+            <td height="23"  class="inputtitle">Gerente e-mail:</td>
+            <td ><input name="gemail_ifi" type="text" class="emptyemail" id="gemail_ifi" onBlur="esconderToolTip()" size="50" maxlength="64"></td>
+          </tr>
+          <tr> 
+            <td height="30"  class="inputtitle">Gerente Sobre Nombre:</td>
+            <td ><input name="gsobrenombre_ifi" type="text" class="emptystring" id="gsobrenombre_ifi" onBlur="esconderToolTip()" size="30" maxlength="30"></td>
+          </tr>
+          <tr> 
+            <td height="29"  class="inputtitle">Gerente Cumplea&ntilde;os:</td>
+            <td ><input name="ganiversario_ifi" type="text" class="emptydate" id="ganiversario_ifi" onBlur="esconderToolTip()" size="10" maxlength="10"></td>
+          </tr>
+          <tr> 
+            <td height="28"  class="inputtitle">Estado:</td>
+            <td ><select name="estado_ifi" id="estado_ifi" class="combobox">
+                <option value="Activo">Activo</option>
+                <option value="No Activo">No Activo</option>
+              </select></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >       <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

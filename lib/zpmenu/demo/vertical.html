@@ -1,0 +1,132 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+	<title>Zapatec DHTML Menu Widget - A vertical menu</title>
+	<script type="text/javascript" src="../utils/utils.js"></script>
+	<script type="text/javascript" src="../src/menu.js"></script>
+	<link href="../doc/css/zpcal.css" rel="stylesheet" type="text/css">
+	<link href="../doc/css/template.css" rel="stylesheet" type="text/css">
+	<link rel="SHORTCUT ICON" href="http://www.zapatec.com/website/main/favicon.ico">
+	<link href="../themes/planks.css" rel="stylesheet" type="text/css">
+	
+</head>
+<body>
+
+	<div class="zpStandard">
+
+	<div class="topMenuHeader">
+		<div class="logo">
+			<a href='http://www.zapatec.com'><img src='../doc/images/logoNew.gif' alt='Zapatec logo' border='0'></a>
+		</div>
+		<div class="btn1">
+			<a href="https://www.zapatec.com/zadmin/buy.jsp">
+				<img src="../doc/images/buttonBuy.png" alt='Buy Zapatec Menu' border="0">
+			</a>
+		</div>
+
+		<div class="btn1">
+			<a href="http://www.zapatec.com/website/main/pricing.jsp">
+				<img src="../doc/images/buttonPricing.png" alt='Pricing for Zapatec Menu' border="0">
+			</a>
+		</div>
+	</div>
+
+	<div class="pageMain">
+	<a href="html.html" style="float:left; margin-left:2em; margin-top:.5em;" accesskey="P">
+			<img border="0" src="previous.png" alt="Previous Javascript Menu Example"></a>
+	<a href="click.html" style="float:right; margin-right:2em; margin-top:.5em;" accesskey="N">
+			<img border="0" src="next.png" alt="Next Javascript Menu Example"></a>
+		<div class='zpCalSubheader' style='text-align:center'>A vertical menu</div>
+
+		<br/>	
+		<div class='zpCalDemoText'>
+		<ul>
+		<li>This demo uses theme <b>planks</b>.</li>
+		<li>You can choose whether you want your menu to be a horizontal, or as in this case a vertical menu.</li>
+		</ul>
+		</div>
+	</div>
+
+<ul id="myMenu" class='zpHideOnLoad'>
+					<li>
+					<a href="http://www.dmoz.org/Arts/">Arts</a><br>
+					<ul>
+						<li> <a href="http://www.dmoz.org/Arts/Movies/">Movies</a> </li>
+						<li> 
+						<a href='http://www.zapatec.com/website/main/products/prod1/'> Calendar </a>
+						</li>
+						<li> <a href="http://www.dmoz.org/Arts/Television/">Television</a> </li>
+						<li>
+						<hr/>
+						</li>
+						<li id="music">
+						<a href="http://www.dmoz.org/Arts/Music/">Music</a>
+						<ul>
+							<li> <a href="http://www.dmoz.org/Arts/Music/Bands_and_Artists/">Bands</a> </li>
+							<li> <a href="http://www.dmoz.org/Arts/Music/Instruments/">Instruments</a> </li>
+						</ul>
+						</li>
+					</ul>
+					</li>
+
+					<li>
+					<a href="http://www.dmoz.org/Business/">Business</a><br>
+					<ul>
+						<li> <a href="http://www.dmoz.org/Business/Real_Estate/">Real Estate</a> </li>
+						<li> <a href="http://www.dmoz.org/Business/Investing/">Investing</a> </li>
+					</ul>
+					</li>
+
+					<li>
+					<a href="http://www.dmoz.org/Computers/">Computers</a><br>
+					<ul>
+						<li> <a href="http://www.dmoz.org/Computers/Internet/">Internet</a> </li>
+						<li id="software"> <a href="http://www.dmoz.org/Computers/Software/">Software</a> </li>
+						<li> <a href="http://www.dmoz.org/Computers/Hardware/">Hardware</a> </li>
+					</ul>
+					</li>
+					<li><a href="#">Many Levels</a>
+					<ul>
+						<li><a href="#">Level-1a</a></li>
+						<li><a href="#">Level-1b</a>
+						<ul>
+							<li><a href="#">Level-2a</a></li>
+							<li><a href="#">Level-2b</a>
+							<ul>
+								<li><a href="#">Level-3a</a></li>
+								<li><a href="#">Level-3b</a>
+								<ul>
+									<li><a href="#">Level-4a</a></li>
+									<li><a href="#">Level-4b</a></li>
+								</ul> <!-- Level-3b sub-menu -->
+								</li> <!-- Level-3b -->
+							</ul> <!-- Level-2b sub-menu -->
+							</li> <!-- Level-2b -->
+						</ul> <!-- Level-1b sub-menu -->
+						</li> <!-- Level-1b -->
+					</ul> <!-- Many Levels sub-menu -->
+					</li> <!-- Many Levels -->
+</ul>
+	<script type="text/javascript">
+		var menu = new Zapatec.Menu('myMenu', {vertical:true});
+		
+	</script>
+	
+	<noscript>
+		<br/>
+	  This page uses a 
+		<a href='http://www.zapatec.com/website/main/products/prod2/'>
+		Javascript Menu</a>, but your browser does not support Javascript.
+		<br/>
+		<br/>
+	</noscript>
+
+	<br/><br/><br/>
+	<div id="divFooter" class="footer" style='text-align:center; margin-top:2em'>
+		&copy; 2004 <strong> <a href='http://www.zapatec.com/'>Zapatec, Inc.</a> </strong>
+	</div>
+</div>
+</body>
+</html>

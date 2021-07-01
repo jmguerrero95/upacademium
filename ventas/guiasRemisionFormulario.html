@@ -1,0 +1,572 @@
+ <HTML>
+<HEAD>
+<TITLE>INGENIUM::Guía de Remisión</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf8">
+<style type="text/css">
+	<!--
+	.style1 {
+		font-family: Arial, Helvetica, sans-serif;
+		color: #FFFFFF;
+		font-weight: bold;
+		font-size: 18px;
+	}
+	.style4 {
+		color: #000066;
+		font-size: 12px;
+	}
+	-->
+	</style>
+<style> 
+body, html {margin:0px; padding: 0px; overflow: hidden;} 
+</style>
+<!-- menus -->
+<script language='javascript' src="../lib/omnisoftTools.js"></script>
+<link href="../lib/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/omnisoftValidar.js"></script>
+<script language="javascript" src= "../lib/cookies.js" ></script>
+<script language="javascript" src="../lib/jsrs/jsrsClient.js"></script>
+<script language="javascript" src="../lib/jsrs/omnisoftComboBoxClient.js"></script>
+<script language='javascript' src= "../lib/event-listener.js" ></script>
+<script language='javascript' src= "../lib/masked-input.js" ></script>
+<style type="text/css">
+	<!--
+	.style5 {color: #FFFFFF}
+	.style7 {
+		font-size: 18px;
+		font-weight: bold;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+	.style9 {
+		font-size: 12px;
+		font-weight: bold;
+		font-family: Arial, Helvetica, sans-serif;
+		color: #FFFFFF;
+	}
+	-->
+	</style>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+<script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+<link href="lib/common_codethat.css" rel="stylesheet" type="text/css">
+<script language="javascript1.2" src="../lib/codethatsdk.js"></script>
+<script language="javascript1.2" src="../lib/disableRightClick.js"></script>
+<script type="text/javascript" src="../lib/window.js"></script>
+<script language="javascript" src="../lib/jsrs/jsrsClient.js"></script>
+<link href="../lib/styles/xp/grid.css" rel="stylesheet" type="text/css" >
+<script src="../lib/grid.js"></script>
+<link href="../lib/omnisoftTemplate.css" rel="stylesheet" type="text/css" >
+<script src="../lib/omnisoftTemplate.js"></script>
+<script language="javascript" src= "../lib/cookies.js" ></script>
+	<script>
+	var columna=0;
+	var formularioGrabado=0;
+	//var sucursal=getCookie('sucursal');
+	var sucursal = 1;
+	//var serial_usr=getCookie('sucursal');
+	var serial_usr = 1;
+	var serial_dguia = 0;
+	 var edicion = getURLParam('action');
+	
+	function bloqueo()
+	{
+	 
+		if(edicion=='edit')
+		{
+			document.PaginaDatos.numeroDocumento_guia.disabled=true;
+			document.PaginaDatos.tipoDocumento_guia.disabled=true;
+			document.PaginaDatos.serial_cli.disabled=true;
+			document.PaginaDatos.serial_cli.disabled=true;
+			
+
+		}
+	}
+	
+		function leerDatos()
+		{ 
+			var serial = document.getElementById('serial_cli').value;
+			sql = 'SELECT cli.razonSocial_cli,cli.direccion_cli,cli.documentoIdentidad_cli,ciud.nombre_ciu,concat(r.codigo_rut,\' - \',r.nombre_rut),concat(v.nombre_epl,\' \',v.apellido_epl) as vendedor_rut,concat(c.nombre_epl,\' \',c.apellido_epl) as cobrador_rut, cli.descuento_cli as descuento_cli, serial_forc, serial_tpr, serial_can, v.serial_epl, c.serial_epl, IFNULL(cal.calificacionCredito_cal,0) FROM ciudad AS ciud, cliente AS cli LEFT JOIN clienteruta AS cliru ON cliru.serial_cli = cli.serial_cli LEFT JOIN ruta as r ON r.serial_rut=cliru.serial_rut LEFT JOIN empleado as c ON c.serial_epl = r.cobrador_rut LEFT JOIN empleado as v ON v.serial_epl = r.vendedor_rut LEFT JOIN calificacioncliente AS cal ON cal.serial_cli = cli.serial_cli WHERE ciud.serial_ciu = cli.serial_ciu AND cli.serial_cli='+serial;
+			//prompt('test',sql);
+			jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftExecuteSelect, 'omnisoftExecuteSelect',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',sql));
+			function omnisoftExecuteSelect(data)
+			{ 
+				var recs = data.split('|');
+				var cols = recs[0].split('~');
+				document.PaginaDatos.direccionDestino_guia.value = cols[1];
+				document.PaginaDatos.documentoIdentificacion_guia.value = cols[2];
+				document.PaginaDatos.serial_can.value = cols[10];
+			}
+		}
+		
+		function leerProducto()
+		{  
+			var serial_producto = document.getElementById('serial_prd').value;
+			sql = 'SELECT codigo_prd, (SELECT direccion_suc FROM sucursal WHERE serial_suc='+sucursal+') FROM producto WHERE serial_prd = '+serial_producto; 
+			jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftExecuteSelect, 'omnisoftExecuteSelect',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',sql));
+			function omnisoftExecuteSelect(data)
+			{   
+				var recs = data.split('|');
+				var cols = recs[0].split('~');
+				document.PaginaDatos.codigo_pro.value=cols[0];
+				document.PaginaDatos.direccion_guia.value=cols[11];
+				
+			}
+		}
+		
+		function buscarProducto()
+		{
+			
+			var codigo = document.PaginaDatos.codigo_pro.value;
+			sql = 'SELECT serial_prd, concat(codigo_prd, \' \',nombre_prd) as producto, codigo_prd as codigo FROM  producto WHERE codigo_prd LIKE \'%'+codigo+'%\''; 
+			//prompt('test',sql);
+			jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftExecuteSelected, 'omnisoftExecuteSelect',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',sql));
+			
+			function omnisoftExecuteSelected(data)
+			{ 
+				var recs = data.split('|');
+				var cols = recs[0].split('~');
+				//document.PaginaDatos.descuento_prd.value=cols[0];
+				if(cols[0]!='')
+				{
+					document.PaginaDatos.serial_prd.options[cols[0]-1].selected=true;
+					document.PaginaDatos.codigo_pro.value = cols[2];
+					setTimeout('leerProducto()',0);
+				}
+				else
+				{
+				    	alert('El codigo del producto No Existe!'); 
+						document.PaginaDatos.codigo_pro.value='';
+				}
+			}
+		}
+		
+		function grabarDetalle()
+		{
+			if(document.PaginaDatos.serial_guia.value==0)
+			{
+				var sqlcabecera = insertCabecera();
+				//var sqlupdateNumeroGuia = 'UPDATE guiaremision SET numeroDocumento_guia = (SELECT concat(secuencialSucursal_sdo, \'-\', secuencialActividad_sdo, \'-\', LPAD(numero_sdo,7,\'0\')) FROM secuenciadocumentos WHERE CURDATE() <= fechaCaducidad_sdo AND tipo_sdo = \'Guia-Remision\' AND serial_suc='+sucursal+') WHERE serial_guia=_serial_master_';
+				var sqltextoTelemarketing = 'UPDATE guiaremision SET textoTelemarketing_guia=(SELECT mensaje_met FROM mensajesdocumentos WHERE serial_can = '+document.PaginaDatos.serial_can.value+'  AND CURDATE() BETWEEN desde_mte AND hasta_mte AND tipoDocumento_met LIKE CONVERT( _utf8 \'Guia-Remision\' USING latin1 ) COLLATE latin1_swedish_ci AND estado_met LIKE CONVERT( _utf8 \'Activo\' USING latin1 )  COLLATE latin1_swedish_ci) WHERE serial_guia=_serial_master_';
+				var sqldetalle = insertDetalle();
+				var SQLUnic = sqldetalle+'|'+sqltextoTelemarketing;
+				//prompt('cabecera: ',sqlcabecera);
+				//prompt('detalles: ',SQLUnic);
+				
+				jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftMultiple, 'omnisoftMultiple',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',sqlcabecera,SQLUnic));
+			}
+			else
+			{
+				var sqlcabecera = updateCabecera();
+				var sqldetalle = insertDetalle();
+				jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftMultipleUpdate, 'omnisoftMultipleUpdate',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',sqlcabecera,sqldetalle));
+			}
+			
+		}
+		
+		function verNumero()
+		{
+			var sqlConsulta = 'SELECT numeroDocumento_guia, textoTelemarketing_guia FROM guiaremision WHERE serial_guia = '+parseInt(document.PaginaDatos.serial_guia.value);
+			jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftExecuteSelected, 'omnisoftExecuteSelect',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',sqlConsulta));
+		}
+		function omnisoftExecuteSelected(data)
+		{
+			var row = data.split('|');
+			var col = row[0].split('~');
+			document.PaginaDatos.numeroDocumento_guia.value = col[0];
+			document.getElementById('Marketingtexto').innerHTML='<font color=blue><strong>'+col[1]+'</strong></font>';
+		}
+		
+		function omnisoftMultiple(data)
+		{
+			var num=data.split('|');
+			document.PaginaDatos.serial_guia.value=num[1];
+			serial_dguia=num[3];
+			procesarDatosGrid();
+		}
+		function omnisoftMultipleUpdate(data)
+		{
+			var num=data.split('|');
+		   if (parseInt(serial_dguia)==0) 
+		   {
+			   columna= gridTotalRecordNumber+1;
+			   gridTotalRecordNumber+=1;
+			}
+			else columna= parseInt(gridObj.getProperty("selection/index"));
+		    serial_dguia=num[2];
+		    procesarDatosGrid();
+
+		}
+			
+		function procesarDatosGrid() 
+		{
+		  dataGrid[columna]=["","","","","","","","","","","","","","","","","","",""];
+		  dataGrid[columna][0]=serial_dguia;
+		  dataGrid[columna][1]=document.PaginaDatos.serial_prd.options[document.PaginaDatos.serial_prd.selectedIndex].text;
+		  dataGrid[columna][2]=parseFloat(document.PaginaDatos.cantidad_dfac.value);
+		  serial_dguia=0;
+		  gridObj.refresh();
+		  setTimeout('verNumero()',0);
+		  document.PaginaDatos.tipoDocumento_guia.disabled=true;
+		  document.PaginaDatos.serial_cli.disabled=true;
+		  document.PaginaDatos.numeroDocumento_guia.disabled=true;
+		  limpiarLinea();
+		  
+		 }
+		
+		function insertDetalle()
+		{
+			SQLDetalle ='INSERT INTO detalleguiaremision (serial_guia,producto_dguia,cantidad_dguia) VALUES (';
+			if (document.PaginaDatos.serial_guia.value==0)
+			SQLDetalle +='\'_serial_master_\',';
+			else
+			SQLDetalle +='\''+document.PaginaDatos.serial_guia.value+'\',';
+			
+			SQLDetalle +='\''+document.PaginaDatos.serial_prd.value+'\',';
+			SQLDetalle +='\''+document.PaginaDatos.cantidad_dfac.value+'\');';
+			
+			return SQLDetalle;
+		}
+		
+		function insertCabecera()
+		{
+			var SQLDetalle = '';
+			SQLCabecera = 'INSERT INTO guiaremision (numeroDocumento_guia, tipoDocumento_guia,fecha_guia,fechaTerminacion_guia,serial_cli,cliente_guia,direccion_guia,direccionDestino_guia,documentoIdentificacion_guia,observaciones_guia,estado_guia,elaboradoPor_guia ) VALUES (';
+			SQLCabecera +='0,\''+document.PaginaDatos.tipoDocumento_guia.value+'\',';
+			SQLCabecera +='\''+document.PaginaDatos.fecha_guia.value+'\',';
+			SQLCabecera +='\''+document.PaginaDatos.fechaTerminacion_guia.value+'\',';
+			SQLCabecera +='\''+document.PaginaDatos.serial_cli.value+'\','; 
+			SQLCabecera +='\''+document.PaginaDatos.serial_cli.options[document.PaginaDatos.serial_cli.selectedIndex].text+'\',';
+			SQLCabecera +='\''+document.PaginaDatos.direccion_guia.value+'\',';
+			SQLCabecera +='\''+document.PaginaDatos.direccionDestino_guia.value+'\',';
+			SQLCabecera +='\''+document.PaginaDatos.documentoIdentificacion_guia.value+'\',';
+			SQLCabecera +='\''+document.PaginaDatos.observaciones_guia.value+'\',';
+			SQLCabecera +='\'Aprobado\','; 
+			SQLCabecera +='\''+serial_usr+'\');';
+			return SQLCabecera;
+		}
+		function updateCabecera()
+		{
+			var SQLCabecera = '';
+			SQLCabecera = 'UPDATE guiaremision SET ';
+			SQLCabecera += 'tipoDocumento_guia=\''+document.PaginaDatos.tipoDocumento_guia.value+'\',';
+			SQLCabecera += 'fecha_guia=\''+document.PaginaDatos.fecha_guia.value+'\',';
+			SQLCabecera += 'fechaTerminacion_guia=\''+document.PaginaDatos.fechaTerminacion_guia.value+'\',';
+			SQLCabecera += 'serial_cli=\''+document.PaginaDatos.serial_cli.value+'\',';
+			SQLCabecera += 'cliente_guia=\''+document.PaginaDatos.serial_cli.options[document.PaginaDatos.serial_cli.selectedIndex].text+'\',';
+			SQLCabecera += 'direccion_guia=\''+document.PaginaDatos.direccion_guia.value+'\',';
+			SQLCabecera += 'direccionDestino_guia=\''+document.PaginaDatos.direccionDestino_guia.value+'\',';
+			SQLCabecera += 'documentoIdentificacion_guia=\''+document.PaginaDatos.documentoIdentificacion_guia.value+'\',';
+			SQLCabecera += 'fechaModificacion_guia=SYSDATE(),';
+			SQLCabecera += 'modificadoPor_guia=\''+serial_usr+'\',';
+			SQLCabecera += 'observaciones_guia=\''+document.PaginaDatos.observaciones_guia.value+'\'';
+			SQLCabecera += ' WHERE serial_guia=\''+document.PaginaDatos.serial_guia.value+'\';'; 
+			return SQLCabecera;
+		}
+		
+		function limpiarLinea()
+		{
+			document.PaginaDatos.codigo_pro.value = '';
+			document.PaginaDatos.serial_prd.value = '';
+			document.PaginaDatos.cantidad_dfac.value = '';
+		}
+	</script>
+<script language="JavaScript" type="text/JavaScript">
+
+	function MM_preloadImages() { //v3.0
+	  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+		var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+		if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+	}
+	
+	function MM_swapImgRestore() { //v3.0
+	  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+	}
+	
+	function MM_findObj(n, d) { //v4.01
+	  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+		d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+	  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+	  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+	  if(!x && d.getElementById) x=d.getElementById(n); return x;
+	}
+	
+	function MM_swapImage() { //v3.0
+	  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+	   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+	}
+
+</script>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+//-->
+</script>
+
+</HEAD>
+
+<BODY onLoad="initDisableRight();" onkeydown="keyHandler(event.keyCode);" BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif'); leerProducto(); leerDatos(); bloqueo();">
+
+<style>
+        .titulos {color: #FFFFFF; font-size: 16px;font-family: Arial, Helvetica, sans-serif;}
+ </style>
+
+ <script src="../lib/omnisoftGridDetalle.js"></script>
+ <script src="../lib/omnisoftAcciones.js"></script>
+
+
+
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cía. Ltda. www.omnisoft.cc';</script>
+
+<form  name="PaginaDatos" onKeyUp="highlight(event)" onClick="highlight(event)" method="POST">
+<input name="action" type="hidden" id="action">
+<input name="serial_guia" type="hidden" id="serial_guia" class="hidden" value="0">
+<input name="serial_can" type="hidden" id="serial_can" class="hidden" value="0">
+<table width="979" border="0" cellspacing="0" cellpadding="0" background="../images/bg_blue_v.jpg">
+<tr>
+	<td height="37" colspan="6" background="../images/logo_ingenium.gif"><div align="center"><span class="style1">Marketing y Ventas::Gu&iacute;a Remisi&oacute;n </span></div></td>
+</tr>
+<tr>
+	<td height="30" colspan="6">
+	<table width="978" height="154" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+	  <td height="20" colspan="10" background="../images/bg_blue_v_1.jpg" class="style1 style4 style5"><div align="center">Gu&iacute;a De Remisi&oacute;n </div></td>
+	  </tr>
+	<tr>
+	  <td width="133" height="19" background="images/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">N° Guia Remisión: </td>
+	  <td background="images/titulos.jpg" colspan="2"><input name="numeroDocumento_guia" id="numeroDocumento_guia" type="text" readonly="true" maxlength="20" size="20" class="string" style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none"></td>
+	  
+
+	  <td width="100" background="images/titulos.jpg"><div align="center"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">N° Factura: </span></div></td>
+	  <td width="218" background="images/titulos.jpg"><input name="numeroDocumento_fac" id="numeroDocumento_fac" type="text" readonly="true" maxlength="20" size="20" class="string" style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none" disabled></td>
+	  <td width="281" background="images/titulos.jpg"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Fecha : </span></td>
+	  <td width="139" background="images/titulos.jpg"><input name="fecha_guia" id="fecha_guia" type="text" class="date" maxlength="20" size="20" disabled style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none"></td>
+	  </tr>
+	<tr>
+	  <td height="17" background="images/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Tipo Guia : </td>
+	  <td colspan="4" background="images/titulos.jpg"><select name="tipoDocumento_guia" class="combo" style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none">
+        <option></option>
+        <option value="Venta">Venta</option>
+        <option value="Compra">Compra</option>
+        <option value="Devolucion">Devolucion</option>
+        <option value="Importacion">Importacion</option>
+        <option value="Exportacion">Exportacion</option>
+        <option value="Consignacion">Consignacion</option>
+        <option value="Translado">Translado entre Establecimiento de una misma Empresa</option>
+        <option value="Entrega">Entraga de Rutas</option>
+        <option value="Otros">Otros</option>
+      </select>
+	  </td>
+	  <td background="images/titulos.jpg"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Fecha Terminacion : </span></td>
+	  <td background="images/titulos.jpg"><input name="fechaTerminacion_guia" onChange="validarFecha();" type="text" id="fechaTerminacion_guia" class="date" maxlength="20" size="20" style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none"></td>
+	  <td width="13" colspan="3" background="images/titulos.jpg">&nbsp;</td>
+	</tr>
+	<tr>
+	  <td height="19" background="images/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Cliente : </td>
+	  <td background="images/titulos.jpg" colspan="4">
+	   <script>
+		omnisoftComboBoxJSShow('350px','serial_cli');
+		omnisoftNormalComboBoxJS('serial_cli','SELECT serial_cli, concat(codigo_cli,\' \',nombre_cli,\' \',apellido_cli) as nombre FROM cliente','leerDatos',getURLParam('serial_cli'));
+	  </script>
+	  </td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+
+	</tr>
+	<tr>
+	  <td height="19" background="images/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">R.U.C. </span></td>
+	  <td background="images/titulos.jpg" colspan="4"><input name="documentoIdentificacion_guia" id="documentoIdentificacion_guia" class="string" type="text" readonly="true" maxlength="20" size="20" style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none"></td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+	</tr>
+	<tr>
+	  <td height="20" background="images/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Direcci&oacute;n Origen : </td>
+	  <td background="images/titulos.jpg" colspan="4"><input name="direccion_guia" id="direccion_guia" class="string" type="text" readonly="true" maxlength="80" size="80" style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none"></td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+
+	</tr>
+	<tr>
+	  <td height="20" background="images/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Direcci&oacute;n Destino : </td>
+	  <td background="images/titulos.jpg" colspan="5"><input name="direccionDestino_guia" id="direccionDestino_guia" class="string" type="text" readonly="true" maxlength="100" size="100" style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none"></td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+
+	  </tr>
+	<tr>
+	  <td height="20" background="images/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Observaciones : </td>
+	  <td background="images/titulos.jpg" colspan="5"><textarea name="observaciones_guia" rows="1" cols="99" class="string" id="observaciones_guia"  style="font-family:Tahoma; font-size:10px;" type="textarea" border="1"></textarea></td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+	  </tr>
+	</table>	</td>
+</tr>
+
+<tr >
+	<td height="15" colspan="6" align="center" bgcolor="#FF6600">
+
+	<table width="985" border="0" cellpadding="0" cellspacing="0" background="../images/bg_blue_v.jpg">
+	<tr>
+	  <td height="21" colspan="12" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">Detalle</span></div></td>
+	  </tr>
+	<tr>
+	  <td height="19"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Cod.</span></td>
+	  <td><div align="center"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Producto </span></div></td>
+	  <td><div align="center"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Cantidad</span></div></td>
+	  <td>&nbsp;</td>
+	  </tr>
+	<tr>
+	  <td width="79" height="19"><input name="codigo_pro" type="text" id="codigo_pro" class="date" size="10" maxlength="10"  style="font-family:Tahoma; font-size:10px" onChange="buscarProducto();" onBlur="buscarProducto();"></td>
+	  <td width="321" align="center">
+	  <script>
+			omnisoftComboBoxJSShow('440px','serial_prd');
+			omnisoftNormalComboBoxJS('serial_prd','select serial_prd, concat(codigo_prd, \' \',nombre_prd) as producto from producto','leerProducto',getURLParam('serial_prd'));
+		</script>
+	  </td>
+	  <td width="92"><div align="center">
+	    <input name="cantidad_dfac" type="number" id="cantidad_dfac" size="10" maxlength="10" style="font-family:Tahoma; font-size:10px">
+	    </div></td>
+	  <td width="493"><a href="#" onClick="if(getURLParam('numeroDocumento_fac')!='') alert('No se puede Modificar'); else grabarDetalle();"><img id="imagen" src="../images/bot_insertar.gif" width="51" height="27" border="0"></a></td>
+	</tr>
+	</table>	</td>
+</tr>
+                  <tr>
+                    <td height="157" colspan="7">
+                    <script>
+
+   omnisoftLoadData(document.PaginaDatos);
+    var sql='SELECT serial_dguia, pro.nombre_prd as producto_dguia, cantidad_dguia FROM detalleguiaremision, producto as pro  WHERE producto_dguia = pro.serial_prd AND serial_guia ='+document.PaginaDatos.serial_guia.value;
+    OmnisoftGrid('maingrid','guiasRemisionFormulario.html','guiasRemisionFormulario.html','mysql://erp:erp2k6@localhost/erpbaldore?persist','detalleguiaremision','serial_dguia',sql);
+	OmnisoftAddColumn('maingrid','Serial','serial_dguia', 10,'readonly','','','middle','');
+	OmnisoftAddColumn('maingrid','Producto','producto_dguia', 480,'readonly','','','middle','');
+	OmnisoftAddColumn('maingrid','Precio','cantidad_dguia', 70,'readonly','','','middle','');
+	
+    OmnisoftShowGrid(10,205,910,'menu','#CCF2FF');
+
+
+ </script></td>
+	</tr>
+<tr>
+  <td width="52" rowspan="2" background="images/titulos.jpg"><a href="#" onClick="grabar();" ><img src="../images/aceptar.gif" width="52" height="49" border="0"></a></td>
+  <td width="276" height="15" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">Creado Por:
+    <input name="ncreadoPor_com" type="text" id="ncreadoPor_com" readonly="yes" style="font-family:Tahoma; font-size:10px">
+  </span></div></td>
+  <td width="306" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">Modificado Por:
+    <input name="nmodificadoPor_com" type="text" id="nmodificadoPor_com" readonly="yes" style="font-family:Tahoma; font-size:10px">
+  </span></div></td>
+  <td width="276" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">Autorizado Por:
+    <input name="nautorizadoPor_com" type="text" id="nautorizadoPor_com" readonly="yes" style="font-family:Tahoma; font-size:10px">
+  </span></div></td>
+<td width="75" rowspan="2" background="images/titulos.jpg"><a href="#" onClick="cancelar();"><img src="../images/cancelar.gif" width="52" height="49" border="0"></a></td>
+</tr>
+<tr>
+  <td background="images/titulos.jpg" colspan="3">
+  <div  align="center" id="Marketingtexto" style="background-color:#00FF00; font-family:Tahoma; font-size:10px;">&nbsp;</div>
+  </td>
+</tr>
+</table>
+<script>
+var msg = getURLParam('textoTelemarketing_guia').toUpperCase();
+document.getElementById('Marketingtexto').innerHTML='<font color=blue><strong>'+msg+'</strong></font>';
+
+	function grabar()
+	{
+		
+		if(document.PaginaDatos.serial_guia.value == 0)
+		{
+			SQLCabecera = insertCabecera();		
+			jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',omnisoftExecuteUpdate,'omnisoftExecuteUpdate',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',SQLCabecera));
+		}
+		else
+		{
+			SQLCabecera = updateCabecera();
+			jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',omnisoftExecuteUpdate,'omnisoftExecuteUpdate',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',SQLCabecera));
+		}
+		//opener.omnisoftGoToPage('1');
+			//window.close();
+	}
+	
+	function omnisoftExecuteUpdate(data)
+	{
+		var num=data.split('|');
+		if(num[1]!=0)
+		{
+		
+		if(edicion=='insert')
+		setTimeout('miNumeroGuia()',0);
+		else
+		setTimeout('refresco()',0);
+		
+		}
+		else
+		alert('Error: No se grabo');
+	}
+	
+	function miNumeroGuia()
+	{
+		jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', numeroGuide, 'omnisoftNumeroDocumento',Array(gridDSN,'Guia-Remision','1','guiaremision','numeroDocumento_guia','serial_guia',document.PaginaDatos.serial_guia.value,'\''+serial_usr+'\''));
+	}
+	function numeroGuide(data)
+	{ 
+		var row = data.split('|');
+		document.PaginaDatos.numeroDocumento_guia.value = row[0];
+		setTimeout('refresco()',0);
+	}
+	function refresco()
+	{
+	opener.omnisoftGoToPage('1');
+		window.close();
+	}
+	
+	function cancelar()
+	{
+		opener.omnisoftGoToPage('1');
+			window.close();
+	}
+
+
+
+  var fhoy=new Date();
+  var mes =fhoy.getUTCMonth()+1;
+  if (document.PaginaDatos.fecha_guia.value=='')
+  document.PaginaDatos.fecha_guia.value=fhoy.getYear()+'-'+mes+'-'+ fhoy.getUTCDate();
+  document.PaginaDatos.fechaTerminacion_guia.value=fhoy.getYear()+'-'+mes+'-'+  fhoy.getUTCDate();
+		Calendar.setup({
+		inputField     :    "fecha_guia",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+   Calendar.setup({
+		inputField     :    "fechaTerminacion_guia",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+	
+	
+function omnisoftLoadDetail(data)
+{
+	if (data!=undefined) 
+	{
+	alert(data);
+	}
+}
+
+function validarFecha()
+{
+	var fecha = document.PaginaDatos.fecha_guia.value;
+	var fechaTermina = document.PaginaDatos.fechaTerminacion_guia.value;
+	if(fechaTermina < fecha)
+	alert('No puede ser menor que esta fecha');
+}
+</script>
+</form>
+
+</HTML>

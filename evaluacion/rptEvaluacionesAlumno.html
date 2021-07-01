@@ -1,0 +1,268 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftMenu.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<link href="../lib/zpmenu/themes/images.css" rel="stylesheet" type="text/css">
+<link href="../lib/grid/styles/omnisoftGrid.css" rel="stylesheet" type="text/css">
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script>
+
+function procesarConsulta() {
+
+  var query='./consultaGeneral.html?dummy=1&query=|1';
+    
+	
+	//consultaEvaluacionNoExistente.html
+ //alert(document.PaginaDatos.norealizada.checked);
+ if(document.PaginaDatos.norealizada.checked==true){
+	var query1='./consultaEvaluacionNoExistente.html?query1=|1'; 
+ }else
+		 var query1='./consultaEvaluacionExistente.html?query1=|1';	  
+  
+  
+  var objFieldInput  = document.PaginaDatos.getElementsByTagName('input');
+  var objFieldSelect = document.PaginaDatos.getElementsByTagName('select');
+
+     for (var i=0; i<objFieldInput.length; i++)
+        query=query+'|'+objFieldInput[i].name+'="'+objFieldInput[i].value+'"';
+
+     for (var i=0; i<objFieldSelect.length; i++){
+        //query=query+'|'+objFieldSelect[i].name+'="'+objFieldSelect[i].value+'"';		
+		query1 = query1+'|'+ objFieldSelect[i].value;
+		}		
+       
+	   var attributes='width=1020,height=650,scrollbars=no,resizable=no,toolbar=no,location=no,status=no,menubar=no';
+        omnisoftNewWindow=window.open(query1,'OmnisoftConsulta',attributes);
+           if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+</script>
+</head>
+
+
+
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.style1 {	color: #FFFFFF;
+	font-weight: bold;
+}
+-->
+</style>
+<script>
+//select alu.serial_alu, concat_ws(" ",apellidopaterno_alu,apellidomaterno_alu, nombre1_alu, nombre2_alu) from materiamatriculada as mmat, alumnomalla as am, alumno alu where mmat.serial_ama = am.serial_ama and am.serial_alu = alu.serial_alu and mmat.serial_per = 116
+function seleccionarAlumno(){
+
+ cserial_alu.objDBComando.sqlCommand='select alu.serial_alu, concat_ws(" ",apellidopaterno_alu,apellidomaterno_alu, nombre1_alu, nombre2_alu) as alumno from materiamatriculada as mmat, alumno as alu where mmat.serial_alu = alu.serial_alu and mmat.serial_per = '+ document.PaginaDatos.serial_per.value +' order by apellidopaterno_alu'; 
+  cserial_alu.objDBComando.executeQuery();
+//alert (document.PaginaDatos.serial_per.value);
+
+}
+
+function MostrarMaterias(){
+   var sql='select serial_hrr,concat(nombre_mat,\'=>\',seccion_hrr) as materia from materia as mat,detallecalendariounificado as dcun,horario as hrr where hrr.serial_dcun=dcun.serial_dcun and dcun.serial_mat=mat.serial_mat  and hrr.SERIAL_PER='+document.PaginaDatos.serial_per.value+' and hrr.serial_epl='+document.PaginaDatos.serial_epl.value+' order by materia';
+  	cserial_hrr.objDBComando.sqlCommand=sql;
+ //cserial_maa.objDBComando.sqlCommand=sql_1;
+// prompt('sql',sql);
+  cserial_hrr.objDBComando.executeQuery();
+  
+}
+
+</script>
+</HEAD>
+<BODY onLoad="initDisableRight();"  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+      <td height="541" valign="top">
+
+  	  </td>
+    <td height="541" valign="top">
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top">
+                    <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td>                    <td width="482"  class="toptitle" > <center>
+MODULO
+                        DE EVALUACIONES<br>
+                        REPORTES<br>
+						REALIZADAS POR LOS ALUMNOS
+                    </center></td>
+					
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>  <td height="20" class="menuborder" >
+		<ul id="myMenu" class='zpHideOnLoad'>            </ul>        <script>
+              OmnisoftPerfilUsuario(moduloEvaluacion);
+            </script></td>
+
+          </tr>
+          <tr>            
+		  <td height="412" valign="top" >
+			<div align="center">
+                <table  width="100%" height="467"  border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+                  <tr>
+                    <td height="465" colspan="2" class="inputtitle" >
+					
+					<table align="center"  height="71" >
+                      <tr>
+                        <td width="50" height="17"  class="inputtitle">Periodo:</td>
+                        <td><script>
+ 						//var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per,nombre_per from periodo where serial_suc='+getCookie('serial_suc')+' order by nombre_per','250px',true,'','',seleccionarAlumno);						
+						var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per,nombre_per from periodo where serial_suc='+getCookie('serial_suc')+' order by nombre_per','420px',false,'','',seleccionarAlumno);
+						
+                     	cserial_per.show();	  
+						
+						</script>                        
+						</td>                        
+                      </tr>
+                      
+					  <tr>
+                        <td height="18"  class="inputtitle">Estudiante:</td>
+                        <td>  <script>
+ 						var cserial_alu = new omnisoftComboBox('cserial_alu','serial_alu','select serial_alu, concat_ws(" ",apellidopaterno_alu, apellidomaterno_alu, nombre1_alu,nombre2_alu) from alumno where serial_suc = '+getCookie('serial_suc')+' order by apellidopaterno_alu','420px',false,'','TODOS','');
+                     	 cserial_alu.show();</script>
+						 </td>                                              
+                       </tr>
+					   
+					   <tr>
+                       
+                        <td> <input type="checkbox" name="norealizada" value="ok" />   </td>                                              
+						 <td height="18"  class="inputtitle">Evaluaciones no Realizadas:</td>
+                       </tr>
+
+                      <tr>
+					 </tr>
+					 </table>
+					 
+					 <table align="center" >
+					 <tr>
+                        <td height="34"  class="inputtitle"><a href="#" onClick="procesarConsulta()"><img src="../images/buscar.png" alt="Buscar" width="64" height="64" border="0"></a></td>
+						<td height="34"  class="inputtitle"><a href="../modulos/modulos.html" ><img src="../images/home.png" alt="Inicio" width="64" height="64" border="0"></a></td>                        
+                        
+                      </tr>
+                    </table>
+			</td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<table width="100%" height="58"  cellpadding="0" cellspacing="0" >
+<tr>
+<td class="menuborder"> </td>
+</tr>
+</table>
+</form>
+</body>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+
+</BODY>
+
+</HTML>
+

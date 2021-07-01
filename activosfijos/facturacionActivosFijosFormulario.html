@@ -1,0 +1,1192 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURSE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<!-- menus -->
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+ <link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1"></link>
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+
+
+<link href="lib/common_codethat.css" rel="stylesheet" type="text/css">
+<script language="javascript1.2" src="../lib/codethatsdk.js"></script>
+<script language="javascript1.2" src="../lib/disableRightClick.js"></script>
+
+<script type="text/javascript" src="../lib/window.js"></script>
+<script language="javascript" src="../lib/jsrs/jsrsClient.js"></script>
+
+<link href="../lib/styles/xp/grid.css" rel="stylesheet" type="text/css" ></link>
+
+<script src="../lib/grid.js"></script>
+
+<link href="../lib/omnisoftTemplate.css" rel="stylesheet" type="text/css" ></link>
+
+<script src="../lib/omnisoftTemplate.js"></script>
+<script language="javascript" src= "../lib/cookies.js" ></script>
+
+
+<script>
+
+var formularioGrabado=0;
+var serial_usr;
+var columna=0;
+var serial_dodc=0;
+
+serial_usr=getCookie('serial_usr');
+
+
+/*function focusConcepto() {
+    if (document.PaginaDatos.serial_odc.value=='0')
+        procesarTipoComprobante();
+}*/
+
+/*function validarConcepto() {
+ esconderToolTip();
+ if (document.PaginaDatos.concepto_com.value.length<10){
+    alert('Advertencia: Debe ingresar un concepto claro, al menos de 10 caracteres!');
+        document.PaginaDatos.concepto_com.focus();
+
+    return false;
+ }
+ return true;
+}*/
+
+function tipoOrden(){
+	if(document.PaginaDatos.tipoOrdenCompra_odc.value=='Procesada')
+	{
+		document.PaginaDatos.serial_prd.style.visibility = "visible";
+		document.PaginaDatos.otrosProductos_dodc.style.visibility = "hidden";
+		document.PaginaDatos.precio_dodc.disabled = false;
+		document.PaginaDatos.serial_tcm.disabled=false;
+		document.PaginaDatos.serial_imp.disabled=false;
+	}
+	else if(document.PaginaDatos.tipoOrdenCompra_odc.value=='Otra')
+	{
+		document.PaginaDatos.serial_prd.style.visibility = "hidden";
+		document.PaginaDatos.otrosProductos_dodc.style.visibility = "visible";
+		document.PaginaDatos.precio_dodc.disabled = false;
+		document.PaginaDatos.serial_tcm.disabled=false;
+		document.PaginaDatos.serial_imp.disabled=false;
+	}
+}
+
+function validarCheck(){
+	if(document.PaginaDatos.envioFichaTecnica_dodc.checked == true)
+		document.PaginaDatos.envioFichaTecnica_dodc.value='S';
+	else
+		document.PaginaDatos.envioFichaTecnica_dodc.value='N';
+}
+
+function cargarNumeroOC(){
+	var SQL_SecOC="select tipo_sdo, numero_sdo from secuenciadocumentos where tipo_sdo='Orden-Compra' and serial_suc=1";
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftValidarSec, 'omnisoftExecuteQuery',Array(gridDSN,SQL_SecOC,'0',page,'list'));
+}
+
+function omnisoftValidarSec(data){
+	var sec=data.split('|');
+	var sec_OC=sec[1].split('~');
+	var sec_Num=parseInt(sec_OC[1])+1;
+	document.PaginaDatos.numDoc_odc.value=sec_Num;
+	/*if(sec_Num<10)
+		document.PaginaDatos.numeroDocumento_odc.value='000'+sec_Num;
+	else if(sec_Num<100)
+			document.PaginaDatos.numeroDocumento_odc.value='00'+sec_Num;
+			*/
+	document.PaginaDatos.numeroDocumento_odc.value=sec_Num;
+}
+
+function trim(stringToTrim) {
+	return stringToTrim.replace(/^\s+|\s+$/g,"");
+}
+
+
+function validarDetalle() {
+   document.PaginaDatos.precio_dodc.value= trim(document.PaginaDatos.precio_dodc.value);
+   document.PaginaDatos.cantidad_dodc.value= trim(document.PaginaDatos.cantidad_dodc.value);
+
+
+     if (isNaN(document.PaginaDatos.precio_dodc.value) ||document.PaginaDatos.precio_dodc.value.length<=0 ||document.PaginaDatos.precio_dodc.value==' ' ) document.PaginaDatos.precio_dodc.value='0.00';
+
+     if (isNaN(document.PaginaDatos.cantidad_dodc.value) || document.PaginaDatos.cantidad_dodc.value.length<=0 || document.PaginaDatos.cantidad_dodc.value==' ') document.PaginaDatos.cantidad_dodc.value='0.00';
+
+
+     if ((document.PaginaDatos.cantidad_dodc.value=='0.00'|| document.PaginaDatos.cantidad_dodc.value=='0') &&(document.PaginaDatos.precio_dodc.value=='0.00'|| document.PaginaDatos.precio_dodc.value=='0'))
+         alert('Error: El producto NO puede registrarse con valores cero');
+
+     else  if ((document.PaginaDatos.cantidad_dodc.value!='0.00'|| document.PaginaDatos.cantidad_dodc.value!='0') && (document.PaginaDatos.precio_dodc.value!='0.00'|| document.PaginaDatos.precio_dodc.value!='0'))
+               insertarDetalle();
+           else
+               alert('Error: El producto a ingresar debe tener precio y cantidad');
+}
+
+function entsub() {
+	if (window.event && window.event.keyCode == 13)
+      	validarDetalle();
+	else
+    	return true;
+}
+
+
+function actualizarCabecera() {
+	grabarDatos('');
+}
+
+function grabar() {
+  if (parseInt(formularioGrabado)==0)
+     actualizarCabecera();
+	 if (document.PaginaDatos.distribucion.value=='Manual') {
+	 omnisoftPopUpWindow('costos','distribucionCostosManual.html',950,340,'yes','yes');
+
+	 }
+  window.print();
+  window.close();
+  opener.location.reload();
+}
+
+
+function cancelar() {
+
+  if (parseInt(formularioGrabado)==0) {
+      var respuesta=confirm('Desea perder las modificaciones que realizó?');
+          if (respuesta==true)
+             window.close();
+  }
+  else window.close();
+}
+
+function procesarTotales() {
+
+ 	var subtotal=0.0;
+ 	var descuento=0.0;
+ 	var iva=0.0;
+ 	var iva0=0.0;
+ 	var total=0.0;
+ 	var i=0;
+
+	var action = getURLParam('action');
+
+
+	if(action == 'insert')
+		for (i=0; i <= parseInt(gridTotalRecordNumber); i++) {
+			if(dataGrid[i][4]!='')
+				subtotal+=isNaN(dataGrid[i][4]) ? 0 : parseFloat(dataGrid[i][4]);
+			descuento+=isNaN(dataGrid[i][6]) ? 0 : parseFloat(dataGrid[i][6]);
+			iva+=isNaN(dataGrid[i][7]) ? 0 : parseFloat(dataGrid[i][7]);
+			iva0+=isNaN(dataGrid[i][11]) ? 0 : parseFloat(dataGrid[i][11]);
+			total+=isNaN(dataGrid[i][8]) ? 0 : parseFloat(dataGrid[i][8]);
+	//	alert('paso ='+ i+'subtotal='+subtotal+'descuento='+descuento+'iva='+iva+'total='+total);
+
+		}
+	else
+		if(action == 'edit')
+		{
+		  // alert('recordnumber='+gridTotalRecordNumber);
+			for (i=0; i < parseInt(gridTotalRecordNumber); i++) {
+			//alert(dataGrid[i][4]);
+				subtotal+=isNaN(dataGrid[i][4]) ? 0 : parseFloat(dataGrid[i][4]);
+				descuento+=isNaN(dataGrid[i][6]) ? 0 : parseFloat(dataGrid[i][6]);
+				iva+=isNaN(dataGrid[i][7]) ? 0 : parseFloat(dataGrid[i][7]);
+				iva0+=isNaN(dataGrid[i][11]) ? 0 : parseFloat(dataGrid[i][11]);
+				total+=isNaN(dataGrid[i][8]) ? 0 : parseFloat(dataGrid[i][8]);
+			}
+		}
+  	document.PaginaDatos.subtotal_odc.value=transformarMiles(subtotal.toFixed(2));
+  	document.PaginaDatos.descuentoDolares_odc.value=transformarMiles(descuento.toFixed(2));
+  	document.PaginaDatos.iva_odc.value=transformarMiles(iva.toFixed(2));
+  	document.PaginaDatos.iva0_odc.value=transformarMiles(iva0.toFixed(2));
+  	document.PaginaDatos.total_odc.value=transformarMiles(total.toFixed(2));
+}
+
+function procesarDatosGrid() {
+	dataGrid[columna]=["","","","","","","","","","","","","","","","","","",""];
+  	dataGrid[columna][0]=serial_dodc;
+	if(document.PaginaDatos.tipoOrdenCompra_odc.value=='Procesada')
+  		dataGrid[columna][1]=document.PaginaDatos.serial_prd.options[document.PaginaDatos.serial_prd.selectedIndex].text;
+	else if(document.PaginaDatos.tipoOrdenCompra_odc.value=='Otra')
+  		dataGrid[columna][1]=document.PaginaDatos.otrosProductos_dodc.value;
+  	dataGrid[columna][2]=document.PaginaDatos.precio_dodc.value;
+  	dataGrid[columna][3]=document.PaginaDatos.cantidad_dodc.value;
+  	dataGrid[columna][4]=transformarMiles(document.PaginaDatos.subtotal_dodc.value);
+  	dataGrid[columna][5]=transformarMiles(document.PaginaDatos.descuentoDolares_dodc.value);
+  	dataGrid[columna][6]=document.PaginaDatos.descuento_pvd.value;
+  	dataGrid[columna][7]=transformarMiles(document.PaginaDatos.iva_dodc.value);
+  	dataGrid[columna][8]=transformarMiles(document.PaginaDatos.total_dodc.value);
+  	dataGrid[columna][9]=document.PaginaDatos.envioFichaTecnica_dodc.value;
+  	dataGrid[columna][10]=document.PaginaDatos.observaciones_dodc.value;
+        dataGrid[columna][11]=transformarMiles(document.PaginaDatos.iva0_dodc.value);
+        dataGrid[columna][12]=document.PaginaDatos.serial_tcm.options[document.PaginaDatos.serial_tcm.selectedIndex].text;
+  	dataGrid[columna][13]=document.PaginaDatos.serial_imp.options[document.PaginaDatos.serial_imp.selectedIndex].text;
+
+	document.PaginaDatos.serial_prd.value=0;
+	document.PaginaDatos.serial_tcm.value=noValue;
+	document.PaginaDatos.serial_imp.value=noValue;
+  	document.PaginaDatos.precio_dodc.value="0.00";
+  	document.PaginaDatos.cantidad_dodc.value="0";
+	document.PaginaDatos.subtotal_dodc.value="0.00";
+	document.PaginaDatos.descuentoDolares_dodc.value="0.00";
+	document.PaginaDatos.descuento_pvd.value="0.00";
+	document.PaginaDatos.iva_dodc.value="0.00";
+	document.PaginaDatos.iva0_dodc.value="0.00";
+	document.PaginaDatos.total_dodc.value="0.00";
+	document.PaginaDatos.envioFichaTecnica_dodc.value='N';
+  	document.PaginaDatos.observaciones_dodc.value="";
+  	document.PaginaDatos.otrosProductos_dodc.value="";
+  	//document.PaginaDatos.precio_dodc.value=1;
+
+  	procesarTotales();
+  	serial_dodc=0;
+  	gridObj.refresh();
+  	formularioGrabado=1;
+ }
+
+function omnisoftInsertMasterDetail(data)
+{
+  var num=data.split('|');
+  if (parseInt(num[1])==0)
+     alert(num[0]);
+  else {
+
+  document.PaginaDatos.serial_odc.value=num[1];
+//  document.PaginaDatos.serial_tic.disabled=true;
+
+  serial_dodc=num[2];
+  procesarDatosGrid();
+
+  }
+}
+
+function validarActualOC(data)
+{
+//alert(data);
+var id=data;
+}
+
+function omnisoftUpdateMasterDetail(data)
+{
+  var num=data.split('|');
+  if (parseInt(serial_dodc)==0 && parseInt(num[2])==0)
+     alert(num[0]);
+  else {
+   if (parseInt(serial_dodc)==0) {
+       columna= gridTotalRecordNumber+1;
+        gridTotalRecordNumber+=1;
+    }
+    else columna= parseInt(gridObj.getProperty("selection/index"));
+    serial_dodc=num[2];
+
+
+   procesarDatosGrid();
+  }
+}
+
+
+/*function procesarTipoComprobante() {
+var indice=document.PaginaDatos.serial_tic.selectedIndex;
+var arreglo=document.PaginaDatos.serial_tic.options[indice].text.split('=>');
+document.PaginaDatos.numero_com.value=arreglo[2];
+document.PaginaDatos.numeroDocumento_odc.value=arreglo[0]+'-'+arreglo[2];
+
+}*/
+
+function grabarDatos(SQLActionDetail) {
+
+	if (document.PaginaDatos.serial_odc.value!=0)
+	{
+		//document.PaginaDatos.observaciones_odc.value='';
+		var SQLActionMaster='';
+		SQLActionMaster='update ordendecompra set serial_forp=\''+document.PaginaDatos.serial_forp.value+'\',';
+	   	//SQLActionMaster+='numeroDocumento_odc=\''+document.PaginaDatos.numeroDocumento_odc.value+'\',';
+	   	//SQLActionMaster+='fecha_odc=\''+document.PaginaDatos.fecha_odc.value+'\',';
+	   	SQLActionMaster+='observaciones_odc=\''+document.PaginaDatos.observaciones_odc.value+'\',';
+	   	SQLActionMaster+='fechaEntrega_odc=\''+document.PaginaDatos.fechaEntrega_odc.value+'\',';
+	   	SQLActionMaster+='modificadoPor_odc='+serial_usr+',';
+	   	SQLActionMaster+='fechaModificacion_odc=SYSDATE(),';
+	   	SQLActionMaster+='total_odc='+volverNormalMiles(document.PaginaDatos.total_odc.value)+'';
+/*	   	SQLActionMaster+='aprobadoPor_odc='+serial_usr+',';
+	   	SQLActionMaster+='fechaAprobacion_odc=\''+document.PaginaDatos.fechaEntrega_odc.value+'\'';*/
+	   	SQLActionMaster+='  where serial_odc='+document.PaginaDatos.serial_odc.value;
+		//document.PaginaDatos.observaciones_odc.value=SQLActionMaster;
+		//alert(SQLActionMaster);
+	   	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftUpdateMasterDetail, 'omnisoftMultipleUpdate',Array(gridDSN,SQLActionMaster,SQLActionDetail,document.PaginaDatos.serial_odc.value));
+	}
+	else  {
+
+		cargarNumeroOC();
+	   	var SQLActionMaster="insert into ordendecompra (serial_pvd, serial_forp, numeroDocumento_odc, "
+		+ " tipoOrdenCompra_odc, fecha_odc, fechaEntrega_odc, observaciones_odc, estado_odc, "
+		+ " elaboradoPor_odc, modificadoPor_odc, fechaModificacion_odc, aprobadoPor_odc, "
+		+ " fechaAprobacion_odc,total_odc) values (";
+	   	SQLActionMaster+=document.PaginaDatos.serial_pvd.value+','+document.PaginaDatos.serial_forp.value;
+		SQLActionMaster+=',\''+ document.PaginaDatos.numDoc_odc.value+'\',';
+	   	SQLActionMaster+='\''+document.PaginaDatos.tipoOrdenCompra_odc.value+'\',';
+	   	SQLActionMaster+='SYSDATE(),';
+	   	SQLActionMaster+='\''+document.PaginaDatos.fechaEntrega_odc.value+'\',';
+	   	SQLActionMaster+='\''+document.PaginaDatos.observaciones_odc.value+'\',';
+	   	SQLActionMaster+='\'Aprobado\',';
+	   	SQLActionMaster+='\''+serial_usr+'\',';
+	   	SQLActionMaster+='\''+serial_usr+'\',';
+	   	SQLActionMaster+='SYSDATE(),';
+	   	SQLActionMaster+='\''+serial_usr+'\',';
+	   	SQLActionMaster+='SYSDATE(),';
+		SQLActionMaster+='\''+volverNormalMiles(document.PaginaDatos.total_odc.value)+'\')';
+
+		//alert(SQLActionMaster);
+
+	   	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftInsertMasterDetail,'omnisoftMultiple',Array(gridDSN,SQLActionMaster,SQLActionDetail));
+
+		var sql_master="update secuenciadocumentos set numero_sdo="+document.PaginaDatos.numDoc_odc.value+" where tipo_sdo='Orden-Compra' and serial_suc="+getCookie('serial_suc');
+		jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', validarActualOC, 'omnisoftExecuteUpdate',Array('', sql_master));
+
+		document.PaginaDatos.tipoOrdenCompra_odc.disabled=true;
+		document.PaginaDatos.serial_pvd.disabled=true;
+		document.PaginaDatos.fecha_odc.disabled=true;
+	}
+}
+
+
+function insertarDetalle() {
+ 	var SQLActionDetail='';
+	if(document.PaginaDatos.tipoOrdenCompra_odc.value=='Procesada')
+	{
+		if (document.PaginaDatos.serial_prd.value==-99 || document.PaginaDatos.serial_prd.value==noValue) {
+			alert('Por favor seleccione un producto!');
+			return;
+		}
+	}
+	else
+	{
+		if (document.PaginaDatos.otrosProductos_dodc.value=='') {
+			alert('Por favor ingrese un producto!');
+			return;
+		}
+	}
+
+	if (document.PaginaDatos.serial_tcm.value=='') {
+	   	alert('Por favor seleccione un tipo de compra!');
+	   	return;
+	}
+
+	if (document.PaginaDatos.serial_imp.value=='') {
+	   	alert('Por favor seleccione el impuesto!');
+	   	return;
+	}
+
+	if (parseInt(document.PaginaDatos.cantidad_dodc.value)==0) {
+	   	alert('La cantidad no puede ser ingresada con valor 0, por favor verifique!');
+	   	return;
+	}
+
+	//procesarTipoComprobante();
+
+	if (parseInt(serial_dodc)==0){
+	   	SQLActionDetail="insert into detalleordendecompra (serial_tcm, serial_odc, "
+		+ " serial_imp, serial_prd, otrosProductos_dodc, precio_dodc, cantidad_dodc, "
+		+ " subtotal_dodc, descuentoDolares_dodc, descuentoPorcentaje_dodc, iva_dodc, iva0_dodc, "
+		+ " total_dodc, envioFichaTecnica_dodc, observaciones_dodc, estado_dodc, cantidadRecibida_dodc) values (";
+	   	SQLActionDetail+='\''+document.PaginaDatos.serial_tcm.value+'\',';
+
+	   	if (document.PaginaDatos.serial_odc.value!=0)
+		  	SQLActionDetail+='\''+document.PaginaDatos.serial_odc.value+'\',';
+	   	else
+		  	SQLActionDetail+='\'_serial_master_\',';
+
+		SQLActionDetail+='\''+document.PaginaDatos.serial_imp.value+'\',';
+		//alert(document.PaginaDatos.tipoOrdenCompra_odc.value);
+		if(document.PaginaDatos.tipoOrdenCompra_odc.value=='Procesada')
+		{
+			SQLActionDetail+='\''+document.PaginaDatos.serial_prd.value+'\',';
+			SQLActionDetail+='NULL,';
+		}
+		else
+		{
+			SQLActionDetail+='NULL,';
+			SQLActionDetail+='\''+document.PaginaDatos.otrosProductos_dodc.value+'\',';
+		}
+		SQLActionDetail+='\''+document.PaginaDatos.precio_dodc.value+'\',';
+		SQLActionDetail+='\''+document.PaginaDatos.cantidad_dodc.value+'\',';
+		SQLActionDetail+='\''+volverNormalMiles(document.PaginaDatos.subtotal_dodc.value)+'\',';
+		SQLActionDetail+='\''+volverNormalMiles(document.PaginaDatos.descuentoDolares_dodc.value)+'\',';
+		SQLActionDetail+='\''+document.PaginaDatos.descuento_pvd.value+'\',';
+		SQLActionDetail+='\''+volverNormalMiles(document.PaginaDatos.iva_dodc.value)+'\',';
+		SQLActionDetail+='\''+volverNormalMiles(document.PaginaDatos.iva0_dodc.value)+'\',';
+		SQLActionDetail+='\''+volverNormalMiles(document.PaginaDatos.total_dodc.value)+'\',';
+		SQLActionDetail+='\''+document.PaginaDatos.envioFichaTecnica_dodc.value+'\',';
+		SQLActionDetail+='\''+document.PaginaDatos.observaciones_dodc.value+'\',\'Pendiente\',';
+		SQLActionDetail+='\''+document.PaginaDatos.cantidad_dodc.value+'\')';
+	}
+	else {
+	   	SQLActionDetail='update detalleordendecompra set ';
+	   	SQLActionDetail+='serial_imp=\''+document.PaginaDatos.serial_imp.value+'\',';
+	   	SQLActionDetail+='serial_odc=\''+document.PaginaDatos.serial_odc.value+'\',';
+	   	SQLActionDetail+='serial_tcm=\''+document.PaginaDatos.serial_tcm.value+'\',';
+	   	SQLActionDetail+='precio_dodc=\''+document.PaginaDatos.precio_dodc.value+'\',';
+	   	SQLActionDetail+='cantidad_dodc=\''+document.PaginaDatos.cantidad_dodc.value+'\',';
+	   	SQLActionDetail+='subtotal_dodc=\''+volverNormalMiles(document.PaginaDatos.subtotal_dodc.value)+'\',';
+	   	SQLActionDetail+='descuentoDolares_dodc=\''+volverNormalMiles(document.PaginaDatos.descuentoDolares_dodc.value)+'\',';
+	   	SQLActionDetail+='descuentoPorcentaje_dodc=\''+document.PaginaDatos.descuento_pvd.value+'\',';
+	   	SQLActionDetail+='iva_dodc=\''+volverNormalMiles(document.PaginaDatos.iva_dodc.value)+'\',';
+	   	SQLActionDetail+='iva0_dodc=\''+volverNormalMiles(document.PaginaDatos.iva0_dodc.value)+'\',';
+	   	SQLActionDetail+='total_dodc=\''+volverNormalMiles(document.PaginaDatos.total_dodc.value)+'\',';
+		SQLActionDetail+='envioFichaTecnica_dodc=\''+document.PaginaDatos.envioFichaTecnica_dodc.value+'\',';
+	   	SQLActionDetail+='observaciones_dodc=\''+document.PaginaDatos.observaciones_dodc.value+'\',';
+	   	SQLActionDetail+='cantidadRecibida_dodc=\''+document.PaginaDatos.cantidad_dodc.value+'\'';
+	   	SQLActionDetail+=' where serial_dodc=\''+serial_dodc+'\'';
+	}
+	//alert(SQLActionDetail);
+	grabarDatos(SQLActionDetail);
+}
+
+
+function cargaProductos(){
+	if(document.PaginaDatos.serial_pvd.value!=0 && document.PaginaDatos.serial_pvd.value!='noValue')
+	{
+		var SQLProd="select p.serial_prd, concat(p.codigo_prd,' ',p.nombre_prd) as nombre "
+				+ " from producto p, proveedor pr, proveedoresproducto pp"
+				+ " where pr.serial_pvd=pp.serial_pvd "
+				+ " and p.serial_prd=pp.serial_prd "
+				+ " and pp.serial_pvd="+document.PaginaDatos.serial_pvd.value;
+		omnisoftNormalComboBoxJS('serial_prd',SQLProd,'cargaDatosProductos','');
+
+		//forma de pago
+		var SQLForp="select p.serial_forp, nombre_forp "
+				+ " from formaspago f, proveedor p"
+				+ " where f.serial_forp=p.serial_forp "
+				+ " and p.serial_pvd="+document.PaginaDatos.serial_pvd.value;
+		jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftValidarforp, 'omnisoftExecuteQuery',Array(gridDSN,SQLForp,'0',page,'list'));
+
+		var SQLPvdDiasEntrega="select max(tiempoDeEntrega_prp) "
+				+ " from proveedor pr, proveedoresproducto pp "
+				+ " where pr.serial_pvd=pp.serial_pvd "
+				+ " and pp.serial_pvd="+document.PaginaDatos.serial_pvd.value+" group by pr.serial_pvd ";
+		jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftValidarDiasEntrega, 'omnisoftExecuteQuery',Array(gridDSN,SQLPvdDiasEntrega,'0',page,'list'));
+	}
+}
+
+function omnisoftValidarforp(data){
+//alert(data);
+	var prd=data.split('|');
+	var dat_prd=prd[1].split('~');
+	document.PaginaDatos.serial_forp.value=dat_prd[0];
+}
+
+function omnisoftValidarDiasEntrega(data){
+	//alert(data);
+	var diasEntrega=data.split('|');
+	var diasEnt=diasEntrega[1];
+	document.PaginaDatos.diasEntrega.value=diasEnt;
+	var diasMeses=new Array(31,28,31,30,31,30,31,31,30,31,30,31);
+	var fec1=document.PaginaDatos.fecha_odc.value.split(' ');
+	var fechaP=fec1[0].split("-");
+	var d=0, m=0, a=0;
+	d=Number(fechaP[2]);	m=Number(fechaP[1]); 	a=Number(fechaP[0]);
+	var resul="";
+		d=d-diasEnt;
+		if (d<1)
+		{
+			d=(diasMeses[m-2])+d;
+			m++;
+			if(m < 1)
+			{
+				m=12+m;
+				a--;
+			}
+			else
+			{
+				if(m > 12)
+				{
+					m=m-12;
+					a++;
+				}
+			}
+		}
+	resul=String(a) + "-" + m + "-" + d;
+	document.PaginaDatos.fechaEntrega_odc.value=resul;
+}
+
+function calculaFechaEntrega(){
+	if(document.PaginaDatos.serial_pvd.value!=0 && document.PaginaDatos.serial_pvd.value!='noValue')
+	{
+		if(document.PaginaDatos.diasEntrega.value!=0)
+		{
+			omnisoftValidarDiasEntrega('|'+document.PaginaDatos.diasEntrega.value+'|')
+		}
+	}
+}
+
+function cargaDatosProductos(){
+	if(document.PaginaDatos.serial_prd.value!=-99 && document.PaginaDatos.serial_prd.value!=noValue)
+	{
+		var SQL_Prod="select p.serial_tcm, p.iva_prd, valor_imp from impuestos i, producto p where i.serial_imp=p.iva_prd and p.serial_prd="+document.PaginaDatos.serial_prd.value;
+		jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftValidarPrd, 'omnisoftExecuteQuery',Array(gridDSN,SQL_Prod,'0',page,'list'));
+
+		var SQL_Pvd_Prod="select  precioAprobado_prp, descuentoProveedor_prp from proveedoresproducto where "
+						+"serial_pvd="+document.PaginaDatos.serial_pvd.value+" and serial_prd="+document.PaginaDatos.serial_prd.value;
+		jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftValidarPvdPrd, 'omnisoftExecuteQuery',Array(gridDSN,SQL_Pvd_Prod,'0',page,'list'));
+	}
+	else
+		alert('Antes de continuar por facor seleccione el proveedor.');
+}
+
+function omnisoftValidarPrd(data){
+	var prd=data.split('|');
+	var dat_prd=prd[1].split('~');
+	document.PaginaDatos.serial_tcm.value=dat_prd[0];
+	document.PaginaDatos.serial_imp.value=dat_prd[1];
+	if(dat_prd[2]==undefined)
+		document.PaginaDatos.valor_imp.value='0.00';
+	else
+		document.PaginaDatos.valor_imp.value=dat_prd[2];
+
+	document.PaginaDatos.serial_tcm.disabled=true;
+	document.PaginaDatos.serial_imp.disabled=true;
+}
+
+function omnisoftValidarPvdPrd(data){
+	var pvd_prd=data.split('|');
+	if(pvd_prd[1]!='')
+	{
+		var dat_pvd_prd=pvd_prd[1].split('~');
+		document.PaginaDatos.precio_dodc.value=dat_pvd_prd[0];
+		document.PaginaDatos.descuento_pvd.value=dat_pvd_prd[1];
+	}
+	else
+	{
+		document.PaginaDatos.precio_dodc.value=0.0;
+		document.PaginaDatos.descuento_pvd.value=0;
+	}
+}
+
+function calcularTotales(){
+
+	var subtotal=parseFloat(document.PaginaDatos.precio_dodc.value)*parseFloat(document.PaginaDatos.cantidad_dodc.value);
+	document.PaginaDatos.subtotal_dodc.value=transformarMiles(subtotal.toFixed(2));
+         //alert(document.PaginaDatos.subtotal_dodc.value);
+
+	var des=(subtotal*parseFloat(document.PaginaDatos.descuento_pvd.value))/100;
+	document.PaginaDatos.descuentoDolares_dodc.value=transformarMiles(des.toFixed(2));
+	var total=subtotal-des;
+	var iva=(total*parseFloat(document.PaginaDatos.valor_imp.value))/100;
+	if(document.PaginaDatos.valor_imp.value=='0.00')
+	{
+		var iva0=subtotal-des;
+		document.PaginaDatos.iva0_dodc.value=transformarMiles(iva0.toFixed(2));
+	}
+	document.PaginaDatos.iva_dodc.value=transformarMiles(iva.toFixed(2));
+	var tot=subtotal-des+iva;
+	document.PaginaDatos.total_dodc.value=transformarMiles(tot.toFixed(2));
+	var totalTot=0.0;
+	if (document.PaginaDatos.serial_odc.value!=0)
+	{
+		procesarTotales();
+		totalTot=parseFloat(document.PaginaDatos.total_odc.value)+parseFloat(tot);
+		totalTot=totalTot.toFixed(2);
+
+		document.PaginaDatos.total_odc.value=transformarMiles(String(totalTot));
+	}
+	else
+	{
+			procesarTotales();
+
+		//if(document.PaginaDatos.total_odc.value=='NaN')
+		document.PaginaDatos.total_odc.value=0.00;
+		totalTot=parseFloat(document.PaginaDatos.total_odc.value)+parseFloat(tot);
+		totalTot=totalTot.toFixed(2);
+		document.PaginaDatos.total_odc.value=transformarMiles(String(totalTot));
+
+	}
+	//alert('***'+document.PaginaDatos.total_odc.value);
+}
+
+function cargarImpuesto(){
+	var SQL_Imp="select serial_imp, valor_imp from impuestos where serial_imp="+document.PaginaDatos.serial_imp.value;
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftValidarImp, 'omnisoftExecuteQuery',Array(gridDSN,SQL_Imp,'0',page,'list'));
+}
+
+function omnisoftValidarImp(data){
+	var imp=data.split('|');
+	var dat_imp=imp[1].split('~');
+	if(dat_imp[1]==undefined)
+		document.PaginaDatos.valor_imp.value='0.00';
+	else
+		document.PaginaDatos.valor_imp.value=dat_imp[1];
+}
+
+function cargaDatosODC()
+{
+	var action = getURLParam('action');
+	//alert(action);
+	if(action=='edit')
+	{
+		var SQLDatosODC="SELECT numeroDocumento_odc, sum( subtotal_dodc ) , "
+		+" sum( descuentoDolares_dodc ) , sum( iva_dodc ) , sum( iva0_dodc ) , "
+		+" sum( total_dodc ), estado_odc, tipoOrdenCompra_odc, fecha_odc FROM ordendecompra odc, detalleordendecompra dodc "
+		+" WHERE odc.serial_odc = dodc.serial_odc "
+		+" and odc.serial_odc="+document.PaginaDatos.serial_odc.value+" GROUP BY odc.serial_odc";
+		
+		jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftValidarCargaDatosODC, 'omnisoftExecuteQuery',Array(gridDSN,SQLDatosODC,'0',page,'list'));
+
+		document.PaginaDatos.tipoOrdenCompra_odc.disabled=true;
+		document.PaginaDatos.serial_pvd.disabled=true;
+		document.PaginaDatos.fecha_odc.disabled=true;
+		document.PaginaDatos.fechaEntrega_odc.disabled=true;
+		document.PaginaDatos.serial_forp.disabled=true;
+
+		if(document.PaginaDatos.serial_pvd.value!=0 && document.PaginaDatos.serial_pvd.value!='')
+		{
+			var SQLProd="select p.serial_prd, concat(p.codigo_prd,' ',p.nombre_prd) as nombre "
+					+ " from producto p, proveedor pr, proveedoresproducto pp"
+					+ " where pr.serial_pvd=pp.serial_pvd "
+					+ " and p.serial_prd=pp.serial_prd "
+					+ " and pp.serial_pvd="+document.PaginaDatos.serial_pvd.value;
+			omnisoftNormalComboBoxJS('serial_prd',SQLProd,'cargaDatosProductos','');
+		}
+
+	}
+}
+
+function omnisoftValidarCargaDatosODC(data){
+	var ejecutar='';
+	var odc=data.split('|');
+	var dat_odc=odc[1].split('~');
+	document.PaginaDatos.numeroDocumento_odc.value=dat_odc[0];
+	document.PaginaDatos.subtotal_odc.value=transformarMiles(dat_odc[1]);
+	document.PaginaDatos.descuentoDolares_odc.value=transformarMiles(dat_odc[2]);
+	document.PaginaDatos.iva_odc.value=transformarMiles(dat_odc[3]);
+	document.PaginaDatos.iva0_odc.value=transformarMiles(dat_odc[4]);
+	document.PaginaDatos.total_odc.value=transformarMiles(dat_odc[5]);
+	document.PaginaDatos.estado_odc.value=dat_odc[6];
+	document.PaginaDatos.tipoOrdenCompra_odc.value=dat_odc[7];
+	document.PaginaDatos.fecha_odc.value=dat_odc[8];
+	if(document.PaginaDatos.estado_odc.value!='Pendiente')
+	{
+		document.PaginaDatos.otrosProductos_dodc.disabled=true;
+		document.PaginaDatos.serial_prd.disabled=true;
+		document.PaginaDatos.serial_tcm.disabled=true;
+		document.PaginaDatos.serial_imp.disabled=true;
+		document.PaginaDatos.precio_dodc.disabled=true;
+		document.PaginaDatos.cantidad_dodc.disabled=true;
+		document.PaginaDatos.observaciones_dodc.disabled=true;
+		document.PaginaDatos.envioFichaTecnica_dodc.disabled=true;
+	}
+	else
+		tipoOrden();
+	if(document.PaginaDatos.tipoOrdenCompra_odc.value=='Otra')
+	{
+		var sqlDet=" select  serial_dodc, otrosProductos_dodc as nombre_prd, "
+				+ "  precio_dodc, cantidad_dodc, subtotal_dodc, "
+				+ " descuentoDolares_dodc, descuentoPorcentaje_dodc,  iva_dodc, "
+				+ " total_dodc, envioFichaTecnica_dodc, observaciones_dodc, iva0_dodc,nombre_tcm, nombre_imp  from  tipocompra tc, "
+				+ " impuestos i, ordendecompra odc,  detalleordendecompra doc  where "
+				+ " tc.serial_tcm=doc.serial_tcm and i.serial_imp=doc.serial_imp and "
+				+ " doc.serial_odc=odc.serial_odc and doc.serial_odc="+document.PaginaDatos.serial_odc.value
+				+ " and doc.serial_prd is NULL";
+		ejecutar="makeFilter('"+sqlDet+"')";
+		//prompt('sqlDet',sqlDet);
+		setTimeout(ejecutar,500);
+	}
+	else if(document.PaginaDatos.tipoOrdenCompra_odc.value=='Procesada')
+		{
+			ejecutar="makeFilter('"+sql+"')";
+		//	prompt('sql',sql);
+			setTimeout(ejecutar,500);
+		}
+}
+
+function transformarMiles(nStr)
+{
+	nStr += '';
+	x = nStr.split('.');
+	x1 = x[0];
+	x2 = x.length > 1 ? '.' + x[1] : '';
+	var rgx = /(\d+)(\d{3})/;
+	while (rgx.test(x1)) {
+		x1 = x1.replace(rgx, '$1' + ',' + '$2');
+	}
+	return x1 + x2;
+}
+
+
+
+
+
+
+/*
+
+function transformarMiles(variable){
+//alert(variable);
+	var totmiles='';
+	var tot=variable.split('.');
+	var leng=tot[0].length;
+	var mod=leng%3;
+	var partes=0;
+	//alert(mod+'--'+variable);
+	if(mod==0)
+		partes=leng/3;
+	else
+	{
+		partes=leng/3;
+		partes=parseInt(partes);
+	}
+	if(tot[0].length>3)
+	{
+		totmiles=tot[0].substring(0,mod);
+		var ini=mod;
+		for(var i=0; i<partes; i++)
+		{
+			if(totmiles!='')
+				totmiles=totmiles+','+tot[0].substring(ini,ini+3);
+			else
+				totmiles=tot[0].substring(ini,ini+3);
+			ini=ini+3
+		}
+		totmiles=totmiles+'.'+tot[1];
+	}
+	else
+		totmiles=variable;
+	return totmiles;
+}
+*/
+
+
+
+
+function volverNormalMiles(variable){
+	var tot=variable.split(',');
+	if(tot[1]!=undefined)
+	{
+		totmiles=tot[0];
+		for (var i=1; i<tot.length; i++)
+		{
+			totmiles=totmiles+tot[i];
+		}
+	}
+	else
+		totmiles=tot[0];
+	return totmiles;
+}
+
+function verificarFechaMenor(){ //para fechas en formato %d-%m-%yy de tipo string
+	var fec1=document.PaginaDatos.fecha_odc.value.split(' ');
+	var fecha1;
+	var fecha2;
+	var cambio1=fec1[0].split('-');
+	var cambio2=document.PaginaDatos.fechaEntrega_odc.value.split('-');
+	fecha1=cambio1[2]+'-'+cambio1[1]+'-'+cambio1[0];
+	fecha2=cambio2[2]+'-'+cambio2[1]+'-'+cambio2[0];
+	var arrFecha=fecha1.split('-');
+	var d, m;
+	var _fecha1='';
+	var _fecha2='';
+	d=Number(arrFecha[0]);
+	m=Number(arrFecha[1]);
+	if (d<10) d='0' + d;
+	if (m<10) m='0' + m;
+	_fecha1=arrFecha[2] + '-' + m + '-' + d;
+	arrFecha=fecha2.split('-');
+	d=Number(arrFecha[0]);
+	m=Number(arrFecha[1]);
+	if (d<10) d='0' + d;
+	if (m<10) m='0' + m;
+	_fecha2=arrFecha[2] + '-' + m + '-' + d;
+	if (_fecha1 >= _fecha2)
+	{
+		document.PaginaDatos.fechaEntrega_odc.value=_fecha1;
+		//alert('La fecha de entrega debe ser mayor o igual a la fecha de creación, por favor verifique.');
+	}
+}
+</script>
+
+
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script></HEAD>
+<BODY onLoad="initDisableRight();" onkeydown="keyHandler(event.keyCode);" BGCOLOR=#FFFFFF LEFTMARGIN=0 TO PMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="cargarNumeroOC();cargaDatosODC(); MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+<style>
+        .titulos {color: #FFFFFF; font-size: 16px;font-family: Arial, Helvetica, sans-serif;}
+ </style>
+
+ <script src="../lib/omnisoftGridDetalle.js"></script>
+ <script src="../lib/omnisoftAcciones.js"></script>
+
+
+
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cía. Ltda. www.omnisoft.cc y Baldoré Cía. Ltda. www.baldore.com';</script>
+
+<form  name="PaginaDatos" onKeyUp="highlight(event)" onClick="highlight(event)" method="POST">
+<input name="action" type="hidden" id="action">
+<input name="serial_odc" type="hidden" id="serial_odc" class="hidden" value="0">
+<input name="diasEntrega" type="hidden" id="diasEntrega" class="hidden" value="0">
+<input name="elaboradoPor_odc" type="hidden" id="elaboradoPor_odc" class="hidden" value="0">
+<input name="modificadoPor_odc" type="hidden" id="modificadoPor_odc" class="hidden" value="0">
+<input name="aprobadoPor_odc" type="hidden" id="aprobadoPor_odc" class="hidden" value="0">
+<input name="valor_imp" type="hidden" id="valor_imp" class="hidden" value="0">
+<input name="subtotal_dodc" type="hidden" id="subtotal_dodc" value="0.00" size="8" maxlength="10" onKeyPress="entsub()" readonly>
+<input name="descuentoDolares_dodc" type="hidden" id="descuentoDolares_dodc" value="0.00" size="8" maxlength="10" onKeyPress="entsub()" readonly>
+<input name="descuento_pvd" type="hidden" id="descuento_pvd" class="hidden" value="0" size="1" maxlength="10" onKeyPress="entsub()" readonly>
+<input name="iva_dodc" type="hidden" id="iva_dodc" value="0.00" size="8" maxlength="10" onKeyPress="entsub()" readonly>
+<input name="iva0_dodc" type="hidden" id="iva0_dodc" value="0.00" size="8" maxlength="10" onKeyPress="entsub()" readonly>
+<input name="total_dodc" type="hidden" id="total_dodc" value="0.00" size="8" maxlength="10" onKeyPress="entsub()" readonly>
+
+<table width="950" border="0" cellspacing="0" cellpadding="0" background="../images/bg_blue_v.jpg">
+<tr>
+	<td height="37" colspan="11" background="../images/logo_ingenium.gif"><div align="right"><span class="style1">GESTION FINANCIERA::Factura Activos Fijos </span></div></td>
+</tr>
+<tr>
+	<td height="30" colspan="11">
+	<table width="100%" height="104" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+	  <td height="25" colspan="4" background="../images/bg_blue_v_1.jpg" class="style1 style4 style5"><div align="center">Factura Activos Fijos </div></td>
+	  </tr>
+	<tr>
+	  <td width="143" background="images/titulos.jpg" class="style1 style4 style5">&nbsp;</td>
+	  <td colspan="2" background="images/titulos.jpg">&nbsp;</td>
+	  <td width="425" background="images/titulos.jpg"><span class="style1 style4 style5">Numero:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	      <label></label>
+	    <input name="numeroDocumento_odc" type="text" id="numeroDocumento_odc" size="10" maxlength="10" class="number" style="background-color:#FFFF00" readonly>
+	    <input name="estado_odc" type="hidden" id="estado_odc" value="Pendiente" size="5" maxlength="5" class="string" readonly="yes" style="background-color:#FFFF00">
+		<input name="numDoc_odc" type="hidden" id="numDoc_odc" size="5" maxlength="5" class="string" readonly="yes" style="background-color:#FFFF00">
+	  </span></td>
+	  </tr>
+	<tr>
+		<td background="images/titulos.jpg" class="style1 style4 style5">Fecha:</td>
+		<td colspan="2" background="images/titulos.jpg"><input name="fecha_odc" type="text" id="fecha_odc" class="date" size="20" maxlength="20"  onBlur="esconderToolTip(); formularioGrabado=0;" onChange="verificarFechaMenor();calculaFechaEntrega();"></td>
+		<td background="images/titulos.jpg" class="style1 style4 style5">Fecha Entrega:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  <input name="fechaEntrega_odc" type="text" id="fechaEntrega_odc" class="date" size="10" maxlength="10"  onBlur="esconderToolTip(); formularioGrabado=0;" onChange="verificarFechaMenor();"></td>
+	</tr>
+	<tr>
+		<td background="images/titulos.jpg" class="style1 style4 style5">Proveedor:</td>
+		<td colspan="2" background="images/titulos.jpg" >
+		<script>
+			omnisoftComboBoxJSShow('350px','serial_pvd');
+            omnisoftNormalComboBoxJS('serial_pvd','select serial_pvd,concat(codigo_pvd, \'=>\',razonSocial_pvd) as nombre from proveedor  where categoria_pvd=\'Servicios\'','cargaProductos',getURLParam('serial_pvd'));
+		</script>		</td>
+		<td background="images/titulos.jpg" class="style1 style4 style5">Plazo:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		  <script>
+			omnisoftComboBoxJSShow('275px','serial_forp');
+            omnisoftNormalComboBoxJS('serial_forp','select serial_forp, nombre_forp from formaspago ','',getURLParam('serial_forp'));
+		</script>		</td>
+	</tr>
+	<tr>
+	  <td background="images/titulos.jpg" class="style1 style4 style5">Autorizacion SRI:</td>
+	  <td width="97" background="images/titulos.jpg"><span class="style1 style4 style5">
+	    <input name="numeroDocumento_odc2" type="text" id="autorizacionSRI_odc" size="10" maxlength="10" class="number"  >
+	  </span></td>
+	  <td width="285" background="images/titulos.jpg"><label><span class="style1 style4 style5">Fecha AutorizacionSRI:
+	    <input name="fechaAutorizacion_odc" type="text" id="fechaAutorizacion_odc" size="10" maxlength="10" class="date"  >
+	  </span></label></td>
+	  <td background="images/titulos.jpg"><span class="style1 style4 style5">Fecha Caducidad::
+          <input name="fechaCaducidad_odc" type="text" id="fechaCaducidad_odc" size="10" maxlength="10" class="date"  >
+	  </span></td>
+	</tr>
+	<tr>
+	  <td background="images/titulos.jpg" class="style1 style4 style5">RUC:</td>
+	  <td background="images/titulos.jpg" colspan="2"><span class="style1 style4 style5">
+	    <input name="ruc_odc" type="text" id="ruc_odc" size="13" maxlength="13" class="number"  >
+	  </span></td>
+	  <td background="images/titulos.jpg"><span class="style1 style4 style5">Distribuci&oacute;n:</span>
+        <select name="distribucion">
+          <option value="Manual">Manual</option>
+          <option value="Automatica">Automatica</option>
+        </select></td>
+	</tr>
+	<tr>
+		<td background="images/titulos.jpg" class="style1 style4 style5">Observaciones:</td>
+		<td background="images/titulos.jpg" colspan="3">
+		<input name="observaciones_odc" type="text" id="observaciones_odc" class="string" size="110" maxlength="200"  onBlur="esconderToolTip(); formularioGrabado=0;">		</td>
+	</tr>
+	</table>	</td>
+</tr>
+
+<tr >
+	<td height="30" colspan="11" align="center" bgcolor="#FF6600">
+
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" background="../images/bg_blue_v.jpg">
+	<tr>
+	  <td height="26" colspan="9" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">DETALLE DE FACTURA</span></div></td>
+	  </tr>
+	<tr>
+	  <td width="249"><div align="center"><span class="style1 style4 style5">Activo Fijo</span></div></td>
+	  <td width="139"><div align="center"><span class="style1 style4 style5">Tipo Compra.</span></div></td>
+	  <td width="170"><div align="center"><span class="style1 style4 style5">Impuesto</span></div></td>
+	  <td width="119"><div align="center"><span class="style1 style4 style5">Precio</span></div></td>
+	  <td width="57"><div align="center"><span class="style1 style4 style5">Cantidad</span></div></td>
+	  <td width="110"><div align="center"><span class="style1 style4 style5">Observaciones</span></div></td>
+	  <td width="55"><div align="center"><span class="style1 style4 style5">Ficha Tec.</span></div></td>
+	</tr>
+	<tr>
+	  <td valign="top" align="center">
+	  <div align="center"> <script>
+			omnisoftComboBoxJSShow('200px','serial_prd');
+		</script>
+		<input name="otrosProductos_dodc" type="text" id="otrosProductos_dodc" size="28" maxlength="250">
+		</div>	  </td>
+	  <td><script>
+			omnisoftComboBoxJSShow('150px','serial_tcm');
+			omnisoftNormalComboBoxJS('serial_tcm','select serial_tcm, concat(codigo_plc,\' \',nombre_plc) as cuenta  from tipocompra,plancontable where plancontable.serial_plc=tipocompra.serial_plc','','1'); //getURLParam('serial_prd'));
+		</script></td>
+	  <td><script>
+			omnisoftComboBoxJSShow('200px','serial_imp');
+			omnisoftNormalComboBoxJS('serial_imp','select serial_imp,nombre_imp from impuestos','cargarImpuesto','1'); //getURLParam('serial_prd'));
+		</script></td>
+	  <td align="center"><input name="precio_dodc" type="text" id="precio_dodc" value="0.00" size="8" maxlength="10"></td>
+	  <td align="center"><input name="cantidad_dodc" type="text" id="cantidad_dodc" value="0" size="8" maxlength="9" onKeyPress="entsub()" onChange="calcularTotales()"></td>
+	  <td align="center"><input name="observaciones_dodc" type="text" id="observaciones_dodc" size="15" maxlength="250"></td>
+	  <td align="center">&nbsp;<input type="checkbox" name="envioFichaTecnica_dodc" value="N" onClick="validarCheck();"></td>
+	  <td width="51"><a href="#" onClick="validarDetalle();"><img src="../images/bot_insertar.gif" width="51" height="27" border="0"></a></td>
+	</tr>
+	<tr>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	</tr>
+	</table>	</td>
+</tr>
+                  <tr>
+                    <td height="260" colspan="12" bgcolor="#FFFFFF">
+                                       <script>
+   	omnisoftLoadData(document.PaginaDatos);
+	OmnisoftPerfilUsuarioFormulario();
+
+/*   if (document.PaginaDatos.autorizado_com.value=='')
+       document.PaginaDatos.autorizado_com.value='NO';*/
+
+    var sql=" select "
+				+ " serial_dodc, "
+				+ " case when doc.serial_prd is not NULL then (select nombre_prd from producto "
+				+ " where serial_prd=doc.serial_prd) when doc.serial_prd is NULL then "
+				+ " (select otrosProductos_dodc from detalleordendecompra where "
+				+ " serial_odc=odc.serial_odc and serial_prd is NULL) end as nombre_prd,"
+				+ "   precio_dodc, "
+				+ " cantidad_dodc, subtotal_dodc, descuentoDolares_dodc, descuentoPorcentaje_dodc, "
+				+ " iva_dodc, total_dodc, envioFichaTecnica_dodc, observaciones_dodc,iva0_dodc, nombre_tcm,nombre_imp "
+		  + " from "
+		  		+ " tipocompra tc, impuestos i, ordendecompra odc, "
+				+ " detalleordendecompra doc "
+		  + " where "
+		  		+ " tc.serial_tcm=doc.serial_tcm and "
+				+ "	i.serial_imp=doc.serial_imp and "
+				//+ "	p.serial_prd=doc.serial_prd and "
+				+ " doc.serial_odc=odc.serial_odc and"
+				+ "	doc.serial_odc="+document.PaginaDatos.serial_odc.value;
+				//prompt('test',sql);
+
+			OmnisoftGrid('maingrid','ordenCompraFormulario.html','ordenCompraFormulario.html','mysql://root:mysql@localhost/erpbaldore?persist','detalleordendecompra','serial_dodc',sql);
+
+			OmnisoftAddColumn('maingrid','Serial','serial_dodc', 10,'readonly','','','middle','');
+			OmnisoftAddColumn('maingrid','Producto','nombre_prd', 200,'readonly','','','middle','');
+			OmnisoftAddColumn('maingrid','Precio','precio_dodc', 90,'readonly','','','middle','');
+			OmnisoftAddColumn('maingrid','Cantidad','cantidad_dodc', 80,'readonly','','','middle','');
+			OmnisoftAddColumn('maingrid','Subtotal','subtotal_dodc', 100,'readonly','','','middle','');
+			OmnisoftAddColumn('maingrid','Desc %','descuentoPorcentaje_dodc', 70,'readonly','','','middle','');
+			OmnisoftAddColumn('maingrid','Desc $','decuentoDolares_dodc', 80,'readonly','','','middle','');
+			OmnisoftAddColumn('maingrid','IVA','iva_dodc', 100,'readonly','','','middle','');
+			OmnisoftAddColumn('maingrid','Total $','total_dodc', 100,'readonly','','','middle','');
+			OmnisoftAddColumn('maingrid','FT','envioFichaTecnica_dodc', 60,'readonly','','','middle','');
+			OmnisoftAddColumn('maingrid','Observaciones','observacion_dodc', 250,'readonly','','','middle','');
+			OmnisoftAddColumn('maingrid','IVA 0% $','iva0_dodc', 100,'hidden','','','middle','');
+			OmnisoftAddColumn('maingrid','Tip. Compra','nombre_tcm', 120,'hidden','','','middle','');
+			OmnisoftAddColumn('maingrid','Impuesto','nombre_imp', 120,'hidden','','','middle','');
+
+			OmnisoftShowGrid(30,260,990,'menu','#CCF2FF');
+		 </script>		 </td>
+		</tr>
+	              <tr>
+	                <td>&nbsp;</td>
+	                <td width="72"><div align="right">
+                    <div align="right"><span class="style1 style4 style5">Subtotal:</span></div></td>
+	                <td width="98"><input name="subtotal_odc" type="text" id="subtotal_odc" value="0.00" size="16" maxlength="16" onKeyPress="entsub()" readonly class="number"></td>
+	                <td width="133"><div align="right"><span class="style1 style4 style5">Descuento:</span></div></td>
+	                <td width="98"><input name="descuentoDolares_odc" type="text" id="descuentoDolares_odc" value="0.00" size="16" maxlength="16" onKeyPress="entsub()" readonly class="number"></td>
+	                <td width="72"><div align="right">
+                    <div align="right"><span class="style1 style4 style5">IVA 12%: </span></div></td>
+	                <td width="98"><input name="iva_odc" type="text" id="iva_odc" value="0.00" size="16" maxlength="16" onKeyPress="entsub()" readonly class="number"></td>
+	                <td width="161"><div align="right">
+                    <div align="right"><span class="style1 style4 style5">IVA 0%:</span></div></td>
+                    <td width="101"><input name="iva0_odc" type="text" id="iva0_odc" value="0.00" size="16" maxlength="16" onKeyPress="entsub()" readonly class="number"></td>
+                    <td width="47" >&nbsp;</td>
+    </tr>
+
+	  <tr>
+		<td><div align="right"><span class="style1 style4 style5">&nbsp;&nbsp;&nbsp;&nbsp;</span></div></td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td><div align="right"><span class="style1 style4 style5">Total:</span></div></td>
+	    <td><input name="total_odc" type="text" id="total_odc" value="0.00" size="16" maxlength="16" onKeyPress="entsub()" readonly class="number"></td>
+	    <td>&nbsp;</td>
+	  </tr>
+
+	<!--<tr>
+	  <td>&nbsp;</td>
+	  <td>&nbsp;</td>
+	  <td><div align="right"><span class="style1 style4 style5">Total:&nbsp;&nbsp;&nbsp;&nbsp;</span></div></td>
+	  <td colspan="3" ><div align="left"><span class="style1 style4 style5">
+		  <input name="totalPrecio" type="text"  id="totalPrecio" size="18" maxlength="18" align="right" readonly="yes">
+		  <input name="totalCantidad" type="text"  id="totalCantidad" size="18" maxlength="18"  align="right" readonly="yes">
+		</span></div></td>
+</tr>-->
+<tr>
+  <td width="70" rowspan="2" background="images/titulos.jpg"><div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="grabar();" ><img src="../images/aceptar.gif" width="52" height="49" border="0"></a></div></td>
+  <td height="22" colspan="3" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">Elaborado Por:</span></div></td>
+  <td colspan="3" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">Modificado Por:</span></div></td>
+  <td colspan="2" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">Aprobado Por:</span></div></td>
+  <td rowspan="2" background="images/titulos.jpg"><div align="center" id="divCancelar" style="visibility:visible"><a href="#" onClick="cancelar();"><img src="../images/cancelar.gif" width="52" height="49" border="0"></a></div></td>
+</tr>
+<tr>
+  <td colspan="3" background="images/titulos.jpg"><div align="center">
+    <input name="elaboradoPor_odc" type="text" id="elaboradoPor_odc" readonly="yes">
+  </div>    <div align="center"></div></td>
+  <td colspan="3" background="images/titulos.jpg"><div align="center">
+    <input name="nmodificadoPor_odc" type="text" id="nmodificadoPor_odc" readonly="yes">
+  </div></td>
+  <td colspan="2" background="images/titulos.jpg"><div align="center">
+    <input name="naprobadoPor_odc" type="text" id="naprobadoPor_odc" readonly="yes">
+  </div></td>
+  </tr>
+</table>
+</form>
+
+<script>
+
+  	var fhoy=new Date();
+  	var mes =fhoy.getUTCMonth()+1;
+	var hora=fhoy.getHours();
+	document.PaginaDatos.fecha_odc.value=fhoy.getYear()+'-'+mes+'-'+  fhoy.getUTCDate()+' '+hora+':'+fhoy.getUTCMinutes()+':'+fhoy.getUTCSeconds();;
+  /*if (document.PaginaDatos.fecha_odc.value=='')
+  document.PaginaDatos.fecha_odc.value=fhoy.getYear()+'-'+mes+'-'+  fhoy.getUTCDate()+' '+fhoy.getUTCHours()+':'+fhoy.getUTCMinutes()+':'+fhoy.getUTCSeconds();;
+
+		Calendar.setup({
+		inputField     :    "fecha_odc",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });*/
+
+  if (document.PaginaDatos.fechaEntrega_odc.value=='')
+  document.PaginaDatos.fechaEntrega_odc.value=fhoy.getYear()+'-'+mes+'-'+fhoy.getUTCDate();
+
+		Calendar.setup({
+		inputField     :    "fechaEntrega_odc",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+
+     MaskInput(document.PaginaDatos.precio_dodc, "9^.99");
+     MaskInput(document.PaginaDatos.cantidad_dodc, "9^.99");
+     //procesarTipoComprobante();
+
+           // document.PaginaDatos.concepto_com.focus();
+
+function omnisoftLoadDetail(data){
+	if (data!=undefined) {
+		//alert(data);
+
+		serial_dodc=parseInt(data[0]);
+
+		document.PaginaDatos.serial_prd.value=parseInt(data[1]);
+		document.PaginaDatos.serial_tcm.value=parseInt(data[2]);
+		document.PaginaDatos.serial_imp.value=parseInt(data[3]);
+		document.PaginaDatos.precio_dodc.value=parseInt(data[4]);
+		document.PaginaDatos.cantidad_dodc.value=data[5];
+		document.PaginaDatos.observaciones_dodc.value=data[6];
+	}
+}
+
+if(document.PaginaDatos.tipoOrdenCompra_odc.value=='Procesada')
+{
+	//alert(document.PaginaDatos.tipoOrdenCompra_odc.value);
+	tipoOrden();
+}
+
+	if(document.PaginaDatos.serial_pvd.value!=-99 && document.PaginaDatos.serial_pvd.value!=noValue && document.PaginaDatos.serial_pvd.value!='')	{
+		var SQLProd=" select p.serial_prd, concat(p.codigo_prd,' ',p.nombre_prd) as nombre "
+				+ " from producto p, proveedor pr, proveedoresproducto pp"
+				+ " where pr.serial_pvd=pp.serial_pvd "
+				+ " and p.serial_prd=pp.serial_prd and p.estado_prd='Activo' "
+				+ " and p.combo_prd='No' ";
+				+ " and pp.serial_pvd="+document.PaginaDatos.serial_pvd.value;
+		omnisoftNormalComboBoxJS('serial_prd',SQLProd,'cargaDatosProductos','');
+	}
+
+	/*var SQL_Producto="select serial_tcm, serial_imp from producto where serial_prd=1";
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftValidarPrd, 'omnisoftExecuteQuery',Array(gridDSN,SQL_Producto,'0',page,'list'));	*/
+
+	procesarTotales();
+	document.PaginaDatos.tipoOrdenCompra_odc.value='Otra';
+     		document.PaginaDatos.serial_prd.style.visibility = "hidden";
+		document.PaginaDatos.otrosProductos_dodc.style.visibility = "visible";
+		document.PaginaDatos.precio_dodc.disabled = false;
+		document.PaginaDatos.serial_tcm.disabled=false;
+		document.PaginaDatos.serial_imp.disabled=false;
+		document.PaginaDatos.fechaAutorizacion_odc.value='2007-09-13';
+		document.PaginaDatos.fechaCaducidad_odc.value='2007-09-13';
+
+
+
+</script>
+</body>
+</HTML>

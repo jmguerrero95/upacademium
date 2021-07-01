@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+   omnisoftLoadData(document.PaginaDatos,'iframe');
+
+      var serial_alu=document.PaginaDatos.serial_alu.value;
+
+    var sql='SELECT serial_ina, descripcion_ina, tipotitulo_ina, univ.nombre_univ, fechainicio_ina, fechafin_ina, pai.nombre_pai, ciu.nombre_ciu, univ.serial_univ, pai.serial_pai, ciu.serial_ciu FROM  pais as pai, informacionacademica as i left join ciudad AS ciu on ciu.serial_ciu = i.serial_ciu left join universidades univ on univ.serial_univ = i.serial_univ WHERE pai.serial_pai = i.serial_pai and i.serial_alu = masterkey';
+//alert('serial_alu'+serial_alu);
+     omniObj=new omnisoftGridDetail('omniObj','serial_alu',serial_alu,'informacionacademica','serial_ina',sql,document.PaginaDatos,Array(true,true,true),'alumnoformacionFormulario.html',801,205);
+
+     omniObj.addColumn('Serial','serial_ina', 1,'hidden','','middle','');
+     omniObj.addColumn('Nombre Carrera/Curso','descripcion_ina', 20,'string','','middle','');
+	 omniObj.addColumn('Tipo Titulo','tipoTitulo_ina', 16,'string','','middle','');
+     omniObj.addColumn('Institución','nombre_univ', 25,'string','','middle','');
+     omniObj.addColumn('Fecha Inicio','fechaInicio_ina', 10,'date','','middle','');
+     omniObj.addColumn('Fecha Fin','fechaFin_ina', 10,'date','','middle','');
+	 omniObj.addColumn('Pais','nombre_pai', 10,'string','','middle','');
+     omniObj.addColumn('Ciudad','nombre_ciu', 10,'string','','middle','');
+	 omniObj.addColumn('serial universidad','serial_univ', 1,'hidden','','middle','');
+	 omniObj.addColumn('serial pais','serial_pai', 1,'hidden','','middle','');
+	 omniObj.addColumn('serial ciudad','serial_ciu', 1,'hidden','','middle','');
+
+     omniObj.showGrid('omniObj',20,389,1020,'menu','#FF9900');
+
+
+
+
+
+
+ </script> </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

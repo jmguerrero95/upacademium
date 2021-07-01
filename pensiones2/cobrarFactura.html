@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/jscalendar/calendar.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/lang/calendar-es.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/calendar-setup.js" ></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_cre" type="hidden" id="serial_cre" class="hidden">
+<input name="serial_caf" type="hidden" id="serial_caf" class="hidden">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+  <table width="1015" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="216" height="52"  class="ingeniumtoptitle"></td>
+      <td width="671"  class="maintoptitle fonttitle"><center>
+          VENTAS<br>
+          FACTURA
+      </center></td>
+      <td width="114"  class="logotoptitle"></td>
+    </tr>
+</table>
+
+  <table width="1018" height="31" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+    
+    <tr>
+      <td width="119" height="29"  class="inputtitle">Alumno:</td>
+      <td colspan="3" class="inputtitle"><input name="alumno" type="text" id="alumno" size="70" maxlength="100" class="text"  readonly >
+      <td width="119" class="inputtitle">Numero Factura :</td>
+      <td width="100" class="inputtitle"><input name="numero_caf" type="text" id="numero_caf" class="text" size="17" maxlength="15"  onBlur="esconderToolTip()" readonly></td>
+      <td width="101" class="inputtitle">Total Factura:</td>
+      <td width="147" class="inputtitle"><input name="total_caf" type="text" id="total_caf" class="text" size="17" maxlength="15"  onBlur="esconderToolTip()" readonly></td>
+      <td width="14" class="inputtitle"></td>
+    </tr>
+  </table>
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+			
+			
+			
+//   omnisoftLoadData(document.PaginaDatos);
+      document.PaginaDatos.serial_caf.value=opener.document.PaginaDatos.serial_caf.value;
+      document.PaginaDatos.numero_caf.value=opener.document.PaginaDatos.numero_caf.value;
+     document.PaginaDatos.alumno.value=opener.document.PaginaDatos.apellidopaterno_alu.value+' '+opener.document.PaginaDatos.nombre1_alu.value;
+	 document. PaginaDatos.serial_alu.value=opener.document.PaginaDatos.serial_alu.value
+
+      var serial_caf=document.PaginaDatos.serial_caf.value;
+	  //alert(serial_caf);
+	  var sql='SELECT serial_cre,  fecha_cre,  numero_cre,  descripcion_cre,valor_cre,estado_cre,serial_caf FROM cabecerarecibo where  serial_caf=masterkey';
+
+      omniObj=new omnisoftGridDetail('omniObj','serial_caf',serial_caf,'cabecerarecibo','serial_cre',sql,document.PaginaDatos,Array(true,true,true),'cobrarFacturaFormulario.html',1020,560);
+
+     omniObj.addColumn('Serial','serial_cre', 10,'hidden','','middle','');
+     omniObj.addColumn('Fecha','fecha_cre', 10,'string','','middle','');
+     omniObj.addColumn('Numero','numero_cre', 10,'integer','','middle','');
+     omniObj.addColumn('Descripcion','descripcion_cre', 20,'string','','middle','');
+     omniObj.addColumn('Valor','valor_cre', 10,'double','sum','middle','');
+     omniObj.addColumn('Estado','estado_cre', 10,'string','','middle','');
+     omniObj.showGrid('omniObj',12,315,1020,'menu','#FF9900');
+
+ </script> </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<table width="1018" border="0" cellpadding="0" cellspacing="0"  >
+<tr>
+            <td width="147" height="58" class="menuborder">&nbsp;</td>
+      <td width="158" class="menuborder"><!--<span style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></span>--></td>
+            <td width="172" class="menuborder">&nbsp;</td>
+            <td width="146" class="menuborder"><!--<a href="#" onClick=""><img src="../images/impresora.png" width="48" height="48" border="0" align="middle">Imprimir</a>--></td>
+            <td width="176" class="menuborder"><a href="#" onClick="imprimirActivoFijo()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="219" class="menuborder"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></td>
+    </tr>
+  </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+document.PaginaDatos.total_caf.value=getURLParamGET('total_caf');
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

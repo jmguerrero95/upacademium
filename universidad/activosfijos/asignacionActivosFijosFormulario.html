@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script>
+
+function imprimirActaCustodia(objForm) {
+
+            var attributes='';
+            var sURL='../lib/export/omnisoftActaCustodioPDFApp.php?dummy=5&fields=';
+            var sWidth=1000;
+            var sHeight=750;
+            var sFields='';
+            var fields;
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+               for (var i=0; i < objForm.length; i++)
+                if (objForm.elements[i].className!='' && objForm.elements[i].type!='button' && objForm.elements[i].type!='hidden') {
+                   if (objForm.elements[i].className=='combobox' && objForm.elements[i].selectedIndex>0 && objForm.elements[i].name!='serial_acf')
+                     sFields=sFields +objForm.elements[i].name+'~'+objForm.elements[i].options[objForm.elements[i].selectedIndex].text+'|';
+                   else
+                     sFields=sFields +objForm.elements[i].name+'~'+objForm.elements[i].value+'|';
+                   }
+               sURL=sURL+sFields;
+//               alert(sURL);
+               omnisoftNewWindow=window.open(sURL,'PDF',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+function procesarEstado() {
+
+if (document.PaginaDatos.estado_asaf.value=="MANTENIMIENTO" ||document.PaginaDatos.estado_asaf.value=="PRESTAMO" ) {
+
+  document.getElementById('tdivproveedor').style.visibility='visible';
+  document.getElementById('divproveedor').style.visibility='visible';
+  document.getElementById('tdivubicacionexterna').style.visibility='visible';
+  document.getElementById('divubicacionexterna').style.visibility='visible';
+  if (document.PaginaDatos.estado_asaf.value=="PRESTAMO" ) {
+
+  document.getElementById('tdivtipogarantia').style.visibility='visible';
+  document.getElementById('divtipogarantia').style.visibility='visible';
+  document.getElementById('tdivnumerogarantia').style.visibility='visible';
+  document.getElementById('divnumerogarantia').style.visibility='visible';
+  
+  }
+
+}
+else {
+
+document.getElementById('tdivproveedor').style.visibility='hidden';
+document.getElementById('divproveedor').style.visibility='hidden';
+  document.getElementById('tdivubicacionexterna').style.visibility='hidden';
+  document.getElementById('divubicacionexterna').style.visibility='hidden';
+  document.getElementById('tdivtipogarantia').style.visibility='hidden';
+  document.getElementById('divtipogarantia').style.visibility='hidden';
+  document.getElementById('tdivnumerogarantia').style.visibility='hidden';
+  document.getElementById('divnumerogarantia').style.visibility='hidden';
+
+}
+}
+</script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_asaf" type="hidden" id="serial_asaf" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="215" height="52"  class="ingeniumtoptitle"></td>
+      <td width="655"  class="maintoptitle fonttitle"><center>
+          ACTIVOS FIJOS <br>
+          ASIGNACION DE ACTIVOS FIJOS
+        </center></td>
+      <td width="130"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="1020" height="163" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="24"  class="inputtitle">Custodio Entrega:* </td>
+            <td>
+            		                	  <script>
+                 var cserial_cus=new omnisoftComboBox('cserial_cus','custodioEntrega_asaf','select empleado.serial_epl,concat(documentoidentidad_epl,\' \',apellido_epl, \' \',nombre_epl) as nombre from empleado order by apellido_epl,nombre_epl','350px',true,getURLParam('custodioEntrega_asaf'));
+                     cserial_cus.show();
+	  </script>	</td>
+            <td class="inputtitle"><div id="tdivproveedor" style="visibility:hidden">Proveedor :</div></td>
+            <td><div id="divproveedor" style="visibility:hidden">
+						                	  <script>
+                 var cserial_pvd=new omnisoftComboBox('cserial_pvd','serial_pvd','select distinct proveedor.serial_pvd,razonSocial_pvd from proveedor,proveedortipoactivofijo where proveedor.serial_pvd=proveedortipoactivofijo.serial_pvd order by razonSocial_pvd','250px',true,getURLParam('serial_pvd'));
+                     cserial_pvd.show();
+	  </script>	</div>			</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Custodio Recepci&oacute;n:*</td>
+            <td>
+			                	  <script>
+                 var cserial_epl=new omnisoftComboBox('cserial_epl','serial_epl','select serial_epl,concat(documentoidentidad_epl,\' \',apellido_epl, \' \',nombre_epl) as nombre from empleado order by apellido_epl,nombre_epl','350px',true,getURLParam('serial_epl'));
+                     cserial_epl.show();
+	  </script>			</td>
+            <td class="inputtitle"><div id="tdivubicacionexterna" style="visibility:hidden">Ubicacion externa:</div></td>
+            <td class="inputtitle"><div id="divubicacionexterna" style="visibility:hidden">
+              <input name="ubicacion_asaf" type="text" id="ubicacion_asaf" class="emptytext" size="60" maxlength="100"  onBlur="esconderToolTip()"    >            </td>
+          </tr>
+          <tr>
+            <td width="189" height="24"  class="inputtitle">Activo Fijo :*</td>
+            <td>			                	  <script>
+                 var cserial_acf=new omnisoftComboBox('cserial_acf','serial_acf','select serial_acf,concat(nombre_acf,\'>>\',serie_acf,\'>>\',marca_acf,\'>>\',modelo_acf) as nombre from activosfijos','350px',true,getURLParam('serial_acf'));
+                     cserial_acf.show();
+	  </script></td>
+            <td class="inputtitle"><div id="tdivtipogarantia" style="visibility:hidden">Tipo garantia:</div></td>
+            <td><div id="divtipogarantia" style="visibility:hidden"><select name="tipogarantia_asaf" id="tipogarantia_asaf" class="combobox">
+              <option value="PAGARE">PAGARE</option>
+              <option value="LETRA DE CAMBIO">LETRA DE CAMBIO</option>
+              <option value="CHEQUE">CHEQUE</option>
+              <option value="GARANTIA BANCARIA">GARANTIA BANCARIA</option>
+              <option value="GARANTIA REAL">GARANTIA REAL</option>
+            </select></div></td>
+          </tr>
+
+          <tr>
+            <td height="17"  class="inputtitle">Ubicacion :*</td>
+            <td >		                	  <script>
+                 var cserial_ubi=new omnisoftComboBox('cserial_ubi','serial_ubi','select serial_ubi,nombre_ubi from ubicacion','350px',true,getURLParam('serial_ubi'));
+                     cserial_ubi.show();
+	  </script></td>
+            <td class="inputtitle"><div id="tdivnumerogarantia" style="visibility:hidden">Numero garantia :</div></td>
+            <td ><div id="divnumerogarantia" style="visibility:hidden"><input name="numerogarantia_asaf" type="text" id="numerogarantia_asaf" class="emptytext" size="10" maxlength="10"  onBlur="esconderToolTip()"    ></div></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Fecha :*</td>
+            <td ><label>
+            <input name="fecha_asaf" type="text" id="fecha_asaf" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"    >
+            </label></td>
+            <td width="173" class="inputtitle">Estado :*</td>
+            <td width="306" ><select name="estado_asaf" id="estado_asaf" class="combobox" onchange="procesarEstado()">
+              <option value="BUENO">Bueno</option>
+              <option value="REGULAR">Regular</option>
+              <option value="MALO">Malo</option>
+              <option value="MANTENIMIENTO">Mantenimiento</option>
+              <option value="PRESTAMO">Prestamo</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Fecha Entrega  :*</td>
+            <td width="342" ><input name="fechaEntrega_asaf" type="text" id="fechaEntrega_asaf" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"    ></td>
+            <td  class="inputtitle">Fecha Recepcion: *              </td>
+            <td  class="inputtitle"><input name="fechaRecepcion_asaf" type="text" id="fechaRecepcion_asaf" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"    ></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">En Custodia :*</td>
+            <td ><select name="encustodia_asaf" id="encustodia_asaf" class="combobox">
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+                        </select></td>
+            <td  class="inputtitle">Observacion:</td>
+            <td ><span class="inputtitle">
+              <input name="observacion_asaf" type="text" id="observacion_asaf" class="emptytext" size="60" maxlength="100"  onBlur="esconderToolTip()"    >
+            </span></td>
+          </tr>
+
+
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="985" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="150" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="655"><div align="center"><a href="#" onClick="imprimirActaCustodia(document.PaginaDatos)"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="180"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+
+	if (getURLParam('action')=='insert') {
+	    document.PaginaDatos.fecha_asaf.value=fechaSistema();
+		document.PaginaDatos.fechaEntrega_asaf.value=fechaSistema();
+		document.PaginaDatos.fechaRecepcion_asaf.value=fechaSistema();
+	}
+    setTimeout('procesarEstado()',1500);
+
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

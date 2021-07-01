@@ -1,0 +1,408 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script>
+function procesarListaPrecios() {
+var   attributes='width=580,height=620,toolbar=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no,resizable=yes';
+                   omnisoftNewWindow=window.open('winListaPrecios.html','OmnisoftLista',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+</script>
+<script>
+function procesarPersoneria() {
+if (document.PaginaDatos.personajuridica_cli.value=="NATURAL") {
+
+    document.PaginaDatos.nombrerepresentante_cli.value=document.PaginaDatos.nombre_cli.value ;
+    document.PaginaDatos.nombrecontactocompras_cli.value=document.PaginaDatos.nombre_cli.value ;
+    document.PaginaDatos.nombrecontactopagos_cli.value=document.PaginaDatos.nombre_cli.value ;
+
+    document.PaginaDatos.apellidorerepresentante_cli.value=document.PaginaDatos.apellido_cli.value ;
+    document.PaginaDatos.apellidocontactocompras_cli.value=document.PaginaDatos.apellido_cli.value ;
+    document.PaginaDatos.apellidocontactopagos_cli.value=document.PaginaDatos.apellido_cli.value ;
+
+
+}
+omnisoftProcesarCambios();
+ }
+</script>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_cli" type="hidden" id="serial_cli" class="hidden">
+
+
+  <table width="1008" border="0" cellspacing="0" cellpadding="0" >
+
+    <tr>
+      <td width="1008" height="30" colspan="3"><table width="1005" height="671" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+        <tr>
+          <td height="18" colspan="10"   class="formtitle"><div align="center" >DATOS GENERALES </div></td>
+        </tr>
+        <tr>
+          <td height="21" class="inputtitle">Codigo </td>
+          <td><img  src="../images/camporequerido.gif"><input name="codigo_cli" type="text" id="codigo_cli" class="autoincrement" size="10" maxlength="10" table="cliente" fieldid="serial_cli" onBlur="esconderToolTip()"    ></td>
+          <td height="21" class="inputtitle">Codigo Anterior:</td>
+          <td colspan="3"><input name="codigoanterior_cli" type="text" id="codigoanterior_cli" class="emptyinteger" size="11" maxlength="11"></td>
+          <td colspan="2" class="inputtitle">Codigo Proveedor :            </td>
+          <td><span class="inputtitle">
+            <input name="codigoproveedor_cli" type="text" id="codigoproveedor_cli" class="emptytext">
+          </span></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Cliente Desde:</td>
+          <td width="179"><input name="clientedesde_cli" type="text" id="clientedesde_cli" class="date" size="10" maxlength="10"></td>
+          <td class="inputtitle">Personeria:</td>
+          <td colspan="3" class="inputtitle"><img  src="../images/camporequerido.gif"><select name="personajuridica_cli" id="personajuridica_cli" onchange="procesarPersoneria()" class="combobox"  >
+              <option value="JURIDICA" selected="selected">JURIDICA</option>
+              <option value="NATURAL">NATURAL</option>
+          </select></td>
+          <td colspan="2" class="inputtitle">Estado :</td>
+          <td colspan="2" class="inputtitle"><img  src="../images/camporequerido.gif"><select name="estado_cli" id="estado_cli" class="combobox">
+              <option value="ACTIVO" selected>ACTIVO</option>
+              <option value="INACTIVO">INACTIVO</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle"><div id="tdivnombre_cli" style="visibility:visible">Nombre:</div></td>
+          <td><div id="divnombre_cli" style="visibility:visible">
+            <img  src="../images/camporequerido.gif"><input name="nombre_cli" type="text" id="nombre_cli" size="40" maxlength="60" class="emptystring" onBlur="procesarNombres();esconderToolTip()">
+          </div></td>
+          <td class="inputtitle"><div id="tdivapellido_cli" style="visibility:visible">Apellido:</div></td>
+          <td colspan="3" class="inputtitle"><div id="divapellido_cli" style="visibility:visible"><img  src="../images/camporequerido.gif"><input name="apellido_cli" type="text" id="apellido_cli" size="40" maxlength="60" class="string" onBlur="procesarNombres();esconderToolTip()">
+          </div></td>
+          <td colspan="2" class="inputtitle">Nombre Comercial:</td>
+          <td colspan="2" class="inputtitle"><input name="nombrecomercial_cli" type="text" id="nombrecomercial_cli" class="emptystring" size="40" maxlength="60"  onBlur="esconderToolTip()"    ></td>
+        </tr>
+        <tr>
+          <td width="122" height="21"  class="inputtitle">Razon Social :</td>
+          <td><img  src="../images/camporequerido.gif"><input name="razonsocial_cli" type="text" id="razonsocial_cli" class="string" size="40" maxlength="100"  onBlur="esconderToolTip()"    ></td>
+          <td width="173" class="inputtitle">Tipo Documento :</td>
+          <td colspan="3"><span class="inputtitle"><img  src="../images/camporequerido.gif"><select name="tipodocumento_cli" id="tipodocumento_cli" class="combobox" onchange="procesarTipoDocumento()">
+              <option value="CEDULA">CEDULA</option>
+              <option value="RUC">RUC</option>
+              <option value="PASAPORTE">PASAPORTE</option>
+              <option value="CONSUMIDORFINAL">CONSUMIDOR FINAL</option>
+              <option value="SOCIEDADEXTRANJERA">SOCIEDAD EXTRANJERA</option>
+              <option value="ENTIDADPUBLICA">ENTIDADPUBLICA </option>
+            </select>
+          </span></td>
+          <td colspan="2" class="inputtitle">Dcto de Identidad :</td>
+          <td colspan="2"><img  src="../images/camporequerido.gif"><input name="documentoidentidad_cli" type="text" id="documentoidentidad_cli" size="15" maxlength="13" class="cedula"></td>
+        </tr>
+        <tr>
+          <td height="24"  class="inputtitle">Direccion :</td>
+          <td ><img  src="../images/camporequerido.gif"><input name="direccion_cli" type="text" id="direccion_cli" size="40" maxlength="255" class="string"></td>
+          <td class="inputtitle">Numero Casa:</td>
+          <td colspan="3" ><input name="numerocasa_cli" type="text" id="numerocasa_cli" size="10" maxlength="10" class="emptystring"></td>
+          <td colspan="2"  class="inputtitle">Ciudad :</td>
+          <td colspan="2" ><img  src="../images/camporequerido.gif">
+		  <script>                var cserial_ciu=new omnisoftComboBox('cserial_ciu','serial_ciu','select serial_ciu,nombre_ciu  from ciudad order by nombre_ciu','175px',true,getURLParam('serial_ciu','iframe'));
+                     cserial_ciu.show();
+	  </script>	          </td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Tipo Cliente: </td>
+          <td ><img  src="../images/camporequerido.gif">
+		  <script>                var cserial_tip=new omnisoftComboBox('cserial_tip','serial_tip','select serial_tip,nombre_tip  from tipocliente order by nombre_tip','175px',true,getURLParam('serial_tip','iframe'));
+                     cserial_tip.show();
+	  </script>	        </td>
+          <td class="inputtitle">Canal:</td>
+          <td colspan="3" ><img  src="../images/camporequerido.gif">
+		  <script>                var cserial_can=new omnisoftComboBox('cserial_can','serial_can','select serial_can,nombre_can  from canal order by nombre_can','175px',true,getURLParam('serial_can','iframe'));
+                     cserial_can.show();
+	  </script></td>
+          <td colspan="2"  class="inputtitle">Tipo Precio: <a href="#" onClick="procesarListaPrecios()"><img src="../images/calendar.png" alt="Lista General de Precios" width="32" height="32" border="0" align="middle"></a></td>
+          <td colspan="2" ><img  src="../images/camporequerido.gif">
+		  <script>                var cserial_tpr=new omnisoftComboBox('cserial_tpr','serial_tpr','select serial_tpr,nombre_tpr  from tiposprecios order by nombre_tpr','175px',true,getURLParam('serial_tpr','iframe'));
+                     cserial_tpr.show();
+	  </script></td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Tipo Control:</td>
+          <td ><img  src="../images/camporequerido.gif"><span class="inputtitle">
+            <select name="tipocontrol_cli" id="tipocontrol_cli" class="combobox">
+              <option value="SIN CONTROL">SIN CONTROL</option>
+              <option value="CONTROL FINES SEMANA">CONTROL FINES SEMANA</option>
+              <option value="CONTROL TOTAL">CONTROL TOTAL</option>
+            </select>
+          </span></td>
+          <td class="inputtitle">Forma de Cobro: </td>
+          <td colspan="3" ><img  src="../images/camporequerido.gif"><script>                var cserial_forc=new omnisoftComboBox('cserial_forc','serial_forc','select serial_forc,nombre_forc  from formacobro order by nombre_forc','175px',true,getURLParam('serial_forc','iframe'));
+                     cserial_forc.show();
+	      </script></td>
+          <td colspan="2"  class="inputtitle">&nbsp;</td>
+          <td colspan="2" >&nbsp;</td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Calificación:</td>
+          <td >
+		  <script>                var ccalificacion_cli=new omnisoftComboBox('ccalificacion_cli','calificacion_cli','select serial_cli,calificacion_cal,concat(codigo_nivc,\' \',descripcion_nivc) from calificacioncliente  ccli,nivelcalificacion nivc where ccli.serial_nivc=ccli.serial_nivc','200px',true,getURLParam('calificacion_cli','iframe'));
+                     ccalificacion_cli.show();
+	  </script>		            </td>
+          <td class="inputtitle">Descuento: </td>
+          <td colspan="3" ><input name="descuento_cli" type="text" id="descuento_cli" size="5" maxlength="5" class="double" value="0.00"></td>
+          <td colspan="2"  class="inputtitle">Fecha 1era Compra: </td>
+          <td colspan="2" ><input name="fechaprimeracompra_cli" type="emptytext" id="fechaprimeracompra_cli" size="15" maxlength="15" class="date"></td>
+        </tr>
+        <tr >
+          <td height="24" colspan="10"  class="formtitle"><div align="center" >DATOS DE GARANTIA </div></td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Garantia:</td>
+          <td ><input name="descripciongarantia_cli" type="text" id="descripciongarantia_cli" class="emptystring" size="40" maxlength="60"  onBlur="esconderToolTip()"    ></td>
+          <td class="inputtitle">Tipo Garantia:</td>
+          <td colspan="3" ><label>
+            <select name="tipogarantia_cli" id="tipogarantia_cli" class="combobox">
+              <option value="NINGUNA" selected="selected">NINGUNA</option>
+              <option value="PAGARE">PAGARE</option>
+              <option value="LETRA DE CAMBIO">LETRA DE CAMBIO</option>
+              <option value="CHEQUE">CHEQUE</option>
+              <option value="HIPOTECA">HIPOTECA</option>
+              <option value="GARANTIA BANCARIA">GARANTIA BANCARIA</option>
+              <option value="GARANTIA REAL">GARANTIA REAL</option>
+            </select>
+          </label></td>
+          <td colspan="2"  class="inputtitle">Valor Garantia:</td>
+          <td colspan="2" ><input name="valorgarantia_cli" type="text" id="valorgarantia_cli" class="emptydouble" size="10" maxlength="15"  onBlur="esconderToolTip()"   value="0.00" ></td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Plazo Otros:</td>
+          <td ><input name="plazocredito_cli" type="text" id="plazocredito_cli" class="emptyinteger" size="8" maxlength="8"  onBlur="esconderToolTip()"   value="0.00" ></td>
+          <td  class="inputtitle">Plazo UHT:</td>
+          <td width="70" ><input name="plazouht_cli" type="text" id="plazouht_cli" class="emptyinteger" size="8" maxlength="8"  value="0.00" onBlur="esconderToolTip()"    ></td>
+          <td width="69" class="inputtitle">Cupo UHT: </td>
+          <td width="69" ><input name="cupouht_cli" type="text" id="cupouht_cli" class="emptyinteger" size="8" maxlength="8"  value="0.00" onBlur="esconderToolTip()"    ></td>
+          <td colspan="2"  class="inputtitle">Cupo Otros  </span></td>
+          <td colspan="2" ><input name="cupoaprobado_cli" type="text" id="cupoaprobado_cli" class="emptyinteger" size="8" maxlength="8"  value="0.00" onBlur="esconderToolTip()"    ></td>
+        </tr>
+
+        <tr>
+          <td height="24" colspan="10"  class="formtitle"><div align="center" >DATOS SERVICIO DE RENTAS INTERNAS (SRI) </div></td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Actividad Econ&oacute;mica: </td>
+          <td ><img  src="../images/camporequerido.gif"><input name="actividadeconomicasri_cli" type="text" id="actividadeconomicasri_cli" class="emptystring" size="40" maxlength="190" ></td>
+          <td class="inputtitle">Estado SRI :  </td>
+          <td colspan="3" ><span class="inputtitle"><img  src="../images/camporequerido.gif"><select name="estadosri_cli" id="estadosri_cli" class="combobox">
+              <option value="ACTIVO">ACTIVO</option>
+              <option value="INACTIVO">INACTIVO</option>
+            </select>
+          </span></td>
+          <td width="59"  class="inputtitle">Tipo SRI: </td>
+          <td width="65" ><img  src="../images/camporequerido.gif">
+            <input name="tiposri_cli" type="text" id="tiposri_cli" size="3" maxlength="3" class="emptyinteger"></td>
+          <td width="104" class="inputtitle">Fecha Inicio SRI:</td>
+          <td width="75" ><input name="fechainiciosri_cli" type="text" id="fechainiciosri_cli" size="10" maxlength="10" class="date"></td>
+        </tr>
+
+        <tr bgcolor="#000066">
+          <td height="24" colspan="10" class="formtitle" ><div align="center" >REPRESENTANTE LEGAL </div></td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Nombre :</td>
+          <td ><img  src="../images/camporequerido.gif"><input name="nombrerepresentante_cli" type="text" id="nombrerepresentante_cli" size="40" maxlength="60" class="string"></td>
+          <td  class="inputtitle">Apellido :</td>
+          <td colspan="3" ><img  src="../images/camporequerido.gif"><input name="apellidorepresentante_cli" type="text" id="apellidorepresentante_cli" size="40" maxlength="60" class="string"></td>
+          <td colspan="2""21" class="inputtitle" haight>Ubicaci&oacute;n X:</td>
+          <td colspan="2"><input name="ubicacionx_cli" type="text" id="ubicacionx_cli" class="double" size="5" maxlength="5" value="0.00" >          </td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Telefono1 :</td>
+          <td ><label><img  src="../images/camporequerido.gif"><input name="telefonocom1_cli" type="text" id="telefonocom1_cli" size="15" maxlength="12" class="emptyinteger">
+          </label></td>
+          <td class="inputtitle">Telefono2 :</td>
+          <td colspan="3" ><input name="telefonocom2_cli" type="text" id="telefonocom2_cli" size="15" maxlength="12" class="emptyinteger"></td>
+          <td colspan="2""21" class="inputtitle" haight>Ubicaci&oacute;n Y:</td>
+          <td colspan="2"><input name="ubacaciony_cli" type="text" id="ubacaciony_cli" class="double" size="5" maxlength="5" value="0.00" >          </td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Fax :</td>
+          <td ><input name="fax_cli" type="text" id="fax_cli" class="emptyinteger" size="15" maxlength="15"  onBlur="esconderToolTip()"    ></td>
+          <td  class="inputtitle">Celular : </td>
+          <td colspan="3"  class="inputtitle"><input name="celular_cli" type="text" id="celular_cli" class="emptyinteger" size="25" maxlength="12"  onBlur="esconderToolTip()"    ></td>
+          <td colspan="2"  class="inputtitle">Email :</td>
+          <td colspan="2"  class="inputtitle"><input name="correoelectronicocliente_cli" type="text" id="correoelectronicocliente_cli" size="40" maxlength="65" class="emptystring"></td>
+        </tr>
+        <tr bgcolor="#000066">
+          <td height="24" colspan="10"  class="formtitle"><div align="center">REPRESENTANTE DE COMPRAS </div></td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Nombre:</td>
+          <td ><img  src="../images/camporequerido.gif"><input name="nombrecontactocompras_cli" type="text" id="nombrecontactocompras_cli" class="emptystring" size="40" maxlength="60"  onBlur="esconderToolTip()"    ></td>
+          <td  class="inputtitle">Apellido:  </td>
+          <td colspan="3" ><img  src="../images/camporequerido.gif"><input name="apellidocontactocompras_cli" type="text" id="apellidocontactocompras_cli" class="emptystring" size="40" maxlength="60"  onBlur="esconderToolTip()"    ></td>
+          <td colspan="2"  class="inputtitle">Celular:  </td>
+          <td colspan="2" ><span class="inputtitle">
+            <input name="celularcompras_cli" type="text" id="celularcompras_cli" class="emptyinteger" size="25" maxlength="12"  onBlur="esconderToolTip()"    >
+          </span></td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Telefono :</td>
+          <td ><img  src="../images/camporequerido.gif"><input name="telefonocompras_cli" type="text" id="telefonocompras_cli" class="emptyinteger" size="15" maxlength="12"  onBlur="esconderToolTip()"    ></td>
+          <td class="inputtitle">Email :</td>
+          <td colspan="3" ><input name="correoelectronicocompras_cli" type="text" id="correoelectronicocompras_cli" class="emptystring" size="40" maxlength="65"  onBlur="esconderToolTip()"    ></td>
+          <td height="21" colspan="2"  class="inputtitle">&nbsp;</td>
+          <td colspan="2" >&nbsp;</td>
+        </tr>
+        <tr bgcolor="#000066">
+          <td height="24" colspan="10"  class="formtitle"><div align="center" >REPRESENTANTE DE PAGOS </div></td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Nombre :</td>
+          <td ><img  src="../images/camporequerido.gif"><input name="nombrecontactopagos_cli" type="text" id="nombrecontactopagos_cli" class="emptystring" size="40" maxlength="60"  onBlur="esconderToolTip()"    ></td>
+          <td class="inputtitle">Apellido:  </td>
+          <td colspan="3" ><img  src="../images/camporequerido.gif"><input name="apellidocontactopagos_cli" type="text" id="apellidocontactopagos_cli" class="emptystring" size="40" maxlength="60"  onBlur="esconderToolTip()"    ></td>
+          <td colspan="2"  class="inputtitle">Celular: </td>
+          <td colspan="2" ><span class="inputtitle">
+            <input name="celularpagos_cli" type="text" id="celularpagos_cli" class="emptyinteger" size="25" maxlength="12"  onBlur="esconderToolTip()">
+          </span></td>
+        </tr>
+        <tr>
+          <td height="21"  class="inputtitle">Telefono:</td>
+          <td ><img  src="../images/camporequerido.gif"><input name="telefonopagos_cli" type="text" id="telefonopagos_cli" class="emptyinteger" size="15" maxlength="12"  onBlur="esconderToolTip()"    ></td>
+          <td  class="inputtitle">Email :</td>
+          <td colspan="7" ><input name="correoelectronicopagos_cli" type="text" id="correoelectronicopagos_cli" class="emptystring" size="40" maxlength="65"  onBlur="esconderToolTip()"    ></td>
+        </tr>
+		        <tr>
+          <td height="24" colspan="10" class="formtitle" ><div align="center" >DATOS PERSONALES </div></td>
+        </tr>
+        <tr>
+          <td height="21" class="inputtitle">Fecha Nacimiento:</td>
+			  <td><input name="fechanacimiento_cli" type="text" id="fechanacimiento_cli" size="15" maxlength="15" class="date"></td>
+          <td height="21" class="inputtitle">Estado Civil:</td>
+          <td colspan="3"><select name="estadocivil_cli" id="estadocivil_cli" class="combobox" onChange="procesarTipoDocumento()">
+            <option value="SOLTERO">SOLTERO(A)</option>
+            <option value="CASADO">CASADO(A)</option>
+            <option value="DIVORCIADO">DIVORCIADO(A)</option>
+            <option value="SEPARADO">SEPARADO(A)</option>
+            <option value="VIUDO">VIUDO(A)</option>
+            <option value="UNION LIBRE">UNION LIBRE</option>
+          </select></td>
+          <td height="21" colspan="2" class="inputtitle">&nbsp;</td>
+          <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+          <td height="21" class="formtitle"> CONYUGUE:</td>
+          <td class="inputtitle">Nombre:<input name="nombreconyugue_cli" type="text" id="nombreconyugue_cli" class="emptystring" size="25" maxlength="60">          </td>
+          <td height="21" colspan="4" class="inputtitle">Apellido :
+            <input name="apellidoconyugue_cli" type="text" id="apellidoconyugue_cli" class="emptystring" size="25" maxlength="60">
+            Celular:
+            <input name="celularconyugue_cli" type="text" id="celularconyugue_cli" class="emptyinteger" size="12" maxlength="12"></td>
+          <td height="21" colspan="2" class="inputtitle">Cedula Identidad:</td>
+          <td colspan="2"><input name="documentoidentificacionconyugue_cli" type="text" id="documentoidentificacionconyugue_cli" size="25" maxlength="13" class="emptyinteger">          </td>
+        </tr>
+        <tr>
+          <td height="21" class="inputtitle">Dirección Domicilio:</td>
+          <td><input name="direcciondomicilio_cli" type="text" id="direcciondomicilio_cli" class="emptystring" size="25" maxlength="100">          </td>
+          <td height="21" class="inputtitle">Sector:</td>
+          <td colspan="3"><input name="sector_cli" type="text" id="sector_cli" class="emptystring" size="25" maxlength="20">          </td>
+          <td height="21" colspan="2" class="inputtitle">Barrio:</td>
+          <td colspan="2"><input name="barrio_cli" type="text" id="barrio_cli" class="emptystring" size="25" maxlength="20">          </td>
+        </tr>
+        <tr>
+          <td height="21" class="inputtitle">Teléfono Domicilio:</td>
+          <td><input name="telefonodomicilio_cli" type="text" id="telefonodomicilio_cli" class="emptyinteger" size="15" maxlength="12">          </td>
+          <td height="21" class="inputtitle">Otro Teléfono:</td>
+          <td colspan="3"><input name="otrotelefono_cli" type="text" id="otrotelefono_cli"  class="emptyinteger" size="25" maxlength="12"></td>
+          <td height="21" colspan="2" class="inputtitle">Casilla Postal:</td>
+          <td colspan="2"><input name="casillapostal_cli" type="emptytext" id="casillapostal_cli" class="emptyinteger" size="15" maxlength="10"></td>
+        </tr>
+        <tr>
+          <td height="21" class="inputtitle">Predio Comercio: </td>
+          <td><select name="estadoprediocomercio_cli" id="estadoprediocomercio_cli" class="combobox" onChange="procesarTipoDocumento()">
+            <option value="EXCELENTE">EXCELENTE</option>
+            <option value="BUENO" selected="selected">BUENO</option>
+            <option value="MALO">MALO</option>
+            <option value="REGULAR">REGULAR</option>
+            <option value="NO RECOMENDABLE">NO RECOMENDABLE</option>
+          </select></td>
+          <td height="21" class="inputtitle"> Predio Domicilio:</td>
+          <td colspan="3"><select name="estadoprediodomicilio_cli" id="estadoprediodomicilio_cli" class="combobox" onChange="procesarTipoDocumento()">
+            <option value="EXCELENTE">EXCELENTE</option>
+            <option value="BUENO" selected="selected">BUENO</option>
+            <option value="MALO">MALO</option>
+            <option value="REGULAR">REGULAR</option>
+            <option value="NO RECOMENDABLE">NO RECOMENDABLE</option>
+          </select>
+          <td height="21" colspan="2" class="inputtitle">&nbsp;</td>
+          <td colspan="2">&nbsp;</td>
+        </tr>
+        <tr>
+          <td height="21" class="formtitle">Referencia Familiar: </td>
+          <td class="inputtitle">&nbsp;</td>
+          <td height="21" class="inputtitle">Nombre :</td>
+          <td colspan="3" class="inputtitle"><input name="nombrereferenciafamiliar_cli" type="text" id="nombrereferenciafamiliar_cli" class="emptystring" size="30" maxlength="60"></td>
+          <td height="21" colspan="2" class="inputtitle">Teléfono:</td>
+          <td colspan="2"><span class="inputtitle">
+            <input name="telefonoreferenciafamiliar_cli" type="text" id="telefonoreferenciafamiliar_cli" class="emptyinteger" size="12" maxlength="12">
+          </span></td>
+        </tr>
+
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos,'iframe');
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+
+function recuperarDatos(data) {
+var datos=data.split('|');
+   omniObj.grid.masterKeyValue=document.PaginaDatos.serial_odc.value=datos[0];
+   omniObj.grid.executeQuery(omniObj.grid.rows);
+
+
+//alert(datos[0]);
+}
+
+function generarOrdenCompra() {
+
+ var SQLCommand=document.PaginaDatos.fecha_odc.value+"|"+document.PaginaDatos.numeroDocumento_odc.value+"|"+document.PaginaDatos.fechaEntrega_odc.value+"|"+document.PaginaDatos.plazoPago_odc.value+"|"+document.PaginaDatos.serial_pvd.value+"|"+document.PaginaDatos.fechaInicio_odc.value+"|"+document.PaginaDatos.fechaFin_odc.value+"|"+document.PaginaDatos.diasReposicion_odc.value+"|"+document.PaginaDatos.estado_odc.value+"|"+document.PaginaDatos.observaciones_odc.value;
+//prompt('test',SQLCommand);
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarOrdenCompra.php",'recuperarDatos');
+      objDBComando.executeQuery();
+
+ }
+</script>
+
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_odc" type="hidden" id="serial_odc" class="hidden" >
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          INVENTARIOS<br>
+          TOMA FISICA
+        </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="173" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="20"  class="inputtitle">Fecha :*</td>
+            <td><input name="fecha_odc" type="text" id="fecha_odc" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"  ></td>
+            <td width="132" class="inputtitle">N&uacute;mero : * </td>
+            <td width="146" class="inputtitle"><input name="numeroDocumento_odc" type="text" id="numeroDocumento_odc" class="autoincrement" size="10" maxlength="10"  onBlur="esconderToolTip()" fieldid="serial_odc" table="ordendecompra" readonly   ></td>
+            <td class="inputtitle">Tipo : * </td>
+            <td class="inputtitle"><select name="tipoOrdenCompra_odc" id="tipoOrdenCompra_odc" class="combobox">
+              <option value="KARDEX">Productos con Kardex</option>
+              <option value="SIN KARDEX">Productos sin Kardex</option>
+            </select></td>
+            <td class="inputtitle">&nbsp;</td>
+          </tr>
+          
+          <tr>
+            <td width="156" height="34"  class="inputtitle">Observaciones : </td>
+            <td colspan="3"><span class="inputtitle">
+              <input name="fechaEntrega_odc2" type="text" id="observaciones_odc" class="emptytext" size="80" maxlength="200"  onBlur="esconderToolTip()"  >
+            </span></td>
+            <td width="148" class="inputtitle">Estado : *</td>
+            <td width="89" class="inputtitle"><select name="estado_odc"  id="estado_odc" class="combobox">
+              <option value="PENDIENTE">Pendiente</option>
+              <option value="RECIBIDA">Recibida</option>
+              <option value="CERRADA">Cerrada</option>
+            </select></td>
+            <td width="84" class="inputtitle"><a href="#" onClick="generarOrdenCompra()"><img src="../images/history.png" alt="Verificar Stock" width="32" height="32" border="0"></a></td>
+          </tr>
+
+
+          <tr>
+            <td height="40" colspan=7> <script>
+   omnisoftLoadData(document.PaginaDatos);
+//   alert(document.PaginaDatos.action.value);
+//   if (getURLParam('action')=='insert') {
+      document.PaginaDatos.fecha_odc.value=fechaSistema();
+//      alert(document.PaginaDatos.fecha_odc.value);
+//   }
+    var serial_odc=getURLParam('serial_odc');
+
+
+    var sql='SELECT SERIAL_DODC, nombre_prd,promedioVentas_dodc, stockActual_dodc, diasStock_dodc,costo_dodc,  CANTIDADSUGERIDA_DODC,CANTIDADSUGERIDA_DODC*UNIDADESEMBALAJE_PRD,CANTIDADREQUERIDA_DODC, CANTIDADREQUERIDA_DODC*UNIDADESEMBALAJE_PRD, ROUND(CANTIDADREQUERIDA_DODC*UNIDADESEMBALAJE_PRD*COSTO_DODC,4) as costototal,CANTIDADRECIBIDA_DODC, CANTIDADRECIBIDA_DODC *UNIDADESEMBALAJE_PRD,SUBTOTAL_DODC, DESCUENTODOLARES_DODC, DESCUENTOPORCENTAJE_DODC,  TOTAL_DODC,OBSERVACIONES_DODC, ESTADO_DODC,OTROSPRODUCTOS_DODC,IVA_DODC, IVA0_DODC,producto.SERIAL_PRD,SERIAL_ODC FROM producto,detalleordendecompra where producto.serial_prd=detalleordendecompra.serial_prd and serial_odc=masterkey';
+//    prompt('test',sql);
+    omniObj=new omnisoftGridDetail('omniObj','serial_odc',serial_odc,'detalleordendecompra','serial_dodc',sql,document.PaginaDatos);
+
+     omniObj.addColumn('Serial','serial_dodc', 10,'hidden','','middle','');
+     omniObj.addColumn('Producto','nombre_prd', 25,'string','','middle','');
+     omniObj.addColumn('Stock Sistema','stockActual_dodc', 12,'integer','sum','middle','');
+     omniObj.addColumn('Stock Real','diasStock_dodc', 12,'integer','sum','middle','');
+
+     omniObj.addColumn('Subtotal','subtotal_dodc', 2,'hidden','','middle','','1');
+
+
+
+  omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');
+
+
+ </script> </td>
+          </tr>
+          <tr>
+            <td height="32" colspan=7 class="inputtitle"> Creado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoCreadoPor" id="FotoCreadoPor">
+<input name="creadoPor" type="text" id="creadoPor" size="28" maxlength="30"  onBlur="esconderToolTip()"    readonly>
+              Modificado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoModificadoPor" id="FotoModificadoPor">
+<input name="modificadoPor" type="text" id="modificadoPor"  size="28" maxlength="30"  onBlur="esconderToolTip()"  readonly  >
+              Autorizado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoAutorizadoPor" id="FotoAutorizadoPor">
+<input name="autorizadoPor" type="text" id="autorizadoPor" size="28" maxlength="30"  onBlur="esconderToolTip()"   readonly >            </td>
+          </tr>
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:depreciar();window.close()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690">
+            <div align="center" id="divImprimir" style="visibility:visible"><a href="#"  onClick="javascript:window.print();"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a></div></td>
+
+            </td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<input name="elaboradoPor_odc" type="hidden" id="elaboradoPor_odc" class="hidden" value="1">
+<input name="modificadoPor_odc" type="hidden" id="modificadoPor_odc" class="hidden" value="1"  >
+<input name="autorizadoPor_odc" type="hidden" id="autorizadoPor_odc" class="hidden"  value="1" >
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

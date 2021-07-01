@@ -1,0 +1,321 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<style type="text/css">
+<!--
+.Estilo1 {
+	font-size: 16px;
+	font-weight: bold;
+	color: #FF0000;
+}
+.style1 {font-weight: bold}
+.style2 {
+	font-size: 12px;
+	font-weight: bold;
+	color: #990000;
+}
+-->
+</style>
+</head>
+<body >
+<script>
+var nombre="";
+var apellido="";
+var materia="";
+var inicio="";
+var fin="";
+var registro_salida=0;
+var cedula="";
+
+function omnisoftProcesarDatos(data)
+{
+ var dias=Array('','Domingo','Lunes','Martes', 'Miercoles','Jueves','Viernes','Sabado');
+ var registros=data.split('|');
+ //alert(registros);
+ var n=0;
+ var registro=registros[1].split('~');
+
+ document.PaginaDatos.fecha_asi.value=registro[1];
+ document.PaginaDatos.hora_asi.value=registro[2];
+ document.PaginaDatos.dia_asi.value=dias[registro[3]];
+ document.PaginaDatos.serial_dho.value=registro[0];
+ document.PaginaDatos.tema.value=registro[9];
+ nombre=registro[4];
+ materia=registro[5];
+ inicio=registro[10];
+ fin=registro[11];
+ registro_salida=registro[12];
+ document.getElementById('empleado').innerHTML=nombre;
+ document.getElementById('materia').innerHTML=materia+'<br>'+inicio+' - '+fin;
+
+//document.PaginaDatos.observaciones_asi.disabled=false;
+ var aux=0;
+ if (registros.length>1 && registro[7]!='') {
+ document.PaginaDatos.observacion.value='Su horario: '+registro[6]+',\nLos accesos que ha tenido el dia de hoy son:\n';
+  for (var i=1; i < registros.length-1; i++) {
+    var reg=registros[i].split('~');
+
+    document.PaginaDatos.observacion.value+='Entro a las:'+reg[7];
+    if (reg[8]==''){
+    	document.PaginaDatos.observacion.value+=' y todavia no sale';
+		aux=1;
+    }else
+    document.PaginaDatos.observacion.value+=' y Salio a las :'+reg[8]+'\n';
+
+
+  }
+  //Las observaciones solamente se ingresan cuando esta registrando su entrada
+  //alert(aux);
+	//if(aux==1)
+	//	document.PaginaDatos.observaciones_asi.disabled=true;	
+	//else	
+	//	document.PaginaDatos.observaciones_asi.disabled=false;
+ }
+ else
+  document.PaginaDatos.observacion.value='Su horario: '+registro[6]+',\nNo ha registrado ningun acceso';
+ 
+
+ }
+
+function ConsultarEmpleado(){
+//var serial_usr=;
+var id=document.PaginaDatos.serial_dho.value;
+
+   if (id==null || trim(id)=="") {
+
+       alert('Error Grave:  Usuario NO permitido!');
+       window.close();
+   }
+else {
+//alert('Entra');
+       objDB=new omnisoftDB("select detallehorario.serial_dho, CURRENT_DATE as fecha,CURRENT_TIME as hora ,DAYOFWEEK(CURRENT_DATE),concat_ws(' ',apellido_epl,nombre_epl) as profesor,nombre_mat,nombrehorario_hrr,entrada_apro,salida_apro,tema_apro,INICIO_HORA, FIN_HORA ,serial_apro from detallehorario,horas,horario,empleado,materia left join asistenciaprofesor on asistenciaprofesor.serial_dho=detallehorario.serial_dho where  horario.SERIAL_EPL=empleado.SERIAL_EPL and horario.serial_mat=materia.serial_mat and horario.serial_hrr=detallehorario.serial_hrr and detallehorario.SERIAL_HORA=horas.SERIAL_HORA  and detallehorario.serial_dho="+id,"../lib/server/omnisoftSQLData.php");
+//and detallehorario.FECHACLASE_DHO=now() and (( (cast(time(now()) as time)>=SUBTIME(time(INICIO_HORA),time('00:15:00')) and cast(time(now()) as time)<=FIN_HORA) ) or salida_apro='')	   
+	       setTimeout('objDB.executeQuery()',0);
+ //time(now())
+	}
+}
+function recuperarDatos(data){
+//alert(data);
+var resultado=data.split('|');
+if (resultado[1]!=0) {
+    alert('Su asistencia ha sido registrada exitosamente!');
+    window.close();
+ }
+ else alert('La clave ingresada es incorrecta!');
+
+}
+
+function registrarAsistencia() {
+//alert(registro_salida);
+if((registro_salida=='')|| (registro_salida!='' && trim(document.PaginaDatos.tema.value)!='')){
+       var query=document.PaginaDatos.serial_dho.value+'|'+document.PaginaDatos.fecha_asi.value +'|'+document.PaginaDatos.hora_asi.value+'|'+document.PaginaDatos.clave_usr.value+'|'+document.PaginaDatos.observaciones_asi.value+'|'+document.PaginaDatos.tema.value;
+	  // prompt('prueba',query);
+       objDB=new omnisoftDB(query,"../lib/server/omnisoftRegistrarAsistenciaProfesor.php",'recuperarDatos');
+       setTimeout('objDB.executeQuery()',0);
+	}else{
+		alert('Debe ingresar el tema tratado..!!');
+		document.PaginaDatos.tema.focus();
+	
+	}	   
+}
+function ltrim(s) {     return s.replace(/^\s+/, ""); }  
+function rtrim(s) {     return s.replace(/\s+$/, ""); }  
+function trim(s) {     return rtrim(ltrim(s)); }
+
+function intro(e,ci_epl){
+		
+		tecla=(document.all) ? e.keyCode : e.which;
+		
+		if(tecla==13) {
+		
+		window.event.keyCode=0;
+		ConsultarEmpleado(ci_epl);
+		//alert("has apretado intro");
+		
+		}
+
+}
+function seleccionarPeriodo(){
+ //alert('entro_seleccionarPeriodo');
+
+	cserial_per.objDBComando.sqlCommand='select serial_per, nombre_per, per.serial_sec, nombre_sec, activo_per, serial_suc, fecini_per, fecfin_per, serial_suc from periodo as per left join seccion as sec on per.serial_sec = sec.serial_sec  where per.serial_sec='+document.PaginaDatos.serial_sec.value+' and activo_per=\'SI\' and serial_suc ='+getCookie('serial_suc')+' order by nombre_per';
+  	cserial_per.objDBComando.executeQuery();
+ 
+  }
+ 
+ 
+
+function seleccionarMateria(){
+	cserial_hrr.objDBComando.sqlCommand='SELECT concat(serial_hrr,\'*\',DOCUMENTOIDENTIDAD_EPL) serial_hrr, concat(  apellido_epl,\'  \',nombre_epl,\'->\',nombre_mat, \' -> \', seccion_hrr ) AS materia FROM horario AS hrr, materia AS mat,empleado AS e WHERE hrr.serial_mat=mat.serial_mat AND serial_per='+document.PaginaDatos.serial_per.value+' and hrr.serial_epl=e.serial_epl order by materia asc';
+	 cserial_hrr.objDBComando.executeQuery();  
+//	 and serial_epl='+document.PaginaDatos.serial_epl.value+' 
+}
+
+function seleccionarDia(){
+
+var serial_hrr=document.PaginaDatos.serial_hrr.value.split('*');
+document.PaginaDatos.clave_usr.value=serial_hrr[1];
+
+//alert('serial:'+serial_hrr[0]+'cedual:'+serial_hrr[1]);
+cserial_dho.objDBComando.sqlCommand='select -99,\'SELECCIONE...\' as hora UNION select serial_dho,concat(FECHACLASE_DHO,\'==\',concat_ws(\'->\',INICIO_HORA,FIN_HORA)) as hora from detallehorario,horas where detallehorario.serial_hora=horas.serial_hora and serial_hrr='+serial_hrr[0]+'';
+  cserial_dho.objDBComando.executeQuery();
+}
+</script>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="clave_usr" type="hidden" id="clave_usr">
+
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0"  class="formtable">
+    <tr  >
+      <td width="189" height="53"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+        REGISTRO ASISTENCIA<br>
+		<span id="empleado"></span>
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td  colspan="3" valign="top"> <table width="805" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="17"  class="inputtitle" colspan="2">Programa :</td>
+                        <td>
+                        <script>
+ var cserial_sec=new omnisoftComboBox('cserial_sec','serial_sec','select serial_sec, nombre_sec from seccion order by nombre_sec','250px',false,'','',seleccionarPeriodo);
+                     cserial_sec.show();	 
+		//document.PaginaDatos.serial_sec.onchange=seleccionarProfesor;
+        //document.PaginaDatos.serial_sec.onclick=seleccionarProfesor;				 
+					 </script></td>
+                        <td class="inputtitle">Periodo :</td>
+                        <td  colspan="2"><script>
+	 
+ var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per, nombre_per from periodo as per where activo_per=\'SI\' and serial_suc ='+getCookie('serial_suc')+'order by nombre_per asc','250px',true,'','',seleccionarMateria);
+ //prompt('Periodo','select serial_per, nombre_per from periodo as per where activo_per=\'SI\' order by nombre_per asc');
+                     cserial_per.show();	  
+		//document.PaginaDatos.serial_sec.onchange=seleccionarMateria;
+        //document.PaginaDatos.serial_sec.onclick=seleccionarMateria;							 
+					 </script></td>
+          </tr>
+        
+          <tr>
+            <td class="inputtitle" colspan="2">Profesor/Materia:</td>
+                      <td class="inputtitle" colspan="4"><script>
+                    var cserial_hrr=new omnisoftComboBox('cserial_hrr','serial_hrr','select -99,\'SELECCIONE...\' UNION SELECT serial_hrr, concat( nombre_mat, \' -> \', seccion_hrr ) AS materia FROM horario AS hrr, materia AS mat WHERE hrr.serial_mat=mat.serial_mat AND 1=2  ','500px',true,'','',seleccionarDia);
+                    cserial_hrr.show();
+
+                        </script></td>
+          </tr>
+		     <tr>
+              <td height="21"  colspan="2"  class="inputtitle">Fecha/Hora :</td>
+                        <td  colspan="4"><script>
+                    var cserial_dho=new omnisoftComboBox('cserial_dho','serial_dho','select serial_dho,concat(FECHACLASE_DHO,\'==\',concat_ws(\'->\',INICIO_HORA,FIN_HORA)) as hora from detallehorario,horas where detallehorario.serial_hora=horas.serial_hora and 1=2','250px',true);
+                    cserial_dho.show();
+				document.PaginaDatos.serial_dho.onchange=ConsultarEmpleado;	
+                        </script></td>
+          </tr>
+        
+          <tr>
+            <td width="102" class="inputtitle" >Dia:</td>
+            <td width="66" class="inputtitle" ><input name="dia_asi" type="text" id="dia_asi" class="string" size="15" maxlength="15"  onBlur="esconderToolTip()" readonly="yes"></td>
+            <td width="215"   class="inputtitle">Fecha Actual:</td>
+            <td width="141"  ><input name="fecha_asi" type="text" id="fecha_asi" class="string" size="12" maxlength="10"  onBlur="esconderToolTip()" readonly="yes"></td>
+            <td width="96" class="inputtitle" >Hora Actual:</td>
+            <td width="171"  ><input name="hora_asi" type="text" id="hora_asi" class="string" size="12" maxlength="10"  onBlur="esconderToolTip()" readonly="yes"></td>
+          </tr>
+          <tr>
+            <td  class="inputtitle">Tema tratado:</td>
+            <td colspan="5"  class="inputtitle"><textarea name="tema" type="text" id="tema"  size="100" maxlength="150"  onBlur="esconderToolTip()"  cols="140"  rows="2"></textarea></td>
+          </tr>
+		   <tr>
+            <td  class="inputtitle">Observaciones:</td>
+            <td colspan="5"  class="inputtitle"><textarea name="observaciones_asi" type="text" id="observaciones_asi"  size="100" maxlength="80"  onBlur="esconderToolTip()" cols="140"  rows="2" ></textarea></td>
+          </tr>
+ 		 <tr>
+            <td colspan="6"  class="inputtitle" align="center"><span id="materia" class="Estilo1"></span></td>
+          </tr>
+         
+          <tr>
+            <td colspan="6"  class="inputtitle"><label>Detalles:</label></td>
+          </tr>
+          
+          
+          
+
+      </table>      </td>
+    </tr>
+    <tr >
+      <td height="15" colspan="3" class="inputtitle"><textarea name="observacion" id="observacion" cols="195" rows="5" readonly="yes"></textarea></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:registrarAsistencia()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165">&nbsp;</td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftAyuda()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="162">&nbsp;</td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:window.close()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+   document.PaginaDatos.imgfoto.src='../fotos/'+getCookie('foto_usr');
+</script>
+
+</body>
+</html>

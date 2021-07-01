@@ -1,0 +1,381 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<style type="text/css">
+<!--
+.Estilo1 {
+	font-size: 16px;
+	font-weight: bold;
+	color: #FF0000;
+}
+.color_pregunta {color: #CC0033}
+.style6 {font-size: 12px}
+-->
+</style>
+</head>
+<body >
+<script>
+var respuestas=new Array(); 
+var preguntas= new Array();
+var creo_resp=0;
+var serial_resp_help=0;
+//OBTIENE EL VALOR DEL PARAMETRO DEL URL
+function gup( name ){
+	var regexS = "[\\?&]"+name+"=([^&#]*)";
+	var regex = new RegExp ( regexS );
+	var tmpURL = window.location.href;
+	var results = regex.exec( tmpURL );
+	if( results == null )
+		return"";
+	else
+		return results[1];
+}
+var serial_ceva=gup('serial_ceva');
+var serial_eva=gup('serial_eva');
+//alert(window.parent.alumno);
+//alert('Evaluacion:'+serial_ceva);
+
+
+   if (serial_ceva==null || serial_eva==null) {
+
+       alert('No puede registrar la evaluacion..!');
+       window.close();
+   }
+else {
+	objDB=new omnisoftDB(' select SERIAL_RSP,NOMBRE_RSP,VALOR_RSP from respuesta where serial_eva='+serial_eva+' order by ORDEN_RSP',"../lib/server/omnisoftSQLData.php",'recuperarRespuestas');
+	setTimeout('objDB.executeQuery()',0);
+		 
+	//alert('si creo resp'+creo_resp);
+	if(creo_resp==1)
+		obtenerEvaluacion();
+}
+function obtenerEvaluacion(){
+       objDB=new omnisoftDB(' Select SERIAL_PRG,NOMBRE_AREV,DETALLE_PRG from pregunta_evaluacion,area_evaluacion where pregunta_evaluacion.SERIAL_AREV=area_evaluacion.SERIAL_AREV and SERIAL_EVA='+serial_eva+' order by NOMBRE_AREV,ORDEN_PRG',"../lib/server/omnisoftSQLData.php",'recuperarDatosPreguntas');
+       setTimeout('objDB.executeQuery()',0);
+}
+
+function recuperarRespuestas(data){
+//alert('Entra');
+		 respuestas=data;
+		// CrearRespuestas();
+		if(creo_resp==0)
+			obtenerEvaluacion();
+	creo_resp=1;		
+}
+
+function mostrarValores(obj){
+alert(obj.value);
+
+}
+function hideboton() {
+	//document.getElementById('boton').style.visibility='hidden';  
+	document.getElementById('divGuardar').style.visibility="hidden";
+	alert('Se va a guardar su evaluación......');
+}
+function showboton() {
+//	document.getElementById('boton').style.visibility='visible';
+	document.getElementById('divGuardar').style.visibility="visible";
+}
+function registrarEvaluacion(){
+//	alert(preguntas.length);
+	var resp_serial=new Array();
+	var resp_valor=new Array();
+	var preg_serial=new Array();
+	var salir=0;
+	var j=1;
+		
+	
+   // document.getElementById('divGuardar').style.visibility="hidden";
+	
+	for (i=0; i<document.forms[0].elements.length; i++) {
+     objeto = document.forms[0].elements[i] ;
+		if (objeto.type=="radio") {
+			if(objeto.checked){
+				//alert(objeto.name+"   "+objeto.value);
+				var gpendiente=objeto.value.split('|');
+				//alert(gpendiente[0]+"   "+j);
+				if(parseInt(gpendiente[0])==parseInt(j)) {
+					preg_serial[j]=gpendiente[1];
+					resp_serial[j]=gpendiente[2];
+					resp_valor[j]=gpendiente[3];
+					j=j+1;
+				}else{
+					 salir=1;
+					 alert('Debe seleccionar la respuesta para la pregunta=>'+j);
+					 showboton();
+					 objeto.focus();
+					 break;
+				}
+			}
+		}
+     }
+	 if(salir==0){
+		//GUARDA REGISTROS DE LA EVALUACION EN LA BASE DE DATOS
+		var SQLCommand='';
+		
+		if(preguntas.length==preg_serial.length){
+			/*for(i=1;i<=preg_serial.length; i++){
+					  //NO GUARDA si es NA	la respuesta
+					  if(resp_serial[i]=='NA'){	
+					  		 SQLCommand=' INSERT INTO DETALLE_EVALUACION (SERIAL_CEVA, SERIAL_PRG,SERIAL_RSP, VALOR_RSP,NA_RSP) VALUES('+serial_ceva+','+preg_serial[i]+','+serial_resp_help+',0,\'SI\')';
+							
+							//pausecomp(200);
+							 // prompt('prueba',SQLCommand);
+							 alert('Guarda Pregunta:=>'+i);
+							  //break;
+							  
+					  }else {
+					  		 SQLCommand=' INSERT INTO DETALLE_EVALUACION (SERIAL_CEVA, SERIAL_PRG,SERIAL_RSP, VALOR_RSP) VALUES('+serial_ceva+','+preg_serial[i]+','+resp_serial[i]+','+resp_valor[i]+')';
+							//prompt('test',SQLCommand);
+							//alert('Entra');
+							//pausecomp(200);
+							alert('Guarda Pregunta:=>'+i);
+					  }
+					  
+					 // prompt('prueba',SQLCommand);
+					  
+					  var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftDataManager.php");
+							  objDBComando.executeQuery();
+					  guarda=1;
+					
+			}*/
+			setTimeout("alert('Procesando Evaluación............')",2000);
+			document.PaginaDatos.submit();
+			 /*SQLCommand='select cabecera_evaluacion.SERIAL_CEVA, count(serial_deva),NUMPREGUNTAS_EVA 
+from detalle_evaluacion,cabecera_evaluacion,evaluacion  
+where  detalle_evaluacion.SERIAL_CEVA=cabecera_evaluacion.SERIAL_CEVA  and cabecera_evaluacion.SERIAL_EVA=evaluacion.SERIAL_EVA
+and cabecera_evaluacion.SERIAL_TEVA=1 
+group by SERIAL_CEVA';*/
+
+			alert('Evaluación Guardada Exitosamente....!!!!!');
+			//window.opener.location.reload();
+			//window.opener.document.ActualizarDatos.submit();
+			//alert(window.opener.document.PaginaDatos.cedula.value);
+		/////*	window.opener.ProcesarEvaluacion(window.opener.document.PaginaDatos.cedula.value);
+			//window.close();
+		 }else{	alert('NO guardo la evaluacion, seleccione la respuesta correspondiente a la pregunta....!!!!!'); showboton();}
+	}	
+}
+
+ var serial_resp_help=0;
+function crear_pregunta(tbody,id,area,pregunta,serial_prg)
+{
+	
+	var tbody, tamano, tr, td;
+	//var texto,valor1, valor_USD,textos;
+	tbody=document.getElementById(tbody);
+
+	tr=tbody.insertRow(tbody.rows.length);
+	td=tr.insertCell(tr.cells.length);
+	td.innerHTML=area;		
+	td=tr.insertCell(tr.cells.length); //columna en blanco
+	
+	td.innerHTML="<span class='color_pregunta'><strong>&nbsp;"+id+"&nbsp; .-)&nbsp; "+pregunta+"</strong></span><br><br>";		
+   // td.className = "r"; 
+	td=tr.insertCell(tr.cells.length); //columna en blanco
+	
+	tr=tbody.insertRow(tbody.rows.length);
+	td=tr.insertCell(tr.cells.length);
+	td.innerHTML='';		td=tr.insertCell(tr.cells.length); //columna en blanco
+		
+	texto='<table width=100% bgcolor="#5e97c6"><tr>';
+	resp=respuestas.split('|');
+	//serial_rsp=>resp[0],valor_rsp=>resp[2]
+	// alert('tamaño'+resp.length);
+	 for (var i=1; i < resp.length-1; i++) {
+	 			//alert("resp"+resp[i]);
+    			var reg=resp[i].split('~');
+				//reg[0] serial_resp
+				//reg[2] valore_resp
+				texto+="<td>"+reg[1]+"<input type='radio' id=resp["+serial_prg+"] name=resp["+serial_prg+"] value='"+id+"|"+serial_prg+"|"+reg[0]+"|"+reg[2]+"' ></td>"; 
+				serial_resp_help=reg[0];
+				}
+	//onclick='mostrarValores(this)'
+	// Solamente para las evaluaciones de jefe de area y alumnos que son numericas se debe mostrar el NA
+	if(serial_eva==1 || serial_eva==4)
+			texto+="<td>NA<input type='radio' id=resp["+serial_prg+"] name=resp["+serial_prg+"] value='"+id+"|"+serial_prg+"|NA|NA' ></td>"; 
+
+	texto+="</tr></table>";
+	td.innerHTML=texto;
+	td=tr.insertCell(tr.cells.length);	
+	document.PaginaDatos.serial_resp_help.value=serial_resp_help;
+	
+}		
+
+function pausecomp(millis) 
+{
+var date = new Date();
+var curDate = null;
+
+do { curDate = new Date(); } 
+while(curDate-date < millis);
+} 
+
+</script>
+
+<form method="GET" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)" action="grabarEvaluacion.php">
+<input name="action" type="hidden" id="action">
+<input name="serial_ceva" type="hidden" id="serial_ceva">
+<input name="cedula" type="hidden" id="cedula">
+<input name="serial_resp_help" type="hidden" id="serial_resp_help">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0"  class="formtable">
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+        EVALUACION<br>
+        <span class="style6">
+      <script>//document.write(getURLParam('alumno')+'<br>');
+		document.write(window.opener.document.PaginaDatos.serial_mat.options[window.opener.document.PaginaDatos.serial_mat.selectedIndex].text);
+		</script>
+		
+        </span>
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="15" colspan="3"> 
+	  
+	  <table width="100%"  border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable" id="tablaPregunta">
+	  <tr>
+            <td height="15" colspan="2" class="color_pregunta"  align="center" ><strong>
+			 <script>document.write(getURLParam('alumno')+'<br>');
+		//document.write(window.opener.document.PaginaDatos.serial_mat.options[window.opener.document.PaginaDatos.serial_mat.selectedIndex].text);
+		     </script>
+			</strong></td>
+		</tr>	
+          <tr>
+            <td height="15" colspan="2"  ><ul >
+              <strong class="tituloAccion">Objetivos:</strong><br>
+               <li class="style6"> Conocer la percepción de los estudiantes respecto a la calidad académica y andragogía del profesor para el mejoramiento continuo. </li>
+			   <li class="style6"> Mantener y superar los estándares internacionales de calidad académica establecidos dentro del proceso de Acreditación. </li>
+            </ul>
+			<ul>
+             <strong class="tituloAccion">Instrucciones:</strong><br>
+              <span class="style6">Observe cuidadosamente la escala de evaluación que se presente y marque la opción que represente con mayor precisión su criterio.</span>
+			  </ul>			</td>
+          </tr>
+		  <tr>
+            <td height="15" colspan="2"  ><ul>
+               <strong class="tituloAccion">Escalas de evaluación:</strong><br>
+               <li class="style6"> R5 = Totalmente de acuerdo </li>
+			   <li class="style6"> R4 = Moderadamente de acuerdo </li>
+			   <li class="style6"> R3 = Indiferente </li>
+			   <li class="style6"> R2 = Moderadamente en desacuerdo </li>
+			   <li class="style6"> R1 = Totalmente en desacuerdo </li>
+			   <li class="style6"> NA = No Aplica </li>
+            </ul>
+			
+			</td>
+          </tr>
+		   <tr>
+            <td height="15" colspan="2"  class="inputtitle"  align="center"><span id="area"></span>&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="180" height="15"  class="inputtitle" align="center" >AREA</td>
+            <td width="619"  class="inputtitle" align="center" >PREGUNTA</td>
+          </tr>
+		  <TBODY id="body_hidden" class="formtable"  ></TBODY>
+          <tr>
+            <td height="15"  class="inputtitle">            </td>
+            <td height="15"  class="inputtitle">
+
+</td>
+          </tr>
+      </table>      </td>
+    </tr>
+    <tr >
+      <td height="15" colspan="3" class="inputtitle">&nbsp;</td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:hideboton();registrarEvaluacion()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165">&nbsp;</td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftAyuda()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="162">&nbsp;</td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:window.close()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+
+
+function recuperarDatosPreguntas(data){
+	//alert('entra preguntas');
+	idtabla="tablaPregunta";
+	var contenidop = new Array();
+	var serial_prg=0;
+	  var registros=data.split('|');
+	   for (var i=1; i < registros.length-1; i++) {
+			var reg=registros[i].split('~');
+			serial_prg=reg[0];
+			preguntas[i]=reg[0];
+			//reg[1] area
+			//reg[2] pregunta
+			crear_pregunta('body_hidden',i,reg[1],reg[2],serial_prg)
+	
+		}	
+}
+
+document.PaginaDatos.serial_ceva.value=serial_ceva;
+
+document.PaginaDatos.cedula.value=window.opener.document.PaginaDatos.cedula.value;
+</script>
+
+</body>
+</html>

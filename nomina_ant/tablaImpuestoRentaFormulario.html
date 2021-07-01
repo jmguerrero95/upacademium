@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/jscalendar/calendar.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/lang/calendar-es.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/calendar-setup.js" ></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_tir" type="hidden" id="serial_tir" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          RECURSOS HUMANOS<br>
+          TABLA IMPUESTO A LA RENTA
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="107" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          
+          <tr>
+            <td width="216" height="24"  class="inputtitle">A&ntilde;o :</td>
+            <td colspan="3" ><img src="../images/camporequerido.gif"><input name="anio_tir" type="text" id="anio_tir" class="integer" size="4" maxlength="4"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="20"  class="inputtitle">Fracci&oacute;n B&aacute;sica :</td>
+            <td width="148" ><img src="../images/camporequerido.gif"><input name="fraccionbasica_tir" type="text" id="fraccionbasica_tir" class="double" size="16" maxlength="16"  onBlur="esconderToolTip()"></td>
+            <td width="212"  class="inputtitle">Fracci&oacute;n Excedente :</td>
+            <td width="219" ><img src="../images/camporequerido.gif"><input name="fraccionexcedente_tir" type="text" id="fraccionexcedente_tir" class="double" size="16" maxlength="16"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="20"  class="inputtitle">Impuesto sobre Fracci&oacute;n B&aacute;sica:</td>
+            <td ><img src="../images/camporequerido.gif"><input name="basica_tir" type="text" id="basica_tir" class="double" size="16" maxlength="16"  onBlur="esconderToolTip()"></td>
+            <td  class="inputtitle">Impuesto sobre Fracci&oacute;n Excedente:</td>
+            <td ><img src="../images/camporequerido.gif"><input name="excedente_tir" type="text" id="excedente_tir" class="double" size="16" maxlength="16"  onBlur="esconderToolTip()"></td>
+          </tr>
+          
+          <tr>
+            <td height="20"  class="inputtitle">Estado:</td>
+            <td colspan="3" ><img src="../images/camporequerido.gif"><select name="estado_tir" id="estado_tir" class="combobox">
+                <option value="VIGENTE">Vigente</option>
+                <option value="NOVIGENTE">No Vigente</option>
+              </select></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

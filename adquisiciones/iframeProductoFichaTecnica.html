@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/omnisoft.js"></script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_prd" type="hidden" id="serial_prd" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+  // omnisoftLoadData(document.PaginaDatos);
+
+      var serial_prd=parent.PaginaDatos.serial_prd.value;
+      var sql="select fit.serial_fit, fecha_fit, codigo_fit, numeroDocumento_fit, descripcionTecnica_fit , metodoTransporte_fit, metodoUsoAlmacenamiento_fit, estado_fit FROM fichatecnica as fit,producto as prd  where fit.serial_fit = prd.serial_fit and serial_prd=masterkey";
+
+     omniObj=new omnisoftGridDetail('omniObj','serial_prd',serial_prd,'fichatecnica','serial_fit',sql,document.PaginaDatos);
+
+     omniObj.addColumn('Serial','serial_fit', 10,'hidden','','middle','');
+     omniObj.addColumn('Fecha','fecha_fit', 8,'date','','middle','');
+     omniObj.addColumn('Codigo','codigo_fit', 10,'string','','middle','');
+     omniObj.addColumn('Numero Documento','numeroDocumento_fit', 12,'string','','middle','');
+     omniObj.addColumn('Descripcion Tecnica','descripcionTecnica_fit', 10,'string','','middle','');
+     omniObj.addColumn('Metodo Transporte','metodoTransporte_fit', 12,'string','','middle','');
+     omniObj.addColumn('Metodo Almacenamiento','metodoUsoAlmacenamiento_fit', 13,'string','','middle','');
+     omniObj.addColumn('Estado','estado_fit', 10,'string','','middle','');
+     
+     omniObj.showGrid('omniObj',20,448,1020,'menu','#FF9900');
+
+
+
+
+
+
+ </script> </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

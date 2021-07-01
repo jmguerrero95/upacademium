@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+
+<script>
+
+function calcularPrecios() {
+document.PaginaDatos.precio3_prd.value=parseFloat(document.PaginaDatos.costoUnitario_prd.value*100/97).toFixed(4);
+document.PaginaDatos.precio4_prd.value=parseFloat(document.PaginaDatos.precio1_prd.value*100/97).toFixed(4);
+document.PaginaDatos.rentabilidad_prd.value=(100-parseFloat((document.PaginaDatos.costoUnitario_prd.value/document.PaginaDatos.precio1_prd.value)*100)).toFixed(2);
+}
+function procesarCodigo() {
+var codigo=document.PaginaDatos.serial_tpo.options[document.PaginaDatos.serial_tpo.selectedIndex].text.split('-');
+document.PaginaDatos.codigoformado_prd.value=codigo[0]+codigo[2]+codigo[4];
+}
+</script>
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action" class="hidden">
+<input name="serial_prd" type="hidden" id="serial_prd" class="hidden">
+
+<input name="serial_lop" type="hidden" id="serial_lop" class="hidden" value="1">
+<input name="bienServicio_prd" type="hidden" id="bienServicio_prd" class="hidden" value="BIEN">
+
+
+  <table width="1020"  cellspacing="0" cellpadding="0" border=1  bordercolordark="#FFFFFF" bordercolorlight="#000000"  class="formtable">
+    <tr>
+      <td height="20" colspan="8" class="formtitle" ><div align="center">DATOS
+          GENERALES</div></td>
+      <td width="112" rowspan="5" ><img src="../fotos/producto.jpg" width="100" height="100" name="imgfoto"></td>
+    </tr>
+    <tr>
+      <td width="66" height="28" class="inputtitle" >C&oacute;digo: </td>
+      <td width="53" class="inputtitle" ><img  src="../images/camporequerido.gif"><input name="codigo_prd" type="text" id="codigo_prd"  class="autoincrement" size="10" maxlength="10"  onBlur="esconderToolTip()" fieldid="serial_prd" table="producto" ></td>
+      <td width="88" class="inputtitle" >C&oacute;digo Alterno: </td>
+      <td width="65" class="inputtitle" ><input name="codigoAlterno_prd" type="text" id="codigoAlterno_prd"  class="emptytext" size="10" maxlength="10"  onBlur="esconderToolTip()"  ></td>
+      <td width="141" class="inputtitle" >Es combo?:</td>
+      <td width="237" class="inputtitle" ><img  src="../images/camporequerido.gif"><select name="combo_prd" id="combo_prd" onChange="" class="combobox" >
+          <option value="NO">No</option>
+          <option value="SI">Si</option>
+      </select></td>
+      <td width="49" class="inputtitle">Foto: </td>
+      <td width="189" class="inputtitle"><input name="foto_prd" type="input" id="foto_prd" size="30" maxlength="255" class="emptystring"><a href="#" onclick="cargarFoto()"><image alt="Cargar Foto" src="../images/buscar.png" width="20" heigth="20" name="foto" ></a></td>
+    </tr>
+    <tr>
+      <td height="19" class="inputtitle" >Nombre: </td>
+      <td height="19" colspan="3" class="inputtitle" ><img  src="../images/camporequerido.gif">
+<input name="nombre_prd" type="text" id="nombre_prd" class="string" size="35" maxlength="80"  onBlur="esconderToolTip()" ></td>
+      <td class="inputtitle" >Familia/Grupo/Subgrupo: </td>
+      <td colspan="3" class="inputtitle" ><img  src="../images/camporequerido.gif">
+                  	    <script>
+ var cserial_tpo=new omnisoftComboBox('cserial_tpo','serial_tpo','select serial_tpo,concat(codigo_fap,\'-\',nombre_fap,\'-\',codigo_cap,\'-\',nombre_cap,\'-\',codigo_tpo,\'-\',nombre_tpo) as nombre from familiaproducto,categoriaproducto,tipoproducto where familiaproducto.serial_fap=categoriaproducto.serial_fap and categoriaproducto.serial_cap=tipoproducto.serial_cap order by nombre_cap,nombre_tpo ','370px',true,getURLParam('serial_tpo','iframe'));
+                     cserial_tpo.show();	
+					 document.PaginaDatos.serial_tpo.onchange=procesarCodigo;
+					   </script>	  <input name="codigoformado_prd" type="text" id="codigoformado_prd"   size="10" maxlength="10"  onBlur="esconderToolTip()"  ></td>
+    </tr>
+    <tr>
+      <td class="inputtitle">Descuento:</td>
+      <td colspan="3" class="inputtitle" ><input name="descuento_prd" type="text" id="descuento_prd" class="integer" size="5" maxlength="5"  onBlur="esconderToolTip(); " value="0"  >
+      %</td>
+      <td class="inputtitle" >Proveedor: </td>
+      <td colspan=2 class="inputtitle"><img  src="../images/camporequerido.gif">
+	                    	    <script>
+ var cserial_pvd=new omnisoftComboBox('cserial_pvd','serial_pvd','select serial_pvd,razonSocial_pvd from proveedor where estado_pvd=\'ACTIVO\' order by razonSocial_pvd ','240px',true,getURLParam('serial_pvd','iframe'));
+                     cserial_pvd.show();	  </script>	  </td>
+    </tr>
+    <tr>
+      <td height="19" class="inputtitle" >Facturable: </td>
+      <td height="19" colspan="3" class="inputtitle" ><select name="facturable_prd" id="facturable_prd"  class="combo" >
+        <option value="SI" selected="selected">Si</option>
+        <option value="NO">No</option>
+      </select></td>
+      <td class="inputtitle" >Estado:</td>
+      <td class="inputtitle" ><img  src="../images/camporequerido.gif"><select name="estado_prd" id="estado_prd" onChange="" class="combobox" >
+          <option value="ACTIVO" selected>Activo</option>
+          <option value="INACTIVO">Inactivo</option>
+        </select></td>
+      <td colspan="2" class="inputtitle">&nbsp;</td>
+    </tr>
+  </table>
+
+  <table width="1020"  cellspacing="0" cellpadding="0" border=1  bordercolordark="#FFFFFF" bordercolorlight="#000000"  class="formtable">
+    <tr>
+      <td height="22" colspan="8" class="formtitle" ><div align="center"> IDENTIFICACION</div></td>
+    </tr>
+    <tr>
+      <td width="146" height="20" class="inputtitle" >Codigo Unidad EAN13: </td>
+      <td width="148" class="inputtitle" ><input name="barrasUnitarioEAN13_prd" type="text" id="barrasUnitarioEAN13_prd" class="emptyinteger" size="13" maxlength="16"  onBlur="esconderToolTip()" ></td>
+      <td width="166" class="inputtitle" ><div id="divlbarrasUnitarioCajaEAN13_prd" style="visibility:hidden"> Codigo Unidad Caja EAN13:</div> </td>
+      <td width="76" class="inputtitle" ><div id="divbarrasUnitarioCajaEAN13_prd" style="visibility:hidden"> <input name="barrasUnitarioCajaEAN13_prd" type="text" id="barrasUnitarioCajaEAN13_prd" class="emptyinteger" size="13" maxlength="16"  onBlur="esconderToolTip()" ></div></td>
+      <td width="132" class="inputtitle">C&oacute;digo Cajas EAN14: </td>
+      <td colspan="3" class="inputtitle"><input name="barrasCajasEAN14_prd" type="text" id="barrasCajasEAN14_prd" class="emptyinteger" size="14" maxlength="14"  onBlur="esconderToolTip()" ></td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Unidad Medida:</td>
+      <td height="20" colspan="3" class="inputtitle" ><img  src="../images/camporequerido.gif">
+      	                    	    <script>
+ var cunidadMedida_prd=new omnisoftComboBox('cunidadMedida_prd','unidadMedida_prd','select nombre_ume,nombre_ume from unidadMedida where tipo_ume=\'UNIDAD\' order by nombre_ume','200px',true,getURLParam('unidadMedida_prd','iframe'));
+                     cunidadMedida_prd.show();	  </script>
+</td>
+      <td class="inputtitle">Unidades x Embalaje</td>
+      <td width="104" class="inputtitle"><img  src="../images/camporequerido.gif">
+      <input name="unidadesEmbalaje_prd" type="text" id="unidadesEmbalaje_prd" class="integer" size="10" maxlength="10"  onBlur="esconderToolTip()"  value="1"></td>
+      <td width="93" class="inputtitle"><div id="divlunidadMedidaEmbalaje_prd" style="visibility:hidden"> Unidad Medida:</div> </td>
+      <td width="137" class="inputtitle"><div id="divunidadMedidaEmbalaje_prd" style="visibility:hidden"><img  src="../images/camporequerido.gif">
+   	    <script>
+ var cunidadMedidaEmbalaje_prd=new omnisoftComboBox('cunidadMedidaEmbalaje_prd','unidadMedidaEmbalaje_prd','select nombre_ume,nombre_ume from unidadMedida where tipo_ume=\'CAJA\' order by nombre_ume','100px',true,getURLParam('unidadMedidaEmbalaje_prd','iframe'));
+                     cunidadMedidaEmbalaje_prd.show();	  </script>	</div>
+</td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Marca: </td>
+      <td height="20" colspan="3" class="inputtitle" ><input name="marca_prd" type="text" id="marca_prd" class="emptystring" size="30" maxlength="60"  onBlur="esconderToolTip()"  ></td>
+      <td class="inputtitle">Stock Actual : </td>
+      <td colspan="3" class="inputtitle"><input name="stockactual_prd" type="text" id="stockactual_prd" class="emptydouble" size="11" maxlength="11" value="1" onBlur="verificarStock();esconderToolTip()"  ></td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Dimensiones:</td>
+      <td height="20" colspan="3" class="inputtitle" ><input name="dimensiones_prd" type="text" id="dimensiones_prd" class="emptytext" size="20" maxlength="40"  onBlur="esconderToolTip()"   >
+      (ancho,alto,profundidad)</td>
+      <td class="inputtitle">Peso:</td>
+      <td colspan="3" class="inputtitle"><input name="peso_prd" type="text" id="peso_prd" class="emptyinteger" size="10" maxlength="10"  onBlur="esconderToolTip()" >
+      Kilos. </td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Stock M&iacute;nimo:</td>
+      <td height="20" colspan="3" class="inputtitle" ><img  src="../images/camporequerido.gif"><input name="stockMinimo_prd" type="text" id="stockMinimo_prd" class="integer" size="11" maxlength="11" value="0"  onBlur="esconderToolTip()"  ></td>
+      <td class="inputtitle">Stock M&aacute;ximo: </td>
+      <td colspan="3" class="inputtitle"><input name="stockMaximo_prd" type="text" id="stockMaximo_prd" class="emptyinteger" size="11" maxlength="11" value="1" onBlur="verificarStock();esconderToolTip()"  ></td>
+    </tr>
+  </table>
+  <table width="1020"  cellspacing="0" cellpadding="0" border=1  bordercolordark="#FFFFFF" bordercolorlight="#000000"  class="formtable">
+    <tr>
+      <td height="20" colspan="8" class="formtitle" ><div align="center">SRI-IMPUESTOS
+        </div></td>
+    </tr>
+
+    <tr>
+      <td width="91" height="20" class="inputtitle" >Graba ICE:</td>
+      <td width="167" height="20" class="inputtitle" ><select name="grabaice_prd" id="grabaice_prd"  class="combo" >
+        <option value="NO" selected="selected">No</option>
+        <option value="SI">Si</option>
+      </select></td>
+      <td width="76" height="20" class="inputtitle" >Tipo ICE:</td>
+      <td width="149" class="inputtitle" ><select name="ice_prd" id="ice_prd"  class="combo" style="font-family:Tahoma; font-size:10px; width:100px">
+        <option value="NO">No</option>
+        <option value="FIJO">Fijo</option>
+        <option value="PORCENTAJE">Porcentaje</option>
+      </select></td>
+      <td width="99" class="inputtitle">Valor ICE:</td>
+      <td width="172" class="inputtitle"><input name="fijoice_prd" type="text" id="fijoice_prd" class="emptydouble" size="10" maxlength="10"  onBlur="esconderToolTip()" >      </td>
+      <td width="86" class="inputtitle">Graba IVA </td>
+      <td width="162" class="inputtitle"><img  src="../images/camporequerido.gif"><select name="grabaiva_prd" id="grabaiva_prd"  class="combo" >
+        <option value="SI" selected="selected">Si</option>
+        <option value="NO">No</option>
+      </select></td>
+    </tr>
+  </table>
+  <table width="1020" height="166" border=1 cellpadding="0"  cellspacing="0" bordercolorlight="#000000"  bordercolordark="#FFFFFF"  class="formtable">
+    <tr>
+      <td height="20" colspan="9" class="formtitle" ><div align="center">INFORMACION
+          DE COSTEO DEL INVENTARIO</div></td>
+    </tr>
+    <tr>
+      <td width="88" height="20" class="inputtitle" > M&eacute;todo Costeo: </td>
+      <td colspan="2" class="inputtitle" ><img  src="../images/camporequerido.gif"> <select name="metodoCosteo_prd" id="metodoCosteo_prd" class="combo"  >
+          <option value="PROMEDIO" selected="selected">Promedio</option>
+          <option value="FIFO">FIFO</option>
+          <option value="LIFO">LIFO</option>
+        </select></td>
+      <td width="114" class="inputtitle" >Fecha Costeo:</td>
+      <td width="99" class="inputtitle"><input name="fechaCosteo_prd" type="text" id="fechaCosteo_prd"  class="emptydate" size="10" readonly  maxlength="10"  onBlur="esconderToolTip()"  >      </td>
+      <td width="121" class="inputtitle">Rentabilidad&nbsp; Min :</td>
+   <td width="100" class="inputtitle"><input name="rentabilidadMin_prd" type="text" id="rentabilidadMin_prd" size="8" maxlength="8" onBlur="esconderToolTip()" class="emptydouble" value="6">   </td>
+    <td width="87" class="inputtitle">Rentabilidad : </td>
+    <td width="155" class="inputtitle"><input name="rentabilidad_prd" type="text" id="rentabilidad_prd" size="8" maxlength="8" onBlur="esconderToolTip()" class="emptydouble"></td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" ><div id="divlcostoOrdenar_prd" style="visibility:visible">Costo Ordenar:</div></td>
+      <td height="20" colspan="2" class="inputtitle" ><input name="costoOrdenar_prd" type="text" id="costoOrdenar_prd"  size="20" maxlength="20"  onBlur="esconderToolTip()" class="emptydouble" ></td>
+      <td class="inputtitle" ><div id="divlcostoCompra_prd" style="visibility:visible">Costo Compra:</div></td>
+      <td class="inputtitle"><input name="costoCompra_prd" type="text" id="costoCompra_prd"  size="20" maxlength="20"  onBlur="esconderToolTip()" class="emptydouble" ></td>
+      <td class="inputtitle"><div id="divlcostoAlmacenar_prd" style="visibility:visible">Costo Almacenar:</div></td>
+      <td colspan="3" class="inputtitle"><input name="costoAlmacenamiento_prd" type="text" id="costoAlmacenamiento_prd"  size="20" maxlength="20"  onBlur="esconderToolTip()" class="emptydouble" ></td>
+    </tr>
+
+    <tr>
+      <td height="20" class="inputtitle" >Costo Unitario :</td>
+      <td height="20" colspan="2" class="inputtitle" ><img  src="../images/camporequerido.gif"><input name="costoUnitario_prd" type="text" id="costoUnitario_prd"  size="20" maxlength="20"  onBlur="esconderToolTip()" class="double" ></td>
+      <td class="inputtitle" >Costo Promedio:</td>
+      <td class="inputtitle"><input name="costoPromedio_prd" type="text" id="costoPromedio_prd"  size="16" maxlength="16"  class="emptydouble" onBlur="esconderToolTip()" readonly ></td>
+      <td class="inputtitle">Costo ultimo lote :</td>
+      <td class="inputtitle"><input name="costoLote_prd" type="text" id="costoLote_prd"  class="emptydouble" size="16" maxlength="16"  onBlur="esconderToolTip()" readonly ></td>
+      <td class="inputtitle">Expiracion:</td>
+      <td class="inputtitle"><input name="fechaExpiracion_prd" type="text" id="fechaExpiracion_prd" size="10" maxlength="10" onBlur="esconderToolTip()" class="emptydate"></td>
+    </tr>
+
+
+     <tr>
+      <td height="20" colspan="12" class="formtitle" ><div align="center">LOCALIZACION/PRECIOS</div></td>
+    </tr>
+   <tr>
+      <td height="20" class="inputtitle" >Ubicaci&oacute;n: </td>
+      <td height="20" colspan="2" class="inputtitle" ><input name="ubicacion_prd" type="text" class="emptytext" id="ubicacion_prd"  value="" size="50"></td>
+      <td class="inputtitle" >&nbsp;</td>
+      <td class="inputtitle">&nbsp;</td>
+      <td class="inputtitle">&nbsp;</td>
+      <td colspan="3" class="inputtitle">&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="20" class="inputtitle" >Precio1: </td>
+      <td width="185" height="20" class="inputtitle" ><input name="precio1_prd" type="text" id="precio1_prd"  size="16" maxlength="16"  onBlur="esconderToolTip();calcularPrecios();"  class="emptydouble" ></td>
+      <td width="51" class="inputtitle" >Precio2: </td>
+      <td class="inputtitle" ><input name="precio2_prd" type="text" id="precio2_prd"  size="16" maxlength="16"  onBlur="esconderToolTip()" class="emptydouble" readonly="yes"></td>
+      <td class="inputtitle">&nbsp;</td>
+      <td class="inputtitle">Precio3: </td>
+      <td colspan="3" class="inputtitle"><input name="precio3_prd" type="text" id="precio3_prd"  size="16" maxlength="16"  readonly="yes" onBlur="esconderToolTip()" class="emptydouble" ></td>
+    </tr>
+    <tr>
+      <td height="24" class="inputtitle" >Precio4: </td>
+      <td height="24" class="inputtitle" ><input name="precio4_prd" type="text" id="precio4_prd"  readonly="yes"size="16" maxlength="16"  onBlur="esconderToolTip()" class="emptydouble" ></td>
+      <td height="24" class="inputtitle" >Precio5: </td>
+      <td class="inputtitle" ><input name="precio5_prd" type="text" id="precio5_prd"  size="16" maxlength="16"  onBlur="esconderToolTip()" class="emptydouble" ></td>
+      <td class="inputtitle">&nbsp;</td>
+      <td class="inputtitle">Lote Actual:</td>
+      <td colspan="3" class="inputtitle"><input name="loteActual_prd" type="text" id="loteActual_prd"  size="16" maxlength="16"  readonly="yes" onBlur="esconderToolTip()" class="emptyinteger" ></td>
+    </tr>
+  </table>
+</form>
+<script>
+   omnisoftLoadData(document.PaginaDatos,'iframe');
+   if (document.PaginaDatos.foto_prd.value!='')
+   document.PaginaDatos.imgfoto.src='../fotos/'+document.PaginaDatos.foto_prd.value;
+
+</script>
+<script>
+
+function cargarFoto() {
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportPhoto.php?campofoto=foto_prd&foto='+document.PaginaDatos.foto_prd.value,'OmnisoftPhoto',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+setTimeout('procesarCodigo()',500);
+
+</script>
+
+</body>
+</html>

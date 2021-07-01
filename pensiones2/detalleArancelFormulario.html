@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+<script>
+
+function procesarSeccion() {
+   cserial_niv.objDBComando.sqlCommand='select -99,\'TODOS\' UNION select serial_niv,nombre_niv from nivel where serial_sec='+document.PaginaDatos.serial_sec.value;
+                          cserial_niv.objDBComando.executeQuery();
+			}
+
+function procesarNivel() {
+   cserial_par.objDBComando.sqlCommand='select -99,\'TODOS\' UNION select serial_par,nombre_par from paralelo where serial_niv='+document.PaginaDatos.serial_niv.value;
+         cserial_par.objDBComando.executeQuery();
+			}
+
+function procesarParalelo() {
+   cserial_alu.objDBComando.sqlCommand='select alumno.serial_alu,concat(apellido_alu,\' \',nombre_alu) as nombre from alumno,paralelo_alumno where alumno.serial_alu=paralelo_alumno.serial_alu and paralelo_alumno.serial_par='+document.PaginaDatos.serial_par.value+' and activo_paralu=\'s\' and  estado_alu=\'A\'  order by apellido_alu,nombre_alu';
+         cserial_alu.objDBComando.executeQuery();
+			}
+
+function CopiarDetalleArancel() {
+ /*document.getElementById('progress').style.visibility='visible';
+  progressBar();*/
+ var SQLCommand=document.PaginaDatos.serial_ara.value+"|"+document.PaginaDatos.serial_dar.value+"|"+document.PaginaDatos.valor_dar.value+"|"+document.PaginaDatos.descripcion_dar.value;
+prompt ('prueba',SQLCommand);
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftCopiarDetalleArancel.php",'recuperarDatos');
+     objDBComando.executeQuery();
+     /*if (getURLParam('action')=='insert')
+     top.opener.omniObj.lastPage();*/
+
+
+ }
+function recuperarDatos(data) {
+	//alert(data);
+	//ProgressDestroy();
+	//document.getElementById('progress').style.visibility='hidden';
+	//datosGenerados=true;
+	var datos=data.split('|');
+	alert(datos[0]);
+	if(datos[0]==0)
+		alert('No se pudo copiar el arancel, ó el ya existe detalle para el aranccel seleccionado..!!!');
+	else{
+		alert('Se copio el arancel exitosamente...!!');
+		window.close();
+	}	
+	   /*omniObj.grid.masterKeyValue=document.PaginaDatos.serial_perrol.value=datos[0];
+	   omniObj.grid.executeQuery(omniObj.grid.rows);*/
+	   
+	   
+}
+</script>
+
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_dar" type="hidden" id="serial_dar" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          PENSIONES <br>
+          DETALLE DE ARANCELES
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="330" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="175" height="21"  class="inputtitle">Arancel :</td>
+            <td colspan="2"> <img  src="../images/camporequerido.gif"> 	    
+			<script>
+ 
+ var cserial_ara=new omnisoftComboBox('cserial_ara','serial_ara','select serial_ara,concat(nombre_per,\' \', nombre_ara) as nombre from periodo, aranceles where periodo.serial_per = aranceles.serial_per and tipo_ara=\'VARIABLE\' AND SERIAL_SUC='+getCookie('serial_suc')+' order by nombre_ara','450px',true,getURLParam('serial_ara'));
+ 
+// prompt("","select serial_ara,concat(nombre_per,\' \', nombre_ara) as nombre from periodo,aranceles where periodo.serial_per=aranceles.serial_per  and tipo_ara=\'VARIABLE\' AND SERIAL_SUC='getCookie('serial_suc')+' order by nombre_ara");
+ 
+                     cserial_ara.show();	  </script>	</td>
+          </tr>
+
+          <tr>
+            <td height="21"  class="inputtitle">Programa :</td>
+            <td colspan="2" >    <img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_sec=new omnisoftComboBox('cserial_sec','serial_sec','select serial_sec,nombre_sec from seccion order by nombre_sec','250px',true,getURLParam('serial_sec'),'TODOS',procesarSeccion);
+                     cserial_sec.show();	  </script>	</td>
+          </tr>
+          
+          <tr>
+            <td height="21"  class="inputtitle">Valor :</td>
+            <td colspan="2" ><img  src="../images/camporequerido.gif"><input name="valor_dar" type="text" id="valor_dar" size="10" maxlength="10" class="text"></td>
+          </tr>
+          <tr>
+            <td height="25"  class="inputtitle">Descripcion:</td>
+            <td ><input name="descripcion_dar" type="text" id="descripcion_dar" size="50" maxlength="100" class="emptytext"></td>
+            <td align="right" ><a href="#" onClick="CopiarDetalleArancel()"><img src="../images/history.png" alt="Copiar Detalle Arancel" width="32" height="32" border="0">Copiar Detalle Arancel</a></td>
+          </tr>
+          <tr>
+            <td height="24" colspan="3"  class="formtitle"><div align="center">CONTABILIZACION DE FACTURAS Y COBROS</div></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">&nbsp;</td>
+            <td width="277" class="formtitle"><div align="center">Debe</div></td>
+            <td width="345" class="formtitle"><div align="center">Haber</div></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Facturas:</td>
+            <td ><img  src="../images/camporequerido.gif">   <script>
+ var cserial_plcfd=new omnisoftComboBox('cserial_plcfd','serial_plcfd','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plcfd'));
+                      cserial_plcfd.show();	
+					 </script>           </td>
+            <td > <img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_plcfh=new omnisoftComboBox('cserial_plcfh','serial_plcfh','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plcfh'));
+                     cserial_plcfh.show();	  </script>		</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Notas de Cr&eacute;dito:</td>
+            <td ><img  src="../images/camporequerido.gif"><script>
+ var cserial_plcncd=new omnisoftComboBox('cserial_plcncd','serial_plcncd','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plcncd'));
+                     cserial_plcncd.show();	  </script>   </td>
+            <td ><img  src="../images/camporequerido.gif"><script>
+ var cserial_plcnch=new omnisoftComboBox('cserial_plcnch','serial_plcnch','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plcnch'));
+                     cserial_plcnch.show();	  </script>   </td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Pagos en el Colegio:</td>
+            <td ><img  src="../images/camporequerido.gif"><script>
+ var cserial_plc=new omnisoftComboBox('cserial_plc','serial_plc','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plc'));
+                     cserial_plc.show();	  </script>   </td>
+            <td ><img  src="../images/camporequerido.gif"><script>
+ var cserial_plce=new omnisoftComboBox('cserial_plce','serial_plce','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plce'));
+                     cserial_plce.show();	  </script>  </td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Pagos en el Banco:</td>
+            <td ><img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_plcbd=new omnisoftComboBox('cserial_plcbd','serial_plcbd','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plcbd'));
+                     cserial_plcbd.show();	  </script>	</td>
+            <td ><img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_plcbh=new omnisoftComboBox('cserial_plcbh','serial_plcbh','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plcbh'));
+                     cserial_plcbh.show();	  </script></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Tarjeta de Credito:</td>
+            <td ><img  src="../images/camporequerido.gif">
+                <script>
+ var cserial_plctjd=new omnisoftComboBox('cserial_plctjd','serial_plctjd','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plctjd'));
+                     cserial_plctjd.show();	  </script>            </td>
+            <td ><img  src="../images/camporequerido.gif">
+                <script>
+ var cserial_plctjh=new omnisoftComboBox('cserial_plctjh','serial_plctjh','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plctjh'));
+                     cserial_plctjh.show();	  </script></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Comision Tarjeta Credito:</td>
+            <td ><img  src="../images/camporequerido.gif">
+                <script>
+ var cserial_plcctjd=new omnisoftComboBox('cserial_plcctjd','serial_plcctjd','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plcctjd'));
+                     cserial_plcctjd.show();	  </script>            </td>
+            <td ><img  src="../images/camporequerido.gif">
+                <script>
+ var cserial_plcctjh=new omnisoftComboBox('cserial_plcctjh','serial_plcctjh','select serial_plc,concat(codigo_plc,\' \',nombre_plc) as nombre  from plancontable where tipo_plc=\'A\' order by codigo_plc','250px',true,getURLParam('serial_plcctjh'));
+                     cserial_plcctjh.show();	  </script></td>
+          </tr>
+         
+
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+		
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

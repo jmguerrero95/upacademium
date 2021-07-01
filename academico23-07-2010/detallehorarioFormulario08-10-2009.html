@@ -1,0 +1,253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+	<script>
+	function ingresarHoras(){
+	 window.open("aumentarhorasFormulario.html","Horas","width=801,height=155,scrollbars=NO") 
+	}
+ 
+  function GenerarHorarios() {
+		//alert('Entra');
+		//alert (document.PaginaDatos.fechaclase_dho.value);
+		if(document.PaginaDatos.fechaclase_dho.value=="aaaa-mm-dd"){
+			alert("Elija una Fecha dentro del periodo correspondiente");
+		}else{
+				if(document.PaginaDatos.intervalo.value == 0){
+					alert("El intervalo debe ser un numero mayor a 0");
+				}else{
+					 var SQLCommand=document.PaginaDatos.serial_hrr.value+"|"+document.PaginaDatos.fechaclase_dho.value+"|"+document.PaginaDatos.intervalo.value+"|"+document.PaginaDatos.serial_hora.value+"|"+opener.PaginaDatos.serial_per.value;
+					 //prompt('sql',SQLCommand);
+					 var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarHorarios.php",'recuperarDatos');
+					 objDBComando.executeQuery();
+				}		
+		}	
+	
+/*			 if (getURLParam('action')=='insert')
+			 top.opener.omniObj.lastPage();*/
+
+ }
+	
+  function GenerarHorarios1() {
+		//alert('Entra');
+		if(document.PaginaDatos.fechaclase_dho1.value=="aaaa-mm-dd"){
+			alert("Elija una Fecha dentro del periodo correspondiente");
+		}else{
+			if(document.PaginaDatos.intervalo1.value == 0){
+					alert("El intervalo debe ser un numero mayor a 0");
+			}else{
+
+				 var SQLCommand=document.PaginaDatos.serial_hrr.value+"|"+document.PaginaDatos.fechaclase_dho1.value+"|"+document.PaginaDatos.intervalo1.value+"|"+document.PaginaDatos.serial_hora1.value+"|"+opener.PaginaDatos.serial_per.value;
+				 //prompt('sql',SQLCommand);
+				 var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarHorarios.php",'recuperarDatos');
+				 objDBComando.executeQuery();
+
+		    }
+	}
+/*			 if (getURLParam('action')=='insert')
+			 top.opener.omniObj.lastPage();*/
+
+ }
+   function GenerarHorarios2() {
+		//alert('Entra');
+		if(document.PaginaDatos.fechaclase_dho2.value=="aaaa-mm-dd"){
+			alert("Elija una Fecha dentro del periodo correspondiente");
+		}else{
+				if(document.PaginaDatos.intervalo2.value == 0){
+					alert("El intervalo debe ser un numero mayor a 0");
+				}else{
+
+				 var SQLCommand=document.PaginaDatos.serial_hrr.value+"|"+document.PaginaDatos.fechaclase_dho2.value+"|"+document.PaginaDatos.intervalo2.value+"|"+document.PaginaDatos.serial_hora2.value+"|"+opener.PaginaDatos.serial_per.value;
+				 //prompt('sql',SQLCommand);
+				 var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarHorarios.php",'recuperarDatos');
+				 objDBComando.executeQuery();
+		/*			 if (getURLParam('action')=='insert')
+					 top.opener.omniObj.lastPage();*/
+			}
+		}
+ }		
+function recuperarDatos(data) {
+alert(data);
+datosGenerados=true;
+var datos=data.split('|');
+   omniObj.grid.masterKeyValue=document.PaginaDatos.serial_perrol.value=datos[0];
+   omniObj.grid.executeQuery(omniObj.grid.rows);
+}
+
+	</script>
+	  
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_dho" type="hidden" id="serial_dho" class="hidden">
+<input name="serial_hrr" type="hidden" id="serial_hrr" class="hidden">
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          ACADEMICO<br>
+          DETALLE HORARIO </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="85" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="149" height="31"  class="inputtitle">Fecha : </td>
+            <td width="277" ><input name="fechaclase_dho" type="text" id="fechaclase_dho" size="10" maxlength="10" class="date" value="aaaa-mm-dd" onBlur="esconderToolTip()"></td>
+            <td width="49" class="inputtitle">Hora :</td>
+            <td width="160" >
+              <script>
+ var cserial_hora=new omnisoftComboBox('cserial_hora','serial_hora','select serial_hora, concat(inicio_hora,\' - \',fin_hora) as hora from horas order by inicio_hora,fin_hora asc','140px',true,getURLParam('serial_hora'));
+ 
+                     cserial_hora.show();	  </script>            </td>
+            <td width="160" >
+		<input type="button" value="Aumentar Horas" onclick="ingresarHoras()">          </tr>
+          
+
+          <tr>
+            <td height="26" rowspan="2"  class="inputtitle">Observacion   : </td>
+            <td rowspan="2" ><input name="observaciones_dho" type="text" class="string" id="observaciones_dho" onBlur="esconderToolTip()" value="NINGUNA" size="50"></td>
+            <td class="inputtitle">Generado:</td>
+            <td >&nbsp;</td>
+            <td rowspan="2"  align="center"><a href="#" onClick="GenerarHorarios()"><img src="../images/history.png" alt="Generar Horario" width="32" height="32" border="0"></a></td>
+          </tr>
+          <tr>
+            <td class="inputtitle">Generar Cada: </td>
+            <td ><input name="intervalo" type="text" class="integer" id="intervalo" onBlur="esconderToolTip()"  size="20"></td>
+          </tr>
+ <tr>
+            <td width="149" height="31"  class="inputtitle">Fecha : </td>
+            <td width="277" ><input name="fechaclase_dho1" type="text" id="fechaclase_dho1" size="10" maxlength="10" class="date" value="aaaa-mm-dd" onBlur="esconderToolTip()"></td>
+            <td width="49" class="inputtitle">Hora :</td>
+            <td width="160" >
+              <script>
+ var cserial_hora1=new omnisoftComboBox('cserial_hora1','serial_hora1','select serial_hora, concat(inicio_hora,\' - \',fin_hora) as hora from horas order by inicio_hora,fin_hora asc','140px',false);
+ 
+                     cserial_hora1.show();	  </script>            </td>
+            <td width="160" >
+ </tr>
+          
+
+          <tr>
+            <td height="26" rowspan="2"  class="inputtitle">Observacion   : </td>
+            <td rowspan="2" ><input name="observaciones_dho1" type="text" class="string" id="observaciones_dho1" onBlur="esconderToolTip()" value="NINGUNA" size="50"></td>
+            <td class="inputtitle">Generado:</td>
+            <td >&nbsp;</td>
+            <td rowspan="2"  align="center"><a href="#" onClick="GenerarHorarios1()"><img src="../images/history.png" alt="Generar Horario" width="32" height="32" border="0"></a></td>
+          </tr>
+          <tr>
+            <td class="inputtitle">Generar Cada: </td>
+            <td ><input name="intervalo1" type="text" class="integer" id="intervalo1" onBlur="esconderToolTip()"  size="20"></td>
+          </tr>
+		   <tr>
+            <td width="149" height="31"  class="inputtitle">Fecha : </td>
+            <td width="277" ><input name="fechaclase_dho2" type="text" id="fechaclase_dho2" size="10" maxlength="10" class="date" value="aaaa-mm-dd" onBlur="esconderToolTip()"></td>
+            <td width="49" class="inputtitle">Hora :</td>
+            <td width="160" >
+              <script>
+ var cserial_hora2=new omnisoftComboBox('cserial_hora2','serial_hora2','select serial_hora, concat(inicio_hora,\' - \',fin_hora) as hora from horas order by inicio_hora,fin_hora asc','140px',false);
+ 
+                     cserial_hora2.show();	  </script>            </td>
+            <td width="160" >
+		   </tr>
+          
+
+          <tr>
+            <td height="26" rowspan="2"  class="inputtitle">Observacion   : </td>
+            <td rowspan="2" ><input name="observaciones_dho2" type="text" class="string" id="observaciones_dho" onBlur="esconderToolTip()" value="NINGUNA" size="50"></td>
+            <td class="inputtitle">Generado:</td>
+            <td >&nbsp;</td>
+            <td rowspan="2"  align="center"><a href="#" onClick="GenerarHorarios2()"><img src="../images/history.png" alt="Generar Horario" width="32" height="32" border="0"></a></td>
+          </tr>
+          <tr>
+            <td class="inputtitle">Generar Cada: </td>
+            <td ><input name="intervalo2" type="text" class="integer" id="intervalo2" onBlur="esconderToolTip()"  size="20"></td>
+          </tr>
+
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+        omnisoftLoadData(document.PaginaDatos);
+	document.PaginaDatos.serial_hrr.value=opener.PaginaDatos.serial_hrr.value;
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

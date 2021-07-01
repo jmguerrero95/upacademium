@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script></head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          GESTION FINANCIERA<br>
+          RECIBO DE CAJA (COBROS) 
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="89" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="133" height="24"  class="inputtitle">Cliente :</td>
+            <td width="291"><span class="style1 style4 style5">
+              <input name="serial_tip" type="text" id="serial_tip" size="10" maxlength="10" class="number" style="background-color:#FFFF00" readonly  table="formacobro" serial="serial_cli" info="codigo_cli">
+              </span></td>
+            <td width="102" class="inputtitle">Numero Recibo:</td>
+            <td width="269"><span class="style1 style4 style5"> 
+              <input name="numeroDocumento_rec" type="text" id="numeroDocumento_rec" size="10" maxlength="10" class="emptynumber"  >
+              </span></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Fech Recibo:</td>
+            <td ><span class="style1 style4 style5"> 
+              <input name="fecha_rec" type="text" id="fecha_rec" class="date" size="10" maxlength="10" readonly onBlur="esconderToolTip(); formularioGrabado=0;">
+              </span></td>
+            <td width "110" class="inputtitle">Fecha Cobro:</td>
+            <td ><span class="style1 style4 style5"> 
+              <input name="fechaCobro_rec" type="text" class="date" id="fechaCobro_rec"  onChange="copiarFechaCobro()" onBlur="esconderToolTip()" size="10" maxlength="10"  >
+              </span></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Forma Cobro:</td>
+            <td colspan="3" ><input name="serial_forc" type="text"  id="serial_forc"  readonly  size="30" maxlength="30" table="formaCobro" serial="serial_forc" info="codigo_forc" ></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+	OmnisoftPerfilUsuarioFormulario();
+  var fhoy=new Date();
+  var mes =fhoy.getUTCMonth()+1;
+  var dia =fhoy.getUTCDate();
+  if (mes <10)
+      mes='0'+mes;
+
+  if (dia < 10)
+      dia ='0'+dia;
+
+
+  if (document.PaginaDatos.fecha_rec.value=='') {
+  document.PaginaDatos.fecha_rec.value=fhoy.getYear()+'-'+mes+'-'+ dia;
+  document.PaginaDatos.fechaDocumento_drec.value=document.PaginaDatos.fecha_rec.value;
+  }
+if (document.PaginaDatos.fechaCobro_rec.value=='')
+  document.PaginaDatos.fechaCobro_rec.value=fhoy.getYear()+'-'+mes+'-'+  dia;
+if (document.PaginaDatos.numeroDocumento_rec.value=='')
+  document.PaginaDatos.numeroDocumento_rec.value=document.PaginaDatos.serial_rec.value;
+else {
+        document.PaginaDatos.serial_cli.disabled=true;
+       document.PaginaDatos.fecha_rec.disabled=true;
+       document.PaginaDatos.fechaCobro_rec.disabled=true;
+       document.PaginaDatos.numeroDocumento_rec.disabled=true;
+
+
+}
+
+
+		Calendar.setup({
+		inputField     :    "fechaDocumento_drec",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+
+
+		Calendar.setup({
+		inputField     :    "fechaCobro_rec",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+
+
+    // MaskInput(document.PaginaDatos.valor_drec, "9^.99");
+    // MaskInput(document.PaginaDatos.valorAbono_drec, "9^.99");
+
+function omnisoftLoadDetail(data){
+
+if (data!=undefined) {
+/*serial_det=parseInt(data[0]);
+document.PaginaDatos.serial_rec.value=parseInt(data[1]);
+document.PaginaDatos.serial_fac.value=parseInt(data[2]);
+document.PaginaDatos.serial_cif.value=data[5];
+document.PaginaDatos.tipoCobro_drec.value=data[6];
+document.PaginaDatos.emisorDocumento_drec.value=parseFloat(data[7]);
+document.PaginaDatos.bancoEmisor_drec.value=parseFloat(data[8]);
+document.PaginaDatos.estadoDocumento_drec.value='Pendiente');*/
+}
+}
+
+omnisoftNormalComboBoxJS('serial_fac','select serial_fac, numeroDocumento_fac from factura where serial_cli=1','','1');
+//omnisoftNormalComboBoxJS('serial_forc','select formacobro.serial_forc,nombre_forc from formacobro,cliente where serial_cli=1 and formacobro.serial_forc=cliente.serial_forc','',getURLParam('serial_forc'));
+</script>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

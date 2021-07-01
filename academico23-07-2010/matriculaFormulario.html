@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+<script>
+
+function procesarSeccion() {
+   cserial_niv.objDBComando.sqlCommand='select -99,\'TODOS\' UNION select serial_niv,nombre_niv from nivel where serial_sec='+document.PaginaDatos.serial_sec.value;
+                          cserial_niv.objDBComando.executeQuery();
+			}
+
+function procesarNivel() {
+   cserial_par.objDBComando.sqlCommand='select -99,\'TODOS\' UNION select serial_par,nombre_par from paralelo where serial_niv='+document.PaginaDatos.serial_niv.value;
+         cserial_par.objDBComando.executeQuery();
+			}
+
+function procesarParalelo() {
+//   cserial_alu.objDBComando.sqlCommand='select alumno.serial_alu,concat(apellido_alu,\' \',nombre_alu) as nombre from alumno,paralelo_alumno where alumno.serial_alu=paralelo_alumno.serial_alu and paralelo_alumno.serial_par='+document.PaginaDatos.serial_par.value+' and activo_paralu=\'s\' and  estado_alu=\'A\'  order by apellido_alu,nombre_alu';
+//   cserial_alu.objDBComando.sqlCommand='select alumno.serial_alu,concat(apellido_alu,\' \',nombre_alu) as nombre from alumno,paralelo_alumno where alumno.serial_alu=paralelo_alumno.serial_alu  and activo_paralu=\'s\' and  estado_alu=\'A\'  order by apellido_alu,nombre_alu';
+//     cserial_alu.objDBComando.sqlCommand='select alumno.serial_alu,concat(apellido_alu,\' \',nombre_alu) as nombre from alumno where  estado_alu=\'A\'  order by apellido_alu,nombre_alu';
+
+//         cserial_alu.objDBComando.executeQuery();
+			}
+
+function imprimirMatricula() {
+            var attributes='';
+            var query='../lib/export/omnisoftMatriculaPDFApp.php?query=';
+            var sWidth=1000;
+            var sHeight=750;
+            var sFields='';
+            var fields;
+            var objFieldInput  = document.PaginaDatos.getElementsByTagName('input');
+            var objFieldSelect = document.PaginaDatos.getElementsByTagName('select');
+            var indice=0;
+     for (var i=2; i<objFieldInput.length; i++)
+        query=query+'|'+objFieldInput[i].value;
+  
+     for (var i=0; i<objFieldSelect.length; i++) {
+	     indice=objFieldSelect[i].selectedIndex;
+        query=query+'|'+objFieldSelect[i].options[indice].text;
+    }
+
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+               omnisoftNewWindow=window.open(query,'PDF',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+}
+</script>
+
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_paralu" type="hidden" id="serial_paralu" class="hidden">
+<input name="activo_paralu" type="hidden" id="activo_paralu" class="hidden" value="s">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO DE ADMISIONES <br>
+          MATRICULAS
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="137" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+
+
+          <tr>
+            <td height="18"  class="inputtitle">Fecha:</td>
+            <td width="230" ><input name="fechamatricula_paralu" type="text" id="fechamatricula_paralu" size="10" maxlength="10" class="date"></td>
+            <td width="196" class="inputtitle" >Numero Matricula:</td>
+            <td width="196" ><input name="numeromatricula_paralu" type="text" id="numeromatricula_paralu" size="5" maxlength="4" class="matricula" fieldid="numeromatricula_paralu" table="paralelo_alumno"></td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Periodo:</td>
+            <td colspan="3" ><img  src="../images/camporequerido.gif">
+              	    <script>
+var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per,nombre_per from periodo order by nombre_per','250px',true,getURLParam('serial_per'));
+                     cserial_per.show();	  </script>
+            </td>
+          </tr>
+          <tr>
+            <td width="175" height="18"  class="inputtitle">Seccion :</td>
+            <td colspan="3" >    <img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_sec=new omnisoftComboBox('cserial_sec','serial_sec','select serial_sec,nombre_sec from seccion order by nombre_sec','250px',false,getURLParam('serial_sec'),'',procesarSeccion);
+                     cserial_sec.show();	  </script>	</td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Nivel:</td>
+            <td colspan="3" >   <img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_niv=new omnisoftComboBox('cserial_niv','serial_niv','select serial_niv,nombre_niv from nivel where serial_sec='+getURLParam('serial_sec') ,'250px',false,getURLParam('serial_niv'),'',procesarNivel);
+                     cserial_niv.show();	  </script>	</td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Paralelo:</td>
+            <td colspan="3" >  <img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_par=new omnisoftComboBox('cserial_par','serial_par','select serial_par,nombre_par from paralelo where serial_niv='+getURLParam('serial_niv'),'250px',true,getURLParam('serial_par'),'TODOS',procesarParalelo);
+                     cserial_par.show();	  </script>	</td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Alumno:</td>
+            <td colspan="3" ><img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_alu=new omnisoftComboBox('cserial_alu','serial_alu','select serial_alu,concat(apellido_alu,\' \',nombre_alu) as nombre from alumno where estado_alu=\'A\' order by apellido_alu,nombre_alu ' ,'250px',true,getURLParam('serial_alu'),'');
+                     cserial_alu.show();	  </script>	</td>
+          </tr>
+
+
+
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="150" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="205"></td>
+            <td width="172"><a href="#" onClick="imprimirMatricula()"><img src="../images/imprimir.jpg" alt="" width="150" height="30" border="0"></a></td>
+            <td width="126"></td>
+            <td width="152"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	if (getURLParam('action')=='insert') {
+	   document.PaginaDatos.fechamatricula_paralu.value=fechaSistema();
+
+	}
+
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

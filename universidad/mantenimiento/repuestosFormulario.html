@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_rep" type="hidden" id="serial_rep" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+        MANTENIMIENTO
+        <br>
+          INGRESO DE REPUESTOS
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="226" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+	  <tr>
+	    <td width="142" height="25"  class="inputtitle">C&oacute;digo : </td>
+	    <td colspan="3" ><span class="inputtitle">
+	      <img  src="../images/camporequerido.gif">
+	      <input name="codigo_rep" type="text" id="codigo_rep"  class="autoincrement" size="10" maxlength="10"  onBlur="esconderToolTip()">
+	    </span></td>
+	    </tr>
+	  <tr>
+	    <td height="27"  class="inputtitle">Nombre : </td>
+	    <td colspan="3" ><span class="inputtitle">
+	      <img  src="../images/camporequerido.gif">
+	      <input name="nombre_rep" type="text" id="nombre_rep" class="string" size="75" maxlength="100"  onBlur="esconderToolTip()" >
+	    </span></td>
+	    </tr>
+	  <tr>
+	    <td height="28"  class="inputtitle">Marca : </td>
+	    <td ><span class="inputtitle">
+	      <input name="marca_rep" type="text" id="marca_rep" class="string" size="55" maxlength="80"  onBlur="esconderToolTip()" >
+	    </span></td>
+	    <td height="28"  class="inputtitle">Modelo : </td>
+	    <td ><span class="inputtitle">
+	      <input name="modelo_rep" type="text" id="modelo_rep" class="string" size="38" maxlength="60"  onBlur="esconderToolTip()" >
+	    </span></td>
+	  </tr>
+	  <tr>
+	    <td height="30"  class="inputtitle">N&uacute;mero de Serie : </td>
+	    <td width="303" ><span class="inputtitle">
+	      <img  src="../images/camporequerido.gif">
+	      <input name="numeroserie_rep" type="text" id="numeroserie_rep" class="string" size="35" maxlength="80"  onBlur="esconderToolTip()" >
+	    </span></td>
+	    <td width="117" height="30"  class="inputtitle">Fecha &nbsp; Ingreso :</td>
+	    <td width="233" ><span class="inputtitle">
+	      <img  src="../images/camporequerido.gif">
+	      <input name="fechaingreso_rep" type="text" id="fechaingreso_rep" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()">
+	    </span></td>
+	  </tr>
+	  <tr>
+	    <td height="29"  class="inputtitle">Tiempo de Vida Util : </td>
+	    <td ><img  src="../images/camporequerido.gif"><span class="inputtitle">
+	      <input name="vidautil_rep" type="text" id="vidautil_rep" class="emptyinteger" size="10" maxlength="20"  onBlur="esconderToolTip()" >
+	    </span></td>
+	    <td height="29"  class="inputtitle">Fecha &nbsp;Uso :</td>
+	    <td ><input name="fechafuncionamiento_rep" type="text" id="fechafuncionamiento_rep" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"></td>
+	    </tr>
+	  <!--<tr>
+	    <td height="30"  class="inputtitle">Para la Maquina : </td>
+	    <td height="30" colspan="3" ><span class="inputtitle">
+	      <script>
+          var cserial_maq=new omnisoftComboBox('cserial_maq','serial_maq',"select serial_maq, concat(codigo_maq,\' =>  \',nombre_maq) as maquina from maquinas",'400px',true,getURLParam('serial_maq'));
+                     cserial_maq.show();
+	      </script>
+	    </span></td>
+	    </tr>-->
+	  <tr>
+	    <td height="24"  class="inputtitle">Estado : </td>
+	    <td ><span class="inputtitle"><img  src="../images/camporequerido.gif">
+	      <select name="estado_rep" id="estado_rep" onChange="" class="combobox" >
+            <option value="ACTIVO" selected>Activo</option>
+            <option value="PENDIENTE">Pendiente</option>
+            <option value="INACTIVO">Inactivo</option>
+          </select>
+	    </span></td>
+	    <td height="24"  class="inputtitle">Ubicaci&oacute;n  :</span></td>
+	    <td ><span class="inputtitle">
+	      <input name="ubicacion_rep" type="text" id="ubicacion_rep" class="emptystring" size="44" maxlength="80"  onBlur="esconderToolTip()" >
+	    </span></td>
+	  </tr>
+	  
+	  <tr>
+            <td height="26"  class="inputtitle">Observaciones   :</td>
+            <td colspan="3" ><span class="inputtitle">
+              <input name="observaciones_rep" type="text" id="observaciones_rep" class="emptystring" size="75" maxlength="100"  value="NINGUNA"  onBlur="esconderToolTip()" >
+            </span></td>
+          </tr>
+          
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+
+</form>
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

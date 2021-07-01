@@ -1,0 +1,266 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="lib/tools/browser.js"></script>
+<link href="lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<link href="lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+
+<script language='javascript' src="lib/tools/omnisoftValidar.js"></script>
+
+<script language="javascript" src= "lib/tools/cookies.js" ></script>
+<script language="javascript" src="lib/aw/lib/aw.js"></script>
+<script language="javascript" src="lib/grid/omnisoftDB.js"></script>
+
+<script language="javascript" src= "config/config.js" ></script>
+
+<script>
+
+function entsub() {
+  if (window.event && window.event.keyCode == 13) {
+       omnisoftVerificarUsuario();
+   }
+     else
+    return true;
+}
+
+
+   function generaClave(digito) {
+   document.flogin.password.value=document.flogin.password.value.concat(digito);
+   }
+
+   function borrarClave(digito) {
+   document.flogin.password.value='';
+   }
+
+
+</script>
+
+
+</HEAD>
+<BODY BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0>
+<script>
+
+if (!is_nav4 && !is_ie5up)
+{
+alert('Error:  Version NO soportada de browser, por favor cambie su browser a Internet Explorer 6.0, Netscape 7, Avant 10');
+window.opener='';
+window.close();
+}
+
+var intentos=0;
+
+function omnisoftProcesarDatos(data) {
+ //alert(data);
+   var arreglo=data.split('|');
+   
+   setCookie('tipo_usuario',document.flogin.tipo.value);
+   
+  if (arreglo[1].length<=0)
+     alert("Error: Usuario NO Registrado!");
+  else {
+
+      var usuario=arreglo[1].split('~');
+      if (usuario[5]=="SI") {
+               setCookie('serial_usr',usuario[0]);
+               setCookie('nombre_usr',usuario[1]);
+               setCookie('apellido_usr',usuario[2]);
+               setCookie('foto_usr',usuario[6]);
+			   setCookie('serial_epl',usuario[7]);
+               setCookie('nombre_pfl',usuario[8]);
+
+               window.location.href='./modulos/password.html';
+
+               return;
+      }
+
+      if (usuario[4]=='bloquear') {
+         alert('Advertencia: Su acceso ha sido bloqueado! Por favor consulte con el Administrador');
+         return;
+      }
+      var mes=parseFloat(usuario[3].substr(5,2))-1;
+      var fecha=new Date(usuario[3].substr(0,4),mes,usuario[3].substr(8,2));
+      var dias=dateDifference( new Date(), fecha);
+
+  if (dias >60) {
+          alert("Su clave ha caducado, comuniquese con el Administrador!");
+
+       }
+       else {
+             if (60-dias<=8){
+                 var diasfaltantes=60-dias;
+                 alert('Faltan '+diasfaltantes+' dias para que su clave caduque, por favor cambiela');
+
+
+               }
+               setCookie('serial_usr',usuario[0]);
+               setCookie('nombre_usr',usuario[1]);
+               setCookie('apellido_usr',usuario[2]);
+
+               setCookie('foto_usr',usuario[6]);
+			   setCookie('serial_epl',usuario[7]);
+               setCookie('nombre_pfl',usuario[8]);
+               setCookie('dias',dias);
+
+                alert('Bienvenido:'+usuario[1]); //+' '+usuario[2]);
+
+                window.location.href=('./sucursal.html');
+
+       }
+  }
+}
+
+
+
+
+
+function omnisoftValidarUsuario(){
+
+if (document.flogin.usuario.value=='') {
+   alert('Por favor ingrese su usuario ');
+   document.flogin.usuario.focus();
+   return false;
+}
+
+ if (document.flogin.password.value=='') {
+   alert('Por favor ingrese su clave ');
+   document.flogin.password.focus();
+   return false;
+    }
+    return true;
+}
+
+
+function omnisoftVerificarUsuario() {
+ var usuario = document.flogin.usuario.value;
+ var password = document.flogin.password.value;
+ if (++intentos>3) {
+    alert('Usted ha alcanzado el número maximo de intentos');
+    window.close();
+    return false;
+ }
+
+  if (omnisoftValidarUsuario()) {
+  
+      setCookie('usuario', usuario);
+	  
+	  if(document.flogin.tipo.value=='FUNCIONARIO'){
+	  			var acceso="SELECT serial_usr,nombre_usr,apellido_usr,fecha_usr,estado_usr,cambio_usr,foto_usr,serial_epl,nombre_pfl FROM  upperfil,upusuario WHERE upperfil.serial_pfl=upusuario.serial_pfl and codigo_usr='"+usuario+"' and clave_usr=md5('"+password+"')";
+	  }
+	  
+	   if(document.flogin.tipo.value=='PROFESOR'){	   
+	  			var acceso="SELECT  upusuario.serial_usr,NOMBRE_EPL as nombre_usr,APELLIDO_EPL as apellido_usr, now() as fecha_usr,ESTADOEMPLEADO_EPL as estado_usr,'NO' as cambio_usr,' ' as foto_usr, empleado.serial_epl ,nombre_pfl,empleado.serial_suc,serial_age,nombre_suc,usuariosucursal.serial_desc FROM empleado,upusuario,upperfil,sucursal join usuariosucursal on usuariosucursal.serial_usr=upusuario.serial_usr join sucursaldepartamentos on sucursaldepartamentos.serial_desc=usuariosucursal.serial_desc and sucursaldepartamentos.serial_suc=empleado.serial_suc WHERE upperfil.serial_pfl=upusuario.serial_pfl  and NOMBRE_PFL='PROFESORES' and TIPOEMPLEADO_EPL='PROFESOR' and  empleado.serial_suc=sucursal.serial_suc and DOCUMENTOIDENTIDAD_EPL='"+usuario+"' and clave_epl=md5('"+password+"')";
+	  }
+	  
+	    if(document.flogin.tipo.value=='ESTUDIANTE'){ alert("Funcionalidad en desarrollo");}
+	  
+//	  prompt("",acceso);
+	  
+      objDB=new omnisoftDB(acceso);
+      setTimeout('objDB.executeQuery()',0);
+	  
+  }
+  else {
+    alert('Otro Tipo de Usuario');
+	  alert('Advertencia: Usuario o clave NO registrados');
+	  }
+
+}
+
+
+</script>
+
+
+
+<form name="flogin" onKeyUp="highlight(event)" onClick="highlight(event)" method="POST">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td width="4"><IMG SRC="images/index1024_01.jpg" WIDTH=4 HEIGHT=81 ALT=""></td>
+    <td background="images/index1024_02.jpg"> 
+      <div align="left">
+        <table width="100%" height="81" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </div></td>
+  </tr>
+</table>
+<table width="100%" height="575" border="0" cellpadding="0" cellspacing="0" bgcolor="6EA0D3">
+  <tr> 
+    <td width="4" background="images/index1024_04.jpg">&nbsp;</td>
+    <td width="278"><IMG SRC="images/index1024_05.jpg" WIDTH=416 HEIGHT=365 ALT=""></td>
+    <td width="132">&nbsp;</td>
+    <td width="23">&nbsp;</td>
+    <td width="369"> <div align="center"> 
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td height="75"><div align="center"><IMG SRC="images/index1024_09.jpg" WIDTH=369 HEIGHT=75 ALT=""></div></td>
+          </tr>
+          <tr> 
+            <td height="47"><div align="center"></div></td>
+          </tr>
+          <tr> 
+            <td height="133"> <div align="center"> 
+                <table width="307" height="133" border="0" cellpadding="0" cellspacing="0" background="images/index1024_13.jpg">
+                  <tr> 
+                    <td><div align="center">
+                        <table width="80%" border="1" cellspacing="0" cellpadding="0" align="center" class="formtable" bordercolordark="#FFFFFF" bordercolorlight="#000000">
+						<tr>
+								<td width="69" valign="top" class="inputtitle">Tipo de Usuario:</td>
+								<td colspan="2" ><span class="inputtitle"></span>
+								  <select name="tipo" id="tipo" class="combo">
+								  <option value="FUNCIONARIO" selected>FUNCIONARIO</option>
+								  <option value="PROFESOR">PROFESOR</option>
+								  <option value="ESTUDIANTE">ESTUDIANTE</option>
+								</select></td>
+						</tr>
+                          <tr>
+                            <td width="69" valign="top" class="inputtitle">Login:</td>
+                              <td width="89" valign="bottom"><input type="text" name="usuario"  id="usuario" size="13" maxlength="13" tabindex="1" style="border:3px"></td>
+                              <td rowspan="3" width="63"><a href="#" onClick="omnisoftVerificarUsuario()" ><img src="images/ok.jpg" width="25" height="23" border="0"></a></td>
+                          </tr>
+                          <tr>
+                            <td width="69" valign="top" height="2" class="inputtitle">Password:</td>
+                            <td width="89" valign="bottom" height="2"> <input type="password" name="password" size="13" maxlength="13" tabindex="2" onKeyPress="entsub()">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="69" height="15" valign="top">&nbsp;</td>
+                            <td width="89" valign="bottom">&nbsp; </td>
+                          </tr>
+                        </table>
+                      </div></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+        </table>
+      </div></td>
+    <td width="39">&nbsp;</td>
+    <td width="96">&nbsp;</td>
+    <td width="7" background="images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td background="images/index1024_04.jpg">&nbsp;</td>
+    <td height="93">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td background="images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td height="34" colspan="2" background="images/index1024_18.jpg"><IMG SRC="images/index1024_17.jpg" WIDTH=420 HEIGHT=36 ALT=""></td>
+    <td background="images/index1024_18.jpg">&nbsp;</td>
+    <td background="images/index1024_18.jpg">&nbsp;</td>
+    <td background="images/index1024_18.jpg">&nbsp;</td>
+    <td background="images/index1024_18.jpg">&nbsp;</td>
+    <td background="images/index1024_18.jpg">&nbsp;</td>
+    <td background="images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+</table>
+</form>
+</BODY>
+</HTML>

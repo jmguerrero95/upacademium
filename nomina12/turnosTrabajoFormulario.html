@@ -1,0 +1,203 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<script>
+function procesarCopiaHorarios() {
+if (document.PaginaDatos.cbCopiar.checked==true) {
+document.PaginaDatos.martesentrada_tur.value=document.PaginaDatos.lunesentrada_tur.value;
+document.PaginaDatos.miercolesentrada_tur.value=document.PaginaDatos.lunesentrada_tur.value;
+document.PaginaDatos.juevesentrada_tur.value=document.PaginaDatos.lunesentrada_tur.value;
+document.PaginaDatos.viernesentrada_tur.value=document.PaginaDatos.lunesentrada_tur.value;
+
+
+document.PaginaDatos.martessalidalunch_tur.value=document.PaginaDatos.lunessalidalunch_tur.value;
+document.PaginaDatos.miercolessalidalunch_tur.value=document.PaginaDatos.lunessalidalunch_tur.value;
+document.PaginaDatos.juevessalidalunch_tur.value=document.PaginaDatos.lunessalidalunch_tur.value;
+document.PaginaDatos.viernessalidalunch_tur.value=document.PaginaDatos.lunessalidalunch_tur.value;
+
+document.PaginaDatos.martesentradalunch_tur.value=document.PaginaDatos.lunesentradalunch_tur.value;
+document.PaginaDatos.miercolesentradalunch_tur.value=document.PaginaDatos.lunesentradalunch_tur.value;
+document.PaginaDatos.juevesentradalunch_tur.value=document.PaginaDatos.lunesentradalunch_tur.value;
+document.PaginaDatos.viernesentradalunch_tur.value=document.PaginaDatos.lunesentradalunch_tur.value;
+
+
+document.PaginaDatos.martessalida_tur.value=document.PaginaDatos.lunessalida_tur.value;
+document.PaginaDatos.miercolessalida_tur.value=document.PaginaDatos.lunessalida_tur.value;
+document.PaginaDatos.juevessalida_tur.value=document.PaginaDatos.lunessalida_tur.value;
+document.PaginaDatos.viernessalida_tur.value=document.PaginaDatos.lunessalida_tur.value;
+
+}
+
+
+}
+
+</script>
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_tur" type="hidden" id="serial_tur" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          RECURSOS HUMANOS<br>
+          TURNOS DE TRABAJO 
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="314" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="149" height="24"  class="inputtitle">C&oacute;digo :</td>
+            <td width="650" colspan="4"> <img src="../images/camporequerido.gif"><input name="codigo_tur" type="text" id="codigo_tur" class="autoincrement" fieldid="serial_tur" table="turnos"size="5" maxlength="5"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Nombre:</td>
+            <td colspan="4" ><img src="../images/camporequerido.gif"><input name="nombre_tur" type="text" id="nombre_tur" class="string" size="20" maxlength="20"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Fecha de Inicio:</td>
+            <td colspan="4" ><img src="../images/camporequerido.gif"><input name="fechainicio_tur" type="text" id="fechainicio_tur" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Fecha Fin:</td>
+            <td colspan="4" ><img src="../images/camporequerido.gif"><input name="fechafin_tur" type="text" id="fechafin_tur" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="24" colspan="5"  class="formtitle"><div align="center">Horarios de Trabajo </div></td>
+          </tr>
+          <tr >
+            <td height="24" class="formtitle" align="center" >Dias</td>
+            <td class="formtitle" align="center" >Entrada ( hh:mm:ss ) </td>
+            <td class="formtitle" align="center" >Salida (hh:mm:ss) </td>
+            <td class="formtitle" align="center" >Entrada (hh:mm:ss) </td>
+            <td class="formtitle" align="center" >Salida (hh:mm:ss) </td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Lunes
+            <input type="checkbox" name="cbCopiar" value="checkbox" onchange="procesarCopiaHorarios()" >
+            copiar</td>
+            <td align="center"><input name="lunesentrada_tur" type="text" id="lunesentrada_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center" ><input name="lunessalidalunch_tur" type="text" id="lunessalidalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="lunesentradalunch_tur" type="text" id="lunesentradalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="lunessalida_tur" type="text" id="lunessalida_tur" class="hour" size="10" maxlength="10" onBlur="esconderToolTip(); " value="00:00:00">
+            </td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Martes</td>
+            <td align="center"><input name="martesentrada_tur" type="text" id="martesentrada_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="martessalidalunch_tur" type="text" id="martessalidalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="martesentradalunch_tur" type="text" id="martesentradalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="martessalida_tur" type="text" id="martessalida_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Miercoles</td>
+            <td align="center"><input name="miercolesentrada_tur" type="text" id="miercolesentrada_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="miercolessalidalunch_tur" type="text" id="miercolessalidalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="miercolesentradalunch_tur" type="text" id="miercolesentradalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="miercolessalida_tur" type="text" id="miercolessalida_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Jueves</td>
+            <td align="center"><input name="juevesentrada_tur" type="text" id="juevesentrada_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="juevessalidalunch_tur" type="text" id="juevessalidalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="juevesentradalunch_tur" type="text" id="juevesentradalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="juevessalida_tur" type="text" id="juevessalida_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Viernes</td>
+            <td align="center"><input name="viernesentrada_tur" type="text" id="viernesentrada_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="viernessalidalunch_tur" type="text" id="viernessalidalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="viernesentradalunch_tur" type="text" id="viernesentradalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="viernessalida_tur" type="text" id="viernessalida_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Sabado</td>
+            <td align="center"><input name="sabadoentrada_tur" type="text" id="sabadoentrada_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="sabadosalidalunch_tur" type="text" id="sabadosalidalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="sabadoentradalunch_tur" type="text" id="sabadoentradalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="sabadosalida_tur" type="text" id="sabadosalida_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Domingo</td>
+            <td align="center"><input name="domingoentrada_tur" type="text" id="domingoentrada_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="domingosalidalunch_tur" type="text" id="domingosalidalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="domingoentradalunch_tur" type="text" id="domingoentradalunch_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+            <td align="center"><input name="domingosalida_tur" type="text" id="domingosalida_tur" class="hour" size="10" maxlength="10"  onBlur="esconderToolTip(); " value="00:00:00"></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >       <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

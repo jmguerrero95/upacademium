@@ -1,0 +1,198 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+
+<script language="javascript1.2" src="lib/tools/browser.js"></script>
+
+
+<link href="lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<link href="lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+
+<script language='javascript' src="lib/tools/omnisoftValidar.js"></script>
+
+<script language="javascript" src= "lib/tools/cookies.js" ></script>
+
+<script language="javascript" src= "config/config.js" ></script>
+<script language="javascript" src= "lib/tools/disableRightClick.js" ></script>
+<script language="javascript" src= "lib/aw/lib/aw.js" ></script>
+<script language="javascript" src= "lib/grid/omnisoftDB.js" ></script>
+
+
+</HEAD>
+<BODY BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="initDisableRight();">
+
+
+<script>
+
+function omnisoftProcesarDatos(data) {
+// alert(data);
+ var col = data.split('|');
+     document.PaginaDatos.serial_desc.length=0;
+     for(var i=0; i<col.length-1; i++){
+        var row = col[i].split('~');
+        document.PaginaDatos.serial_desc.options[i] = new Option(row[1], row[0]);
+   }
+    document.PaginaDatos.serial_desc.selectedIndex=1;
+
+}
+
+var serial_usr=getCookie('serial_usr');
+var serial_suc=getCookie('serial_suc');
+
+if (serial_usr==null) {
+    alert('Error Grave:  Usuario NO permitido!');
+    window.close();
+
+}
+
+                                            function grabarSucursal() {
+
+                                             var variables=document.PaginaDatos.serial_desc.value.split('¬');
+											 //alert(document.PaginaDatos.serial_desc.value);
+											 //alert('var'+variables[1]);
+                                             setCookie('serial_desc',variables[0]);
+                                             setCookie('serial_suc',variables[1]);
+										     setCookie('serial_dep',variables[2]);
+ 				     setCookie('serial_age',variables[3]);
+ 				    // alert (variables[3]);
+
+										 setCookie('nombreSucursal',document.PaginaDatos.serial_desc.options[document.PaginaDatos.serial_desc.selectedIndex].text);
+
+
+
+
+                                             parent.document.cookie+=document.cookie;
+                                             document.location.href='./modulos/modulos.html';
+											 
+											 
+                                             }
+
+
+
+
+
+
+
+ </script>
+
+
+
+<form name="PaginaDatos" method="post"  onKeyUp="highlight(event)" onClick="highlight(event)" method="POST">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="4"><IMG SRC="images/index1024_01.jpg" WIDTH=4 HEIGHT=81 ALT=""></td>
+    <td background="images/index1024_02.jpg">
+      <div align="left">
+        <table width="100%" height="81" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="6EA0D3">
+  <tr>
+    <td width="4" background="images/index1024_04.jpg">&nbsp;</td>
+    <td width="278"><IMG SRC="images/index1024_05.jpg" WIDTH=416 HEIGHT=365 ALT=""></td>
+    <td width="132">&nbsp;</td>
+    <td width="23">&nbsp;</td>
+    <td width="369"> <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td height="75"><div align="center"><img src="images/index1024_09.jpg" width="369" height="75"></div></td>
+          </tr>
+          <tr>
+            <td height="47"><div align="center"></div></td>
+          </tr>
+          <tr>
+            <td height="133"> <div align="center">
+                <table width="307" height="133" border="0" cellpadding="0" cellspacing="0" background="images/index1024_13.jpg">
+                  <tr>
+                    <td><div align="center">
+                        <table width="80%" border="0" cellspacing="0" cellpadding="0" align="center">
+                          <tr>
+                            <td width="89" valign="bottom">    <script>
+                                            var serial_usr=getCookie('serial_usr');
+
+                                            if (serial_usr!=null) {
+
+                                                  objDB=new omnisoftDB('select  concat(sucursaldepartamentos.serial_desc,\'¬\',sucursaldepartamentos.serial_suc,\'¬\',sucursaldepartamentos.serial_dep,\'¬\',sucursal.serial_age) as serial , concat(nombre_suc,\'==>\',descripcion_dep) as nombre from sucursal,departamentos,usuariosucursal,sucursaldepartamentos where sucursal.serial_suc=sucursaldepartamentos.serial_suc and sucursaldepartamentos.serial_desc=usuariosucursal.serial_desc and departamentos.serial_dep= sucursaldepartamentos.serial_dep and usuariosucursal.serial_usr='+serial_usr);
+                                                  setTimeout('objDB.executeQuery()',0);
+
+                                            }
+                                              </script>
+
+						  <select name="serial_desc" id="serial_desc" > </select>
+
+                            </td>
+                          </tr>
+                          <tr>
+                            <td width="69" valign="top"><center><a href="#" onClick="grabarSucursal()" ><img src="images/ok.jpg" width="25" height="23" border="0"></a></center></td>
+                            <td width="89" valign="bottom">&nbsp; </td>
+                          </tr>
+                        </table>
+                      </div></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+        </table>
+      </div></td>
+    <td width="39">&nbsp;</td>
+    <td width="96">&nbsp;</td>
+    <td width="7" background="images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+  <tr>
+    <td background="images/index1024_04.jpg">&nbsp;</td>
+    <td height="170"><table width="100%" height="112" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000" bgcolor="#FFFF99" >
+      <tr>
+        <td width="25%" height="110"><img src="fotos/foto.jpg" alt=""  name="imgfoto" width="100" height="100"></td>
+        <td width="75%"><table width="100%" height="112" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000"  bordercolordark="#FFFFFF">
+            <tr>
+              <td width="37%" class="inputtitle menuborder">Nombre:</td>
+              <td width="63%" class="inputtitle menuborder"><script>document.write(getCookie('nombre_usr'));</script></td>
+            </tr>
+            <tr>
+              <td class="inputtitle menuborder">Apellido:</td>
+              <td class="inputtitle menuborder"><script>document.write(getCookie('apellido_usr'));</script></td>
+            </tr>
+            <tr>
+              <td class="inputtitle menuborder">Perfil:</td>
+              <td class="inputtitle menuborder"><script>document.write(getCookie('nombre_pfl'));</script></td>
+            </tr>
+            <tr>
+              <td height="21" class="inputtitle menuborder"> Ultimo acceso:</td>
+              <td class="inputtitle menuborder">&nbsp;</td>
+            </tr>
+            <tr>
+              <td class="inputtitle menuborder">Su clave expira en:</td>
+              <td class="inputtitle menuborder"><script>document.write(60-getCookie('dias')+ '  dias');</script></td>
+            </tr>
+        </table></td>
+      </tr>
+    </table></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td background="images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="34" colspan="2" background="images/index1024_18.jpg"><IMG SRC="images/index1024_17.jpg" WIDTH=420 HEIGHT=36 ALT=""></td>
+    <td background="images/index1024_18.jpg">&nbsp;</td>
+    <td background="images/index1024_18.jpg">&nbsp;</td>
+    <td background="images/index1024_18.jpg">&nbsp;</td>
+    <td background="images/index1024_18.jpg">&nbsp;</td>
+    <td background="images/index1024_18.jpg">&nbsp;</td>
+    <td background="images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+</table>
+</form>
+<script>
+document.getElementById('imgFoto').src='fotos/'+getCookie('foto_usr');
+</script>
+</BODY>
+</HTML>

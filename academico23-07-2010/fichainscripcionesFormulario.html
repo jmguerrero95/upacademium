@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script>
+function grabarInscripcion() {
+var url=frames['iframeDatos'].location.href.split('/');
+//alert(url[url.length-1]);
+   if (url[url.length-1]=='iframeinscripcionesDatosGenerales.html' ||url[url.length-1]=='iframeinscripcionesDatosGenerales.html#')
+      checkForm(frames['iframeDatos'].PaginaDatos);
+   else window.close();
+}
+</script>
+<!--
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+-->
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+<input name="serial_suc" type="hidden" id="serial_suc" class="hidden">
+
+  <table width="1020" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO<br>
+          DATOS ALUMNOS
+</center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="1020" height="400" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="25"  class="maintoptitle fonttitle"><left>
+			  <div align="left">
+			    <!--<script>
+			var nombreEmpleado=(getURLParam('nombre_epl')=='')? 'NUEVO EMPLEADO' :getURLParam('nombre_epl')+' '+getURLParam('apellido_epl');
+
+			document.write(nombreEmpleado);</script></center></td>
+          </tr>
+          <tr>
+            <td> <script>
+//   omnisoftLoadData(document.PaginaDatos);-->
+			    </script> 
+		                   </div>
+			  <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+				
+                  <td height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeinscripcionesDatosGenerales.html');">Datos
+                      Generales</a></div></td>
+				
+                  <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeAlumnoFormacion.html');">Datos
+                      Académicos</a></div></td>
+					  	  
+				  <td height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeinscripcionesMalla.html');">Inscripción
+				       Malla</a></div></td>
+					   
+			<td height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeAlumnoPadres.html');">Datos
+				       Familia</a></div></td>	  
+					   
+				<td height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeRequisitosAdmision.html');">Requisitos
+				       Admisión</a></div></td> 
+					  <td height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeHistoricoAcademico.html');">Historico Académico</a></div></td>
+				<td height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeNegocioPropio.html');">Negocio Propio</a></div></td>	  
+                 
+                </tr>
+              </table>
+ <div align="left"></div>
+ <div align="left"></div></td>
+          </tr>
+          <tr>
+            <td height="426"> <iframe id="iframeDatos" frameborder="0" name="iframeDatos" src="iframeinscripcionesDatosGenerales.html" width="1025" height="426"></iframe>            </td>
+          </tr>
+          
+        </table></td>
+    </tr>
+    <tr>
+		<td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:grabarInscripcion()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <!--<td width="165"><a href="#"  onClick="javascript:grabarInscripcion()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>-->
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+<input name="elaboradoPor_alu" type="hidden" id="elaboradoPor_alu" class="hidden" value="1">
+<input name="modificadoPor_alu" type="hidden" id="modificadoPor_alu" class="hidden" value="1"  >
+<input name="aprobadoPor_alu" type="hidden" id="aprobadoPor_alu" class="hidden"  value="1" >
+
+</form>
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	document.PaginaDatos.serial_suc.value=getCookie('serial_suc');
+	//alert('serial_suc '+getCookie('serial_suc'));
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

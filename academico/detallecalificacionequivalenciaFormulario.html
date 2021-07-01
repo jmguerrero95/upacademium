@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_dcale" type="hidden" id="serial_dcale" class="hidden">
+<input name="serial_cale" type="hidden" id="serial_cale" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+ 		ACADEMICO<br>
+		DETALLE DE EQUIVALENCIA DE CALIFICACIONES
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="89" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          
+          
+          <tr>
+            <td width="107" height="29"  class="inputtitle">Alfab&eacute;tica :</td>
+            <td width="274" ><span class="inputtitle">
+              <img src="../images/camporequerido.gif">
+              <input name="alfabetica_dcale" type="text" id="alfabetica_dcale" size="4" maxlength="5" class="string"  onBlur="esconderToolTip()">
+            </span></td>
+            <td width="170" height="29"  class="inputtitle">Num&eacute;rica : </td>
+            <td width="244" ><span class="inputtitle">
+              <input name="numerica_dcale" type="text" id="numerica_dcale" size="8" maxlength="10" class="emptydecimal"  onBlur="esconderToolTip()" value="0.000">
+            </span></td>
+          </tr>
+          <tr>
+            <td height="29"  class="inputtitle">Relativa : </td>
+            <td ><span class="inputtitle">
+              <img src="../images/camporequerido.gif">
+              <select name="relativa_dcale" id="relativa_dcale" class="combobox">
+                <option value="EXCELENTE">Excelente</option>
+                <option value="MUY BUENA">Muy Buena</option>
+				 <option value="BUENA">Buena</option>
+                <option value="REGULAR">Regular</option>
+				 <option value="INSUFICIENTE">Insuficiente</option>
+                <option value="OYENTE">Oyente</option>
+				 <option value="INCOMPLETO">Incompleto</option>
+                <option value="RETIRO">Retiro</option>
+              </select>
+            </span></td>
+            <td height="29"  class="inputtitle">Rango de Calificaciones (%) : </td>
+            <td  class="inputtitle">
+              <input name="rangocalificacionini_dcale" type="text" id="rangocalificacionini_dcale" size="6" maxlength="10" class="emptydecimal"  onBlur="esconderToolTip()" value="0.00">
+              - 
+              <input name="rangocalificacionfin_dcale" type="text" id="rangocalificacionfin_dcale" size="6" maxlength="10" class="emptydecimal"  onBlur="esconderToolTip()" value="0.00">            </td>
+          </tr>
+         
+          <tr>
+            <td height="29"  class="inputtitle">Estado : </td>
+            <td ><span class="inputtitle"><img src="../images/camporequerido.gif">
+              <select name="estado_dcale" id="estado_dcale" class="combobox">
+                <option value="APRUEBA">Aprueba</option>
+                <option value="REPRUEBA">Reprueba</option>
+                
+              </select>
+            </span></td>
+            <td class="inputtitle">Observaciones : </td>
+            <td ><span class="inputtitle">
+              <input name="observaciones_dcale" type="text" id="observaciones_dcale" size="50" maxlength="60" class="emptystring"  onBlur="esconderToolTip()" value="NINGUNA">
+            </span></td>
+          </tr>
+          
+          
+          
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<script>
+			
+   	omnisoftLoadData(document.PaginaDatos);
+document.PaginaDatos.serial_cale.value=opener.PaginaDatos.serial_cale.value;
+//alert(document.PaginaDatos.serial_hom.value);
+  // var serial_hom=(getURLParam('action')=='insert')? 0:getURLParam('serial_hom');
+	//alert('serial_hom: '+getURLParam('serial_hom'));
+	//alert('serial_dhom: '+getURLParam('serial_dhom'));
+	
+	
+	//document.PaginaDatos.serial_maa.value=opener.PaginaDatos.serial_maa.value;
+
+	//alert('Serial malla '+document.PaginaDatos.serial_maa.value);
+	 //alert('serial_ama:'+opener.PaginaDatos.serial_ama.value); 
+	//var serial_maa=opener.PaginaDatos.serial_maa.value;
+	 //alert('serial_maa11222:'+opener.PaginaDatos.serial_maa.value); 
+
+</script>
+
+</form>
+
+</body>
+</html>

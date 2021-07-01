@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/omnisoft.js">
+</script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+			  <script>
+
+ function validarFacturaCaducada() {
+  var fhoy=new Date();
+  var fecha=document.PaginaDatos.fechaCaducidad_facc.value.split('-');
+  var ffecha=new Date(fecha[0],fecha[1]-1,fecha[2]);
+  if (fhoy.getTime()>ffecha.getTime()) {
+     alert('Advertencia: La factura está caducada!');
+  return false;
+  }
+
+   return true;
+    }
+
+function recuperarDatos(data) {
+  // alert(data);
+}
+
+
+function actualizarDatosProveedor() {
+   var SQLCommand='update proveedor set fechacaducidad_pvd=\''+document.PaginaDatos.fechaCaducidad_facc.value+'\', numeroautorizacion_pvd=\''+document.PaginaDatos.autorizacionSRI_facc.value+'\' where serial_pvd='+document.PaginaDatos.serial_pvd.value;
+   var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftDataManager.php",'recuperarDatos');
+
+      objDBComando.executeQuery();
+
+  SQLCommand='update producto,ingresoegresodebodega,detalleordendecompra set fechaCosteo_prd=CURRENT_DATE,costoPromedio_prd=(costoUnitario_prd+costoPromedio_dodc)/2,costoUnitario_prd=costo_dodc,stockactual_prd=stockactual_prd+CANTIDADRECIBIDAUNIDADES_DODC,costoLote_prd=costo_dodc  where producto.serial_prd=detalleordendecompra.serial_prd and detalleordendecompra.serial_odc=ingresoegresodebodega.serial_odc and cantidadrecibidaunidades_dodc is not null and ingresoegresodebodega.serial_ieb='+document.PaginaDatos.serial_ieb.value;
+  objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftDataManager.php",'recuperarDatos');
+  objDBComando.executeQuery();
+}
+
+
+function grabarFacturaCompra() {
+  if (validarFacturaCaducada()) {
+    actualizarDatosProveedor();
+    omnisoftGrabar();
+  }
+  else
+  document.PaginaDatos.fechaCaducidad_facc.focus();
+}
+
+function cargarDatos() {
+          seleccionarProveedor();
+
+}
+
+
+function procesarTotales(row) {
+
+document.PaginaDatos.stockactual_dodc.value=omniObj.grid.getCellText(12,row);
+document.PaginaDatos.unidadesEmbalaje_dodc.value=omniObj.grid.getCellText(13,row);
+document.PaginaDatos.unidadMedida_dodc.value=omniObj.grid.getCellText(14,row);
+document.PaginaDatos.costoPromedio_dodc.value=omniObj.grid.getCellText(15,row);
+document.getElementById('stotal').innerHTML=omniObj.grid.getFooterTemplate(8,0).getContent("box/text").element().innerHTML;
+document.PaginaDatos.total_facc.value=omniObj.grid.getCellText(8,row);
+document.PaginaDatos.subtotal_facc.value=omniObj.grid.getCellText(8,row);
+document.PaginaDatos.iva12_facc.value=omniObj.grid.getCellText(10,row);
+document.PaginaDatos.iva0_facc.value=omniObj.grid.getCellText(11,row);
+
+//document.PaginaDatos.iva12_facc.value=(omniObj.grid.getFooterTemplate(10,0).getContent("box/text").element()==undefined)? 0:omniObj.grid.getFooterTemplate(10,0).getContent("box/text").element().innerHTML;
+//document.PaginaDatos.iva0_facc.value=(omniObj.grid.getFooterTemplate(11,0).getContent("box/text").element()==undefined)? 0:omniObj.grid.getFooterTemplate(11,0).getContent("box/text").element().innerHTML;
+
+
+}
+
+function procesarIngreso() {
+			  var datos=document.PaginaDatos.serial_iebaux.value.split('¬');
+                          document.PaginaDatos.serial_ieb.value=datos[0];
+                          document.PaginaDatos.autorizacionSRI_facc.value=datos[1];
+                          document.PaginaDatos.fechaAutorizacionSRI_facc.value=datos[2];
+                          document.PaginaDatos.fechaCaducidad_facc.value=datos[3];
+                          document.PaginaDatos.serial_odc.value=datos[4];
+                          document.PaginaDatos.numeroDocumento_facc.value=datos[5];
+			  omniObj.grid.masterKeyValue=document.PaginaDatos.serial_ieb.value;
+                          omniObj.grid.executeQuery(omniObj.grid.rows);
+                          document.getElementById('stotal').innerHTML=omniObj.grid.getFooterTemplate(8,0).getContent("box/text").element().innerHTML;
+
+			}
+
+			function seleccionarProveedor() {
+                          cserial_ieb.objDBComando.sqlCommand='select concat(serial_ieb,\'¬\',autorizacionsri_ieb,\'¬\',fechaautorizacionsri_ieb,\'¬\',fechacaducidad_ieb,\'¬\',ordendecompra.serial_odc,\'¬\',numeroFactura_ieb) as serial,concat(numeroFactura_ieb,\'-\',fecha_ieb)as nombre from ingresoegresodebodega,ordendecompra where ingresoegresodebodega.serial_odc=ordendecompra.serial_odc and estado_ieb=\'PENDIENTE\' and ordendecompra.serial_pvd='+document.PaginaDatos.serial_pvd.value+' order by numeroFactura_ieb';
+                          cserial_ieb.objDBComando.executeQuery();
+                          setTimeout('procesarIngreso()',500);
+			}
+</script>
+<style type="text/css">
+<!--
+.estiloTotal {
+	font-size: 24px;
+	color: #FF0000;
+}
+-->
+</style>
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_facc" type="hidden" id="serial_facc" class="hidden" >
+<input name="serial_odc" type="hidden" id="serial_odc"  >
+<input name="serial_ieb" type="hidden" id="serial_ieb" class="hidden" >
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          INVENTARIOS<br>
+          REGISTRO DE COMPRAS
+        </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="220" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="25"  class="inputtitle">Fecha :</td>
+            <td width="119"><input name="fecha_facc" type="text" id="fecha_facc" class="dates" size="10" maxleng th="10"  onBlur="esconderToolTip()"  readonly="yes" ></td>
+            <td width="74" class="inputtitle">&nbsp;</td>
+            <td width="71" class="inputtitle">Numero:</td>
+            <td class="inputtitle"><input name="numero_facc" type="text" id="numero_facc"  size="25" maxlength="20"  onBlur="esconderToolTip()" readonly="yes"  class="autoincrement"  table='facturacompra' fieldid='serial_facc' > </td>
+            <td width="138" class="inputtitle">Proveedor:</td>
+            <td colspan="2" class="inputtitle">            <script>
+                                  var cserial_pvd=new omnisoftComboBox('cserial_pvd','serial_pvd','select serial_pvd,razonSocial_pvd from proveedor where estado_pvd=\'ACTIVO\' order by razonsocial_pvd','250px',false,getURLParam('proveedor_ieb'));
+                          cserial_pvd.show();
+                          document.PaginaDatos.serial_pvd.onchange=seleccionarProveedor;
+            </script></td>
+            <td width="118" rowspan="3" class="inputtitle" readonly=yes> <div align="center">
+                <span id="stotal" class="estiloTotal"> 0.00</span>
+            </div>
+            </label></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Tipo:</td>
+            <td><label>
+              <select name="tipoDocumento_facc" id="tipoDocumento_facc" class="combo">
+                <option value="FACTURA" selected>FACTURA</option>
+                <option value="NOTA DE VENTA">NOTA DE VENTA</option>
+                                          </select>
+            </label></td>
+            <td colspan="2"  class="inputtitle">&nbsp;</td>
+            <td  class="inputtitle">&nbsp;</td>
+            <td  class="inputtitle"><!-- Fecha Pago:--></td>
+            <td  class="inputtitle"><input name="fechaCancelacion_facc" type="text" id="fechaCancelacion_facc" class="date" size="10" maxleng th="10"  onBlur="esconderToolTip()"   ></td>
+            <td class="inputtitle">&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="74" height="24"  class="inputtitle">Factura:</td>
+            <td>
+			<span class="inputtitle">
+            <input name="numeroDocumento_facc" type="text" id="numeroDocumento_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()"   class="text"  >
+            </span></td>
+            <td colspan="2"  class="inputtitle"> Autorizacion :            </td>
+            <td width="82"  class="inputtitle"><input name="autorizacionSRI_facc" type="text" id="autorizacionSRI_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()" readonly="yes"  class="emptyinteger" ></td>
+            <td  class="inputtitle"><input name="fechaAutorizacionSRI_facc" type="hidden" id="fechaAutorizacionSRI_facc"  size="10" maxlength="10"  onBlur="esconderToolTip()" readonly  class="emptydates"  ></td>
+            <td width="105"  class="inputtitle">Fecha Caducidad : </td>
+            <td width="120" class="inputtitle"><input name="fechaCaducidad_facc" type="text" id="fechaCaducidad_facc"  size="10" maxlength="10"  onBlur="esconderToolTip()" readonly  class="emptydates"  ></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Ingreso:</td>
+            <td colspan="4" >            <script>
+                                  var cserial_ieb=new omnisoftComboBox('cserial_ieb','serial_iebaux','select concat(serial_ieb,\'¬\',autorizacionsri_ieb,\'¬\',fechaautorizacionsri_ieb,\'¬\',fechacaducidad_ieb,\'¬\',ordendecompra.serial_odc,\'¬\',numeroFactura_ieb) as serial,concat(numeroFactura_ieb,\'-\',fecha_ieb)as nombre from ingresoegresodebodega,ordendecompra where ingresoegresodebodega.serial_odc=ordendecompra.serial_odc and estado_ieb=\'PENDIENTE\' and ordendecompra.serial_pvd='+getURLParam('serial_iebaux')+' and order by numeroFactura_ieb','250px',false,getURLParam('serial_iebaux'),'',procesarIngreso);
+                          cserial_ieb.show();
+
+            </script></td>
+            <td >&nbsp;</td>
+            <td class="inputtitle" >Estado:</td>
+            <td ><select name="estado_facc" id="estado_facc" class="combobox">
+              <option value="PENDIENTE" selected>PENDIENTE</option>
+              <option value="PROCESADA">PROCESADA</option>
+              <option value="PAGADA">PAGADA</option>
+              <option value="ANULADA">ANULADA</option>
+            </select></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Concepto </td>
+            <td colspan="8" ><input name="concepto_facc" type="text" id="concepto_facc" class="emptystring" size="100" maxlength="250"  onBlur="esconderToolTip()"> </td>
+          </tr>
+          <tr>
+            <td colspan=9> <script>
+    omnisoftLoadData(document.PaginaDatos);
+    var serial_ieb=0;
+    if (getURLParam('action')=='edit')
+     serial_ieb=getURLParam('serial_ieb');
+    var sql='SELECT SERIAL_DODC, codigo_bod,codigo_prd,BARRASUNITARIOEAN13_PRD,nombre_prd,CANTIDADRECIBIDAUNIDADES_DODC ,costo_dodc,  DESCUENTODOLARES_DODC, (CANTIDADRECIBIDAUNIDADES_DODC*costo_dodc)*(1-DESCUENTODOLARES_DODC) as SUBTOTAL_DODC,    TOTAL_DODC, IVA_DODC, IVA0_DODC,producto.stockactual_prd,producto.unidadesEmbalaje_prd,producto.unidadMedida_prd,producto.costopromedio_prd,producto.SERIAL_PRD,detalleordendecompra.SERIAL_ODC,DESCUENTOPORCENTAJE_DODC FROM bodega,producto,detalleordendecompra,ingresoegresodebodega where  CANTIDADRECIBIDAUNIDADES_DODC>0 and producto.serial_prd=detalleordendecompra.serial_prd and bodega.serial_bod=ingresoegresodebodega.bodegaorigen_ieb and ingresoegresodebodega.serial_tib=1 and detalleordendecompra.serial_odc=ingresoegresodebodega.serial_odc and ingresoegresodebodega.serial_ieb=masterkey ';
+    omniObj=new omnisoftGridDetail('omniObj','serial_ieb',serial_ieb,'detalleordendecompra','serial_dodc',sql,document.PaginaDatos,Array(true,true),'',0,0,'procesarTotales');
+
+     omniObj.addColumn('Serial','serial_dodc', 10,'hidden','','middle','');
+     omniObj.addColumn('Bodega','codigo_bod', 10,'string','','middle','');
+     omniObj.addColumn('Codigo','codigo_prd', 8,'readonly','','middle','');
+     omniObj.addColumn('Cod. Barras','BARRASUNITARIOEAN13_PRD', 13,'readonly','','middle','');
+     omniObj.addColumn('Producto','nombre_prd', 22,'string','','middle','');
+     omniObj.addColumn('Unidades','cantidadRecibidaUnidades_dodc', 10,'integer','','right','','0','refresh');
+     omniObj.addColumn('Costo','costo_dodc', 10,'double','sum','right','','0','refresh');
+     omniObj.addColumn('Descuento','descuentoDolares_dodc', 10,'double','sum','right','','0','refresh');
+     omniObj.addColumn('Subtotal','subtotal_dodc', 12,'double','sum','right','','1');
+     omniObj.addColumn('total','total_dodc', 12,'hidden','sum','middle','','1');
+     omniObj.addColumn('iva12','iva12_dodc', 12,'hidden','sum','middle','','1');
+     omniObj.addColumn('iva0','iva0_dodc', 12,'hidden','sum','middle','','1');
+     omniObj.addColumn('Stock Actual','stockactual_dodc', 12,'hidden','','middle','','1');
+     omniObj.addColumn('Unidades Embalaje','unidadesEmbalaje_dodc', 12,'hidden','','middle','','1');
+     omniObj.addColumn('Unidad Medida','unidadMedida_dodc', 12,'hidden','','middle','','1');
+     omniObj.addColumn('Costo Promedio','costopromedio_dodc', 12,'hidden','','middle','','1');
+
+
+  omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');
+
+
+
+
+
+ </script> </td>
+          </tr>
+          <tr>
+            <td height="21" class="inputtitle">Subtotal:</td>
+            <td height="21" class="inputtitle"><input name="subtotal_facc" type="text" id="subtotal_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="21" colspan="2" class="inputtitle">Iva 12%</td>
+            <td height="21" class="inputtitle"><input name="iva12_facc" type="text" id="iva12_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="21" class="inputtitle">Iva 0%</td>
+            <td height="21" class="inputtitle"><input name="iva0_facc" type="text" id="iva0_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="21" class="inputtitle">Total</td>
+            <td height="21" class="inputtitle"><input name="total_facc" type="text" id="total_facc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+          </tr>
+          <tr>
+            <td height="24" class="inputtitle">Stock Actual:</td>
+            <td height="24" class="inputtitle"><input name="stockactual_dodc" type="text" id="stockactual_dodc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="24" colspan="2" class="inputtitle">Unidades de Embalaje:</td>
+            <td height="24" class="inputtitle"><input name="unidadesEmbalaje_dodc" type="text" id="unidadesEmbalaje_dodc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="24" class="inputtitle">Unidad de Medida</td>
+            <td height="24" class="inputtitle"><input name="unidadMedida_dodc" type="text" id="unidadMedida_dodc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+            <td height="24" class="inputtitle">Costo Promedio</td>
+            <td height="24" class="inputtitle"><input name="costoPromedio_dodc" type="text" id="costoPromedio_dodc"  size="15" maxlength="15"  onBlur="esconderToolTip()"  readonly="yes"   ></td>
+          </tr>
+          <tr>
+            <td height="32" colspan=9 class="inputtitle"> Creado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoCreadoPor" id="FotoCreadoPor">
+<input name="elaboradoPor_facc" type="text" id="elaboradoPor_facc" size="28" maxlength="30"  class="emptyinteger" onBlur="esconderToolTip()"    readonly>
+              Modificado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoModificadoPor" id="FotoModificadoPor">
+<input name="modificadoPor_facc" type="text" id="modificadoPor_facc"  size="28" maxlength="30"  class="emptyinteger"  onBlur="esconderToolTip()"  readonly  >
+              Autorizado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoAutorizadoPor" id="FotoAutorizadoPor">
+<input name="aprobadoPor_facc" type="text" id="aprobadoPor_facc" size="28" maxlength="30"  class="emptyinteger"  onBlur="esconderToolTip()"   readonly >            </td>
+          </tr>
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="150" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:grabarFacturaCompra()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="143"></td>
+            <td width="152"><a href="javascript:omnisoftCancelar()"><img src="../images/imprimir.jpg" alt="" width="150" height="30" border="0"></a></td>
+            <td width="209"></td>
+            <td width="151"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+      	if (getURLParam('action')=='insert') {
+
+            document.PaginaDatos.fecha_facc.value=fechaSistema();
+            document.PaginaDatos.fechaCancelacion_facc.value=fechaSistema();
+
+
+         }
+         else
+             setTimeout('cargarDatos()',500);
+
+
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

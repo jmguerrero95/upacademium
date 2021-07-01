@@ -1,0 +1,307 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftMenu.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<link href="../lib/zpmenu/themes/images.css" rel="stylesheet" type="text/css">
+<link href="../lib/grid/styles/omnisoftGrid.css" rel="stylesheet" type="text/css">
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script>
+
+var alumno='';
+function ProcesarEvaluacion(cedula){
+
+	var tipo=document.PaginaDatos.serial_teva.value;
+	var sql_mat='';
+	//ALUMNO
+	if(tipo==1){
+	 sql_mat='select concat(dmat.serial_hrr,\'*\',dmat.serial_mat,\'*\',epl.serial_epl,\'*\',serial_dmat,\'*\',mmat.serial_alu) as serial,concat(apellido_epl,\' \',nombre_epl,\'=>\',nombre_mat)  as profesor from detallemateriamatriculada as dmat, materiamatriculada as mmat, alumno as alu, materia as mat, horario as hrr, empleado as epl where alu.codigoIdentificacion_alu = \''+cedula+'\'  and mmat.serial_per='+ document.PaginaDatos.serial_per.value +' and mmat.serial_alu = alu.serial_alu and dmat.serial_mmat = mmat.serial_mmat and dmat.serial_mat = mat.serial_mat and dmat.serial_hrr = hrr.serial_hrr and hrr.serial_epl = epl.serial_epl and estado_hrr<>\'INACTIVO\' and fecharetiro_dmat=\'0000-00-00\' and dmat.serial_dmat not in (select serial_dmat from cabecera_evaluacion where SERIAL_TEVA=1)';
+		
+		/*   sql_mat=' select concat(dmat.serial_hrr,\'*\',dmat.serial_mat,\'*\',e.serial_epl,\'*\',serial_dmat,\'*\',mmat.serial_alu) as serial,concat(apellido_epl,\' \',nombre_epl,\'=>\',nombre_mat) as profesor from detallemateriamatriculada as dmat  join materiamatriculada as mmat on mmat.SERIAL_MMAT=dmat.serial_mmat and mmat.SERIAL_PER='+document.PaginaDatos.serial_per.value+'  join alumno as a on a.serial_alu=mmat.serial_alu and a.codigoIdentificacion_alu=\''+cedula+'\'  join horario as hrr on hrr.SERIAL_HRR=dmat.serial_hrr  join empleado as e on e.SERIAL_EPL=hrr.SERIAL_EPL  join materia as mat on mat.serial_mat=dmat.serial_mat';*/
+		   
+	   }
+	   //PROFESOR
+	if(tipo==2){
+		   //sql_mat=' select concat(serial_dmat,\'*\',e.serial_epl) as serial,concat(apellido_epl,\' \',nombre_epl,\'=>\',nombre_mat) as profesor from detallemateriamatriculada as dmat left join materiamatriculada as mmat on mmat.SERIAL_MMAT=dmat.serial_mmat and mmat.SERIAL_PER='+document.PaginaDatos.serial_per.value+' left join horario as hrr on hrr.SERIAL_HRR=dmat.serial_hrr left join empleado as e on e.SERIAL_EPL=hrr.SERIAL_EPL and DOCUMENTOIDENTIDAD_EPL=\''+cedula+'\' left join materia as mat on mat.serial_mat=dmat.serial_mat';
+		   sql_mat='select distinct(concat(dmat.serial_hrr,\'*\',dmat.serial_mat,\'*\',e.serial_epl)) as serial,concat(apellido_epl,\' \',nombre_epl,\'=>\',nombre_mat,\' Seccion:\',seccion_hrr) as profesor from detallemateriamatriculada as dmat join materiamatriculada as mmat on mmat.SERIAL_MMAT=dmat.serial_mmat and mmat.SERIAL_PER='+document.PaginaDatos.serial_per.value+' join horario as hrr on hrr.SERIAL_HRR=dmat.serial_hrr join empleado as e on e.SERIAL_EPL=hrr.SERIAL_EPL and DOCUMENTOIDENTIDAD_EPL=\''+cedula+'\' join materia as mat on mat.serial_mat=dmat.serial_mat and estado_hrr<>\'INACTIVO\'  and hrr.serial_hrr not in (select serial_hrr from cabecera_evaluacion where SERIAL_TEVA=2 and IDENTIFICACION_CEVA=\''+cedula+'\')';
+		   
+	//prompt("",sql_mat);
+	   }
+  	   //COORDINACION
+	if(tipo==3){
+		   sql_mat='select distinct(concat(dmat.serial_hrr,\'*\',dmat.serial_mat,\'*\',e.serial_epl)) as serial,concat(apellido_epl,\' \',nombre_epl) as profesor,concat(nombre_mat,\' Seccion:\',seccion_hrr) as nombre_mat from detallemateriamatriculada as dmat,materia  as mat join materiamatriculada as mmat on mmat.SERIAL_MMAT=dmat.serial_mmat and mmat.SERIAL_PER='+document.PaginaDatos.serial_per.value+' join horario as hrr on hrr.SERIAL_HRR=dmat.serial_hrr join empleado as e on e.SERIAL_EPL=hrr.SERIAL_EPL where mat.serial_mat=dmat.serial_mat and mat.serial_are and estado_hrr<>\'INACTIVO\' ';
+	   } 
+	    //JEFE DE AREA
+	if(tipo==4){
+		   sql_mat='select distinct(concat(dmat.serial_hrr,\'*\',dmat.serial_mat,\'*\',e.serial_epl)) as serial,concat(apellido_epl,\'\',nombre_epl) as profesor,concat(nombre_mat,\' Seccion:\',seccion_hrr) as nombre_mat from detallemateriamatriculada as dmat,materia  as mat join materiamatriculada as mmat on mmat.SERIAL_MMAT=dmat.serial_mmat and mmat.SERIAL_PER='+document.PaginaDatos.serial_per.value+' join horario as hrr on hrr.SERIAL_HRR=dmat.serial_hrr join empleado as e on e.SERIAL_EPL=hrr.SERIAL_EPL where mat.serial_mat=dmat.serial_mat and estado_hrr<>\'INACTIVO\' and mat.serial_are in (select area.serial_are from area,jefearea,empleado where area.serial_are=jefearea.serial_are and jefearea.serial_epl=empleado.serial_epl and empleado.DOCUMENTOIDENTIDAD_EPL=\''+cedula+'\')';
+	   }   
+	    
+	
+		
+		 document.getElementById('divTituloMateria').style.visibility='visible';
+		 document.getElementById('divMateria').style.visibility='visible';
+		
+		cserial_mat.objDBComando.sqlCommand=sql_mat;
+		cserial_mat.objDBComando.executeQuery();
+	
+		   // document.getElementById('divTituloMateria').style.visibility='hidden';
+		//document.getElementById('divMateria').style.visibility='hidden';
+		//Para obtener el nombre del Estudiante
+		if(tipo==1 && cedula!=''){
+			objDB=new omnisoftDB(' select  CONCAT_WS(\' \',nombre1_alu,nombre2_alu,apellidopaterno_alu,apellidomaterno_alu) as alumno, serial_alu from alumno where codigoIdentificacion_alu = \''+cedula+'\' ',"../lib/server/omnisoftSQLData.php",'recuperarDatosAlumno');
+			setTimeout('objDB.executeQuery()',0);
+		
+		}
+ }
+function Evaluar(){
+var ban=0;
+ if(document.PaginaDatos.cedula.value==''){
+ 	alert('No ingreso su # de identificacion...!!');
+	document.PaginaDatos.cedula.focus;
+	ban=1;
+ }	
+ //document.PaginaDatos.serial_mat.options[document.PaginaDatos.serial_mat.selectedIndex ].value
+ //document.PaginaDatos.serial_mat.value=='' || 
+ if(document.PaginaDatos.serial_mat.length==0){
+ 	alert('No tiene Materias a evaluar...!!');
+	document.PaginaDatos.serial_mat.focus;
+	ban=1;
+  }	
+  if(ban==0){
+	   var query=document.PaginaDatos.serial_teva.value+'|'+document.PaginaDatos.serial_per.value +'|'+document.PaginaDatos.cedula.value+'|'+document.PaginaDatos.serial_mat.value;
+	//   prompt('prueba',query);
+		   objDB=new omnisoftDB(query,"../lib/server/omnisoftRegistrarEvaluacion.php",'recuperarDatos');
+		   setTimeout('objDB.executeQuery()',0);
+	}
+}
+function recuperarDatos(data){
+//alert(data);
+var resultado=data.split('|');
+if (resultado[0]!=0 && resultado[1]!=0 ) {
+   
+	var attributes='width=800 ,height=500,scrollbars=yes,resizable=no,toolbar=no,location=no,status=yes,menubar=no'
+	var sURL='responderEvaluacion.html?serial_ceva='+resultado[0]+'&serial_eva='+resultado[1]+'&alumno='+alumno+'&codigo_are='+resultado[2];
+	 omnisoftNewWindow=window.open(sURL,'RegistroEvaluacion',attributes);
+				   if (window.focus) {omnisoftNewWindow.focus()}
+
+ }
+ else alert('No se puede registra la evaluacion!');
+
+
+}
+
+function recuperarDatosAlumno(data){
+		alert(data);
+		var resultado=data.split('|');
+		var nombre_alumno=resultado[1].split('~'); 
+		if(nombre_alumno[0]!='')
+			alumno=nombre_alumno[0];
+			alert('Bienvenido/a  al Proceso de Evaluacion...!!!!!\n\n'+nombre_alumno[0]+'\n\n Recuerda...!!!!! esta en tus manos el Nivel Académico Institucional. ');
+}
+
+function intro(e,ci_alu){
+		tecla=(document.all) ? e.keyCode : e.which;
+		if(tecla==13) {
+			window.event.keyCode=0;
+			ProcesarEvaluacion(ci_alu);
+			alert("has apretado intro");
+		}
+
+}
+
+</script>
+</head>
+
+
+
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.style1 {	color: #FFFFFF;
+	font-weight: bold;
+}
+-->
+</style>
+</HEAD>
+<BODY onLoad="initDisableRight();"  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td height="541" valign="top">
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top">
+                    <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td>                    <td width="482"  class="toptitle" > <center>
+                      EVALUACIONES
+                      <br>
+                        REGISTRO DE LA EVALUACION
+                    </center></td>
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>  <td height="20" class="menuborder" >
+
+            <ul id="myMenu" class='zpHideOnLoad'>
+			 <script>
+              //OmnisoftPerfilUsuario(moduloEvaluacion);
+			  OmnisoftPerfilUsuario(moduloEvaluacion);
+            </script>
+</td>
+
+          </tr>
+          <tr>            <td height="412" valign="top" >
+			<div align="center">
+                <table width="100%" height="467"  border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"  bgcolor="#5e97c6">
+                  <tr>
+                    <td width="1123" height="465" colspan="2" class="inputtitle"  valign="top"><table width="1031" height="61" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"  class="formtable">
+                      <tr>
+                        <td width="150" height="17"  class="inputtitle">Tipo Evaluaci&oacute;n :</td>
+                        <td width="241">	<img  src="../images/camporequerido.gif">
+		  <script>
+                 var cserial_teva=new omnisoftComboBox('cserial_teva','serial_teva','select serial_teva,tipo_teva from tipo_evaluadores where serial_teva in (1,2)  order by tipo_teva','180px',false,'');
+                     cserial_teva.show();
+	  </script>                          </td>
+                        <td width="113" class="inputtitle">Periodo:</td>
+                        <td width="513">  <script>
+                 var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per,nombre_per from periodo where serial_suc='+getCookie('serial_suc')+'  and activo_per=\'SI\' order by nombre_per desc','250px',false,'');
+                     cserial_per.show();
+	                      </script></td>
+                      </tr>
+                      <tr>
+                        <td height="21"  class="inputtitle">Identificación:</td>
+                        <td><input name="cedula" type="text" id="cedula" size="30" maxlength="10" onBlur="esconderToolTip(); "  onKeyPress="intro(event,this.value)" class="string" ></td>
+                        <td class="inputtitle"><div id="divTituloMateria" style="visibility:hidden">Materia a Evaluar: </div></td>
+                        <td class="inputtitle"><div id="divMateria" style="visibility:hidden"><img  src="../images/camporequerido.gif">
+                          <script>
+                 var cserial_mat=new omnisoftComboBox('cserial_mat','serial_mat','select serial_mat as serial,nombre_mat from materia where 2=1','450px',false,'');
+                     cserial_mat.show();
+	                      </script></div></td>
+                        </tr>
+                      <tr>
+                        <td height="50" colspan="4"   align="center" class="inputtitle"><a href="#" onClick="Evaluar();"><img src="../images/evaluar1.jpg" alt="Evaluar" width="61" height="46"></a><br>
+                          Evaluar</td>
+                        </tr>
+                    </table></td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<table width="100%" height="58"  cellpadding="0" cellspacing="0" >
+<tr>
+<td class="menuborder"> </td>
+</tr>
+</table>
+</form>
+<form method="POST" enctype="multipart/form-data"  name="ActualizarDatos"  onClick="highlight(event)" onKeyUp="highlight(event)">
+<input type="hidden" name="cedula" value="">
+<input type="hidden"  name="periodo" value="">
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+
+</BODY>
+
+</HTML>

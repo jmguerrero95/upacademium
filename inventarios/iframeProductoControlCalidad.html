@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/omnisoft.js"></script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_prd" type="hidden" id="serial_prd" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+  // omnisoftLoadData(document.PaginaDatos);
+
+      var serial_prd=parent.PaginaDatos.serial_prd.value;
+      var sql="SELECT rcc.serial_rcc, fecha_rcc, numeroDocumento_rcc, lote_rcc, liberacionProducto_rcc, calificacionControlCalidad_rcc, estado_rcc, observaciones_rcc, rcc.serial_dieb, prd.serial_prd, rcc.serial_pvd FROM registrocontrolcalidad AS rcc, producto AS prd WHERE prd.serial_prd = rcc.serial_prd and serial_prd=masterkey";
+
+     omniObj=new omnisoftGridDetail('omniObj','serial_prd',serial_prd,'registrocontrolcalidad','serial_rcc',sql,document.PaginaDatos);
+
+     omniObj.addColumn('Serial','serial_rcc', 10,'hidden','','middle','');
+     omniObj.addColumn('Fecha','fecha_rcc', 8,'date','','middle','');
+     omniObj.addColumn('Numero Documento','numeroDocumento_rcc', 12,'string','','middle','');
+     omniObj.addColumn('Liberación Producto','liberacionProducto_rcc', 12,'string','','middle','');
+     omniObj.addColumn('Calificación Control Calidad','calificacionControlCalidad_rcc', 15,'string','','middle','');
+     omniObj.addColumn('Estado','estado_rcc', 10,'string','','middle','');
+	 omniObj.addColumn('Observaciones','observaciones_rcc', 10,'string','','middle','');
+     omniObj.addColumn('serial_dieb','serial_dieb', 5,'hidden','','middle','');
+     omniObj.addColumn('serial_prd','serial_prd', 5,'hidden','','middle','');
+     omniObj.addColumn('serial_pvd','serial_pvd', 5,'hidden','','middle','');
+
+     omniObj.showGrid('omniObj',20,448,1020,'menu','#FF9900');
+
+
+
+
+
+
+ </script> </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

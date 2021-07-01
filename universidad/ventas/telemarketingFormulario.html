@@ -1,0 +1,621 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::Telemarketing</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf8">
+<style type="text/css">
+<!--
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+	font-weight: bold;
+	font-size: 18px;
+}
+.style4 {
+	color: #000066;
+	font-size: 12px;
+}
+-->
+</style>
+
+
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<!-- menus -->
+
+<script language='javascript' src="../lib/omnisoftTools.js"></script>
+<link href="../lib/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/omnisoftValidar.js"></script>
+<script language="javascript" src= "../lib/cookies.js" ></script>
+<script language="javascript" src="../lib/jsrs/jsrsClient.js"></script>
+<script language="javascript" src="../lib/jsrs/omnisoftComboBoxClient.js"></script>
+<script language='javascript' src= "../lib/event-listener.js" ></script>
+
+<script language='javascript' src= "../lib/masked-input.js" ></script>
+
+
+<style type="text/css">
+<!--
+.style5 {color: #FFFFFF}
+.style7 {
+	font-size: 18px;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.style9 {
+	font-size: 12px;
+	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+}
+-->
+</style>
+
+	<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+	<script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+	<script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+	<script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+	<link href="lib/common_codethat.css" rel="stylesheet" type="text/css">
+	<script language="javascript1.2" src="../lib/codethatsdk.js"></script>
+	<script language="javascript1.2" src="../lib/disableRightClick.js"></script>
+	<script type="text/javascript" src="../lib/window.js"></script>
+	<script language="javascript" src="../lib/jsrs/jsrsClient.js"></script>
+	<link href="../lib/styles/xp/grid.css" rel="stylesheet" type="text/css" ></link>
+	<script src="../lib/grid.js"></script>
+	<link href="../lib/omnisoftTemplate.css" rel="stylesheet" type="text/css" ></link>
+	<script src="../lib/omnisoftTemplate.js"></script>
+	<script language="javascript" src= "../lib/cookies.js" ></script>
+
+<script>
+	//var sucursal=getCookie('sucursal');
+	var sucursal=1;
+	//var serial_usr=getCookie('sucursal');
+	var serial_usr=1;
+	
+	function llamada()
+	{ 
+		if(document.PaginaDatos.tipo_tel.value=='Rutas')
+		{
+		ocultarObjetosAleatorios();
+		verObjetosRutas();
+		cargarRegion(); 
+		}
+		if(document.PaginaDatos.tipo_tel.value=='Aleatorio')
+		{
+		ocultarObjetosRutas();
+		verObjetosAleatorios();
+		cargarPais();
+		}
+		if(document.PaginaDatos.tipo_tel.value=='')
+		{
+		ocultarObjetosRutas();
+		ocultarObjetosAleatorios();
+		}
+		
+	}
+
+	function cargarRegion()
+	{
+	document.PaginaDatos.serial_pai.options.length = 0;
+	document.PaginaDatos.serial_prv.options.length = 0;
+	document.PaginaDatos.serial_ciu.options.length = 0;
+	var SQL = 'SELECT serial_reg, nombre_reg FROM region ORDER BY nombre_reg';
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaRegion,'omnisoftExecuteSelectDouble',Array(gridDSN,SQL));
+	}
+	function recuperaRegion(data)
+	{
+		var col = data.split('|');
+		for(var i=0; i<col.length-1; i++)
+		{	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_reg.options[i] = new Option(row[1], row[0]);
+		}
+		document.PaginaDatos.serial_zon.options.length = 0;
+	setTimeout('cargarZona()',0);
+	}
+    
+	function cargarZona()
+	{
+	document.PaginaDatos.serial_can.style.visibility = "hidden";
+	var SQL = 'SELECT serial_zon, nombre_zon FROM zona WHERE serial_reg='+document.PaginaDatos.serial_reg.value;
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaZona,'omnisoftExecuteSelectDouble',Array(gridDSN,SQL));
+	}
+	function recuperaZona(data)
+	{
+		var col = data.split('|');
+		for(var i=0; i<col.length-1; i++)
+		{	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_zon.options[i] = new Option(row[1], row[0]);
+		}
+		document.PaginaDatos.serial_ruta.options.length = 0;
+		setTimeout('cargarRuta()',0);
+	}
+	function cargarRuta()
+	{
+	document.PaginaDatos.serial_can.style.visibility = "hidden";
+	var SQL = 'SELECT serial_rut, nombre_rut FROM ruta WHERE serial_zon = '+document.PaginaDatos.serial_zon.value;
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaRuta,'omnisoftExecuteSelectDouble',Array(gridDSN,SQL));
+	}
+	function recuperaRuta(data)
+	{
+		var col = data.split('|');
+		for(var i=0; i<col.length-1; i++)
+		{	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_ruta.options[i] = new Option(row[1], row[0]);
+		}
+
+	}
+	function cargarCanales()
+	{
+	document.PaginaDatos.serial_can.style.visibility = "visible";
+	var SQL = 'SELECT serial_can, nombre_can FROM canal';
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaCanal,'omnisoftExecuteSelectDouble',Array(gridDSN,SQL));
+	}
+	function recuperaCanal(data)
+	{
+		var col = data.split('|');
+		for(var i=0; i<col.length-1; i++)
+		{	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_can.options[i] = new Option(row[1], row[0]);
+		}
+
+	}
+	
+	function verObjetosRutas()
+	{
+		document.PaginaDatos.serial_reg.style.visibility = "visible";
+		document.PaginaDatos.serial_zon.style.visibility = "visible";
+		document.PaginaDatos.serial_ruta.style.visibility = "visible";
+	}
+	function ocultarObjetosRutas()
+	{
+		document.PaginaDatos.serial_reg.style.visibility = "hidden";
+		document.PaginaDatos.serial_zon.style.visibility = "hidden";
+		document.PaginaDatos.serial_ruta.style.visibility = "hidden";
+		document.PaginaDatos.serial_can.style.visibility = "hidden";
+		document.PaginaDatos.serial_reg.options.length = 0;
+	    document.PaginaDatos.serial_zon.options.length = 0;
+	    document.PaginaDatos.serial_ruta.options.length = 0;
+		document.PaginaDatos.serial_can.options.length = 0;
+	}
+	function verObjetosAleatorios()
+	{
+		document.PaginaDatos.serial_pai.style.visibility = "visible";
+		document.PaginaDatos.serial_prv.style.visibility = "visible";
+		document.PaginaDatos.serial_ciu.style.visibility = "visible";
+	}
+	function ocultarObjetosAleatorios()
+	{
+		document.PaginaDatos.serial_pai.style.visibility = "hidden";
+		document.PaginaDatos.serial_prv.style.visibility = "hidden";
+		document.PaginaDatos.serial_ciu.style.visibility = "hidden";
+		document.PaginaDatos.serial_can.style.visibility = "hidden";
+		document.PaginaDatos.serial_pai.options.length = 0;
+	    document.PaginaDatos.serial_prv.options.length = 0;
+	    document.PaginaDatos.serial_ciu.options.length = 0;
+		document.PaginaDatos.serial_can.options.length = 0;
+	}
+    function cargarPais()
+	{
+	document.PaginaDatos.serial_pai.options.length = 0;
+	var SQL = 'SELECT serial_pai, nombre_pai FROM pais ORDER BY serial_pai,nombre_pai';
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaPais,'omnisoftExecuteSelectDouble',Array(gridDSN,SQL));
+	}
+	function recuperaPais(data)
+	{
+		var col = data.split('|');
+		for(var i=0; i<col.length-1; i++)
+		{	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_pai.options[i] = new Option(row[1], row[0]);
+		}
+		document.PaginaDatos.serial_prv.options.length = 0;
+		document.PaginaDatos.serial_ciu.options.length = 0;
+	}
+	
+	function cargarProvincia()
+	{
+	document.PaginaDatos.serial_can.style.visibility = "hidden";
+	var SQL = 'SELECT serial_prv, nombre_prv FROM provincia WHERE serial_pai = '+parseInt(document.PaginaDatos.serial_pai.value);
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaProvincia,'omnisoftExecuteSelectDouble',Array(gridDSN,SQL));
+	
+	}
+	function recuperaProvincia(data)
+	{
+		var col = data.split('|');
+		document.PaginaDatos.serial_prv.options.length = 0;
+		document.PaginaDatos.serial_ciu.options.length = 0;
+		for(var i=0; i<col.length-1; i++)
+		{	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_prv.options[i] = new Option(row[1], row[0]);
+		}
+		document.PaginaDatos.serial_ciu.options.length = 0;
+	setTimeout('cargarCiudades()',0);
+	}
+	
+	function cargarCiudades()
+	{
+	document.PaginaDatos.serial_can.style.visibility = "hidden";
+	var SQL = 'SELECT serial_ciu, nombre_ciu FROM ciudad WHERE serial_prv = '+document.PaginaDatos.serial_prv.value;
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaCiudad,'omnisoftExecuteSelectDouble',Array(gridDSN,SQL));
+	}
+	function recuperaCiudad(data)
+	{
+		var col = data.split('|');
+		for(var i=0; i<col.length-1; i++)
+		{	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_ciu.options[i] = new Option(row[1], row[0]);
+		}
+	}
+	function cargarParroquias()
+	{
+     if(document.PaginaDatos.tipo_tel.value=='Rutas')
+	 {
+		 var SQLCommand = 'SELECT c.serial_cli, concat( c.codigo_cli, \' \', c.nombre_cli, \' \', c.apellido_cli ) AS cliente, c.sobrenombre_cli, MIN( f.fecha_fac ) AS fecha, telefonoCom1_cli, telefonoCom2_cli,celular_cli, ciu.nombre_ciu, can.nombre_can, r.nombre_rut FROM factura AS f, ruta AS r, ciudad as ciu, canal as can, clienteruta AS clir, cliente AS c LEFT JOIN calificacioncliente AS cal ON cal.serial_cli = c.serial_cli AND cal.calificacionCredito_cal >250  WHERE ciu.serial_ciu=c.serial_ciu AND clir.serial_rut = r.serial_rut AND clir.serial_cli = c.serial_cli AND r.serial_rut = '+document.PaginaDatos.serial_ruta.value+' AND f.serial_cli = c.serial_cli AND can.serial_can = c.serial_can AND can.serial_can = '+document.PaginaDatos.serial_can.value+' GROUP BY c.serial_cli ORDER BY f.fecha_fac ASC LIMIT 0 , 59';
+	 }
+	  else
+	  {
+		 var SQLCommand = 'SELECT c.serial_cli, concat( c.codigo_cli, \' \', c.nombre_cli, \' \', c.apellido_cli ) AS cliente, c.sobrenombre_cli, MIN( f.fecha_fac ) AS fecha, telefonoCom1_cli, telefonoCom2_cli,celular_cli, ciu.nombre_ciu, can.nombre_can, r.nombre_rut FROM factura as f, canal as can, ciudad as ciu, cliente as c LEFT JOIN clienteruta AS clir ON c.serial_cli = clir.serial_cli LEFT JOIN ruta AS r ON r.serial_rut=clir.serial_rut LEFT JOIN calificacioncliente AS cal ON cal.serial_cli = c.serial_cli WHERE c.serial_can = '+document.PaginaDatos.serial_can.value+' AND ciu.serial_ciu =c.serial_ciu AND ciu.serial_ciu='+document.PaginaDatos.serial_ciu.value+' AND f.serial_cli = c.serial_cli GROUP BY c.serial_cli ORDER BY f.fecha_fac ASC LIMIT 0, 59';
+	  }
+	    makeFilter(SQLCommand);
+	}
+	
+	var cadena = '';
+	var cad = ''; 
+	var Tipo = ''; 
+	  function cargarForma(tip)
+	  {
+	     Tipo = '';
+		 Tipo = tip;
+		 var cells = gridObj.getSelectionProperty("values");
+		 if (cells.length==0)
+			alert('Seleccione un Cliente!!');
+		 else 
+		 {
+		 cadena = '';
+			for (var i=0; i <= cells.length-1 ; i++)
+				cadena = cadena.concat(parseInt(dataGrid[cells[i]][0]),'|');
+                
+				cad = cadena.split('|');
+				if((cad.length-1)>1)
+				alert('Solo un cliente x Orden Pedido');
+				else
+				{
+					if(document.PaginaDatos.serial_tele.value==0)
+					{
+						var SQLMaster = 'INSERT INTO telemarketing (';
+						if(document.PaginaDatos.serial_ruta.value!='')
+						SQLMaster += 'ruta_tel,';
+						if(document.PaginaDatos.serial_can.value!='')
+						SQLMaster += 'canal_tel,';
+						if(document.PaginaDatos.serial_ciu.value!='')
+						SQLMaster += 'ciudad_tel,';
+						SQLMaster += 'fecha_tel,observaciones_tel,estado_tel,elaboradoPor_tel,numeroDocumento_tele) VALUES(';
+						if(document.PaginaDatos.serial_ruta.value!='')
+						SQLMaster += +parseInt(document.PaginaDatos.serial_ruta.value)+',';
+						if(document.PaginaDatos.serial_can.value!='')
+						SQLMaster += +parseInt(document.PaginaDatos.serial_can.value)+',';
+						if(document.PaginaDatos.serial_ciu.value!='')
+						SQLMaster += +parseInt(document.PaginaDatos.serial_ciu.value)+',';
+						SQLMaster += 'SYSDATE(),\''+document.PaginaDatos.observaciones_tel.value+'\',\''+document.PaginaDatos.estado_tel.value+'\','+serial_usr+',0)';
+						var SQLMum = 'UPDATE telemarketing SET numeroDocumento_tele = (SELECT LPAD(numero_sdo,7,\'0\') FROM secuenciadocumentos WHERE CURDATE() <= fechaCaducidad_sdo AND tipo_sdo = \'Telemarketing\' AND serial_suc = '+sucursal+') WHERE serial_tele=_serial_master_';
+						var SQLDetail = 'UPDATE secuenciadocumentos SET numero_sdo = (numero_sdo + 1) WHERE CURDATE() <= fechaCaducidad_sdo AND tipo_sdo = \'Telemarketing\' AND serial_suc = '+sucursal;
+						var SQLUnic = SQLMum+'|'+SQLDetail;
+						jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php', omnisoftExecuteUpdate, 'omnisoftMultiple',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',SQLMaster,SQLUnic));
+					}
+					else
+					{
+						
+						var SQLConsult = 'SELECT serial_tele FROM telemarketing WHERE serial_tele='+document.PaginaDatos.serial_tele.value;
+						jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',omnisoftExecuteUpdate,'omnisoftExecuteSelectDouble',Array(gridDSN,SQLConsult));
+					}			
+						
+				}
+			
+		  }
+	  }
+	 function omnisoftExecuteUpdate(data)
+	 {
+	 	var row = data.split('|');
+		document.PaginaDatos.serial_tele.value=parseInt(row[1]);
+		setTimeout('leerNumeroTelemarketing('+parseInt(row[1])+')',0);
+	 }
+	
+	function leerNumeroTelemarketing(serial_tele)
+	{
+	
+		var SQLConsultame = 'SELECT numeroDocumento_tele FROM telemarketing WHERE serial_tele = '+serial_tele;
+		jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recoverNumero,'omnisoftExecuteSelectDouble',Array(gridDSN,SQLConsultame));
+	}
+	function recoverNumero(data)
+	{
+		var row = data.split('|');
+		document.PaginaDatos.numeroDocumento_tele.value = row[1];
+		
+		if(document.PaginaDatos.numeroDocumento_tele.value !== '')
+		{
+			setTimeout('verificaAlCliente('+document.PaginaDatos.serial_tele.value+')',0);
+		}
+		else
+		alert('Error no se genero el numero de telemarketing');
+	}
+	
+	function verificaAlCliente(serial)
+	{
+		var  sqlComplemen = '';
+		if(Tipo=='orden')
+		sqlComplement = ' AND ordenPedido_dtele != \'NULL\' ';
+		if(Tipo=='sugerencia')
+		sqlComplement = ' AND quejasSugerencias_dtele != \'NULL\' ';
+		if (Tipo=='quejas')
+		sqlComplement = ' AND servicioAlCliente_dtele != \'NULL\' ';
+		
+		var sqlSearch = 'SELECT serial_dtele FROM detalletelemarketing WHERE serial_cli = '+cad[0]+' AND serial_tele = '+serial+sqlComplement;
+		jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',omnisoftExecuteSearch,'omnisoftExecuteSelect',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',sqlSearch));
+	}
+	function omnisoftExecuteSearch(data)
+	{
+		var num = data;
+		if(num == '')
+		{
+			llamoGoPages();
+		}
+		else
+		{
+			var confirmeme = confirm('El cliente ya tiene una (s) '+Tipo+' . Desea crear otra?');
+			if(confirmeme==true)
+			llamoGoPages();
+		}
+	}
+	
+	function llamoGoPages()
+	{
+		   if(Tipo=='orden')
+					OmnisoftEditarFila('/erpbaldore/ventas/ordenPedidoFormulario1.html',980,640);
+			if(Tipo=='sugerencia')
+					OmnisoftEditarFila('servicioClienteFormularioTel.html',700,400);
+			if (Tipo=='quejas')
+					OmnisoftEditarFila('quejasYSugerenciasFormularioTel.html');
+	}
+	
+	function refresco()
+	{
+	opener.omnisoftGoToPage('1');
+		      	window.close();
+	}
+	  
+</script>
+
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script></HEAD>
+<BODY onLoad="initDisableRight(); " onkeydown="keyHandler(event.keyCode);" BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif');">
+<style>
+        .titulos {color: #FFFFFF; font-size: 16px;font-family: Arial, Helvetica, sans-serif;}
+ </style>
+
+ <script src="../lib/omnisoftAcciones.js"></script>
+ <script src="../lib/omnisoftGridDetalle.js"></script>
+
+
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cía. Ltda. www.omnisoft.cc';</script>
+<body onLoad="MM_preloadImages('../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif')"><form  name="PaginaDatos" onKeyUp="highlight(event)" onClick="highlight(event)" method="POST">
+<input name="action" type="hidden" id="action">
+<input name="serial_tele" type="hidden" id="serial_tele" class="hidden" value="0">
+<table width="940" border="0" cellspacing="0" cellpadding="0" background="../images/bg_blue_v.jpg">
+<tr>
+	<td height="37" colspan="7" background="../images/logo_ingenium.gif"><div align="center"><span class="style1">Marketing y Ventas::Telemarketing</span></div></td>
+</tr>
+<tr>
+	<td height="135" colspan="7">
+	<table width="939" height="114" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+	  <td background="../images/bg_blue_v_1.jpg" colspan="8"  class="style1 style4 style5"><div align="center">Telemarketing</div></td>
+
+	  </tr>
+	<tr>
+	  <td background="images/titulos.jpg" class="style1 style4 style5">N&deg; Telemarketing : </td>
+	  <td width="218" background="images/titulos.jpg"><input name="numeroDocumento_tele" type="text" id="numeroDocumento_tele" class="string" size="25" maxlength="25"  onBlur="esconderToolTip(); formularioGrabado=0;" style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none" readonly="yes" disabled></td>
+	  <td width="123" background="images/titulos.jpg"><span class="style1 style4 style5">Tipo Telemarketing : </span></td>
+	  <td width="108" background="images/titulos.jpg">
+	  <select onChange="llamada();" name="tipo_tel" id="tipo_tel" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF;" >
+	  <option value="">Seleccione..</option>
+	  <option value="Aleatorio">Aleatorio</option>
+	  <option value="Rutas">Rutas</option>
+      </select></td>
+	  <td width="53" background="images/titulos.jpg"><span class="style1 style4 style5">Fecha :</span></td>
+	  <td background="images/titulos.jpg"><input name="fecha_tel" type="text" id="fecha_tel" class="date" size="20" maxlength="10"  onBlur="esconderToolTip();" style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none" readonly="yes" disabled></td>
+	  </tr>
+	<tr>
+	  <td width="114" background="images/titulos.jpg" class="style1 style4 style5">Pais :</td>
+	  <td background="images/titulos.jpg">
+	  <select name="serial_pai" id="serial_pai" onChange="cargarProvincia();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px;  visibility:hidden; outline-color:#FF3366">
+      </select>
+	  
+	  </td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+	  <td background="images/titulos.jpg"><span class="style1 style4 style5">Region :</span></td>
+	  <td width="323" background="images/titulos.jpg">
+	  <select name="serial_reg" id="serial_reg" onChange="cargarZona();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; visibility:hidden">
+      </select>
+</td>
+	  </tr>
+	<tr>
+		<td background="images/titulos.jpg" class="style1 style4 style5">Provincia :</td>
+		<td background="images/titulos.jpg"><select name="serial_prv" id="serial_prv" onChange="cargarCiudades();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:200px; visibility:hidden">
+        </select>
+		</td>
+	    <td background="images/titulos.jpg">&nbsp;</td>
+	    <td background="images/titulos.jpg">&nbsp;</td>
+	    <td background="images/titulos.jpg"><span class="style1 style4 style5">Zona :</span></td>
+	    <td background="images/titulos.jpg">
+		<select name="serial_zon" id="serial_zon" onChange="cargarRuta()" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; visibility:hidden">
+        </select></td>
+	</tr>
+
+	<tr>
+	  <td background="images/titulos.jpg" class="style1 style4 style5">Ciudad :</td>
+	  <td background="images/titulos.jpg"><select name="serial_ciu" id="serial_ciu" onChange="cargarCanales();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:200px; visibility:hidden">
+      </select>
+	  </td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+	  <td background="images/titulos.jpg">&nbsp;</td>
+	  <td background="images/titulos.jpg"><span class="style1 style4 style5">Ruta :</span></td>
+	  <td background="images/titulos.jpg">
+	  <select name="serial_ruta" id="serial_ruta" onChange="cargarCanales();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; visibility:hidden">
+      </select></td>
+	</tr>
+	<tr>
+		<td background="images/titulos.jpg" class="style1 style4 style5">Canal:</td>
+		<td colspan="5" background="images/titulos.jpg"><select name="serial_can" id="serial_can" onChange="cargarParroquias();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px; visibility:hidden">
+        </select></td>
+	</tr>
+	<tr>
+	  <td height="19" background="images/titulos.jpg" class="style1 style4 style5">Observaciones :</td>
+	  <td colspan="3" background="images/titulos.jpg"><textarea name="observaciones_tel" cols="105" class="string" id="observaciones_tel"  style="font-family:Tahoma; font-size:10px;" type="textarea" border="1"></textarea>
+
+	  </td>
+
+	  <td background="images/titulos.jpg"><span class="style1 style4 style5">Estado :</span></td>
+	  <td background="images/titulos.jpg"><select name="estado_tel" id="estado_tel" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF;" >
+        <option value="Activo">Activo</option>
+        <option value="Cancelado">Cancelado</option>
+      </select></td>
+	</tr>
+	</table>	</td>
+</tr>
+
+<tr >
+	<td height="30" colspan="7" align="center" bgcolor="#FF6600">
+	    <div align="left">
+	      <table width="958" border="0" cellpadding="0" cellspacing="0" background="../images/bg_blue_v.jpg">
+	        <tr>
+	          <td height="20" colspan="4" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">Detalle Telemarketing</span></div></td>
+            </tr>
+	        <tr>
+	          <td width="43"></td>
+	          <td width="383"><div align="center"><span class="style1 style4 style5">Cliente</span></div></td>
+	          <td width="532"><strong><div id="mensaje" style="background-color:#00FF00; font-family:Tahoma; font-size:10px;" align="center">
+	            
+	          </div></strong></td>
+	        </tr>
+	        <tr>
+	          <td height="38"><div align="center"><img src="../lib/img/langmanager.png" width="29" height="29" onMouseOver="document.getElementById('mensaje').innerHTML='Seleccione un cliente del Combo';" onMouseOut="document.getElementById('mensaje').innerHTML='';"></div></td>
+	          <td>
+	          <center><script>
+	        var sqlCli ='SELECT cliente.serial_cli, concat(cliente.codigo_cli,\' \',cliente.nombre_cli,\' \',cliente.apellido_cli) FROM cliente where serial_cli not in (select serial_cli from clienteruta)  ';// WHERE c.serial_cli != cr.serial_cli AND r.serial_rut != cr.serial_rut
+			omnisoftComboBoxJSShow('400px','serial_cli');
+			omnisoftNormalComboBoxJS('serial_cli',sqlCli,'',getURLParam('serial_cli'));
+		</script></center>
+	          </td>
+	          <td>
+	            <table width="100%" height="27" border="0" cellpadding="0" cellspacing="0" background="../images/botones_03.gif">
+                  <tr>
+                    <td width="62"><a href="#" onClick="grabarDetalle();"><img src="../images/bot_insertar.gif" width="51" height="27" border="0" onMouseOver="document.getElementById('mensaje').innerHTML='Grabar';" onMouseOut="document.getElementById('mensaje').innerHTML='';"></a></td>
+                    <td width="63"><div align="center"><a href="#" onClick="cargarForma('orden');"><img src="../lib/img/folderOpen.gif" alt="Ir a Orden Pedido" width="18" height="18" border="0"  onMouseOver="document.getElementById('mensaje').innerHTML='Orden Pedido';" onMouseOut="document.getElementById('mensaje').innerHTML='';"></a></div></td>
+                    <td width="62"><div align="center"><a href="#" onClick="cargarForma('servicio');"><img src="../lib/img/iconClient.gif" alt="Ir a Servicio al Cliente"width="16" height="16" border="0" onMouseOver="document.getElementById('mensaje').innerHTML='Servicio al Cliente';" onMouseOut="document.getElementById('mensaje').innerHTML='';"></a></div></td>
+                    <td width="63"><div align="center"><a href="#" onClick="cargarForma('quejas');"><img src="../lib/img/iconTimeRecordsEdit.gif" alt="Ir a Quejas y Sugerencias" width="16" height="16" border="0" onMouseOver="document.getElementById('mensaje').innerHTML='Quejas y Sugerencias';" onMouseOut="document.getElementById('mensaje').innerHTML='';"></a></div></td>
+                    <td width="51"><div align="center"><a href="javascript:omnisoftGoToPage(-Infinity);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image21','','../images/bot_inicio_b.gif',1)"><img src="../images/bot_inicio.gif" alt="Inicio" name="Image21" width="50" height="27" border="0" onMouseOver="document.getElementById('mensaje').innerHTML='Primero';" onMouseOut="document.getElementById('mensaje').innerHTML='';"></a></div></td>
+                    <td width="55"><div align="center"><a href="javascript:omnisoftGoToPage(-1);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image22','','../images/bot_anterior_b.gif',1)"><img src="../images/bot_anterior.gif" alt="Anterior" name="Image22" width="50" height="27" border="0" onMouseOver="document.getElementById('mensaje').innerHTML='Anterior';" onMouseOut="document.getElementById('mensaje').innerHTML='';"></a></div></td>
+                    <td width="52"><div align="center"><a href="javascript:omnisoftGoToPage(1);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image23','','../images/bot_siguiente_b.gif',1)"><img src="../images/bot_siguiente.gif" alt="Siguiente" name="Image23" width="50" height="27" border="0" onMouseOver="document.getElementById('mensaje').innerHTML='Siguiente';" onMouseOut="document.getElementById('mensaje').innerHTML='';"></a></div></td>
+                    <td width="56"><div align="center"><a href="javascript:omnisoftGoToPage(Infinity);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image24','','../images/bot_ultimo_b.gif',1)"><img src="../images/bot_ultimo.gif" alt="Ultimo" name="Image24" width="50" height="27" border="0" onMouseOver="document.getElementById('mensaje').innerHTML='Ultimo';" onMouseOut="document.getElementById('mensaje').innerHTML='';"></a></div></td>
+                  </tr>
+                </table></td>
+            </tr>
+          </table>
+      </div></td>
+</tr>
+                  <tr>
+                    <td height="249" colspan="8" bgcolor="#FFFFFF">
+                    <script>
+
+   omnisoftLoadData(document.PaginaDatos);
+    var sql='SELECT c.serial_cli, concat( c.codigo_cli, \' \', c.nombre_cli, \' \', c.apellido_cli ) AS cliente, c.sobrenombre_cli, MIN(f.fecha_fac) AS fecha, telefonoCom1_cli, telefonoCom2_cli,celular_cli, ciu.nombre_ciu, can.nombre_can, IFNULL(r.nombre_rut,\' \') FROM cliente AS c, factura AS f, ciudad as ciu LEFT JOIN clienteruta AS clir ON c.serial_cli = clir.serial_cli LEFT JOIN ruta AS r ON r.serial_rut=clir.serial_rut LEFT JOIN calificacioncliente AS cal ON cal.serial_cli = c.serial_cli AND cal.calificacionCredito_cal >250 LEFT JOIN canal as can ON can.serial_can = c.serial_can WHERE ciu.serial_ciu=c.serial_ciu AND f.serial_cli = c.serial_cli GROUP BY c.serial_cli ORDER BY f.fecha_fac ASC LIMIT 0,59';
+	//prompt('test',sql);
+    OmnisoftGrid('maingrid','telemarketingFormulario.html','telemarketingFormulario.html','mysql://erp:erp2k6@127.0.0.1/erpbaldore?persist','cliente','serial_cli',sql);
+    OmnisoftAddColumn('maingrid','serial_cli','serial_cli', 10,'readonly','','','middle','');
+	OmnisoftAddColumn('maingrid','Cliente','cliente', 240,'readonly','','','middle','');
+	OmnisoftAddColumn('maingrid','SobreNombre','sobrenombre_cli', 100,'readonly','','','middle','');
+	OmnisoftAddColumn('maingrid','1ra. Fecha','fecha', 110,'readonly','','','middle','');
+	OmnisoftAddColumn('maingrid','Teléfono 1','telefonoCom1_cli', 80,'readonly','','','middle','');
+	OmnisoftAddColumn('maingrid','Teléfono 2','telefonoCom2_cli', 80,'readonly','','','middle','');
+	OmnisoftAddColumn('maingrid','Celular','celular_cli', 65,'readonly','','','middle','');
+	OmnisoftAddColumn('maingrid','Ciudad','nombre_ciu', 80,'readonly','','','middle','');
+	OmnisoftAddColumn('maingrid','Canal','nombre_can', 80,'readonly','','','middle','');
+	OmnisoftAddColumn('maingrid','Ruta','nombre_rut', 60,'readonly','','','middle','');
+    OmnisoftShowGrid(60,260,960,'menu','#CCF2FF');
+ </script></td>
+		</tr>
+<tr>
+<td colspan="6" ><div align="right"></div></td>
+</tr>
+<tr>
+  <td width="478" rowspan="2" background="images/titulos.jpg"><a href="#" onClick="grabar();" ><img src="../images/aceptar.gif" width="52" height="49" border="0"></a></td>
+  <td width="386" rowspan="2" background="images/titulos.jpg"><div align="right"></div></td>
+  <td width="94" rowspan="2" background="images/titulos.jpg"><div align="right"><a href="#" onClick="cancelar();"><img src="../images/cancelar.gif" width="52" height="49" border="0"></a></div></td>
+</tr>
+</table>
+</form>
+<script>
+
+function grabar()
+{
+		if(document.PaginaDatos.serial_tele.value!=0)
+		{
+			var SQLConsult = 'UPDATE telemarketing SET observaciones_tel=\''+document.PaginaDatos.observaciones_tel.value+'\',estado_tel=\''+document.PaginaDatos.estado_tel.value+'\' WHERE serial_tele='+document.PaginaDatos.serial_tele.value;
+			jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',omnisoftExecuteUpdateSave,'omnisoftExecuteUpdate',Array(gridDSN,SQLConsult));
+		}
+
+}
+
+function omnisoftExecuteUpdateSave(data)
+{
+	setTimeout('refresco()',0);
+}
+function cancelar()
+{
+	window.close();
+}
+
+  var fhoy=new Date();
+  var mes =fhoy.getUTCMonth()+1;
+  if (document.PaginaDatos.fecha_tel.value=='')
+  document.PaginaDatos.fecha_tel.value=fhoy.getYear()+'-'+mes+'-'+ fhoy.getUTCDate();
+	
+function omnisoftLoadDetail(data)
+{
+	//if (data!=undefined) 
+
+}
+
+</script>
+</HTML>

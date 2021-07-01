@@ -1,0 +1,227 @@
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+
+<script>
+
+var datosExistentes=false;
+function recuperarDatos(data) {
+//alert(data);
+window.close();
+
+}
+
+function procesarGrabar() {
+
+if (!datosExistentes)
+
+ var SQLCommand="insert into garantiasactivosfijos (SERIAL_GAF, SERIAL_ACF, NOMBRE_GAF, UNIDADMEDIDA_GAF, VALOR_GAF, EMISOR_GAF, NOMBRECONTACTO_GAF, APELLIDOCONTACTO_GAF, EMAILCONTACTO_GAF, DIRECCION_GAF, TELEFONO_GAF,CANTIDAD_GAF,UNIDADMEDIDA2_GAF,CANTIDAD2_GAF,DESDE_GAF,HASTA_GAF) values (0,"+document.PaginaDatos.serial_acf.value+",'"+document.PaginaDatos.nombre_gaf.value + "','"+document.PaginaDatos.unidadMedida_gaf.value +"','"+document.PaginaDatos.valor_gaf.value+"','"+document.PaginaDatos.emisor_gaf.value+"','"+document.PaginaDatos.nombrecontacto_gaf.value+"','"+document.PaginaDatos.apellidocontacto_gaf.value+"','"+document.PaginaDatos.emailcontacto_gaf.value+"','"+document.PaginaDatos.direccion_gaf.value+"','"+document.PaginaDatos.telefono_gaf.value+"','"+document.PaginaDatos.cantidad_gaf.value+"','"+document.PaginaDatos.unidadMedida2_gaf.value+"','"+document.PaginaDatos.cantidad2_gaf.value+"','"+document.PaginaDatos.desde_gaf.value+"','"+document.PaginaDatos.hasta_gaf.value+"')";
+
+else
+ var SQLCommand="update garantiasactivosfijos set   NOMBRE_GAF='"+document.PaginaDatos.nombre_gaf.value +"', UNIDADMEDIDA_GAF='"+document.PaginaDatos.unidadMedida_gaf.value +"', VALOR_GAF='"+document.PaginaDatos.valor_gaf.value+"', EMISOR_GAF='"+document.PaginaDatos.emisor_gaf.value+ "', NOMBRECONTACTO_GAF='"+document.PaginaDatos.nombrecontacto_gaf.value+"', APELLIDOCONTACTO_GAF='" +document.PaginaDatos.apellidocontacto_gaf.value+"', EMAILCONTACTO_GAF='"+document.PaginaDatos.emailcontacto_gaf.value+ "', DIRECCION_GAF='"+document.PaginaDatos.direccion_gaf.value+"', TELEFONO_GAF='"+ document.PaginaDatos.telefono_gaf.value+"',CANTIDAD_GAF='"+document.PaginaDatos.cantidad_gaf.value+ "',UNIDADMEDIDA2_GAF='"+document.PaginaDatos.unidadMedida2_gaf.value+"',CANTIDAD2_GAF='"+document.PaginaDatos.cantidad2_gaf.value+"',DESDE_GAF='"+document.PaginaDatos.desde_gaf.value+"',HASTA_GAF='"+document.PaginaDatos.hasta_gaf.value+"' where serial_acf= "+document.PaginaDatos.serial_acf.value;
+
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftDataManager.php",'recuperarDatos');
+      objDBComando.executeQuery();
+
+
+}
+
+function omnisoftProcesarDatos(data) {
+var campos=data.split('|')[1].split('~');
+
+if (campos!='') {
+   datosExistentes=true;
+   document.PaginaDatos.serial_gaf.value=campos[0];
+   document.PaginaDatos.serial_acf.value=campos[1];
+   document.PaginaDatos.nombre_gaf.value=campos[2];
+   document.PaginaDatos.unidadMedida_gaf.value=campos[3];
+   document.PaginaDatos.valor_gaf.value=campos[4];
+   document.PaginaDatos.emisor_gaf.value=campos[5];
+   document.PaginaDatos.nombrecontacto_gaf.value=campos[6];
+   document.PaginaDatos.apellidocontacto_gaf.value=campos[7];
+   document.PaginaDatos.emailcontacto_gaf.value=campos[8];
+   document.PaginaDatos.direccion_gaf.value=campos[9];
+   document.PaginaDatos.telefono_gaf.value=campos[10];
+   document.PaginaDatos.cantidad_gaf.value=campos[11];
+   document.PaginaDatos.unidadMedida2_gaf.value=campos[12];
+   document.PaginaDatos.cantidad2_gaf.value=campos[13];
+   document.PaginaDatos.desde_gaf.value=campos[14];
+   document.PaginaDatos.hasta_gaf.value=campos[15];
+
+}
+
+
+}
+
+
+function procesarCargaDatos() {
+
+ var SQLCommand="select SERIAL_GAF, SERIAL_ACF, NOMBRE_GAF, UNIDADMEDIDA_GAF, VALOR_GAF, EMISOR_GAF, NOMBRECONTACTO_GAF, APELLIDOCONTACTO_GAF, EMAILCONTACTO_GAF, DIRECCION_GAF, TELEFONO_GAF,CANTIDAD_GAF,UNIDADMEDIDA2_GAF,CANTIDAD2_GAF,DESDE_GAF,HASTA_GAF from garantiasactivosfijos where serial_acf="+getURLParam('serial_acf');
+
+
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php");
+     objDBComando.executeQuery();
+
+}
+
+</script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_gaf" type="hidden" id="serial_gaf" class="hidden">
+<input name="serial_acf" type="hidden" id="serial_acf" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          GARANTIAS DE ACTIVOS FIJOS <br>
+      <script>document.write(getURLParam('nombre_acf')) </script>
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="218" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="24"  class="inputtitle">Documento:*</td>
+            <td><input name="nombre_gaf" type="text" id="nombre_gaf" size="50" maxlength="50" class="string"></td>
+            <td class="inputtitle">Valor  :*</td>
+            <td><input name="valor_gaf" type="text" id="valor_gaf" size="10" maxlength="10" class="double"></td>
+          </tr>
+          <tr>
+            <td width="149" height="24"  class="inputtitle">Unidad de Medida  :*</td>
+            <td width="325">
+              <select name="unidadMedida_gaf" id="unidadMedida_gaf" class="combobox">
+                <option value="ANIOS">A&ntilde;os</option>
+                <option value="MESES">Meses</option>
+                <option value="DIAS">Dias</option>
+                <option value="HORAS">Horas</option>
+                <option value="KILOMETROS">Kilometros</option>
+                <option value="METROS">Metros</option>
+                <option value="LITROS">Litros</option>
+              </select>
+              <input name="cantidad_gaf" type="text" id="cantidad_gaf" size="10" maxlength="10" class="double"></td>
+            <td width="162" class="inputtitle">Unidad de Medida  :</td>
+            <td width="163"><select name="unidadMedida2_gaf" id="unidadMedida2_gaf" class="combobox">
+              <option value="ANIOS">A&ntilde;os</option>
+              <option value="MESES">Meses</option>
+              <option value="DIAS">Dias</option>
+              <option value="HORAS">Horas</option>
+              <option value="KILOMETROS">Kilometros</option>
+              <option value="METROS">Metros</option>
+              <option value="LITROS">Litros</option>
+            </select>
+            <input name="cantidad2_gaf" type="text" id="cantidad2_gaf" size="10" maxlength="10" class="double"></td>
+          </tr>
+
+          <tr>
+            <td height="24"  class="inputtitle">Emisor :*</td>
+            <td colspan="3" ><input name="emisor_gaf" type="text" id="emisor_gaf" size="60" maxlength="60" class="string"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Vigente Desde:*</td>
+            <td ><input name="desde_gaf" type="text" id="desde_gaf" size="10" maxlength="10" class="date"></td>
+            <td class="inputtitle">Vigente Hasta:*</td>
+            <td ><input name="hasta_gaf" type="text" id="hasta_gaf" size="10" maxlength="10" class="date"></td>
+          </tr>
+          <tr>
+            <td height="24" colspan="4"  bgcolor="000066"><div align="center"><span class="inputtitle"><span class="style1">CONTACTO </span>:</span></div></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Nombre Contacto:</td>
+            <td ><input name="nombrecontacto_gaf" type="text" id="nombrecontacto_gaf" size="25" maxlength="25" class="emptystring"></td>
+            <td  class="inputtitle">Apellido Contacto:</td>
+            <td ><input name="apellidocontacto_gaf" type="text" id="apellidocontacto_gaf" size="25" maxlength="25" class="emptystring"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Email:</td>
+            <td ><input name="emailcontacto_gaf" type="text" id="emailcontacto_gaf" size="40" maxlength="64" class="emptyemail"></td>
+            <td  class="inputtitle">&nbsp;</td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Direcci&oacute;n:</td>
+            <td ><input name="direccion_gaf" type="text" id="direccion_gaf" size="40" maxlength="60" class="emptystring"></td>
+            <td  class="inputtitle">Telefono:</td>
+            <td ><input name="telefono_gaf" type="text" id="telefono_gaf" size="15" maxlength="15" class="emptyinteger"></td>
+          </tr>
+
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="procesarGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:window.close()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+//        alert(opener.PaginaDatos.serial_acf.value);
+
+//	omnisoftLoadData(document.PaginaDatos);
+//        document.PaginaDatos.serial_acf.value=getURLParam('serial_acf');
+        document.PaginaDatos.serial_acf.value=opener.PaginaDatos.serial_acf.value;
+        procesarCargaDatos();
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

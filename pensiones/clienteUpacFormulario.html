@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+<script>
+
+</script>
+
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_cliu" type="hidden" id="serial_cliu" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          PENSIONES <br>
+          CLIENTES
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="976" height="330" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+           <tr>
+            <td height="24" colspan="4"  class="formtitle"><div align="center">DATOS DE CLIENTE </div></td>
+          </tr>
+		  <tr>
+            <td width="175" height="21"  class="inputtitle">Raz&oacute;n Social: </td>
+            <td width="258"> <img  src="../images/camporequerido.gif">
+            <input name="razonsocial_cliu" type="text" id="razonsocial_cliu" size="50" maxlength="100" class="text"></td>
+            <td width="100" height="21"  class="inputtitle">Tipo de Cliente: </td>
+            <td width="433"> <img  src="../images/camporequerido.gif"><script>
+                 var cserial_tip=new omnisoftComboBox('cserial_tip','serial_tip','select serial_tip, NOMBRE_TIP from tipocliente order by NOMBRE_TIP','100px',true,getURLParam('serial_tip'));
+                     cserial_tip.show();
+	  		</script></td>
+		  </tr>
+		       <td width="175" height="21"  class="inputtitle">Fecha de Ingreso  :</td>
+                 <td> <img  src="../images/camporequerido.gif">
+            <input name="fechaigreso_cliu" type="text" id="fechaigreso_cliu" size="50" maxlength="100" class="date"></td>
+            <td width="100" height="21"  class="inputtitle">Ruc:</td>
+            <td width="433"><img  src="../images/camporequerido.gif"><input name="ruc_cliu" type="text" id="ruc_cliu" size="50" maxlength="100" class="text"></td>
+          </tr>
+		   <tr>
+		     <td width="175" height="21"  class="inputtitle">Direccion :</td>
+             <td> <img  src="../images/camporequerido.gif">
+            <input name="direccion_cliu" type="text" id="direccion_cliu" size="50" maxlength="100" class="text"></td>
+            <td width="100" height="21"  class="inputtitle">Telefono:</td>
+            <td width="433"><input name="telefonoempresa_cliu" type="text" id="telefonoempresa_cliu" size="50" maxlength="100" class="text"></td>
+          </tr>
+		   <tr>
+		     <td width="175" height="21"  class="inputtitle">Web :</td>
+             <td><input name="paginaweb_cliu" type="text" id="paginaweb_cliu" size="50" maxlength="100" class="text"></td>
+            <td width="100" height="21"  class="inputtitle">M&oacute;vil</td>
+            <td width="433"><input name="celular1_cliu" type="text" id="celular1_cliu" size="50" maxlength="100" class="text"></td>
+          </tr>
+		   <tr>
+		     <td width="175" height="21"  class="inputtitle">Telefono de Pagos  :</td>
+             <td><input name="telefonopagos_cliu" type="text" id="telefonopagos_cliu" size="50" maxlength="100" class="text"></td>
+            <td width="100" height="21"  class="inputtitle">Nacionalidad:</td>
+            <td width="433"><img src="../images/camporequerido.gif">
+				<script>
+                 var cserial_nac=new omnisoftComboBox('cserial_nac','serial_nac','select serial_nac, nombre_nac from nacionalidad ORDER  BY nombre_nac ASC','150px',true,getURLParam('serial_nac'));
+                     cserial_nac.show();
+	  		</script></td>
+		   </tr>
+		   <tr>
+		     <td width="175" height="21"  class="inputtitle">Pais:</td>
+             <td><img src="../images/camporequerido.gif">
+			 <script>
+                 var cserial_pai=new omnisoftComboBox('cserial_pai','serial_pai','select serial_pai, NOMBRE_PAI from pais order by NOMBRE_PAI','175px',true,getURLParam('serial_pai'),'',ciudad);
+				 
+                     cserial_pai.show();
+	  		</script></td>
+            <td width="100" height="21"  class="inputtitle">Ciudad:</td>
+            <td width="433"><img src="../images/camporequerido.gif">
+				<script>
+                 var cserial_ciu=new omnisoftComboBox('cserial_ciu','serial_ciu','select serial_ciu, NOMBRE_CIU from ciudad where SERIAL_PRV in (select SERIAL_PRV from provincia where SERIAL_PAI = 1) order by NOMBRE_CIU','175px',true,getURLParam('serial_ciu'));
+                     cserial_ciu.show();
+	  		</script></td>
+		   </tr>
+
+         
+          
+          
+         
+          <tr>
+            <td height="24" colspan="4"  class="formtitle"><div align="center">DATOS DE REPRESENTANTE LEGAL</div></td>
+          </tr>
+         
+          	  <tr>
+            <td width="175" height="21"  class="inputtitle">Nombre :</td>
+            <td> <img  src="../images/camporequerido.gif"><!--apellidorepresentante_cliu
+				nombrerepresentante_cliu
+				tipodocumento__cliu
+				documentoidentidad_cliu
+				telefonocasa_cliu
+				celular2_cliu
+				correoelectronico_cliu-->
+              <input name="nombrerepresentante_cliu" type="text" id="nombrerepresentante_cliu" size="50" maxlength="100" class="text"></td>
+            <td width="100" height="21"  class="inputtitle">Apellido:</td>
+            <td width="433"><img  src="../images/camporequerido.gif"><input name="apellidorepresentante_cliu" type="text" id="apellidorepresentante_cliu" size="50" maxlength="100" class="text"></td>
+          </tr>
+		   <tr>
+		     <td width="175" height="21"  class="inputtitle">Tipo de Documento  :</td>
+             <td> <img  src="../images/camporequerido.gif">
+            <input name="tipodocumento__cliu" type="text" id="tipodocumento__cliu" size="50" maxlength="100" class="text"></td>
+            <td width="100" height="21"  class="inputtitle">Documento Id : </td>
+            <td width="433"><img  src="../images/camporequerido.gif"><input name="documentoidentidad_cliu" type="text" id="documentoidentidad_cliu" size="50" maxlength="100" class="text"></td>
+          </tr>
+		   <tr>
+		     <td width="175" height="21"  class="inputtitle">Tel&eacute;fono :</td>
+             <td> <img  src="../images/camporequerido.gif">
+            <input name="telefonocasa_cliu" type="text" id="telefonocasa_cliu" size="50" maxlength="100" class="text"></td>
+            <td width="100" height="21"  class="inputtitle">M&oacute;vil:</td>
+            <td width="433"><img  src="../images/camporequerido.gif"><input name="celular2_cliu" type="text" id="celular2_cliu" size="50" maxlength="100" class="text"></td>
+          </tr>
+		   <tr>
+		     <td width="175" height="21"  class="inputtitle">Mail :</td>
+             <td> <img  src="../images/camporequerido.gif">
+            <input name="correoelectronico_cliu" type="text" id="correoelectronico_cliu" size="50" maxlength="100" class="text"></td>
+            <td width="100" height="21"  class="inputtitle">&nbsp;</td>
+            <td width="433">&nbsp;</td>
+		   </tr>
+
+      </table>
+	  <!--apellidorepresentante_cliu
+				nombrerepresentante_cliu
+				tipodocumento__cliu
+				documentoidentidad_cliu
+				telefonocasa_cliu
+				celular2_cliu
+				correoelectronico_cliu--></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+
+</script>
+</body>
+</html>

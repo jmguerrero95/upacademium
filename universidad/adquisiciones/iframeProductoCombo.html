@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/jscalendar/calendar.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/lang/calendar-es.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/calendar-setup.js" ></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_prd" type="hidden" id="serial_prd" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+   //   omnisoftLoadData(document.PaginaDatos,'iframe');
+
+      var serial_prd=getURLParam('serial_prd');
+//      alert(serial_prd);
+      document.PaginaDatos.serial_prd.value=serial_prd;
+
+
+      var sql='select SERIAL_CPRD, nombre_prd,  cantidad_cprd, producto_cprd from producto,comboproducto where producto.serial_prd=comboproducto.producto_cprd and  producto_cprd=masterkey';
+
+      omniObj=new omnisoftGridDetail('omniObj','producto_cprd',serial_prd,'comboproducto','serial_cprd',sql,document.PaginaDatos);
+
+
+     omniObj.addColumn('Serial','serial_cprd', 10,'hidden','','middle','');
+
+     omniObj.addColumn('Producto','nombre_prd', 20,'combobox',Array('select serial_prd,nombre_prd,codigo_prd from producto where estado_prd=\'ACTIVO\'' ,'serial_prd','producto_cprd'),'middle','');
+     omniObj.addColumn('Cantidad','cantidad_cprd', 10,'double','','middle','');
+     omniObj.addColumn('serial_prd','producto_cprd', 10,'hidden','','middle','');
+
+     omniObj.showGrid('omniObj',20,448,1020,'menu','#FF9900');
+
+
+
+
+ </script> </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

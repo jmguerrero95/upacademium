@@ -1,0 +1,178 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <div align="left">
+              <script>
+   omnisoftLoadData(document.PaginaDatos,'iframe');
+      var serial_alu = document.PaginaDatos.serial_alu.value;
+//+getURLParam('serial_alu','iframe')+''
+
+    var sql="select serial_seg,medioContacto,contesto_encuesta, tipoencuestaanterior_seg,fechaencuesta_seg,CASE WHEN (DATEDIFF(DATE_FORMAT(fechaencuestaant_seg,'%Y-%m-%d'),DATE_FORMAT(current_date,'%Y-%m-%d'))/365)  >= 0 THEN 'VIGENTE' ELSE 'CADUCADA'END as tipo, DATEDIFF(DATE_FORMAT(fechaencuestaant_seg,'%Y-%m-%d'),DATE_FORMAT(current_date,'%Y-%m-%d'))/365 as tiempo,fechaencuestaant_seg,tiempoEncuesta_seg,tiempotardoprimertrabajodgraduado_seg,tiempotardoprimeremprendgraduado_seg,ingresoanualalprimeraniograduado_seg,montosalarialprimertrabajodgraduado_seg,relacionDependencia_seg,aniosEmpresa_seg,nEmpresasInicio_seg,nEmpresasActual_seg,nEmpleadosInicio_seg,nEmpleadosActual_seg,rVentasEmpresaInicio_seg,rVentasEmpresaActual_seg,ventasHanVenido_seg,tasaCrecimientoActivos_seg,rangoCrecimientoActivos_seg,nivelContactoEmpresarial_seg,nivelContactoRedesVienen_seg,nInstitucionesAlianzas_seg,apoyoInstitucional_seg,apoyoInstitucionalDesde_seg,apoyoInsitucionalConsiste_seg,esAccionista_seg,porcentajeAccion_seg,formaJuridica_seg,logoEmpresaWebUpac_seg,nombreEmpresa_seg,direccionEmpresa_seg,telefonoEmpresa_seg,ciudadEmpresa_seg,nSociosFundadoresInicio_seg,nSociosFundadoresActual_seg,actividadComercialInicio_seg,actividadComercialActual_seg,tPropuestaInicial_seg,tPropuestaActual_seg,tClientesInicio_seg,tClientesActual_seg,experienciaLaboral_seg,fuenteOportunidadNegocio_seg,fuenteFinanciamiento_seg,interesadoPasantias_seg,interesadoMentor_seg,documentarEmpresaCNegocio_seg,asociacionGraduados_seg,sugerenciaAsociacion_seg,productosNuevos_seg,opinionDeUniversidad_seg,publicidadUpacEnEmpresa_seg,testimonioEmpresaUpac_seg,aniosTrabajandoEmpresa_seg,nEmpresasLaborado_seg,tipoMando_seg,areaAporteEmpleado_seg,nproyectosDiversificacionEmpresa_seg,frecuenciaInnovaciones_seg,aportadoDiversificacion_seg,nProyectosAmpliacion_seg,impactoGeneracionEmpleo_seg,puestosGenerados_seg,creceVentas_seg,aporteIncrementoVentas_seg,nproyectosAmpliacionMercado_seg,frecuenciaPropuestaNuevoMercado_seg,aporteExpansionMercado_seg,tiempoConseguirEmpleo_seg,observacionesGenerales_seg,documentoEncuesta_seg,alu.serial_alu from seguimientograduado as seg,alumno as alu where seg.serial_alu=alu.serial_alu and alu.serial_alu = "+serial_alu;
+//prompt('sql',sql);
+   	 
+	  var omniObj=new omnisoftGridDetail('omniObj','serial_alu',serial_alu,'seguimientograduado','serial_seg',sql,document.PaginaDatos,Array(true,true,true),'detalleSeguimientoGraduadoFormulario.html',805,700);
+  	 omniObj.addColumn('Serial','serial_seg', 1,'hidden','','middle','');
+	omniObj.addColumn('Contactado','medioContacto', 10,'string','','middle','');	
+	 omniObj.addColumn('Constesto','contesto_encuesta', 10,'string','','middle','');	
+	 omniObj.addColumn('Tipo','tipoencuestaanterior_seg', 10,'string','','middle','');
+ 	 omniObj.addColumn('Fecha Realizada','fechaencuesta_seg', 10,'date','','middle','');
+	 omniObj.addColumn('Estado','tipo', 10,'string','','middle','');
+ 	 omniObj.addColumn('Tiempo Restante anio.mesdia','tiempo', 15,'string','','middle','');
+	 omniObj.addColumn('Fecha Caducidad','fechaencuestaant_seg', 10,'date','','middle','');
+	<!--BEGIN-->
+	 omniObj.addColumn('tiempoEncuesta_seg','tiempoEncuesta_seg',10,'string','','middle','');
+	 omniObj.addColumn('tiempotardoprimertrabajodgraduado_seg','tiempotardoprimertrabajodgraduado_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('tiempotardoprimeremprendgraduado_seg','tiempotardoprimeremprendgraduado_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('ingresoanualalprimeraniograduado_seg','ingresoanualalprimeraniograduado_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('montosalarialprimertrabajodgraduado_seg','montosalarialprimertrabajodgraduado_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('relacionDependencia_seg','relacionDependencia_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('aniosEmpresa_seg','aniosEmpresa_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nEmpresasInicio_seg','nEmpresasInicio_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nEmpresasActual_seg','nEmpresasActual_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nEmpleadosInicio_seg','nEmpleadosInicio_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nEmpleadosActual_seg','nEmpleadosActual_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('rVentasEmpresaInicio_seg','rVentasEmpresaInicio_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('rVentasEmpresaActual_seg','rVentasEmpresaActual_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('ventasHanVenido_seg','ventasHanVenido_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('tasaCrecimientoActivos_seg','tasaCrecimientoActivos_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('rangoCrecimientoActivos_seg','rangoCrecimientoActivos_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nivelContactoEmpresarial_seg','nivelContactoEmpresarial_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nivelContactoRedesVienen_seg','nivelContactoRedesVienen_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nInstitucionesAlianzas_seg','nInstitucionesAlianzas_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('apoyoInstitucional_seg','apoyoInstitucional_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('apoyoInstitucionalDesde_seg','apoyoInstitucionalDesde_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('apoyoInsitucionalConsiste_seg','apoyoInsitucionalConsiste_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('esAccionista_seg','esAccionista_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('porcentajeAccion_seg','porcentajeAccion_seg',10,'hidden','','middle','');
+	 
+	 
+	 omniObj.addColumn('formaJuridica_seg','formaJuridica_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('logoEmpresaWebUpac_seg','logoEmpresaWebUpac_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nombreEmpresa_seg','nombreEmpresa_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('direccionEmpresa_seg','direccionEmpresa_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('telefonoEmpresa_seg','telefonoEmpresa_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('ciudadEmpresa_seg','ciudadEmpresa_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nSociosFundadoresInicio_seg','nSociosFundadoresInicio_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nSociosFundadoresActual_seg','nSociosFundadoresActual_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('actividadComercialInicio_seg','actividadComercialInicio_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('actividadComercialActual_seg','actividadComercialActual_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('tPropuestaInicial_seg','tPropuestaInicial_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('tPropuestaActual_seg','tPropuestaActual_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('tClientesInicio_seg','tClientesInicio_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('tClientesActual_seg','tClientesActual_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('experienciaLaboral_seg','experienciaLaboral_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('fuenteOportunidadNegocio_seg','fuenteOportunidadNegocio_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('fuenteFinanciamiento_seg','fuenteFinanciamiento_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('interesadoPasantias_seg','interesadoPasantias_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('interesadoMentor_seg','interesadoMentor_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('documentarEmpresaCNegocio_seg','documentarEmpresaCNegocio_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('asociacionGraduados_seg','asociacionGraduados_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('sugerenciaAsociacion_seg','sugerenciaAsociacion_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('productosNuevos_seg','productosNuevos_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('opinionDeUniversidad_seg','opinionDeUniversidad_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('publicidadUpacEnEmpresa_seg','publicidadUpacEnEmpresa_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('testimonioEmpresaUpac_seg','testimonioEmpresaUpac_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('aniosTrabajandoEmpresa_seg','aniosTrabajandoEmpresa_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nEmpresasLaborado_seg','nEmpresasLaborado_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('tipoMando_seg','tipoMando_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('areaAporteEmpleado_seg','areaAporteEmpleado_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nproyectosDiversificacionEmpresa_seg','nproyectosDiversificacionEmpresa_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('frecuenciaInnovaciones_seg','frecuenciaInnovaciones_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('aportadoDiversificacion_seg','aportadoDiversificacion_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nProyectosAmpliacion_seg','nProyectosAmpliacion_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('impactoGeneracionEmpleo_seg','impactoGeneracionEmpleo_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('puestosGenerados_seg','puestosGenerados_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('creceVentas_seg','creceVentas_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('aporteIncrementoVentas_seg','aporteIncrementoVentas_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('nproyectosAmpliacionMercado_seg','nproyectosAmpliacionMercado_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('frecuenciaPropuestaNuevoMercado_seg','frecuenciaPropuestaNuevoMercado_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('aporteExpansionMercado_seg','aporteExpansionMercado_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('tiempoConseguirEmpleo_seg','tiempoConseguirEmpleo_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('observacionesGenerales_seg','observacionesGenerales_seg',10,'hidden','','middle','');
+	 omniObj.addColumn('documentoEncuesta_seg','documentoEncuesta_seg',10,'hidden','','middle','');
+
+	<!--END-->
+
+ 	 omniObj.addColumn('Serial alu','serial_alu', 1,'hidden','','middle','');
+     omniObj.showGrid('omniObj',20,389,1020,'menu','#FF9900');
+
+            </script>
+            </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+
+</body>
+</html>

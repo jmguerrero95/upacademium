@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_nal" type="hidden" id="serial_nal" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+   omnisoftLoadData(document.PaginaDatos,'iframe');
+	  var serial_nal=(getURLParam('action')=='insert')?0:getURLParam('serial_nal');
+	 // alert('serial_nal: '+serial_nal);
+      
+	  var sql='SELECT notasalumnos.serial_dmat, concat(apellidopaterno_alu,\' \',apellidomaterno_alu) AS apellidos, concat(nombre1_alu,\' \',nombre2_alu) AS nombres, dnal_1.nota_dnal as actividades_clase, dnal_2.nota_dnal as trabajos, dnal_3.nota_dnal as ex_parcial, dnal_4.nota_dnal as ex_final, (dnal_1.nota_dnal + dnal_2.nota_dnal +dnal_3.nota_dnal + dnal_4.nota_dnal) as TOTAL, notatotal_nal,notaalfabetica_nal FROM notasalumnos JOIN detallenotasalumnos as dnal_1 on dnal_1.serial_nal = notasalumnos.serial_nal and dnal_1.serial_acal=1 JOIN detallenotasalumnos as dnal_2 on dnal_2.serial_nal = notasalumnos.serial_nal and dnal_2.serial_acal=2 JOIN detallenotasalumnos as dnal_3 on dnal_3.serial_nal = notasalumnos.serial_nal and dnal_3.serial_acal=3 JOIN detallenotasalumnos as dnal_4 on dnal_4.serial_nal = notasalumnos.serial_nal and dnal_4.serial_acal=4 JOIN detallemateriamatriculada ON detallemateriamatriculada.serial_dmat = notasalumnos.serial_dmat JOIN materiamatriculada ON materiamatriculada.serial_mmat = detallemateriamatriculada.serial_mmat JOIN alumno ON materiamatriculada.serial_alu = alumno.serial_alu WHERE notasalumnos.serial_nts = '+getURLParam('serial_nts','iframe')+' GROUP BY notasalumnos.serial_dmat order by apellidos';
+//prompt('sql',sql);
+      omniObj=new omnisoftGridDetail('omniObj','serial_nal',serial_nal,'notasapelacion','serial_nap',sql,document.PaginaDatos);
+
+
+     omniObj.addColumn('Serial','serial_dmat', 1,'hidden','','middle','');
+	 //omniObj.addColumn('Fecha','fecha_nap', 10,'readonly','','middle','');
+     omniObj.addColumn('Apellidos','apellidos', 13,'readonly','','middle','');
+	 omniObj.addColumn('Nombres','nombres', 13,'readonly','','middle','');
+	 //omniObj.addColumn('Aporte','nombre_acal', 20,'readonly','','right','');
+	 omniObj.addColumn('Actividades Clases','actividades_clase', 7,'readonly','','right','');
+	 //omniObj.addColumn('Ponderado Actividades','pond_actividades', 8,'readonly','','right','');
+	 omniObj.addColumn('Trabajos','trabajos', 6,'readonly','','right','');
+	 //omniObj.addColumn('Ponderado Trabajos','pond_trabajos', 8,'readonly','','right','');
+     omniObj.addColumn('Examen Parcial','ex_parcial', 6,'readonly','','right','');
+	 //omniObj.addColumn('Ponderado Ex Parcial','pond_exparcial', 8,'readonly','','right','');
+     omniObj.addColumn('Examen Final','ex_final', 6,'string','','right','','');
+	 //omniObj.addColumn('Ponderado Ex Final','pond_exfinal', 8,'readonly','','right','');
+	 omniObj.addColumn('Total','TOTAL', 5,'readonly','','right','','');
+	 omniObj.addColumn('Nota Final','notatotal_nal',6,'readonly','','right','','');
+	 omniObj.addColumn('Nota Alfabética','notaalfabetica_nal', 7,'readonly','','left','','');
+     //omniObj.addColumn('serial_dmat','serial_dmat', 1,'hidden','','middle','','');
+     //omniObj.addColumn('serial_nal','serial_nal', 1,'hidden','','middle','','');
+     //omniObj.addColumn('serial_acal','serial_acal', 1,'hidden','','middle','','');
+    	 
+     omniObj.showGrid('omniObj',21,475,990,'menu','#FF9900');
+
+
+ </script> </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+
+omnisoftLoadData(document.PaginaDatos);
+	//document.PaginaDatos.serial_nal.value=serial_nal;
+	//alert(serial_nal);
+	//serial_nal
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

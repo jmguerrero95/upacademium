@@ -1,0 +1,147 @@
+<html>
+<head>
+	<title>ActiveWidgets Spreadsheet Example</title>
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+
+	<!-- ActiveWidgets stylesheet and scripts -->
+	<link href="runtime/styles/xp/aw.css" rel="stylesheet" type="text/css" ></link>
+	<script src="runtime/lib/aw.js"></script>
+
+	<!-- grid format -->
+	<style>
+		.aw-grid-control {height: 133px; width: 466px; margin: 0px; border: none; font: menu;}
+		.aw-row-selector {text-align: right}
+		.aw-column-0 {width:  80px;} 
+		.aw-column-1 {width:  80px;} 
+		.aw-column-2 {width:  80px;} 
+		.aw-column-3 {width:  80px;} 
+		.aw-column-4 {width:  80px;} 
+    	.aw-column-0 {text-align: center;}
+    	.aw-column-1 {text-align: center;}
+    	.aw-column-2 {text-align: center;}
+    	.aw-column-3 {text-align: center;}
+    	.aw-column-4 {text-align: center;}
+		.aw-grid-row {border-bottom: 1px solid threedlightshadow;}
+		.aw-grid-footer {height:20px;text-align:center; vertical-align:text-top; };
+		.aw-alternate-even { background:#FFF;} 
+		.aw-alternate-odd { background:peachpuff;} 
+		.aw-alternate-odd .aw-row-selector .aw-item-box { background: peachpuff; }
+		.aw-header-0 { background:peachpuff;} 
+        .aw-header-0 .aw-item-box {background:peachpuff;}
+        .aw-footer-0 .aw-row-selector { background: none; border: none; } 
+		.aw-footer-0 { border-top: 1px solid black; background: lightgrey; } 
+
+	</style>
+<!--[if IE]>
+<link rel="stylesheet" type="text/css" media="screen" href="runtime/styles/ie.css" />
+<![endif]-->
+<style> </style>  <!-- empty container to fix IE printing bug.  MUST BE AFTER IE-ONLY STYLESHEET -->
+
+	<!-- grid data -->
+	<script>
+		var myData = [
+			["1", "2", "3", "4", "10"],
+			["5", "6", "7", "8", "26"],
+			["9", "10", "11", "12", "42"],
+			["13", "14", "15", "16", "58"]
+		];
+
+		var myFooter = [
+			"28", "32", "36", "40", "136"
+		];
+
+		var myColumns = [
+			"Q1", "Q2", "Q3", "Q4", "Total"
+		];
+		var myRows = [
+			"North","South", "East", "West"
+		];
+	</script>
+</head>
+<body>
+<br>
+<p>&nbsp;&nbsp;Change any of the 16 data cells to see the row, column, and grand totals update.</p> 	
+<script>
+
+	//	create ActiveWidgets Grid javascript object
+	var obj = new AW.UI.Grid;
+
+	//	define data formats
+	var str = new AW.Formats.String;
+	var num = new AW.Formats.Number;
+	var total = new AW.Formats.Number;
+	num.setTextFormat("#,###.##");
+	total.setTextFormat("$#,###.##");
+
+	obj.setCellFormat([num, num, num, num, num]);
+
+	//	provide cells and headers text
+	obj.setCellData(myData);
+	obj.setHeaderText(myColumns);
+
+	//	set number of rows/columns
+	obj.setRowCount(4);
+	obj.setColumnCount(5);
+
+    obj.setTopText("Region"); // top selector text
+    obj.setBottomText("Combined"); // bottom selector text
+
+	//	enable row selectors
+	obj.setSelectorVisible(true);
+    obj.setSelectorText(function(i){return myRows[i]});
+
+	//	set footer
+    obj.setFooterVisible(true);
+	obj.setFooterHeight(20);
+    obj.setFooterVisible(true);
+    obj.setFooterData(myFooter);
+    obj.setFooterFormat([total, total, total, total, total]); 
+    obj.setFooterText(function(i){
+        var data = this.getFooterData(i);
+        var format = this.getFooterFormat(i);
+        return format ? format.dataToText(data) : data;
+    });
+
+	//	set headers width/height
+	obj.setSelectorWidth(60);
+	obj.setHeaderHeight(20);
+
+	//	allow editing
+	obj.setCellEditable(true);
+	obj.setCellEditable(false, obj.getColumnCount()-1); // make last column read-only
+
+	//	disable virtual rendering
+	obj.setVirtualMode(false);
+
+function column_total(column){ 
+  var total = 0;
+  for (i=0;i<obj.getRowCount()+1;i++) {
+       total = total + obj.getCellValue(column, i) }
+  return total; 
+} 
+
+function row_total(row){
+  var total = 0;
+  for (i=0;i<obj.getColumnCount()-1;i++) {
+       total = total + obj.getCellValue(i, row) }
+  return total; 
+} 
+
+
+	//	set click action handler
+	obj.onCellClicked = function(event, col, row){window.status = this.getCellText(col, row)};
+
+	//	recalculate row and column totals when a cell value changes
+	obj.onCellEditEnded = function(value, col, row){
+	obj.setCellData(value, col, row)
+	obj.setFooterData(column_total(col), col) // update column total
+	obj.setCellData(row_total(row), obj.getColumnCount()-1, row) // update row total
+	obj.setFooterData(column_total(obj.getColumnCount()-1), obj.getColumnCount()-1) // update grand total
+	obj.refresh();
+	};
+	//	write grid html to the page
+	document.write(obj);
+
+	</script>
+</body>
+</html>

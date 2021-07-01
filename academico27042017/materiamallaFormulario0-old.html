@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+var sql='';
+function seleccionarMateria() {
+sql='SELECT serial_mat, nombre_mat FROM materia  WHERE serial_are ='+document.PaginaDatos.serial_are.value+' order by nombre_mat';
+  cserial_mat.objDBComando.sqlCommand=sql;
+  //prompt('sql',sql);
+  cserial_mat.objDBComando.executeQuery();
+  }
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_dma" type="hidden" id="serial_dma" class="hidden">
+<input name="serial_maa" type="hidden" id="serial_maa" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          ACADEMICO<br>
+          MATERIAS DE LA MALLA
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="164" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+             <td height="18" colspan="8"  bgcolor="#000166"><div align="center" class="style1 style1 style1">MATERIAS POR AREA Y POR NIVEL </div></td>
+          </tr>
+          <tr>
+            <td height="26"  class="inputtitle">Area : </td>
+            <td ><script>
+                 var cserial_are=new omnisoftComboBox('cserial_are','serial_are','SELECT serial_are,  concat( codigo_are, \' -> \', nombre_are ) AS area FROM area','300px',false,getURLParam('serial_are'));
+				 			 
+                     cserial_are.show();
+					 document.PaginaDatos.serial_are.onchange=seleccionarMateria;
+					 document.PaginaDatos.serial_are.onclick=seleccionarMateria;
+					 
+	          </script></td>
+            <td class="inputtitle">Nivel : </td>
+            <td ><script>
+                 var cserial_niv=new omnisoftComboBox('cserial_niv','serial_niv','SELECT serial_niv,  concat( codigo_niv, \' -> \', nombre_niv ) AS nivel FROM nivel','180px',true,getURLParam('serial_niv'));
+				 			 
+                     cserial_niv.show();
+	          </script></td>
+          </tr>
+          <tr> 
+            <td width="149" height="26"  class="inputtitle">Materia : </td>
+            <td width="278" >
+              <script>
+			  
+ var cserial_mat=new omnisoftComboBox('cserial_mat','serial_mat','SELECT serial_mat, nombre_mat FROM materia  WHERE serial_are ='+getURLParam('serial_are')+' order by nombre_mat','250px',true,getURLParam('serial_mat'));
+
+                     cserial_mat.show();	  </script>
+            </span></a></td>
+            <td width="125" class="inputtitle">Numero de Creditos :</td>
+            <td width="243" ><input name="numerocreditos_dma" type="text" class="integer" id="numerocreditos_dma" onBlur="esconderToolTip()" value="0" size="8"></td>
+          </tr>
+          
+          <tr>
+            <td height="26"  class="inputtitle">Tipo : </td>
+            <td colspan="3" ><select name="tipocredito_dma " id="tipocredito_dma " class="combobox">
+              <option value="OBLIGATORIO">OBLIGATORIO</option>
+              <option value="OPTATIVO">OPTATIVO</option>
+            </select></td>
+          </tr>
+          <tr>
+             <td height="18" colspan="8"  bgcolor="#000166"><div align="center" class="style1 style1">PREREQUISITOS</div></td>
+          </tr>
+
+
+          <tr>
+            <td height="40" colspan=8><script>
+   	omnisoftLoadData(document.PaginaDatos);
+	document.PaginaDatos.serial_maa.value=opener.PaginaDatos.serial_maa.value;
+  
+
+    var serial_dma=(getURLParam('action')=='insert')?0:getURLParam('serial_dma');
+	
+   //alert(document.PaginaDatos.serial_maa.value);
+    var sql='SELECT pma.serial_pma, nombre_mat, tipo_pma, observacion_pma, mat.serial_mat  FROM prerequisito AS pma, detallemalla AS dma, materia AS mat WHERE dma.serial_dma = pma.serial_dma AND mat.serial_mat = pma.serial_mat  AND dma.serial_dma=masterkey';
+
+
+    omniObj=new omnisoftGridDetail('omniObj','serial_dma',serial_dma,'prerequisito','serial_pma',sql,document.PaginaDatos);
+		
+    omniObj.addColumn('Serial','serial_pma', 1,'hidden','','middle','');
+
+	 omniObj.addColumn('Prerequisito','nombre_mat', 25,'combobox',Array('select serial_mat, nombre_mat from materia where serial_mat in(select serial_mat from detallemalla where serial_maa='+document.PaginaDatos.serial_maa.value+')','serial_mat','nombre_mat'),'middle','');
+	 
+	 omniObj.addColumn('Tipo','tipo_pma', 10,'string','','middle','');
+	 omniObj.addColumn('Observacion','observacion_pma', 25,'string','','middle','');
+	 omniObj.addColumn('serial materia','serial_mat', 1,'hidden','','middle','','1');
+	
+
+     omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');
+
+
+            </script></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

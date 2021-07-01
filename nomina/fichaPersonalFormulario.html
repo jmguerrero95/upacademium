@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script>
+//Produccion
+/*BEGIN GLOBALS VARS*/
+var serial_esc_base;
+var serial_hes_base;
+var serial_tct_screen
+var serial_tct_base;
+var serial_esc_screen;
+var serial_epl_screen
+var fechaSis =  fechaSistema();
+var url;
+/*END GLOBAL VARS*/
+function grabarEmpleado() {
+
+ if(getURLParam('action')!='insert'){
+   	   url = frames['iframeDatos'].location.href.split('/');
+		if(url[url.length-1]=='iframeEmpleadoDatosGenerales.html' ||url[url.length-1]=='iframeEmpleadoDatosGenerales.html#'){   	  
+			serial_esc_screen = frames['iframeDatos'].PaginaDatos.serial_esc.value;
+			serial_tct_screen = frames['iframeDatos'].PaginaDatos.serial_tct.value;
+			serial_epl_screen = frames['iframeDatos'].PaginaDatos.serial_epl.value;
+			//alert("SERIAL_ESC PANTALLA: " + serial_esc_screen);	  	  
+			var SQLCommand="select serial_esc,serial_hes from histescalafon where estado_hes = 'ACTIVO' and serial_epl = " + serial_epl_screen;
+			var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperarDat');
+			 objDBComando.executeQuery();	  
+		}else{ 
+			window.close();   		
+		}
+   }else{
+	   checkForm(frames['iframeDatos'].PaginaDatos);		 
+   }
+
+
+ /*  url = frames['iframeDatos'].location.href.split('/');
+   if (url[url.length-1]=='iframeEmpleadoDatosGenerales.html' ||url[url.length-1]=='iframeEmpleadoDatosGenerales.html#'){   	  
+	  serial_esc_screen = frames['iframeDatos'].PaginaDatos.serial_esc.value;
+	  serial_tct_screen = frames['iframeDatos'].PaginaDatos.serial_tct.value;
+	  serial_epl_screen = frames['iframeDatos'].PaginaDatos.serial_epl.value;
+	  //alert("SERIAL_ESC PANTALLA: " + serial_esc_screen);	  	  
+	  var SQLCommand="select serial_esc,serial_hes from histescalafon where estado_hes = 'ACTIVO' and serial_epl = " + serial_epl_screen;
+	  var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperarDat');
+      objDBComando.executeQuery();	  
+   }else{ 
+   		window.close();   		
+   }*/
+}
+/*BEGIN REC*/
+function recuperarDat(data){
+	var datos=data.split('|')[1].split('~');	
+	serial_esc_base = datos[0];
+	serial_hes_base = datos[1];
+	//alert("SERIAL_ESC BASE: " + serial_esc_base);
+	//alert("SERIAL_HES BASE: " + serial_hes_base);
+	if(serial_esc_base != serial_esc_screen){
+		insertSql="insert into histescalafon (serial_epl,serial_esc,fecha_hes,estado_hes,observacion_hes) values ( '"+serial_epl_screen+"','"+serial_esc_screen+"', '"+fechaSis+"', 'ACTIVO','ACTUALIZADO')";
+		objDBComando=new omnisoftDB(insertSql,"../lib/server/omnisoftSQLData.php",'');
+		objDBComando.executeQuery();			
+	  	updateSql="update histescalafon set estado_hes = 'INACTIVO' where serial_hes ="+ serial_hes_base;
+		objDBComando=new omnisoftDB(updateSql,"../lib/server/omnisoftSQLData.php",'');
+		objDBComando.executeQuery();
+	 } 	  
+	  var SQLCommand="select serial_tct,serial_hrl from histrelacionlaboral where estado_hrl = 'ACTIVO' and serial_epl = " + serial_epl_screen;
+	  var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperarDatDos');
+      objDBComando.executeQuery();	  
+}
+function recuperarDatDos(dat){
+	var datos=dat.split('|')[1].split('~');	
+	serial_tct_base = datos[0];
+	serial_hrl_base = datos[1];
+	//alert("SERIAL_TCT SCREEN: " + serial_tct_screen);
+	//alert("SERIAL_TCT BASE: " + serial_tct_base);
+	//alert("SERIAL_HRL BASE: " + serial_hrl_base);
+
+	if(serial_tct_base != serial_tct_screen){
+		insertSql="insert into histrelacionlaboral (serial_epl,serial_tct,fecha_hrl,estado_hrl,observacion_hrl) values ( '"+serial_epl_screen+"','"+serial_tct_screen+"', '"+fechaSis+"', 'ACTIVO','ACTUALIZADO')";
+		objDBComando=new omnisoftDB(insertSql,"../lib/server/omnisoftSQLData.php",'');
+		objDBComando.executeQuery();			
+	  	updateSql="update histrelacionlaboral set estado_hrl = 'INACTIVO' where serial_hrl ="+ serial_hrl_base;
+		objDBComando=new omnisoftDB(updateSql,"../lib/server/omnisoftSQLData.php",'');
+		objDBComando.executeQuery();
+	 }
+	//return;
+	checkForm(frames['iframeDatos'].PaginaDatos);		 
+}
+
+/*END REC*/
+function imprimirEmpleado() {
+            var attributes='';
+            var sURL='../lib/export/omnisoftFichaEmpleadoPDFApp.php?';
+            var sWidth=1000;
+            var sHeight=750;
+            var sFields='';
+            var fields;
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+
+			   sURL=sURL+'serial_epl='+getURLParam('serial_epl');
+			   omnisoftNewWindow=window.open(sURL,'PDF',attributes);
+
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+
+
+}
+
+</script>
+<!--
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+-->
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_epl" type="hidden" id="serial_epl" class="hidden">
+
+  <table width="1020" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          RECURSOS HUMANOS<br>
+          MANTENIMIENTO DE EMPLEADOS
+</center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="25"  class="maintoptitle fonttitle"><center><script>
+			var nombreEmpleado=(getURLParam('nombre_epl')=='')? 'NUEVO EMPLEADO' :getURLParam('nombre_epl')+' '+getURLParam('apellido_epl');
+
+			document.write(nombreEmpleado);</script></center></td>
+          </tr>
+          <tr>
+            <td> <script>
+//   omnisoftLoadData(document.PaginaDatos);
+ </script> <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeEmpleadoDatosGenerales.html');">
+                      General</a></div></td>
+                  <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeEmpleadoCargasFamiliares.html');">Cargas
+                      </a></div></td>
+                 <!-- <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeEmpleadoFormacion.html');">Formaci&oacute;n</a>
+                    </div></td> -->
+				  <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('../academico/iframeProfesorFormacion.html');">Formación</a></div></td>
+                  <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeEmpleadoExperiencia.html');">Experiencia</a></div></td>
+                  <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeEmpleadoCapacitacion.html');">Capacitaci&oacute;n</a></div></td>
+                  <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeEmpleadoAsistencia.html');">Asistencia</a></div></td>
+                  <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeEmpleadoPrestamos.html');">Prestamos</a></div></td>
+				  <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeEmpleadoRelacionLaboral.html');">H-R.Lab</a></div></td>
+				  <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeEmpleadoEscalafon.html');">H-Escalaf.</a></div></td>
+   				  <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('../academico/iframeProfesorDiscapacidad.html');">Discapacidad</a></div></td>
+
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td> <iframe id="iframeDatos" frameborder="0" name="iframeDatos" src="iframeEmpleadoDatosGenerales.html" width="1025" height="534"></iframe>            </td>
+          </tr>
+          
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="150" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:grabarEmpleado()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="170"></td>
+            <td width="156"><a href="#"  onClick="javascript:imprimirEmpleado()"><img src="../images/imprimir.jpg" alt="" width="150" height="30" border="0"></a></td>
+            <td width="177"></td>
+            <td width="152"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+<input name="elaboradoPor_epl" type="hidden" id="elaboradoPor_epl" class="hidden" value="1">
+<input name="modificadoPor_epl" type="hidden" id="modificadoPor_epl" class="hidden" value="1"  >
+<input name="aprobadoPor_epl" type="hidden" id="aprobadoPor_epl" class="hidden"  value="1" >
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

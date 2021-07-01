@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script>
+function grabarCliente() {
+var url=frames['iframeDatos'].location.href.split('/');
+   if (url[url.length-1]=='iframeClienteDatosGenerales.html')
+      checkForm(frames['iframeDatos'].PaginaDatos);
+   else window.close();
+}
+</script>
+<!--
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+-->
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_cli" type="hidden" id="serial_cli" class="hidden">
+
+  <table width="1020" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="216" height="52"  class="ingeniumtoptitle"></td>
+      <td width="692"  class="maintoptitle fonttitle"><center>
+          MARKETING Y VENTAS<br>
+          MANTENIMIENTO DE CLIENTES
+</center></td>
+      <td width="121"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="25"  class="maintoptitle fonttitle"><center><script>
+			var nombreCliente=(getURLParam('razonsocial_cli')=='')? 'NUEVO CLIENTE' :getURLParam('razonsocial_cli');
+
+			document.write(nombreCliente);</script></center></td>
+          </tr>
+          <tr>
+            <td> <script>
+//   omnisoftLoadData(document.PaginaDatos);
+ </script> <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td width="150" height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeClienteDatosGenerales.html');">Datos
+                  Generales</a></div></td>
+                  <td width="150"  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeClientePrecios.html');">Precios</a></div></td>
+                  <td width="150"  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeClienteReferencias.html');">Referencias </a>
+                  </div></td>
+                  <td width="150"  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeClienteSucursal.html');">Sucursales </a></div></td>
+                  <td width="150"  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeClienteContactos.html');">Contactos</a></div></td>
+                  <td width="274"  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeClienteEstadoCuenta.html');">Estado de Cuenta</a> </div></td>
+                  <td width="274"  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeClienteQuejas.html');">Quejas </a></div></td>
+                </tr>
+              </table></td>
+          </tr>
+          <tr>
+            <td> <iframe id="iframeDatos" frameborder="0" name="iframeDatos" src="iframeClienteDatosGenerales.html" width="1025" height="545"></iframe>            </td>
+          </tr>
+          
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:grabarCliente()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<input name="elaboradopor_cli" type="hidden" id="elaboradopor_cli" class="hidden" value="1">
+<input name="modificadopor_cli" type="hidden" id="modificadopor_cli" class="hidden" value="1"  >
+<input name="aprobadopor_cli" type="hidden" id="aprobadopor_cli" class="hidden"  value="1" >
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

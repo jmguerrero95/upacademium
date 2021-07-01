@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script></head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          GESTION FINANCIERA<br>
+          APERTURA/CIERRE PERIODOS CONTABLES
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="291" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td height="24"  class="inputtitle">Fecha Inicio:</td>
+            <td><input name="inicio_per" type="text" id="inicio_per" class="date" size="12" onBlur="esconderToolTip()" readonly="yes"></td>
+          </tr>
+          <tr> 
+            <td width="181" height="24"  class="inputtitle">Fecha Termino:</td>
+            <td width="618"> <input name="nombre_prd" type="text" id="nombre_prd" class="string" size="7" maxlength="7"  onBlur="esconderToolTip()"  table="producto" serial="serial_prd" info="codigo_prd"  ></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Estado:</td>
+            <td ><select name="estado_per" id="estado_per" class="comboBox">
+                <option value="Activo">Activo</option>
+                <option value="Iniciado">Iniciado</option>
+                <option value="Cerrado">Cerrado</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">A&ntilde;o Fiscal:</td>
+            <td ><input name="anioFiscal_per" type="text" id="anioFiscal_per" class="number" size="5" maxlength="4" onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Frecuencia:</td>
+            <td ><select name="frecuencia_per" class="comboBox" id="frecuencia_per">
+                <option value="Semanal">Semanal</option>
+                <option value="Quinenal">Quincenal</option>
+                <option value="Mensual">Mensual</option>
+                <option value="Trimestral">Trimestral</option>
+                <option value="Semestral">Semestral</option>
+                <option value="Anual">Anual</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Al Cerrar el Periodo calcular:</td>
+            <td ><select name="select" id="select" class="comboBox">
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Depreciaciones</td>
+            <td ><select name="depreciaciones_per" id="depreciaciones_per" class="comboBox">
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Liquidar Costos de Produccion:</td>
+            <td ><select name="liquidacionCostos_per" id="liquidacionCostos_per" class="comboBox">
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Rol de Pagos:</td>
+            <td ><select name="rolPagos_per" id="rolPagos_per" class="comboBox">
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+              </select></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Indices y Tablas de Analisis:</td>
+            <td ><select name="indicesAnalisis_per" id="indicesAnalisis_per" class="comboBox">
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="37"  class="inputtitle">Liquidacion de Impuestos:</td>
+            <td ><select name="liquidacionImpuestos_per" id="liquidacionImpuestos_per" class="comboBox">
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+              </select></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	OmnisoftPerfilUsuarioFormulario();
+</script>
+<script type="text/javascript">
+	Calendar.setup({
+		inputField     :    "inicio_per",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script type="text/javascript">
+	Calendar.setup({
+		inputField     :    "fin_per",		// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

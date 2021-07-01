@@ -1,0 +1,242 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+function imprimirMalla() {
+             var attributes='';
+            var sURL='../lib/export/omnisoftMallasReporte.php?';
+            var sWidth=1000;
+            var sHeight=750;
+            var sFields='';
+            var fields;
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+               sURL=sURL+'serial_maa='+document.PaginaDatos.serial_maa.value;
+               omnisoftNewWindow=window.open(sURL,'PDF',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftAcciones.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+
+
+
+
+
+function seleccionarMateria() {
+   cserial_mat.objDBComando.sqlCommand="select serial_mat,nombre_mat from materia where nombre_mat <> '1,2,3' and serial_are = "+document.PaginaDatos.serial_are.value+" order by nombre_mat";
+    cserial_mat.objDBComando.executeQuery();
+	
+	  
+}
+
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_lib" type="hidden" id="serial_lib" class="hidden" >
+  <table width="805" height="378" border="0" cellpadding="0" cellspacing="0" >
+    <tr  >
+      <td width="222" height="52"  class="ingeniumtoptitle"></td>
+      <td width="582"  class="maintoptitle fonttitle"><center>
+        ACADEMICO<br>
+Autores de Libros
+      </center></td>
+      <td width="1"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="798" height="270" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          
+            <td width="116" height="24"  class="inputtitle">Area:</td>
+            <td width="245"><script>		
+			               var area= "select serial_are,nombre_are from area order by nombre_are";
+			
+			                var cserial_are=new omnisoftComboBox('cserial_are','serial_are',area,'255px',false,getURLParam('serial_are'),'',seleccionarMateria);
+                     cserial_are.show();
+				
+					
+	            </script>			</td>
+            <td width="109" class="inputtitle">Materia:</td>
+            <td colspan="3
+			" ><img src="../images/camporequerido.gif"> <script>		
+			var materia= "select serial_mat, nombre_mat from materia where nombre_mat <> '1,2,3' order by nombre_mat";
+			
+			                var cserial_mat=new omnisoftComboBox('cserial_mat','serial_mat',materia,'255px',true,getURLParam('serial_mat'));
+                     cserial_mat.show();
+				
+					
+	            </script>            </td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Nombre del Libro:</td>
+            <td height="24" colspan="5" ><img src="../images/camporequerido.gif"><input name="nombre_lib" type="text" id="nombre_lib" size="100" maxlength="110" class="string">			</td>
+		  </tr>
+		  
+		   <tr>
+            <td height="24"  class="inputtitle">Editorial:</td>
+            <td height="24" colspan="5
+			"><img src="../images/camporequerido.gif"><input name="editorial_lib" type="text" id="editorial_lib" size="100" maxlength="110" class="string">
+   			 </td>		  
+			
+			<!--
+			<td height="24"  class="inputtitle">Estado :</td>
+            <td height="24"  ><img src="../images/camporequerido.gif">
+              <select name="estado_syl" id="estado_syl" class="comboBox">
+              <option value="ACTIVO">ACTIVO</option>
+			  <option value="INACTIVO">INACTIVO</option>              		  
+            </select>			
+			</td>
+			-->
+			
+		  </tr>
+		  
+		  <tr>
+            <td height="24"  class="inputtitle">Tomo:</td>
+            <td height="24"><img src="../images/camporequerido.gif"><input name="tomo_lib" type="text" id="tomo_lib" size="20" maxlength="110" class="integer">			</td>
+			
+			<td height="24" class="inputtitle">Año de Publicación:</td>
+            <td width="138" height="24"><img src="../images/camporequerido.gif">
+            <input name="anio_lib" type="text" id="anio_lib" size="20" maxlength="110" class="integer">			</td>
+			
+			<td width="46" height="24"  class="inputtitle">Pais:</td>
+            <td width="130" height="24"><img src="../images/camporequerido.gif">
+            <input name="pais_lib" type="text" id="pais_lib" size="20" maxlength="110" class="string">			</td>
+		  </tr>
+		  
+		  
+          <tr>
+            <td height="18" colspan="10"  bgcolor="#000166"><div align="center" class="style1">Autores del Libro</div></td>
+          </tr>
+
+
+        <tr>
+            <td height="40" colspan=9><script>
+   omnisoftLoadData(document.PaginaDatos);
+
+   
+   
+    var serial_lib=(getURLParam('action')=='insert')?0:getURLParam('serial_lib');
+
+   
+
+
+var sql="select serial_aut, nombre_aut, apellido_aut, nacionalidad_aut, titulo_aut, serial_lib  from autor where serial_lib = "+getURLParam('serial_lib');
+
+//alert(sql);
+
+    omniObj=new omnisoftGridDetail('omniObj','serial_aut',serial_lib,'autor','serial_aut',sql,document.PaginaDatos,Array(true,true,true),'registroAutorFormulario.html',700,260);
+		
+	 omniObj.addColumn('Serial','serial_aut', 1,'hidden','','middle','');
+	 omniObj.addColumn('Nombre Autor','nombre_aut', 20,'string','','middle','');
+	 omniObj.addColumn('Apellido Autor','apellido_aut', 20,'string','','middle','');
+	 omniObj.addColumn('Nacionalidad','nacionalidad_aut', 20,'string','','middle','');	
+	 omniObj.addColumn('Titulo','titulo_aut', 30,'string','','middle','');	
+	 omniObj.addColumn('Serial','serial_lib', 1,'hidden','','middle','');
+
+	 	
+	 
+	 omniObj.showGrid('omniObj',8,250,800,'menu','#FF9900');
+	
+            </script></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="760" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="150" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="466">
+			 <div align="center" id="divImprimir" style="visibility:visible"><a href="#"  onClick="javascript:imprimirMalla()"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a></div>
+			</td>
+            <td width="162"><span style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="142" height="30" border="0"></a></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+omnisoftLoadData(document.PaginaDatos);
+	
+</script>
+<script>
+
+</script>
+
+</body>
+</html>

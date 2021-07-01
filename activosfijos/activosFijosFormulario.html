@@ -1,0 +1,506 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+
+<style type="text/css">
+<!--
+.style1 {
+	color: #FFFFFF;
+	font-weight: bold;
+}
+-->
+</style>
+<script>
+
+function cargarAtributos() {
+var nomAtrib='';
+var nomDiv='';
+var i=0;
+var tipoActivoFijo=document.PaginaDatos.cserial_taf.value.split('¬');
+for (i=1; i <= 8; i++) {
+
+    nomDiv='div'+i;
+    nomAtrib='atributo'+i+'_acf';
+
+  if (document.getElementById(nomAtrib).value!='')  {
+    nomAtrib='latributo'+i;
+    document.getElementById(nomAtrib).value=tipoActivoFijo[i];
+    document.getElementById(nomDiv).style.visibility='visible';
+    document.getElementById('t'+nomDiv).style.visibility='visible';
+   }
+
+ }
+}
+
+
+function loadAttributes() {
+var nomAtrib='';
+var nomDiv='';
+var i=0;
+
+for (i=1; i <= 8; i++) {
+
+    nomDiv='div'+i;
+    nomAtrib='atributo'+i+'_acf';
+
+  if (document.getElementById(nomAtrib).value!='')  {
+    nomAtrib='latributo'+i;
+    document.getElementById(nomAtrib).value=getURLParam(nomAtrib);
+    document.getElementById(nomDiv).style.visibility='visible';
+    document.getElementById('t'+nomDiv).style.visibility='visible';
+   }
+
+ }
+}
+
+
+
+function procesarTipoActivoFijo() {
+var tipoActivoFijo=document.PaginaDatos.cserial_taf.value.split('¬');
+var nomAtrib='';
+var nomDiv='';
+document.PaginaDatos.serial_taf.value=tipoActivoFijo[0];
+for (var i=1; i <= tipoActivoFijo.length-5; i++) {
+    nomDiv='div'+i;
+  if (tipoActivoFijo[i]!='')  {
+    nomAtrib='latributo'+i;
+
+    document.getElementById(nomAtrib).value=tipoActivoFijo[i];
+    document.getElementById(nomDiv).style.visibility='visible';
+    document.getElementById('t'+nomDiv).style.visibility='visible';
+
+  }
+  else {
+      document.getElementById(nomDiv).style.visibility='hidden';
+      document.getElementById('t'+nomDiv).style.visibility='hidden';
+
+  }
+ }
+
+
+document.PaginaDatos.serial_taf.value=tipoActivoFijo[0];
+document.PaginaDatos.tangible_acf.value=tipoActivoFijo[9];
+
+document.PaginaDatos.tipo_acf.value=tipoActivoFijo[10];
+
+document.PaginaDatos.tipoDepreciacion_acf.value=tipoActivoFijo[11];
+
+document.PaginaDatos.vidaUtil_acf.value=tipoActivoFijo[12];
+
+
+}
+
+function procesarGarantias() {
+var attributes='width=800 ,height=300,scrollbars=no,resizable=no,toolbar=no,location=no,status=no,menubar=no'
+var sURL='garantiasActivosFijosFormulario.html?dummy=1&serial_acf='+document.PaginaDatos.serial_acf.value+'&nombre_acf='+document.PaginaDatos.nombre_acf.value;
+ omnisoftNewWindow=window.open(sURL,'Garantias',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+
+function procesarCustodio() {
+var attributes='width=1020 ,height=535,scrollbars=no,resizable=no,toolbar=no,location=no,status=no,menubar=no'
+var sURL='custodioActivosFijosFormulario.html?dummy=1&serial_acf='+document.PaginaDatos.serial_acf.value+'&nombre_acf='+document.PaginaDatos.nombre_acf.value;
+//alert(sURL);
+ omnisoftNewWindow=window.open(sURL,'Custodios',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+function procesarDepreciacion() {
+var attributes='width=1020 ,height=535,scrollbars=no,resizable=no,toolbar=no,location=no,status=no,menubar=no'
+var sURL='listaDepreciacionActivoFijo.html?dummy=1&serial_acf='+document.PaginaDatos.serial_acf.value+'&nombre_acf='+document.PaginaDatos.nombre_acf.value;
+//alert(sURL);
+ omnisoftNewWindow=window.open(sURL,'Depreciacion',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+function procesarDepreciacionInicial() {
+ document.PaginaDatos.depreciacionAcumulada_acf.value=parseFloat(document.PaginaDatos.depreciacionInicial_acf.value).toFixed(2);
+
+ document.PaginaDatos.valorActual_acf.value=parseFloat(document.PaginaDatos.valor_acf.value-document.PaginaDatos.depreciacionAcumulada_acf.value).toFixed(2);
+}
+
+function procesarValorActual() {
+ document.PaginaDatos.valorActual_acf.value=parseFloat(document.PaginaDatos.valor_acf.value-document.PaginaDatos.depreciacionAcumulada_acf.value).toFixed(2);
+}
+
+function procesarFechaCompra() {
+ var afecha=document.PaginaDatos.fecha_acf.value.split('-');
+ var fhoy=new Date();
+ var mesesuso=parseInt(document.PaginaDatos.vidaUtil_acf.value)*12;
+
+var mes= parseInt(afecha[1]);
+if (mes==0) mes=parseInt(afecha[1].substr(1,1));
+mes++;
+var    anio=parseInt(afecha[0]);
+
+	if (mes>12) {
+	    mes=1;
+		anio++;
+	}
+ if (mes <10)
+ document.PaginaDatos.fechaDepreciacion_acf.value=anio+'-'+'0'+mes+'-01';
+ else
+ document.PaginaDatos.fechaDepreciacion_acf.value=anio+'-'+mes+'-01';
+ var fecha=new Date(anio,mes,'01');
+
+ if (document.PaginaDatos.fechaBajaInventario_acf.value!='0000-00-00')  {
+
+     var afecha=document.PaginaDatos.fechaBajaInventario_acf.value.split('-');
+     fbaja=new Date(afecha[0],afecha[1],afecha[2]);
+     if ((fhoy.getTime()-fbaja.getTime())>=0)  {
+         fhoy=fbaja;
+         document.PaginaDatos.tiempoRestante_acf.value=0;
+     }
+     else {
+          document.PaginaDatos.tiempoRestante_acf.value=mesesuso-Math.ceil((fhoy.getTime()-fecha.getTime())/(1000*60*60*24*30));
+          if (document.PaginaDatos.tiempoRestante_acf.value<0)
+             document.PaginaDatos.tiempoRestante_acf.value=0;
+
+
+     }
+
+ }
+ else {
+ document.PaginaDatos.tiempoRestante_acf.value=mesesuso-Math.ceil((fhoy.getTime()-fecha.getTime())/(1000*60*60*24*30));
+ if (document.PaginaDatos.tiempoRestante_acf.value<0)
+     document.PaginaDatos.tiempoRestante_acf.value=0;
+
+ }
+
+ if (document.PaginaDatos.estado_acf.value=='BAJA')
+     document.PaginaDatos.tiempoRestante_acf.value=0;
+
+ document.PaginaDatos.tiempoUso_acf.value=Math.ceil((fhoy.getTime()-fecha.getTime())/(1000*60*60*24*30));
+
+}
+
+function imprimirActivoFijo() {
+window.print();
+}
+function procesarDadoBaja() {
+if (document.PaginaDatos.estado_acf.value=='BAJA')
+    document.PaginaDatos.fechaBajaInventario_acf.value=fechaSistema();
+else
+    document.PaginaDatos.fechaBajaInventario_acf.value='0000-00-00';
+
+}
+function verComprobanteContable() { 
+
+var attributes='width=1020 ,height=565,scrollbars=no,resizable=no,toolbar=no,location=no,status=no,menubar=no'
+var sURL='../contabilidad/consultaComprobanteContableFormulario.html?dummy=1&serial_com='+document.PaginaDatos.serial_com.value;
+ omnisoftNewWindow=window.open(sURL,'ComprobanteContable',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+   
+}
+</script>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_acf" type="hidden" id="serial_acf" class="hidden">
+<input name="serial_taf" type="hidden" id="serial_taf" class="hidden">
+<input name="serial_com" type="hidden" id="serial_com" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="217" height="52"  class="ingeniumtoptitle"></td>
+      <td width="676"  class="maintoptitle fonttitle"><center>
+          ACTIVOS FIJOS <br>
+          DATOS GENERALES
+      </center></td>
+      <td width="127"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="1020" height="329" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="17"  class="inputtitle">Sucursal/Departamento : * </td>
+            <td colspan="3">
+       	    <script>
+ var cserial_desc=new omnisoftComboBox('cserial_desc','serial_desc','select serial_desc,concat(nombre_suc,\'-\',descripcion_dep) as nombre from sucursal,departamentos,sucursaldepartamentos where sucursal.serial_suc=sucursaldepartamentos.serial_suc and departamentos.serial_dep=sucursaldepartamentos.serial_dep','250px',true,getURLParam('serial_desc'));
+                     cserial_desc.show();	  </script>			</td>
+            <td class="inputtitle">Grupo/Subgrupo: * </td>
+            <td colspan="3"><script>
+ var cserial_taf=new omnisoftComboBox('cserial_taf','cserial_taf','select concat(serial_taf,\'¬\',atributo1_taf,\'¬\',atributo2_taf,\'¬\',atributo3_taf,\'¬\',atributo4_taf,\'¬\',atributo5_taf,\'¬\',atributo6_taf,\'¬\',atributo7_taf,\'¬\',atributo8_taf,\'¬\',tangible_taf,\'¬\',tipo_taf,\'¬\',tipodepreciacion_taf,\'¬\',vidaUtil_taf) as serial,concat(nombre_faf,\'-\',nombre_taf) as nombre from familiaactivofijo,tipoactivofijo where tipoactivofijo.serial_faf=familiaactivofijo.serial_faf order by nombre_faf,nombre_taf','250px',false,getURLParam('serial_taf'),'',procesarTipoActivoFijo);
+                     cserial_taf.show();
+//                     document.PaginaDatos.cserial_taf.onchange=procesarTipoActivoFijo;
+                     	  </script></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Proveedor: * </td>
+            <td colspan="3">
+
+         <input name="razonSocial_pvd" type="text" id="razonSocial_pvd" size="35" maxlength="150" class="autosuggest" onBlur="esconderToolTip()" table="proveedor" serial="serial_pvd" info="ruccedula_pvd" >
+         <input type="text" name="ruccedula_pvd" id="ruccedula_pvd" maxlength="13" size="13" readonly >         </td>
+            <td class="inputtitle"> Factura Nro: * </td>
+            <td class="inputtitle"><input name="numeroFacturaCompra_acf" type="text" id="numeroFacturaCompra_acf" size="15" maxlength="13" class="text"></td>
+            <td class="inputtitle">Tipo :*</td>
+            <td class="inputtitle"><select name="tipo_acf" id="tipo_acf" class="combobox">
+              <option value="DEPRECIABLE">Depreciable</option>
+              <option value="NO DEPRECIABLE">No Depreciable</option>
+              <option value="AMORTIZABLE">Amortizable</option>
+              <option value="ACTIVO DE CONTROL">Activo de Control</option>
+            </select></td>
+          </tr>
+
+          <tr>
+            <td width="152" height="21"  class="inputtitle">C&oacute;digo :*</td>
+            <td colspan="3"> <input name="codigo_acf" type="text" id="codigo_acf" class="autoincrement" size="10" maxlength="10"  onBlur="esconderToolTip()" readonly="yes" fieldid="serial_acf" table="activosfijos"   ></td>
+            <td width="154" class="inputtitle">Codigo Barras :*</td>
+            <td width="122"><input name="codigoBarras_acf" type="text" id="codigoBarras_acf" size="13" maxlength="13" class="integer"></td>
+            <td width="122" class="inputtitle">Nombre :*</td>
+            <td width="215"><input name="nombre_acf" type="text" id="nombre_acf" size="40" maxlength="80" class="string"></td>
+          </tr>
+
+          <tr>
+            <td height="21"  class="inputtitle">Descripcion :</td>
+            <td colspan="3" ><input name="descripcion_acf" type="text" id="descripcion_acf" size="50" maxlength="200" class="emptytext"></td>
+            <td  class="inputtitle">Fecha  Compra:*</td>
+            <td ><input name="fecha_acf" type="text" id="fecha_acf" size="10" maxlength="10" class="date" onBlur="procesarFechaCompra()"></td>
+            <td class="inputtitle">Valor  Compra:*</td>
+            <td ><input name="valor_acf" type="text" id="valor_acf" size="15" maxlength="15" class="double" onBlur="procesarValorActual()"></td>
+          </tr>
+
+          <tr>
+            <td height="21"  class="inputtitle">Marca :*</td>
+            <td colspan="3" ><input name="marca_acf" type="text" id="marca_acf" class="string" size="25" maxlength="40"  onBlur="esconderToolTip()"    ></td>
+            <td  class="inputtitle">Modelo : *            </td>
+            <td  class="inputtitle"><input name="modelo_acf" type="text" id="modelo_acf" class="text" size="25" maxlength="40"  onBlur="esconderToolTip()"    ></td>
+            <td  class="inputtitle">Serie:*</td>
+            <td  class="inputtitle"><input name="serie_acf" type="text" id="serie_acf" class="text" size="25" maxlength="40"  onBlur="esconderToolTip()"    ></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Fecha Inicial Depreciaci&oacute;n:*</td>
+            <td width="78" ><input name="fechaDepreciacion_acf" type="text" id="fechaDepreciacion_acf" size="10" maxlength="10" class="emptytext" readonly="yes"></td>
+            <td width="68" class="inputtitle">Tiempo Uso:</td>
+            <td width="93" >            <input name="tiempoUso_acf" type="text" id="tiempoUso_acf" readonly="yes" class="emptyinteger" size="3" maxlength="3"  onBlur="esconderToolTip()"    >
+            meses</td>
+            <td  class="inputtitle">Vida Util: * </td>
+            <td ><input name="vidaUtil_acf" type="text" id="vidaUtil_acf" class="integer" size="2" maxlength="2"  onBlur="esconderToolTip()"    >
+            <span class="inputtitle">(a&ntilde;os) </span></td>
+            <td  class="inputtitle">Tipo Depreciaci&oacute;n:*</td>
+            <td ><span class="inputtitle">
+              <select name="tipoDepreciacion_acf" id="tipoDepreciacion_acf" class="combobox">
+                <option value="LINEAL">Lineal</option>
+                <option value="NO DEPRECIABLE">No Depreciable</option>
+                <option value="ACELERADA">Acelerada</option>
+              </select>
+            </span></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Tangible :*</td>
+            <td colspan="3" ><select name="tangible_acf" id="tangible_acf" class="combobox">
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+                        </select></td>
+            <td class="inputtitle">Activo de Control :*</td>
+            <td ><select name="control_acf" id="control_acf" class="combobox">
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+            </select></td>
+            <td  class="inputtitle">Metrologia :*</td>
+            <td ><select name="metrologia_acf" id="metrologia_acf" class="combobox">
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Depreciaci&oacute;n Inicial:  </td>
+            <td ><input name="depreciacionInicial_acf" type="text" id="depreciacionInicial_acf" size="10" maxlength="10" class="emptydouble" value="0.00" onBlur="procesarDepreciacionInicial()"></td>
+            <td class="inputtitle">Tiempo restante </td>
+            <td ><input name="tiempoRestante_acf" type="text" id="tiempoRestante_acf" readonly="yes" class="emptyinteger" size="3" maxlength="3"  onBlur="esconderToolTip()"    >
+            meses</td>
+            <td class="inputtitle">Depreciaci&oacute;n Acumulada: * </td>
+            <td ><input name="depreciacionAcumulada_acf" type="text" id="depreciacionAcumulada_acf" size="10" maxlength="10" class="double" value="0.00"  readonly="yes"></td>
+            <td  class="inputtitle">Valor Actual: * </td>
+            <td ><input name="valorActual_acf" type="text" id="valorActual_acf" size="10" maxlength="10"  readonly="yes"></td>
+          </tr>
+
+          <tr>
+            <td height="21"  class="inputtitle">Fecha Registro:*</td>
+            <td colspan="3" ><input name="fechaRegistro_acf" type="text" id="fechaRegistro_acf" size="10" maxlength="10" class="emptytext"  readonly="yes"></td>
+            <td  class="inputtitle">Fecha Baja :</td>
+            <td ><input name="fechaBajaInventario_acf" type="text" id="fechaBajaInventario_acf" size="10" maxlength="10" class="date" value="0000-00-00"></td>
+            <td  class="inputtitle">Motivo de Baja :</td>
+            <td ><span class="inputtitle">
+              <select name="motivoBaja_acf" id="motivoBaja_acf" class="combobox">
+                <option value="NINGUNA" selected="selected">Ninguna</option>
+                <option value="VIDAUTIL">Cumplio vida util</option>
+                <option value="DETERIORO">Deterioro</option>
+                <option value="DESTRUCCION">Destruccion</option>
+                <option value="VENTA">Venta</option>
+              </select>
+            </span></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Valor Reexpresion:</td>
+            <td colspan="3" ><input name="valorReexpresion_acf" type="text" id="valorReexpresion_acf" size="10" maxlength="10" class="emptydouble" value="0.00"></td>
+            <td  class="inputtitle">Valor Reposicion:</td>
+            <td ><input name="valorReposicion_acf" type="text" id="valorReposicion_acf" size="10" maxlength="10" class="emptydouble" value='0.00'></td>
+            <td  class="inputtitle">Estado:*</td>
+            <td ><select name="estado_acf" id="estado_acf" class="combobox" onChange="procesarDadoBaja()">
+              <option value="ACTIVO" selected="selected">ACTIVO</option>
+              <option value="INACTIVO">INACTIVO</option>
+              <option value="BAJA">DADO DE BAJA</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Comprobante contable:</td>
+            <td colspan="5" ><input name="codigo_com" type="text" id="codigo_com" size="13" maxlength="13" readonly="yes">
+            <a href="#" onClick="verComprobanteContable()" ><img src="../images/comprobante.png" alt="Ver Comprobante Contable" width="32" height="32" border="0"></a></td>
+            <td class="inputtitle">&nbsp;</td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Ubicacion Actual:</td>
+            <td colspan="5" >
+                   	    <script>
+ var cserial_ubi=new omnisoftComboBox('cserial_ubi','serial_ubi','select serial_ubi,nombre_ubi from ubicacion ','400px',true,getURLParam('serial_ubi'));
+                     cserial_ubi.show();	  </script>            </td>
+            <td class="inputtitle">Custodio:</td>
+            <td >                   	    <script>
+ var cserial_epl=new omnisoftComboBox('cserial_epl','serial_epl','select serial_epl,concat(apellido_epl,\' \',nombre_epl) as nombre from empleado where prospecto_epl=\'NO\' order by apellido_epl,nombre_epl','250px',true,getURLParam('serial_epl'));
+                     cserial_epl.show();	  </script></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Observaci&oacute;n:</td>
+            <td colspan="5" ><input name="observaciones_acf" type="text" id="observaciones_acf" size="100" maxlength="255" class="emptytext"></td>
+            <td colspan="2" ><a href="#" onClick="procesarGarantias()"><img src="../images/garantias.png" alt="Garantias" width="32" height="32" border="0">Garantias</a><a href="#" onClick="procesarDepreciacion()"><img src="../images/depreciacion.png" alt="Depreciacion" width="32" height="32" border="0">Depreciaciones</a><a href="#" onClick="procesarCustodio()"><img src="../images/custodio.png" alt="Custodio" width="32" height="32" border="0">Custodio</a></td>
+          </tr>
+          <tr>
+            <td height="24" colspan="8"  bgcolor="000066"><table width="1018" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="51"><a href="#"></a></td>
+                <td><div align="center" class="style1">ATRIBUTO</div></td>
+                <td width="51"><a href="#" ></a></td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td height="34" colspan="8"  class="inputtitle">
+
+
+			<table width="1009" height="21" border="0" cellpadding="0" cellspacing="0">
+
+              <tr>
+                <td width="181" class="inputtitle"><div id="tdiv1" style="visibility:hidden"><input name="latributo1" type="text" id="latributo1" size="30" maxlength="50" readonly="yes"> </div></td>
+                <td width="327" class="inputtitle"><div id="div1" style="visibility:hidden"><input name="atributo1_acf" type="text" id="atributo1_acf" size="30" maxlength="50" class="emptytext"></div></td>
+                <td width="187" class="inputtitle"><div id="tdiv2" style="visibility:hidden"><input name="latributo2" type="text" id="latributo2" size="30" maxlength="50" readonly="yes"></div> </td>
+                <td width="314" class="inputtitle"><div id="div2" style="visibility:hidden"><input name="atributo2_acf" type="text" id="atributo2_acf" size="30" maxlength="50" class="emptytext"></div></td>
+              </tr>
+			    <tr>
+                <td width="181" class="inputtitle"><div id="tdiv3" style="visibility:hidden"><input name="latributo3" type="text" id="latributo3" size="30" maxlength="50" readonly="yes"></div></td>
+                <td width="327" class="inputtitle"><div id="div3" style="visibility:hidden"><input name="atributo3_acf" type="text" id="atributo3_acf" size="30" maxlength="50" class="emptytext"></div></td>
+                <td width="187" class="inputtitle"><div id="tdiv4" style="visibility:hidden"><input name="latributo4" type="text" id="latributo4" size="30" maxlength="50" readonly="yes"></div>  </td>
+                <td width="314" class="inputtitle"><div id="div4" style="visibility:hidden"><input name="atributo4_acf" type="text" id="atributo4_acf" size="30" maxlength="50" class="emptytext"></div></td>
+              </tr>
+			    <tr>
+                <td width="181" class="inputtitle"><div id="tdiv5" style="visibility:hidden"><input name="latributo5" type="text" id="latributo5" size="30" maxlength="50" readonly="yes"></div></td>
+                <td width="327" class="inputtitle"><div id="div5" style="visibility:hidden"><input name="atributo5_acf" type="text" id="atributo5_acf" size="30" maxlength="50" class="emptytext"></div></td>
+                <td width="187" class="inputtitle"><div id="tdiv6" style="visibility:hidden"><input name="latributo6" type="text" id="latributo6" size="30" maxlength="50" readonly="yes"> </div> </td>
+                <td width="314" class="inputtitle"><div id="div6" style="visibility:hidden"><input name="atributo6_acf" type="text" id="atributo6_acf" size="30" maxlength="50" class="emptytext"></div></td>
+              </tr>
+			    <tr>
+                <td width="181" class="inputtitle"><div id="tdiv7" style="visibility:hidden"><input name="latributo7" type="text" id="latributo7" size="30" maxlength="50" readonly="yes"></div></td>
+                <td width="327" class="inputtitle"><div id="div7" style="visibility:hidden"><input name="atributo7_acf" type="text" id="atributo7_acf" size="30" maxlength="50" class="emptytext"></div></td>
+                <td width="187" class="inputtitle"><div id="tdiv8" style="visibility:hidden"><input name="latributo8" type="text" id="latributo8" size="30" maxlength="50" readonly="yes"></div> </td>
+                <td width="314" class="inputtitle"><div id="div8" style="visibility:hidden"><input name="atributo8_acf" type="text" id="atributo8_acf" size="30" maxlength="50" class="emptytext"></div></td>
+              </tr>
+            </table></td>
+          </tr>
+
+
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center" class="menuborder"> <table width="1006" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="187" height="58" class="menuborder">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="211" class="menuborder"><a href="#" onClick="omnisoftGrabar()"><img src="../images/saveas.jpg" alt="Grabar Como" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="171" class="menuborder"><a href="#" onClick="imprimirActivoFijo()"><img src="../images/impresora.png" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="246" class="menuborder"><a href="#" onClick="imprimirActivoFijo()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="191" class="menuborder"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelarr</a></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+<input name="serial_pvd" type="hidden" id="serial_pvd" class="hidden">
+
+</form>
+<script>
+
+	omnisoftLoadData(document.PaginaDatos);
+	if (getURLParam('action')=='insert') {
+
+            document.PaginaDatos.fechaRegistro_acf.value=fechaSistema();
+            document.PaginaDatos.fecha_acf.value=fechaSistema();
+
+
+         }
+	else     {
+            document.PaginaDatos.ruccedula_pvd.value=getURLParam('ruccedula_pvd');
+            setTimeout('loadAttributes()',500);
+            procesarValorActual();
+            procesarFechaCompra();
+            procesarDepreciacionInicial();
+        }
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

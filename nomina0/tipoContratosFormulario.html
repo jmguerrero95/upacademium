@@ -1,0 +1,223 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_tct" type="hidden" id="serial_tct" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          RECURSOS HUMANOS<br>
+          TIPOS DE CONTRATOS DE TRABAJO
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="414" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="149" height="26"  class="inputtitle">Codigo :</td>
+            <td width="650"> <img src="../images/camporequerido.gif"><input name="codigo_tct" type="text" id="codigo_tct" class="autoincrement" size="7" maxlength="7"  onBlur="esconderToolTip()" fieldid="serial_tct" table="tipocontratostrabajo">
+            </td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Nombre :</td>
+            <td ><img src="../images/camporequerido.gif"><input name="nombre_tct" type="text" id="nombre_tct" class="string" size="60" maxlength="60"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Decimo Tercer Sueldo:</td>
+            <td ><img src="../images/camporequerido.gif"><select name="decimotercero_tct" id="decimotercero_tct" class="combox">
+                <option value="SI">Si</option>
+                <option value="NO">No</option>
+              </select></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Decimo Cuarto Sueldo:</td>
+            <td><img src="../images/camporequerido.gif">
+			<script>
+			          var cdecimocuarto_tct=new omnisoftComboBox('cdecimocuarto_tct','decimocuarto_tct','select serial_bel,nombre_bel  from beneficioslegales order by nombre_bel','350px',true,getURLParam('decimocuarto_tct'));
+                     cdecimocuarto_tct.show();
+	  </script>	
+			
+</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Vacaciones:</td>
+            <td ><img src="../images/camporequerido.gif">
+						<script>
+			          var cvacaciones_tct=new omnisoftComboBox('cvacaciones_tct','vacaciones_tct','select serial_bel,nombre_bel  from beneficioslegales order by nombre_bel','350px',true,getURLParam('vacaciones_tct'));
+                     cvacaciones_tct.show();
+	  </script>	
+
+			</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Fondo de Reserva:</td>
+            <td ><img src="../images/camporequerido.gif">
+									<script>
+			          var cfondoreserva_tct=new omnisoftComboBox('cfondoreserva_tct','fondoreserva_tct','select serial_bel,nombre_bel  from beneficioslegales order by nombre_bel','350px',true,getURLParam('fondoreserva_tct'));
+                     cfondoreserva_tct.show();
+	  </script>	
+
+</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Horas Extras:</td>
+            <td ><img src="../images/camporequerido.gif">
+						<script>
+			          var choraextra_tct=new omnisoftComboBox('choraextra_tct','horaextra_tct','select serial_bel,nombre_bel  from beneficioslegales order by nombre_bel','350px',true,getURLParam('horaextra_tct'));
+                     choraextra_tct.show();
+	  </script>	
+
+</td>
+          </tr>
+          <tr>
+            <td height="25"  class="inputtitle">Horas Suplementarias:</td>
+            <td ><img src="../images/camporequerido.gif">
+						<script>
+			          var chorasuplementaria_tct=new omnisoftComboBox('chorasuplementaria_tct','horasuplementaria_tct','select serial_bel,nombre_bel  from beneficioslegales order by nombre_bel','350px',true,getURLParam('horasuplementaria_tct'));
+                     chorasuplementaria_tct.show();
+	  </script>	
+
+</td>
+          </tr>
+          <tr>
+            <td height="26"  class="inputtitle">Liquidacion :</td>
+            <td ><img src="../images/camporequerido.gif"><select name="liquidacion_tct" id="liquidacion_tct" class="combox">
+                <option value="SI">Si</option>
+                <option value="NO">No</option>
+              </select></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Desahucio :</td>
+            <td ><img src="../images/camporequerido.gif"><select name="desahucio_tct" id="desahucio_tct" class="combox">
+                <option value="SI">Si</option>
+                <option value="NO">No</option>
+              </select></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Jubilacion :</td>
+            <td ><img src="../images/camporequerido.gif"><select name="jubilacion_tct" id="jubilacion_tct" class="combox">
+                <option value="SI">Si</option>
+                <option value="NO">No</option>
+              </select></td>
+          </tr>
+          <tr>
+            <td height="27"  class="inputtitle">Aporte Patronal:</td>
+            <td ><img src="../images/camporequerido.gif">
+						<script>
+			          var caportepatronal_tct=new omnisoftComboBox('caportepatronal_tct','aportepatronal_tct','select serial_bel,nombre_bel  from beneficioslegales order by nombre_bel','350px',true,getURLParam('aportepatronal_tct'));
+                     caportepatronal_tct.show();
+	  </script>	
+
+</td>
+          </tr>
+          <tr>
+            <td height="25"  class="inputtitle">Aporte Personal:</td>
+            <td ><img src="../images/camporequerido.gif">
+						<script>
+			          var caportepersonal_tct=new omnisoftComboBox('caportepersonal_tct','aportepersonal_tct','select serial_bel,nombre_bel  from beneficioslegales order by nombre_bel','350px',true,getURLParam('aportepersonal_tct'));
+                     caportepersonal_tct.show();
+	  </script>	
+
+</td>
+          </tr>
+          <tr>
+            <td height="27"  class="inputtitle">Utilidades :</td>
+            <td ><img src="../images/camporequerido.gif"><select name="utilidades_tct" id="utilidades_tct" class="combox">
+                <option value="SI">Si</option>
+                <option value="NO">No</option>
+              </select></td>
+          </tr>
+          <tr>
+            <td height="25"  class="inputtitle">Contrato Tipo:</td>
+            <td ><input name="contratoModelo_tct" type="file" id="contratoModelo_tct" class="file" size="45" maxlength="255"  onBlur="esconderToolTip()">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="33"  class="inputtitle">Estado:</td>
+            <td ><img src="../images/camporequerido.gif"><select name="estado_tct" id="estado_tct" class="combox">
+                <option value="ACTIVO">Activo</option>
+                <option value="INACTIVO">Inactivo</option>
+              </select></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

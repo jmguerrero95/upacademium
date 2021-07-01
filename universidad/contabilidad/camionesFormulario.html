@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script></head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          GESTION FINANCIERA<br>
+          CAMIONES POR PROVEEDOR
+</center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="291" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td height="24"  class="inputtitle">Proveedor:</td>
+            <td><input name="apellido_pvd" type="text" id="apellido_pvd" class="string" size="20" maxlength="20"  onBlur="esconderToolTip()"table="proveedor" serial="serial_pvd" info="codigo_pvd"></td>
+          </tr>
+          <tr> 
+            <td width="203" height="24"  class="inputtitle">Nombre del Camion:</td>
+            <td width="596"> <input name="nombre_cpr" type="text" id="nombre_cpr" class="string" size="20" maxlength="20"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Tipo del Camion:</td>
+            <td ><input name="tonelaje_cam" type="text" id="tonelaje_cam" class="string" size="20" maxlength="20"  onBlur="esconderToolTip()"table="tipocamiones" serial="serial_cam" info="codigo_cam"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Chofer:</td>
+            <td ><input name="chofer_cpr" type="text" id="chofer_cpr" class="string" size="50" maxlength="60"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Placa:</td>
+            <td ><input name="placa_cpr" type="text" id="placa_cpr" class="string" size="7" maxlength="7"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">A&ntilde;o de Fabricacion:</td>
+            <td ><input name="anio_cpr" type="text" class="number" id="anio_cpr"  onBlur="esconderToolTip()" size="5" maxlength="4"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">No. de Poliza de Seguro:</td>
+            <td ><input name="numeropoliza_cpr" type="text" class="text" id="numeropoliza_cpr"  onBlur="esconderToolTip()" size="20" maxlength="20"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Fecha de Vencimiento de la Poliza:</td>
+            <td ><input name="fechavencimientopoliza_cpr" type="text" id="fechavencimientopoliza_cpr" class="date" size="12" maxlength="10"  onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Dispositivo de Rastreo:</td>
+            <td ><select name="dispositivorastreo_cpr" id="dispositivorastreo_cpr" class="combobox">
+                <option value="No">No</option>
+                <option value="Si">Si</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Estado:</td>
+            <td ><select name="estado_cpr" id="estado_cpr" class="combobox">
+                <option value="Activo">Activo</option>
+                <option value="No Activo">No Activo</option>
+              </select></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	OmnisoftPerfilUsuarioFormulario();
+</script>
+<script type="text/javascript">
+	Calendar.setup({
+		inputField     :    "fechavencimientopoliza_cpr",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

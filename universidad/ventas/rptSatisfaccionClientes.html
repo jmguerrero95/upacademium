@@ -1,0 +1,703 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::Medición de Satisfacción al Cliente</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf8">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<!-- menus -->
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+<link href="lib/common_codethat.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+<script language="javascript1.2" src="../lib/codethatsdk.js"></script>
+<script language="javascript1.2" src="../lib/disableRightClick.js"></script>
+<script language="javascript1.2" src="../lib/codethatmenustd.js"></script>
+<script type="text/javascript" src="../lib/zpmenu/utils/utils.js"></script>
+<script type="text/javascript" src="../lib/zpmenu/src/menu.js"></script>
+<link href="../lib/zpmenu/themes/images.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../lib/window.js"></script>
+<script language="javascript" src="../lib/jsrs/jsrsClient.js"></script>
+<link href="../lib/styles/xp/grid.css" rel="stylesheet" type="text/css" ></link>
+<script src="../lib/grid.js"></script>
+<link href="../lib/omnisoftTemplate.css" rel="stylesheet" type="text/css" ></link>
+<script src="../lib/omnisoftTemplate.js"></script>
+<script language="javascript" src= "../lib/cookies.js" ></script>
+<script language="javascript" src="../lib/omnisoftTools.js"></script>
+<script language="javascript" src="../lib/omnisoftMenu.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+
+<!--
+function MM_preloadImages() { //v3.0
+	var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+	var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+	if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+	var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+	var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+	d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+	if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+	for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+	if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+	var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+	if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+//VARIABLES GLOBALES
+	
+	var SQLmaster='';
+	var SQLselect2 = '';
+	var SQLwhere2 = '';
+	var SQLfiltro2 = '';
+	var SQLgroupby = '';
+	var textoFooter ='';
+	var styleReport ='';
+
+	function alwaysChecked(){
+	   if(!document.PaginaDatos.detallado.checked && !document.PaginaDatos.ejecutivo.checked){
+	   	  document.PaginaDatos.detallado.checked=true;
+	   }
+	}
+	function desmarcarEjecutivo(){
+	  alwaysChecked();
+	  if(document.PaginaDatos.detallado.checked){
+		document.PaginaDatos.ejecutivo.checked=false;
+	  }
+	}
+
+	function desmarcarDetallado(){
+	  alwaysChecked()
+	  if(document.PaginaDatos.ejecutivo.checked){
+		document.PaginaDatos.detallado.checked=false;
+	  }
+	}
+	
+	function cargarValoresIniciales(){
+	   var SQL='';
+	   
+	   SQL = 'SELECT serial_pai, concat(nombre_pai,\'  [\',prefijoTelefonico_pai,\']\') FROM pais ORDER BY serial_pai,nombre_pai';
+	   jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaPais,'omnisoftExecuteSelectDouble',Array(gridDSN,SQL));
+	   
+   	   SQL = 'SELECT serial_reg, nombre_reg FROM region ORDER BY nombre_reg';   
+	   jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaRegion,'omnisoftExecuteSelectDouble',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',SQL));
+
+	   SQL = 'SELECT serial_can, nombre_can FROM canal ORDER BY nombre_can';
+	   jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaCanal,'omnisoftExecuteSelectDouble',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',SQL));
+
+       SQL = 'SELECT serial_tip, concat(tip.codigo_tip,\' \',tip.nombre_tip) FROM tipocliente tip ORDER BY codigo_tip';
+	   jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaVendedor,'omnisoftExecuteSelectDouble',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',SQL));
+
+       SQL = 'SELECT serial_tpr, concat(tpr.codigo_tpr,\' \',tpr.nombre_tpr) FROM tiposprecios tip ORDER BY codigo_tpr';
+	   jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaPrecio,'omnisoftExecuteSelectDouble',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',SQL));
+
+
+	}
+
+//DISTRIBUCION GEOGRAFICA
+	function recuperaPais(data){
+		var col = data.split('|');
+		document.PaginaDatos.serial_pai.options.length = 0;
+		document.PaginaDatos.serial_pai.options[0] = new Option('Todos....', '0');
+		for(var i=1; i<col.length-1; i++){	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_pai.options[i] = new Option(row[1], row[0]);
+		}
+		setTimeout('cargarProvincia()',0);
+	}
+	
+	function cargarProvincia(){
+		var SQL = 'SELECT serial_prv, concat(nombre_prv,\'  [0\',prefijoTelefonico_prv,\']\') FROM provincia WHERE serial_pai = '+parseInt( document.PaginaDatos.serial_pai.value);
+		jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaProvincia,'omnisoftExecuteSelectDouble',Array(gridDSN,SQL));
+	}
+	
+	function recuperaProvincia(data){
+		var col = data.split('|');
+		document.PaginaDatos.serial_prv.options.length = 0;
+		document.PaginaDatos.serial_prv.options[0] = new Option('Todos....', '0');
+		for(var i=1; i<col.length-1; i++){	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_prv.options[i] = new Option(row[1], row[0]);
+		}
+		setTimeout('cargarCiudades()',0);
+	}
+	
+	function cargarCliente()
+	{
+		var SQL = 'SELECT serial_forc, concat(codigo_forc,\'  \',nombre_forc) FROM formacobro ORDER BY codigo_forc ASC';
+		//prompt('test',SQL);
+		jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaCliente,'omnisoftExecuteSelectDouble',Array(gridDSN,SQL));
+	}
+	
+	function recuperaCliente(data)
+	{
+		var col = data.split('|');
+		document.PaginaDatos.serial_forc.options.length = 0;
+		document.PaginaDatos.serial_forc.options[0] = new Option('Todos....', '0');
+		for(var i=1; i<col.length-1; i++){	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_forc.options[i] = new Option(row[1], row[0]);
+		}
+		//setTimeout('cargarCiudades()',0);
+	}
+	
+	function cargarCiudades(){
+	var SQL = 'SELECT serial_ciu, nombre_ciu FROM ciudad WHERE serial_prv = '+parseInt(document.PaginaDatos.serial_prv.value);
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaCiudad,'omnisoftExecuteSelectDouble',Array(gridDSN,SQL));
+	}
+	
+	function recuperaCiudad(data){
+		var col = data.split('|');
+		document.PaginaDatos.serial_ciu.options.length = 0;
+		document.PaginaDatos.serial_ciu.options[0] = new Option('Todos....', '0');
+		for(var i=1; i<col.length-1; i++){	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_ciu.options[i] = new Option(row[1], row[0]);
+		}
+	}
+//DISTRIBUCION INTERNA
+	function recuperaRegion(data){
+		var col = data.split('|');
+		document.PaginaDatos.serial_reg.options.length = 0;
+		document.PaginaDatos.serial_reg.options[0] = new Option('Todos....', '0');
+		for(var i=1; i<col.length-1; i++){	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_reg.options[i] = new Option(row[1], row[0]);
+		}
+	}
+
+	function cargarZona(){
+	var SQL = 'SELECT serial_zon, nombre_zon FROM zona WHERE serial_reg='+document.PaginaDatos.serial_reg.value;
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaZona,'omnisoftExecuteSelectDouble',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',SQL));
+	}
+	
+	function recuperaZona(data){
+		var col = data.split('|');
+	    document.PaginaDatos.serial_zon.options.length = 0;
+		document.PaginaDatos.serial_zon.options[0] = new Option('Todos....', '0');
+		for(var i=1; i<col.length-1; i++){	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_zon.options[i] = new Option(row[1], row[0]);
+		}
+	}
+	
+	function cargarRuta(){
+	var SQL = 'SELECT serial_rut, nombre_rut FROM ruta WHERE serial_zon = '+document.PaginaDatos.serial_zon.value;
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaRuta,'omnisoftExecuteSelectDouble',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',SQL));
+	}
+
+	function recuperaRuta(data){
+		var col = data.split('|');
+	    document.PaginaDatos.serial_rut.options.length = 0;
+		document.PaginaDatos.serial_rut.options[0] = new Option('Todos....', '0');
+		for(var i=1; i<col.length-1; i++){	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_rut.options[i] = new Option(row[1], row[0]);
+		}
+	}
+	
+	function cargarFormaCobro(){
+	var SQL = 'SELECT serial_forc, nombre_forc FROM formacobro ORDER BY nombre_forc ASC ';
+	//prompt('test',SQL);
+	jsrsExecute( '../lib/jsrs/jsrsOmnisoftGridServer.php',recuperaFormaCobro,'omnisoftExecuteSelectDouble',Array('mysql://erp:erp2k6@localhost/erpbaldore?persist',SQL));
+	}
+
+	function recuperaFormaCobro(data){
+		var col = data.split('|');
+	    document.PaginaDatos.serial_forc.options.length = 0;
+		document.PaginaDatos.serial_forc.options[0] = new Option('Todos....', '0');
+		for(var i=1; i<col.length-1; i++){	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_forc.options[i] = new Option(row[1], row[0]);
+		}
+	}
+	
+//CANAL
+	function recuperaCanal(data){
+		var col = data.split('|');
+		document.PaginaDatos.serial_can.options.length = 0;
+		document.PaginaDatos.serial_can.options[0] = new Option('Todos....', '0');
+		for(var i=1; i<col.length-1; i++){	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_can.options[i] = new Option(row[1], row[0]);
+		}
+	}
+//VENDEDOR
+	function recuperaVendedor(data){
+		var col = data.split('|');
+		document.PaginaDatos.serial_tip.options.length = 0;
+		document.PaginaDatos.serial_tip.options[0] = new Option('Todos....', '0');
+		for(var i=1; i<col.length-1; i++){	
+			var row = col[i].split('~');
+			document.PaginaDatos.serial_tip.options[i] = new Option(row[1], row[0]);
+		}
+	}
+
+// SQLs
+	  var totalizadoPor = '';
+	
+	  var serial_pai = '';
+	  var serial_prv = '';
+	  var serial_ciu = '';
+	
+	  var serial_reg = '';
+	  var serial_zon = '';
+	  var serial_rut = '';
+	
+	  var serial_can = '';
+	  var serial_tip = '';
+	
+	  var fechaInicio = '';
+	  var fechaFin = '';
+      var styleReport = '';
+	  var arrayNotes = '';
+	  
+function leerDatos(){
+	  totalizadoPor = document.PaginaDatos.totalizadoPor.value;
+	
+	  serial_pai = document.PaginaDatos.serial_pai.value;
+	  serial_prv = document.PaginaDatos.serial_prv.value;
+	  serial_ciu = document.PaginaDatos.serial_ciu.value;
+	
+	  serial_reg = document.PaginaDatos.serial_reg.value;
+	  serial_zon = document.PaginaDatos.serial_zon.value;
+	  serial_rut = document.PaginaDatos.serial_rut.value;
+	
+	  serial_can = document.PaginaDatos.serial_can.value;
+	  serial_tip = document.PaginaDatos.serial_tip.value;
+	
+	  fechaInicio = document.PaginaDatos.fechaInicio.value;
+	  fechaFin = document.PaginaDatos.fechaFin.value;
+	
+	   if(document.PaginaDatos.detallado.checked){
+			styleReport = 'detallado';
+		}
+	   if(document.PaginaDatos.ejecutivo.checked){
+			styleReport = 'ejecutivo';
+		}
+	
+	    arrayNotes = document.PaginaDatos.serial_pai.options[document.PaginaDatos.serial_pai.selectedIndex].text+'|';
+		arrayNotes +=  document.PaginaDatos.serial_prv.options[document.PaginaDatos.serial_prv.selectedIndex].text+'|';
+        arrayNotes +=  document.PaginaDatos.serial_ciu.options[document.PaginaDatos.serial_ciu.selectedIndex].text+'|';
+        arrayNotes +=  document.PaginaDatos.serial_reg.options[document.PaginaDatos.serial_reg.selectedIndex].text+'|';
+        arrayNotes +=  document.PaginaDatos.serial_zon.options[document.PaginaDatos.serial_zon.selectedIndex].text+'|';
+        arrayNotes +=  document.PaginaDatos.serial_rut.options[document.PaginaDatos.serial_rut.selectedIndex].text+'|';
+        arrayNotes +=  document.PaginaDatos.serial_can.options[document.PaginaDatos.serial_can.selectedIndex].text+'|';
+        arrayNotes +=  document.PaginaDatos.serial_tip.options[document.PaginaDatos.serial_tip.selectedIndex].text+'|';
+        arrayNotes +=  document.PaginaDatos.totalizadoPor.options[document.PaginaDatos.totalizadoPor.selectedIndex].text+'|';
+        arrayNotes +=  getCookie('nombre_usr')+' '+getCookie('apellido_usr');
+
+}
+
+function pasarDatos(){
+ if (parseInt(document.PaginaDatos.totalizadoPor.value)==0){	
+   alert('Seleccione una opcion para totalizar');
+   document.PaginaDatos.totalizadoPor.focus();}
+ else{	
+	 leerDatos();
+	 OmnisoftImprimir('rptventasPDF.php?styleReport='+styleReport+'&totalizadoPor='+totalizadoPor+'&serial_pai='+serial_pai+'&serial_prv='+serial_prv+'&serial_ciu='+serial_ciu+'&serial_reg='+serial_reg+'&serial_zon='+serial_zon+'&serial_rut='+serial_rut+'&serial_can='+serial_can+'&serial_forc='+document.PaginaDatos.serial_forc.value+'&serial_tip='+serial_tip+'&fechaInicio='+fechaInicio+'&fechaFin='+fechaFin+'&footer='+arrayNotes,550,500);
+ }
+}
+function datosExcel(){
+ if (parseInt(document.PaginaDatos.totalizadoPor.value)==0){	
+   alert('Seleccione una opcion para totalizar');
+   document.PaginaDatos.totalizadoPor.focus();}
+ else{	
+  leerDatos()
+  OmnisoftExcel('rptventasExcel.php?styleReport='+styleReport+'&totalizadoPor='+totalizadoPor+'&serial_pai='+serial_pai+'&serial_prv='+serial_prv+'&serial_ciu='+serial_ciu+'&serial_reg='+serial_reg+'&serial_zon='+serial_zon+'&serial_rut='+serial_rut+'&serial_can='+serial_can+'&serial_forc='+document.PaginaDatos.serial_forc.value+'&serial_tip='+serial_tip+'&fechaInicio='+fechaInicio+'&fechaFin='+fechaFin+'&footer='+arrayNotes,850,500);
+ }
+}
+</script>
+<style type="text/css">
+.style3 {font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #FFFFFF; }
+.style4 {
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.Estilo1 {
+	font-size: 10px;
+	font-family: tahoma;
+}
+.Estilo3 {
+	font-family: verdana;
+	font-size: 12px;
+}
+.Estilo4 {font-family: tahoma}
+</style>
+
+</HEAD>
+<BODY onLoad="initDisableRight(); cargarValoresIniciales(); setTimeout('cargarCliente()',0); " onkeydown="keyHandler(event.keyCode);" BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/themes/bot_insertar_b.gif','../images/themes/bot_editar_b.gif','../images/themes/bot_buscar_b.gif','../images/themes/bot_eliminar_b.gif','../images/themes/bot_correo_b.gif','../images/themes/bot_graficar_b.gif','../images/themes/bot_imprimir_b.gif','../images/themes/bot_ayuda_b.gif','../images/themes/bot_acercad_b.gif','../images/themes/bot_salir_b.gif','../images/themes/bot_home_b.gif','../images/themes/bot_inicio_b.gif','../images/themes/bot_anterior_b.gif','../images/themes/bot_siguiente_b.gif','../images/themes/bot_ultimo_b.gif','../images/themes/bot_xml_b.gif','../images/themes/bot_excel_b.gif'); ">
+<style>
+	.titulos {color: #FFFFFF; font-size: 16px;font-family: Arial, Helvetica, sans-serif;}
+.Estilo2 {font-size: 15px}
+.Estilo5 {font-size: 10px}
+</style>
+<script src="../lib/omnisoftGrid.js"></script>
+<script src="../lib/omnisoftAcciones.js"></script>
+<body onLoad="MM_preloadImages('../images/themes/bot_excel_b.gif','../images/themes/bot_xml_b.gif','../images/themes/bot_imprimir_b.gif','../images/themes/bot_home_b.gif')">
+<div style="position:absolute;left:0px;top:0px;display:none">
+	<form name="formSearchFilter"><input type="hidden" name="searchFilter" value=""><input type="hidden" name="searchGUIFilter" value=""></form>
+</div>
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cía. Ltda. www.omnisoft.cc y Baldoré Cía. Ltda. www.baldore.com';</script>
+
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" bgcolor="F2F3F3">
+<tr>
+	<td height="541" valign="top">
+	<div align="center">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>
+		<div align="right">
+		<table width="100%" height="45" border="0" cellpadding="0" cellspacing="0">
+		<tr valign="top">
+			<td width="51%" height="45" valign="bottom" bgcolor="CE3800"><img src="../images/themes/logo_ingenium.gif" width="507" height="45"></td>
+			<td width="23%" valign="middle" bgcolor="CE3800"><div align="left"></div>
+			<div align="center"><font color="#FFFFFF" size="3" face="Arial, Helvetica, sans-serif"><strong>Módulo de Marketing y Ventas<br>Reportes<br>Medición de Satisfacción al Clientes</strong></font></div>
+			<td width="5%" valign="middle" bgcolor="CE3800"><div align="left"></div>
+			<div align="center"><font color="#003366" size="3" face="Arial, Helvetica, sans-serif"><strong><img name="imgFoto" id="imgFoto" src="../images/themes/foto.jpg" width="37" 
+height="45">
+</strong></font><font color="#003366"><strong></strong></font></div></td>
+			<td width="10%" valign="middle" bgcolor="CE3800"><font color="#003366"><strong><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></font></strong></font></td>
+			<td width="9%" valign="bottom" bgcolor="CE3800"><div align="center"><a href="http://www.omnisoft.cc" target="_blank"><img src="../images/themes/log_omnisoft.jpg" width="68" height="30" border="0"></a></div></td>
+			<td width="2%" background="../images/themes/ind_03_middle.jpg">&nbsp;</td>
+		</tr>
+		</table>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td><img src="../images/themes/ind_01_back.jpg" width="100%" height="7"></td>
+		</tr>
+		</table>
+		</div></td>
+	</tr>
+	<tr>
+		<td height="20" background="../images/themes/bg_blue_v.jpg">
+            <ul id="myMenu" class='zpHideOnLoad'>            
+			</ul>
+			<script>
+              OmnisoftPerfilUsuario(moduloVentas);
+            </script>
+		</td>
+	</tr>
+	<tr>
+		<td height="28" valign="top">
+		<table width="100%" height="27" border="0" cellpadding="0" cellspacing="0" background="../images/themes/botones_03.gif">
+		<tr>
+                  <td width="34"><div align="center"></div></td>
+                  <td width="66"><div align="center" id="divCorreo" style="visibility:hidden"><a href="#" onClick="OmnisoftCorreo();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image51','','../images/themes/bot_correo_b.gif',1)"><img src="../images/themes/bot_correo.gif" alt="Correo" name="Image51" width="50" height="27" border="0"></a></div></td>
+                  <td width="61"><div align="center" id="divGraficar" style="visibility:hidden"><a href="#" onClick="OmnisoftGraficar('rptVentasGrafico.php',1027,990);"onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image52','','../images/themes/bot_graficar_b.gif',1)"><img src="../images/themes/bot_graficar.gif" alt="Graficar" name="Image52" width="52" height="27" border="0"></a></div></td>
+                  <td width="65"><div align="center" id="divImprimir" style="visibility:hidden"><a href="#" onClick="pasarDatos();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image531','','../images/themes/bot_imprimir_b.gif',1)"><img src="../images/themes/bot_imprimir.gif" alt="Imprimir" name="Image531" width="50" height="27" border="0" id="Image531"></a></div></td>
+			<td width="69"><div align="center" id="divAyuda" style="visibility:hidden"><a href="#" onClick="OmnisoftAyuda();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image54','','../images/themes/bot_ayuda_b.gif',1)"><img src="../images/themes/bot_ayuda.gif" alt="Ayuda" name="Image54" width="51" height="27" border="0"></a></div></td>
+                  <td width="81"><div align="center" id="divAcerca" style="visibility:hidden"><a href="#" onClick="OmnisoftAcercaDe('../modulos/acerca.html',550,340);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image25','','../images/themes/bot_acercad_b.gif',1)"><img src="../images/themes/bot_acercad.gif" alt="Acerca de" name="Image25" width="51" height="27" border="0"></a></div></td>
+                  <td width="55"><div align="center" id="divSalir" style="visibility:hidden"><a href="javascript:history.go(-1);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image56','','../images/themes/bot_salir_b.gif',1)"><img src="../images/themes/bot_salir.gif" alt="Salir" name="Image56" width="52" height="27" border="0"></a></div></td>
+			<td width="52"><div align="center" id="divHome" style="visibility:hidden"><a href="../modulos/modulos.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image57','','../images/themes/bot_home_b.gif',1)"><img src="../images/themes/bot_home.gif" alt="Home" name="Image57" width="51" height="27" border="0"></a></div></td>
+                  <td width="85"><div align="center" id="divXML" style="visibility:hidden"><a href="#" onClick="OmnisoftXML('regionesXML.php',850,500);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image261','','../images/themes/bot_xml_b.gif',1)"><img src="../images/themes/bot_xml.gif" alt="Exportar a XML" name="Image261" width="50" height="27" border="0" id="Image261"></a></div></td>
+                  <td width="72"><div align="center" id="divExcel" style="visibility:hidden"><a href="#" onClick="datosExcel();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image271','','../images/themes/bot_excel_b.gif',1)"><img src="../images/themes/bot_excel.gif" alt="Exportar a Excel" name="Image271" width="50" height="27" border="0" id="Image271"></a></div></td>
+                  <td width="50"><div align="center"></div></td>
+		</tr>
+        </table>
+		</td>
+	</tr>
+	<tr>
+		<td height="314" valign="top" bgcolor="#EBF2FE">
+		<div align="center">
+		<table width="100%" height="321" border="0" align="center" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="1123" height="176" colspan="2" bgcolor="#FFFFFF">
+			<form name="PaginaDatos" method="POST">
+			<table width="1021" height="529" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td height="15" colspan="11" background="../images/themes/bg_blue_v_1.jpg" class="style1 style4 style5"><div align="center">PARAMETROS</div></td>
+              </tr>
+              <tr>
+                <td height="22" colspan="2" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><div align="left" class="Estilo3"><select name="opt" class="combo" id="opt" style="visibility:hidden; font-family:verdana; font-size:9px"></select></div></td>
+                <td height="22" colspan="2" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="22" colspan="2" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td width="178" height="22" colspan="3" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td width="8" background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+			  </tr>
+              <tr>
+                <td height="20" colspan="2" background="../images/themes/bg_blue_v_1.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><div align="center"><span class="Estilo3">Distribuci&oacute;n Geogr&aacute;fica</span></div></td>
+                <td width="39" height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="20" colspan="6" background="../images/themes/bg_blue_v_1.jpg" class="style1 style4 style5" style="font-family:tahoma; font-size:10px"><div align="center"><span class="Estilo3">Otros Par&aacute;metros</span></div></td>
+                <td width="8" background="../images/themes/titulos.jpg">&nbsp;</td><td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td width="121" height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Pais : </td>
+                <td width="293" background="../images/themes/titulos.jpg"><span class="style1 style4 style5">
+                  <select name="serial_pai" id="serial_pai" class="combo" onChange="cargarProvincia();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px; outline-color:#FF3366">
+                    <option value="0">Todos....</option>
+				  </select>
+                </span></td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="98" background="../images/themes/titulos.jpg"><span class="style1 style4 style5 Estilo4 Estilo5">Canal :</span></td>
+                <td colspan="5" background="../images/themes/titulos.jpg"><span class="style1 style4 style5">
+                  <select name="serial_can" id="serial_can" class="combo" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px;">
+                    <option value="0">Todos....</option>
+                  </select>
+                </span></td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg"><div align="center"></div></td>
+              </tr>
+              <tr>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Provincia :</td>
+                <td background="../images/themes/titulos.jpg">
+				<select name="serial_prv" id="serial_prv"  class="combo" onChange="cargarCiudades();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px;">
+                    <option value="0">Todos....</option>
+				</select></td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg"><span class="style1 style4 style5 Estilo4 Estilo5">Tipo de Cliente  : </span></td>
+                <td colspan="5" background="../images/themes/titulos.jpg" style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5 Estilo4 Estilo5"><span class="style1 style4 style5">
+                  <select name="serial_tip" id="serial_tip" class="combo" onChange="" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:250px; outline-color:#FF3366">
+                    <option value="0">Todos....</option>
+                  </select>
+                </span>
+                </span></td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Ciudad : </td>
+                <td background="../images/themes/titulos.jpg">
+				<select name="serial_ciu" id="serial_ciu" class="combo" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px;">
+                    <option value="0">Todos....</option>
+				</select></td>
+                <td background="../images/themes/titulos.jpg" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg" style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5 Estilo1 Estilo4 Estilo5">Forma de Pago  :</span></td>
+                <td colspan="5" background="../images/themes/titulos.jpg" style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5">
+                  <select name="serial_forc" id="select" class="combo" onChange="" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:250px; outline-color:#FF3366">
+                    <option value="0">Todos....</option>
+                  </select>
+                </span></td>
+                <td background="../images/themes/titulos.jpg" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="20" colspan="2" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><div align="center"></div></td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg"class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><div align="left">Tipo de Precio :</div></td>
+                <td colspan="5" background="../images/themes/titulos.jpg" style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5">
+                  <select name="serial_tpr" id="serial_tpr" class="combo" onChange="" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:250px; outline-color:#FF3366">
+                    <option value="0">Todos....</option>
+                  </select>
+                </span></td>
+                <td background="../images/themes/titulos.jpg" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="20" colspan="2" background="../images/themes/bg_blue_v_1.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><div align="center"><span class="Estilo3">Distribuci&oacute;n Interna </span></div></td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg"class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><div align="left">Estado :</div></td>
+                <td colspan="5" background="../images/themes/titulos.jpg">
+				<select name="estado_cli" id="estado_cli" class="combo" style="font-family:Tahoma; font-size:10px">
+				  <option value="Todos">Todos</option>
+				  <option value="Pendiente">Pendiente</option>
+				  <option value="Activo">Activo</option>
+				  <option value="Moroso">Moroso</option>
+                </select></td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Region :</td>
+                <td background="../images/themes/titulos.jpg">
+				<select name="serial_reg" id="serial_reg" class="combo" onChange="cargarZona();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px;">
+                    <option value="0">Todos....</option>
+				</select></td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg"><span class="style1 style4 style5"><span class="style1 style4 style5 Estilo1 Estilo4 Estilo5">Fecha Inicio :</span></span></td>
+                <td background="../images/themes/titulos.jpg"><span style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5">
+                  <input name="fechaInicio" type="text" class="date" id="fechaInicio" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF;" size="15">
+                </span></span></td>
+                <td background="../images/themes/titulos.jpg"><span style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5"><span class="style1 style4 style5 Estilo1">Fecha Fin : </span></span></span></td>
+                <td colspan="3" background="../images/themes/titulos.jpg"><span style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5">
+                  <input name="fechaFin" type="text" class="date" id="fechaFin" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF;" size="15">
+                </span></span></td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">
+                    <div align="left">Zona :</div></td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">
+				<select name="serial_zon" id="serial_zon"  class="combo" onChange="cargarRuta();"style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px;">
+                    <option value="0">Todos....</option>
+				</select></td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td width="164" height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td width="87" height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="20" colspan="3" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Ruta : </td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">
+				<select name="serial_rut" id="serial_rut" class="combo" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px;">
+                    <option value="0">Todos....</option>
+				</select></td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">
+                </span> </td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="20" colspan="3" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="5" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="5" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="5" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="5" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="5" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="5" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="5" colspan="3" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="9" colspan="9" background="../images/themes/bg_blue_v_1.jpg" class="style1 style4 style5"><div align="center">ESTILO DEL REPORTE</div></td>
+                <td height="9" background="../images/themes/bg_blue_v_1.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="9" background="../images/themes/bg_blue_v_1.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="5" colspan="9" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><div align="center">
+                </div></td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">
+                    <div align="left"><span class="style1 style4 style5 Estilo1">Detallado :</span> </div></td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><input name="detallado" type="checkbox" id="detallado3" onClick="desmarcarEjecutivo();" value="Detallado" checked></td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5 Estilo1">Ejecutivo :</span></td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><input name="ejecutivo" type="checkbox" id="ejecutivo4" onClick="desmarcarDetallado();" value="Ejecutivo"></td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">
+                </span></td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="20" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="21" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5 Estilo1 Estilo4 Estilo5">Totalizado por :</span></td>
+                <td height="21" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">
+                  <select name="totalizadoPor" id="select3" class="combo" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:100px; outline-color:#FF3366">
+                    <option value="anio">Año</option>
+                    <option value="mes">Mes</option>
+                    <option value="dia">Día</option>
+                    <option value="cliente">Cliente</option>
+                  </select>
+                </span></td>
+                <td height="21" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="21" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="21" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="21" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="21" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="21" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td height="21" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="21" colspan="9" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="21" colspan="9" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><input type="hidden" name="header" id="header"></td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="20" colspan="9" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px"><div align="center"></div></td>
+                <td background="../images/themes/titulos.jpg"><div align="center"></div></td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="19" colspan="9" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="19" colspan="9" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="19" colspan="9" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="19" colspan="9" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="19" colspan="9" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="50" colspan="9" background="../images/themes/titulos.jpg" class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">&nbsp;</td>
+                <td background="../images/themes/titulos.jpg">&nbsp;</td>
+                <td width="4" background="../images/themes/titulos.jpg">&nbsp;</td>
+              </tr>
+            </table>
+</form>
+			</td>
+		</tr>
+		<tr>
+		  <td height="140" colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+		  </tr>
+		</table>
+		</div>		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	OmnisoftPerfilUsuarioFormulario();
+   var fhoy=new Date();
+   var mes =fhoy.getUTCMonth()+1;
+	if (document.PaginaDatos.fechaInicio.value=='')
+        document.PaginaDatos.fechaInicio.value=fhoy.getYear()+'-'+mes+'-'+  fhoy.getUTCDate();
+
+		Calendar.setup({
+		inputField     :    "fechaInicio",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+
+	if (document.PaginaDatos.fechaFin.value=='')
+        document.PaginaDatos.fechaFin.value=fhoy.getYear()+'-'+mes+'-'+  fhoy.getUTCDate();
+
+		Calendar.setup({
+		inputField     :    "fechaFin",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+
+</script>
+</body>
+</HTML>

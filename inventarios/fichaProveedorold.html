@@ -1,0 +1,167 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script type="text/javascript" src="../lib/fisheyes/jquery.js"></script>
+<script type="text/javascript" src="../lib/fisheyes/interface.js"></script>
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+
+
+<!--[if lt IE 7]>
+ <style type="text/css">
+ .dock img { behavior: url(../lib/fisheyes/iepngfix.htc) }
+ </style>
+<![endif]-->
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+</HEAD>
+<BODY onLoad="initDisableRight();"  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td height="541" valign="top">
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top">
+                    <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td>                    <td width="482"  class="toptitle" > <center>
+MODULO
+                        DE INVENTARIOS<br>FICHA DE PROVEEDORES</center></td>
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>  <td height="20" class="menuborder" >
+		<ul id="myMenu" class='zpHideOnLoad'>            </ul>
+        <script>
+              OmnisoftPerfilUsuario(moduloInventarios);
+            </script>
+</td>
+
+          </tr>
+          <tr>            <td height="412" valign="top" >
+			<div align="center">
+                <table width="100%" height="447" border="0" align="center" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="1123" height="447" colspan="2" >
+        <script>
+        <!--omniObj=new omnisoftGrid('omniObj','proveedor','serial_pvd','SELECT prv.serial_pvd, prv.codigo_pvd, prv.razonSocial_pvd, prv.personeriaJuridica_pvd, nombre_tpd,  prv.rucCedula_pvd, prv.direccion_pvd, nombre_ciu, prv.telefono1_pvd, prv.fax_pvd, celular_pvd, prv.tiempoDeEntrega_pvd, prv.correoElectronico_pvd, prv.estado_pvd, prv.autorizacionSri_pvd, prv.fechaAutorizacionSri_pvd, prv.cumpleanosProveedor_pvd, prv.telefono2_pvd,  prv.descuento_pvd, prv.nombreVentas_pvd, prv.apellidoVentas_pvd, prv.telefonoVentas_pvd, prv.correoElectronicoVentas_pvd, prv.sobrenombreVentas_pvd, prv.aniversarioVentas_pvd, prv.nombreCobros_pvd, prv.apellidoCobros_pvd, prv.telefonoCobros_pvd, prv.sobrenombreCobros, prv.correoelectronicoCobros_pvd, prv.aniversarioCobros_pvd, prv.proveedorDesde_pvd, prv.fechaInicioSri_pvd, prv.actividadEconomicaSri_pvd, prv.tipoSri_pvd, prv.estadoSri_pvd, prv.imprenta_pvd, prv.rucImprenta_pvd, prv.numeroAutorizacion_pvd, prv.fechaAutorizacion_pvd, prv.nombre_pvd, prv.apellido_pvd, prv.elaboradoPor_pvd, prv.modificadoPor_pvd, prv.fechaModificacion_pvd, prv.aprobadoPor_pvd, prv.fechaAprobacion_pvd, f.serial_forp, ci.serial_ciu, t.serial_tpd, pr.serial_prv, p.serial_pai, prv.parroquia_pvd FROM proveedor as prv LEFT JOIN ciudad AS ci ON ci.serial_ciu = prv.serial_ciu LEFT JOIN provincia AS pr ON pr.serial_prv = ci.serial_prv LEFT JOIN pais AS p ON p.serial_pai = pr.serial_pai LEFT JOIN formaspago as f ON f.serial_forp=prv.serial_forp LEFT JOIN tipoproveedor as t ON t.serial_tpd=prv.serial_tpd where prv.categoria_pvd='Mercaderia'','proveedoresHistorial.html',550,133);-->
+   var sql = "SELECT prv.serial_pvd, prv.codigo_pvd, prv.razonSocial_pvd, prv.personeriaJuridica_pvd, nombre_tpd,  prv.rucCedula_pvd, prv.direccion_pvd, nombre_ciu, prv.telefono1_pvd, prv.fax_pvd, celular_pvd, prv.tiempoDeEntrega_pvd, prv.correoElectronico_pvd, prv.estado_pvd, prv.autorizacionSri_pvd, prv.fechaAutorizacionSri_pvd, prv.cumpleanosProveedor_pvd, prv.telefono2_pvd,  prv.descuento_pvd, prv.nombreVentas_pvd, prv.apellidoVentas_pvd, prv.telefonoVentas_pvd, prv.correoElectronicoVentas_pvd, prv.sobrenombreVentas_pvd, prv.aniversarioVentas_pvd, prv.nombreCobros_pvd, prv.apellidoCobros_pvd, prv.telefonoCobros_pvd, prv.sobrenombreCobros, prv.correoelectronicoCobros_pvd, prv.aniversarioCobros_pvd, prv.proveedorDesde_pvd, prv.fechaInicioSri_pvd, prv.actividadEconomicaSri_pvd, prv.tipoSri_pvd, prv.estadoSri_pvd, prv.imprenta_pvd, prv.rucImprenta_pvd, prv.numeroAutorizacion_pvd, prv.fechaAutorizacion_pvd, prv.nombre_pvd, prv.apellido_pvd, prv.elaboradoPor_pvd, prv.modificadoPor_pvd, prv.fechaModificacion_pvd, prv.aprobadoPor_pvd, prv.fechaAprobacion_pvd, f.serial_forp, ci.serial_ciu, t.serial_tpd, pr.serial_prv, p.serial_pai, prv.parroquia_pvd FROM proveedor as prv LEFT JOIN ciudad AS ci ON ci.serial_ciu = prv.serial_ciu LEFT JOIN provincia AS pr ON pr.serial_prv = ci.serial_prv LEFT JOIN pais AS p ON p.serial_pai = pr.serial_pai LEFT JOIN formaspago as f ON f.serial_forp=prv.serial_forp LEFT JOIN tipoproveedor as t ON t.serial_tpd=prv.serial_tpd where prv.categoria_pvd='Mercaderia'";
+   omniObj=new omnisoftGrid('omniObj','proveedor','serial_pvd',sql,'proveedoresHistorial.html',550,133);
+
+   omniObj.addColumn('Serial','serial_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Código','codigo_pvd', 5,'string','','middle','#ffffcc');
+   omniObj.addColumn('Razón Social','razonSocial_pvd', 13,'string','','middle','#ffffcc');
+   omniObj.addColumn('Personería','personeriaJuridica_pvd', 6,'string','','middle','#ffffcc');
+   omniObj.addColumn('Tipo de Proveedor','nombre_tpd', 12,'string','','middle','#ffffcc');
+   omniObj.addColumn('RUC/Cédula','rucCedula_pvd', 11,'string','','middle','#ffffcc');
+   omniObj.addColumn('Dirección','direccion_pvd', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Ciudad','nombre_ciu', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Teléfono','telefono1_pvd', 8,'string','','middle','#ffffcc');
+   omniObj.addColumn('Fax','fax_pvd', 8,'string','','middle','#ffffcc');
+   omniObj.addColumn('Celular','celular_pvd', 8,'string','','middle','#ffffcc');
+   omniObj.addColumn('Tiempo Entrega','tiempoDeEntrega_pvd', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('E-mail','correoElectronico_pvd', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Estado','estado_pvd', 8,'string','','middle','#ffffcc');
+   omniObj.addColumn('Nombre Representante','nombreRepresentante_pvd', 12,'string','','middle','#ffffcc');
+   omniObj.addColumn('Autorización SRI','autorizacionSri_pvd', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Fecha Autorización SRI','fechaAutorizacionSri_pvd', 12,'string','','middle','#ffffcc');
+   omniObj.addColumn('Apellido Rep.','apellidoRepresentante_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Cumpleaños Prov.','cumpleanosProveedor_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Telefono2','telefono2_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Descuento','descuento_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Nombre Vtas.','nombreVentas_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Apellido Vtas.','apellidoVentas_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Teléfono Vtas.','telefonoVentas_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('E-mail Vtas.','correoElectronicoVentas_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Apodo Vtas.','sobrenombreVentas_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Aniversario Vtas.','aniversarioVentas_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Nombre Cobros','nombreCobros_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Apellido Cobros','apellidoCobros_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Teléfono Cobros','telefonoCobros_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Apodo Cobros','sobrenombreCobros', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('E-mail Cobros','correoElectronicoCobros_pvd','','middle','#ffffcc');
+   omniObj.addColumn('Aniversario Cobros','aniversarioCobros_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Proveedor Desde','proveedorDesde_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('SRI desde','fechaInicioSri_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Actividad Económica','actividadEconomicaSri_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Tipo SRI','tipoSri_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Estado SRI','estadoSri_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Impreso Por','imprenta_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('RUC imprenta','rucImprenta_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Número Aut.','numeroAutorizacion_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Fecha Aut.','fechaAutorizacion_pvd','','middle','#ffffcc');
+   omniObj.addColumn('Nombre','nombre_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Apellido','apellido_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('elaboradoPor_pvd','elaboradoPor_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('modificadoPor_pvd','modificadoPor_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('fechaModificacion_pvd','fechaModificacion_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('aprobadoPor_pvd','aprobadoPor_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('fechaAprobacion_pvd','fechaAprobacion_pvd', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_forp','serial_forp', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_ciu','serial_ciu', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_tpd','serial_tpd','','middle','#ffffcc');
+   omniObj.addColumn('serial_prv','serial_prv', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('serial_pai','serial_pai', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('parroquia_pvd','parroquia_pvd', 1,'hidden','','middle','#ffffcc');   omniObj.showGrid('omniObj',20,482,1020,'menu','#FF9900');
+</script></td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<table width="100%" height="58"  cellpadding="0" cellspacing="0" >
+<tr>
+<td class="menuborder"> </td>
+</tr>
+</table>
+</body>
+
+              
+</HTML>

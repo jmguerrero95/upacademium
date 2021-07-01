@@ -1,0 +1,17 @@
+.aw-alternate-even {background: #efe}
+.aw-alternate-odd {background: #def}
+.aw-mouseover-row {background: navy; color:white}
+.aw-grid-cell {border-right: 1px solid threedlightshadow #ccf}
+.aw-header-0 .aw-item-box {background-image: url(../../../images/bg_blue.jpg);border-bottom-color:#c4c4c4;}
+.aw-header-0 .aw-grid-header {background:#660033;border-bottom-color:#adadad;}
+.aw-header-1 .aw-item-box {background-image: url(../../../images/bg_blue.jpg);border-bottom-color:#c4c4c4;}
+.aw-header-1 .aw-grid-header {background:#660033;border-bottom-color:#adadad;}
+.aw-header-2 .aw-item-box {background-image: url(../../../images/bg_blue.jpg);border-bottom-color:#c4c4c4;}
+.aw-header-2 .aw-grid-header {background:#660033;border-bottom-color:#adadad;}
+.aw-row-selector .aw-item-box { background-image: url(../../../images/bg_blue.jpg);}
+.aw-footer-0 .aw-item-box {background-image: url(../../../images/bg_blue.jpg);border-bottom-color:#c4c4c4;}
+.aw-footer-0 .aw-grid-footer {background:#660033;border-bottom-color:#adadad;border-right: 1px solid threedlightshadow #ccf}
+.aw-footer-1 .aw-item-box {background-image: url(../../../images/bg_blue.jpg);border-bottom-color:#c4c4c4;}
+.aw-footer-1 .aw-grid-footer {background:#660033;border-bottom-color:#adadad;border-right: 1px solid threedlightshadow #ccf}
+
+

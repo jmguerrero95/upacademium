@@ -1,0 +1,270 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::Materia Estudiante</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf8">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<!-- menus -->
+
+<link href="lib/common_codethat.css" rel="stylesheet" type="text/css">
+<script language="javascript1.2" src="../lib/codethatsdk.js"></script>
+<script language="javascript1.2" src="../lib/disableRightClick.js"></script>
+<script language="javascript1.2" src="../lib/codethatmenustd.js"></script>
+
+<script type="text/javascript" src="../lib/zpmenu/utils/utils.js"></script>
+<script type="text/javascript" src="../lib/zpmenu/src/menu.js"></script>
+<link href="../lib/zpmenu/themes/images.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../lib/window.js"></script>
+<script language="javascript" src="../lib/jsrs/jsrsClient.js"></script>
+<link href="../lib/styles/xp/grid.css" rel="stylesheet" type="text/css" ></link>
+
+<script src="../lib/grid.js"></script>
+<link href="../lib/omnisoftTemplate.css" rel="stylesheet" type="text/css" ></link>
+
+<script src="../lib/omnisoftTemplate.js"></script>
+<script language="javascript" src= "../lib/cookies.js" ></script>
+<script language="javascript" src="../lib/omnisoftMenu.js"></script>
+
+
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+<style type="text/css">
+.style3 {font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #FFFFFF; }
+.style4 {
+	color: #FFFFFF;
+	font-weight: bold;
+}
+</style>
+
+</HEAD>
+<BODY onLoad="initDisableRight();" onkeydown="keyHandler(event.keyCode);" BGCOLOR=#FFFFFF LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+<style>
+	.titulos {color: #FFFFFF; font-size: 16px;font-family: Arial, Helvetica, sans-serif;}
+</style>
+
+<script src="../lib/omnisoftGrid.js"></script>
+<script src="../lib/omnisoftAcciones.js"></script>
+
+<div style="position:absolute;left:0px;top:0px;display:none">
+	<form name="formSearchFilter"><input type="hidden" name="searchFilter" value=""><input type="hidden" name="searchGUIFilter" value=""></form>
+</div>
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cía. Ltda. www.omnisoft.cc ';</script>
+<body>
+<center>
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" bgcolor="F2F3F3">
+<tr>
+	<td height="541" valign="top">
+	<div align="center">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td>
+		<div align="right">
+		<table width="100%" height="45" border="0" cellpadding="0" cellspacing="0">
+		<tr valign="top">
+			<td width="40%" height="45" valign="bottom" bgcolor="020255"><img src="../images/logo_ingenium.gif" width="507" height="45"></td>
+			<td width="25%" valign="bottom" bgcolor="020255"><div align="center"><font color="#FFFFFF" size="3" face="Arial, Helvetica, sans-serif"><strong>M&oacute;dulo Académico<br>Parametrizaci&oacute;n<br>Carreras</strong></font></div></td>
+			<td width="6%" valign="bottom" bgcolor="020255"><div align="right"><font color="#003366" size="3" face="Arial, Helvetica, sans-serif"><strong><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></strong></font></div></td>
+			<td width="15%" valign="middle" bgcolor="020255"><div align="left"></div>
+			<div align="center"><font color="#003366"><strong><font color="#FFFFFF" size="2" face="Arial, Helvetica, sans-serif"><script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></font></strong></font></div></td>
+			<td width="12%" valign="bottom" bgcolor="020255"><div align="center"><a href="http://www.omnisoft.cc" target="_blank"><img src="../images/log_omnisoft.jpg" width="68" height="30" border="0"></a></div></td>
+			<td width="2%" background="../images/ind_03_middle.jpg">&nbsp;</td>
+		</tr>
+		</table>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	<tr>
+		<td height="20" background="../images/bg_blue_v.jpg">
+		<ul id="myMenu" class='zpHideOnLoad'>
+			<li id='parametrizar'>
+			<a href="#">Parámetros</a><br>
+			<ul>
+				<li id='parametros'> <img border='0' src='../lib/zpmenu/themes/icon/icon_new.gif'> <a href="../academico/facultad.html">Facultades</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_save_asweb.gif'> <a href="../academico/Titulo.html">Carreras</a> </li>
+				<li><hr></li>
+                <li> <img border='0' src='../lib/zpmenu/themes/icon/icon_open.gif'><a href="../academico/programas.html">Programas</a></li>
+				<li> <img border='0' src='../lib/zpmenu/themes/icon/icon_office.gif'> <a href="../academico/especialidad.html">Especialidades</a></li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_find.gif'> <a href="../academico/periodoAcademico.html">Periodos Academicos</a></li>
+				<li> <img border='0' src='../lib/zpmenu/themes/icon/icon_open.gif'><a href="../academico/materia.html">Materias</a></li>
+				<li> <img border='0' src='../lib/zpmenu/themes/icon/icon_open.gif'><a href="../academico/nivel.html">Niveles</a></li>
+				<li> <img border='0' src='../lib/zpmenu/themes/icon/icon_open.gif'><a href="../academico/paralelo.html">Paralelos</a></li>
+				<li> <img border='0' src='../lib/zpmenu/themes/icon/icon_open.gif'><a href="../academico/recursosFisicos.html">Recursos Físicos</a></li>
+				<li> <img border='0' src='../lib/zpmenu/themes/icon/icon_open.gif'><a href="../academico/recursosAcademicos.html">Recursos Academicos</a></li>
+				<li> <img border='0' src='../lib/zpmenu/themes/icon/icon_open.gif'><a href="../academico/aulas.html">Aulas</a></li>
+
+			</ul>
+			</li>
+			<li id='administracion'>
+			<a href="#">Administracion</a><br>
+			<ul>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_cut.gif'> <a href='../academico/admision.html'>Admisiones</a>  </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Matriculas</a> </li>
+				<!--<li><img border='0' src='../lib/zpmenu/themes/icon/icon_save_asweb.gif'> <a href="../academico/distribucionProfesores.html">Distribución Docentes</a> </li>-->
+				<li><hr></li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_office.gif'> <a href='../academico/materiaEstudiante.html'>Materia - Nivel</a>  </li> <li><img border='0' src='../lib/zpmenu/themes/icon/icon_office.gif'> <a href='../academico/materiaProfesor.html'>Materia - Docente</a>  </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_office.gif'> <a href='../academico/materiaEstudiante.html'>Materia - Estudiante</a>  </li>
+				<li><hr></li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_office.gif'> <a href='../academico/materiaEstudiante.html'>Horarios</a>  </li>
+			<li><img border='0' src='../lib/zpmenu/themes/icon/icon_office.gif'> <a href='../academico/aulasRecursosAcademicos.html'>Aulas Recursos Académicos</a>  </li>
+		         <li><img border='0' src='../lib/zpmenu/themes/icon/icon_office.gif'> <a href='../academico/aulasRecursosFisicos.html'>Aulas Recursos Físicos</a>  </li>
+                               <!-- <li><img border='0' src='../lib/zpmenu/themes/icon/icon_office.gif'> <a href='../academico/distribucionAulas.html'>Distribucion Aulas</a>  </li>-->
+
+			</ul>
+			</li>
+			<li id='aprobaciones'>
+			<a href="#">Aprobaciones</a><br>
+			<ul>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Matricula</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_cut.gif'> <a href='../academico/admision.html'>Materia - Estudiante</a>  </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Creditos - Estudiante </a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Registro Notas Profesor </a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Actas Homologacion</a> </li>
+
+			</ul>
+			</li>
+			<li id='evaluaciones'>
+			<a href="#">Evaluaciones</a><br>
+			<ul>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Dimensiones</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_cut.gif'> <a href='../academico/admision.html'>Criterios</a>  </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Informantes</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Profesores evaluados</a> </li>
+				<li><hr></li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Crear Evaluacion</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Evaluar</a> </li>
+
+			</ul>
+			</li>
+
+
+
+
+
+			<li id='reportes'>
+			<a href="#">Reportes</a><br>
+			<ul>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Cursos x materia x paralelo</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_cut.gif'> <a href='../academico/admision.html'>Estudiantes x creditos</a>  </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Mejores Promedios</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Estudiantes Condicionados</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Perdida de Becas</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Estudiantes Reprobados</a> </li>
+				<li><hr></li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Actas de Homologacion</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Estudiantes x programa</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Estudiantes que NO evaluaron</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Promedio de todos los estudiantes</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Cuadro de honores</a> </li>
+				<li><hr></li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Disponibilidad de Horarios</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Graduados</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Estudiantes x Fecha Ingreso</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Estudiantes Nuevos</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Deserción de estudiantes</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Estadista alumnos reprobados</a> </li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">Materias Compartidas</a> </li>
+				<li><hr></li>
+				<li><img border='0' src='../lib/zpmenu/themes/icon/icon_copy.gif'> <a href="../academico/matricula.html">CONESUP</a> </li>
+
+			</ul>
+			</li>
+
+		</ul>
+       	<script type="text/javascript">
+
+			var menu = new Zapatec.Menu('myMenu',{glide:true});
+		</script>
+		</td>
+	</tr>
+	<tr>
+		<td height="28" valign="top">
+		<table width="100%" height="27" border="0" cellpadding="0" cellspacing="0" background="../images/botones_03.gif">
+		<tr>
+			<td width="34"><div align="center"></div></td>
+			<td width="67"><div align="center"><a href="#" onClick="OmnisoftInsertarFila('materiaEstudianteFormulario.html',555,187);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image47','','../images/bot_insertar_b.gif',1)"><img src="../images/bot_insertar.gif" alt="Insertar" name="Image47" width="50" height="27" border="0"></a></div></td>
+			<td width="56"><div align="center"><a href="#" onClick="OmnisoftEditarFila('materiaEstudianteFormulario.html',555,187);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image48','','../images/bot_editar_b.gif',1)"><img src="../images/bot_editar.gif" alt="Editar" name="Image48" width="52" height="27" border="0"></a></div></td>
+			<td width="56"><div align="center"><a href="#" onClick="OmnisoftBuscar();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image49','','../images/bot_buscar_b.gif',1)"><img src="../images/bot_buscar.gif" alt="Buscar" name="Image49" width="51" height="27" border="0"></a></div></td>
+			<td width="52"><div align="center"><a href="#" onClick="OmnisoftEliminarFila();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image50','','../images/bot_eliminar_b.gif',1)"><img src="../images/bot_eliminar.gif" alt="Eliminar" name="Image50" width="50" height="27" border="0"></a></div></td>
+			<td width="66"><div align="center"><a href="#" onClick="OmnisoftCorreo();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image51','','../images/bot_correo_b.gif',1)"><img src="../images/bot_correo.gif" alt="Correo" name="Image51" width="50" height="27" border="0"></a></div></td>
+			<td width="61"><div align="center"><a href="#" onClick="OmnisoftGraficar('materiaEstudientaFormulario.html',550,210);"onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image52','','../images/bot_graficar_b.gif',1)"><img src="../images/bot_graficar.gif" alt="Graficar" name="Image52" width="52" height="27" border="0"></a></div></td>
+			<td width="65"><div align="center"><a href="#" onClick="OmnisoftImprimir('materiaEstudientaPDF.php',550,500);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image53','','../images/bot_imprimir_b.gif',1)"><img src="../images/bot_imprimir.gif" alt="Imprimir" name="Image53" width="50" height="27" border="0"></a></div></td>
+			<td width="69"><div align="center"><a href="#" onClick="OmnisoftAyuda();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image54','','../images/bot_ayuda_b.gif',1)"><img src="../images/bot_ayuda.gif" alt="Ayuda" name="Image54" width="51" height="27" border="0"></a></div></td>
+			<td width="81"><div align="center"><a href="#" onClick="OmnisoftAcercaDe('../acerca.html',550,340);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image25','','../images/bot_acercad_b.gif',1)"><img src="../images/bot_acercad.gif" alt="Acerca de" name="Image25" width="51" height="27" border="0"></a></div></td>
+			<td width="55"><div align="center"><a href="javascript:history.go(-1);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image56','','../images/bot_salir_b.gif',1)"><img src="../images/bot_salir.gif" alt="Salir" name="Image56" width="52" height="27" border="0"></a></div></td>
+			<td width="76"><div align="center"><a href="../modulos.html" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image57','','../images/bot_home_b.gif',1)"><img src="../images/bot_home.gif" alt="Home" name="Image57" width="51" height="27" border="0"></a></div></td>
+			<td width="88"><div align="center"><a href="javascript:omnisoftGoToPage(-Infinity);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image21','','../images/bot_inicio_b.gif',1)"><img src="../images/bot_inicio.gif" alt="Inicio" name="Image21" width="50" height="27" border="0"></a></div></td>
+			<td width="71"><div align="center"><a href="javascript:omnisoftGoToPage(-1);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image22','','../images/bot_anterior_b.gif',1)"><img src="../images/bot_anterior.gif" alt="Anterior" name="Image22" width="50" height="27" border="0"></a></div></td>
+			<td width="84"><div align="center"><a href="javascript:omnisoftGoToPage(1);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image23','','../images/bot_siguiente_b.gif',1)"><img src="../images/bot_siguiente.gif" alt="Siguiente" name="Image23" width="50" height="27" border="0"></a></div></td>
+			<td width="77"><div align="center"><a href="javascript:omnisoftGoToPage(Infinity);" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image24','','../images/bot_ultimo_b.gif',1)"><img src="../images/bot_ultimo.gif" alt="Ultimo" name="Image24" width="50" height="27" border="0"></a></div></td>
+			<td width="85"><div align="center"><a href="#" onClick="OmnisoftXML();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image26','','../images/bot_xml_b.gif',1)"><img src="../images/bot_xml.gif" alt="Exportar a XML" name="Image26" width="50" height="27" border="0"></a></div></td>
+			<td width="72"><div align="center"><a href="#" onClick="OmnisoftExcel();" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image27','','../images/bot_excel_b.gif',1)"><img src="../images/bot_excel.gif" alt="Exportar a Excel" name="Image27" width="50" height="27" border="0"></a></div></td>
+			<td width="50"><div align="center"></div></td>
+		</tr>
+		</table>
+		</td>
+	</tr>
+	<tr>
+		<td height="412" valign="top" bgcolor="#EBF2FE">
+		<div align="center">
+		<table width="100%" height="447" border="0" align="center" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="1123" height="447" colspan="3" bgcolor="#FFFFFF">
+			<script>
+prompt('test','SELECT mes.serial_mes, concat( fac.codigo_fac,\' \', fac.nombre_fac ) AS facultad, concat( car.codigo_car,\' \', car.nombre_car ) AS carrera, concat( esp.codigo_esp, \' \', esp.nombre_esp ) AS especialidad, concat( mat.codigo_mat,\' \', mat.nombre_mat ) AS materia, concat( alu.apellido_alu,\' \', alu.nombre_alu ) AS alumno, car.serial_car, fac.serial_fac FROM materiaestudiante mes, materia mat, alumno alu, facultad fac, carrera car, especialidad esp, materiaespecialidad me WHERE fac.serial_fac = car.serial_fac AND car.serial_car = esp.serial_car AND esp.serial_esp = me.serial_esp AND me.serial_mat = mat.serial_mat AND me.serial_esp = mes.serial_esp AND mat.serial_mat = mes.serial_mat AND alu.serial_alu = mes.serial_alu ');
+
+OmnisoftGrid('maingrid','materiaEstudiante.html','materiaEstudianteFormulario.html','mysql://root:mysql@localhost/erp1?persist','materiaestudiante','serial_mes','SELECT mes.serial_mes, concat( fac.codigo_fac, \' \', fac.nombre_fac ) AS facultades, concat( car.codigo_car, \' \', car.nombre_car ) AS carreras, concat( esp.codigo_esp, \' \', esp.nombre_esp ) AS especialidades, concat( mat.codigo_mat, \' \', mat.nombre_mat ) AS materias, concat( alu.apellido_alu, \' \', alu.nombre_alu ) AS alumnos, car.serial_car, fac.serial_fac FROM materiaestudiante mes, materia mat, alumno alu, facultad fac, Titulo car, especialidad esp WHERE fac.serial_fac = car.serial_fac AND car.serial_car = esp.serial_car AND esp.serial_esp = mat.serial_esp AND mat.serial_mat = mes.serial_mat AND alu.serial_alu = mes.serial_alu');
+				OmnisoftAddColumn('maingrid','Serial','serial_mes', 10,'hidden','','','middle','');
+				OmnisoftAddColumn('maingrid','Facultad','facultades',150,'readonly','','','middle','');
+                                OmnisoftAddColumn('maingrid','Titulo','carreras', 150,'readonly','','','middle','');
+                                OmnisoftAddColumn('maingrid','Especialidad','especialidades', 150,'readonly','','','middle','');
+                                OmnisoftAddColumn('maingrid','Materia','materias', 150,'readonly','','','middle','');
+                                OmnisoftAddColumn('maingrid','Alumnos','alumnos', 150,'readonly','','','middle','');
+                                OmnisoftAddColumn('maingrid','serial_car','serial_car', 100,'readonly','','','middle','');
+				OmnisoftAddColumn('maingrid','serial_fac','serial_fac', 100,'hidden','','','middle','');
+
+                                OmnisoftShowGrid(23,440,1020,'menu','#CCF2FF');
+			</script>
+			</td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+</center>
+</body>
+</HTML>

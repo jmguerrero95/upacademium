@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::Usuario Aseguradora</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+.style1 {
+	font-family: Arial, Helvetica, sans-serif;
+	color: navy;
+	font-weight: bold;
+	font-size: 18px;
+}
+.style4 {
+	color: #000066;
+	font-size: 12px;
+}
+-->
+</style>
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script></head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_usa" type="hidden" id="serial_usa" class="hidden">
+
+<table width="550" border="0" cellspacing="0" cellpadding="0" background="../images/bg_blue_v.jpg">
+<tr>
+	<td height="52"  background="../images/pag_inter2_02.gif"><div align="center"><span class="style1"> SISTEMA::USUARIO ASEGURADORA</span></div></td>
+</tr>
+<tr>
+	<td height="30">
+	<table width="768" height="61" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td width="178" height="25" background="../images/titulos.jpg" class="style1 style4 style5">C&oacute;digo :</td>
+		<td colspan="2" background="../images/titulos.jpg"><input name="serial_usa" type="text" id="serial_usa" class="hidden" size="11" maxlength="11"  onBlur="esconderToolTip()"></td>
+	</tr>
+	<tr>
+		<td height="36" background="./images/titulos.jpg" class="style1 style4"><span class="style1 style4 style5">Aseguradora :</span></td>
+		<td colspan="4" background="../images/titulos.jpg"><input name="nombre_emp" type="text" id="nombre_emp" class="string" size="20" maxlength="20"  onBlur="esconderToolTip()"></td>
+		<td width="10" background="../images/titulos.jpg">&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="178" height="25" background="../images/titulos.jpg" class="style1 style4 style5">Usuario :</td>
+		<td colspan="2" background="../images/titulos.jpg"><input name="nombre_usr" type="text" id="nombre_usr" class="string" size="20" maxlength="20"  onBlur="esconderToolTip()"></td>
+	</tr>
+	</table>
+	</td>
+</tr>
+
+<tr bgcolor="ccccff">
+	<td height="30" align="center">
+	<table width="768" border="0" cellpadding="0" cellspacing="0" background="../images/bg_blue_v.jpg">
+		<tr>
+			<td width="63"><div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="checkForm(document.PaginaDatos);"><img src="../images/aceptar.gif" width="52" height="49" border="0" align="left"></a></div></td>
+			<td width="626">&nbsp;</td>
+			<td width="70"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:window.close();"><img src="../images/cancelar.gif" width="55" height="49" border="0" align="right"></a></div></td>
+      </tr>
+	</table>
+	</td>
+</tr>
+</table>
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script>
+
+function recuperarDatos(data) {
+  // alert(data);
+}
+
+
+function grabarIngresoEgreso() {
+    actualizarDatosProducto();
+     omnisoftGrabar();
+}
+
+
+function cargarDatos() {
+          seleccionarProveedor();
+          seleccionarFacturaCompra();
+
+}
+</script>
+
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_ieb" type="hidden" id="serial_ieb" class="hidden" >
+<input name="proveedor_ieb" type="hidden" id="proveedor_ieb"  class="hidden">
+<input name="serial_tib" type="hidden" id="serial_tib"  class="hidden" value="2">
+<input name="proveedorTransporte_ieb" type="hidden" id="proveedorTransporte_ieb"  class="hidden" >
+<input name="bodegadestino_ieb" type="hidden" id="bodegadestino_ieb"  class="hidden" >
+<input name="tipoDocumentoGenera_ieb" type="hidden" id="tipoDocumentoGenera_ieb"  class="hidden" value="NOTA DE DEBITO" >
+<input name="serial_odc" type="hidden" id="serial_odc"  class="hidden"  >
+<input name="serial_facc" type="hidden" id="serial_facc"  class="hidden"  >
+<input name="numeroFactura_ieb" type="hidden" id="numeroFactura_ieb"  class="hidden"  >
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="150" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          INVENTARIOS<br>
+          EGRESOS POR DEVOLUCION A PROVEEDORES
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="195" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="24"  class="inputtitle">Numero :</td>
+<td>
+
+                     	  <input name="numeroDocumento_ieb" type="text" id="numeroDocumento_ieb" size="10" maxlength="10" class="autoincrement" style="background-color:#FFFF00" table='ingresoegresodebodega' fieldid='serial_ieb' readonly>                     	  </td>
+            <td width="142" class="inputtitle">Fecha :</td>
+            <td colspan="3"><input name="fecha_ieb" type="text" id="fecha_ieb" class="date" size="10" maxlength="10"  onBlur="esconderToolTip(); formularioGrabado=0;"></td>
+          </tr>
+          <tr>
+            <td width="174" height="24"  class="inputtitle">Proveedor
+              :</td>
+            <td width="187">
+			  <script>
+			function seleccionarProveedor() {
+
+			  var datos=document.PaginaDatos.serial_pvdaux.value.split('¬');
+
+                          document.PaginaDatos.proveedor_ieb.value=datos[0];
+
+                          document.PaginaDatos.proveedorTransporte_ieb.value=document.PaginaDatos.proveedor_ieb.value;
+
+                          cserial_facc.objDBComando.sqlCommand='select concat(facturacompra.serial_facc,\'¬\',serial_odc,\'¬\',numeroDocumento_facc) as serial,concat(\'No\',\' \',numerodocumento_facc,\'=>\',fecha_facc) as nombre from facturacompra,ingresoegresodebodega where facturacompra.serial_ieb=ingresoegresodebodega.serial_ieb and proveedor_ieb='+document.PaginaDatos.proveedor_ieb.value +' and estado_facc=\'PENDIENTE\' order by numerodocumento_facc';
+                          cserial_facc.objDBComando.executeQuery();
+                          omniObj.grid.fields[1].list[0]='select producto.serial_prd,nombre_prd,codigo_prd from producto where producto.serial_pvd='+document.PaginaDatos.proveedor_ieb.value;
+
+                          setTimeout('seleccionarFacturaCompra()',300);
+
+                        }
+                      var serial_pvdaux=getURLParam('proveedor_ieb')+'¬'+getURLParam('autorizacionSri_ieb')+'¬'+getURLParam('fechaAutorizacionSri_ieb')+'¬'+getURLParam('fechaCaducidad_ieb');
+                      var cserial_pvd=new omnisoftComboBox('cserial_pvd','serial_pvdaux','select concat(serial_pvd,\'¬\',numeroautorizacion_pvd,\'¬\',fechaautorizacion_pvd,\'¬\',fechacaducidad_pvd) as serial,razonSocial_pvd from proveedor where estado_pvd=\'ACTIVO\' order by razonsocial_pvd','250px',false,getURLParam('proveedor_ieb'));
+                          cserial_pvd.show();
+                          document.PaginaDatos.serial_pvdaux.onchange=seleccionarProveedor;
+					   </script>			</td>
+            <td width "110" class="inputtitle">&nbsp;</td>
+<td colspan="3">&nbsp;						  			</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Factura:</td>
+            <td >
+			<script>
+
+			function seleccionarFacturaCompra() {
+			  var datos=document.PaginaDatos.serial_faccaux.value.split('¬');
+			  //alert(datos);
+                          document.PaginaDatos.serial_facc.value=datos[0];
+                          document.PaginaDatos.serial_odc.value=datos[1];
+                          document.PaginaDatos.numeroFactura_ieb.value=datos[2];
+
+                        omniObj.grid.masterKeyValue=(document.PaginaDatos.serial_odc.value=='')?getURLParam('serial_odc'):document.PaginaDatos.serial_odc.value ;
+                       // alert(omniObj.grid.masterKeyValue);
+                        omniObj.grid.executeQuery(omniObj.grid.rows);
+
+			}
+
+                     var cserial_facc=new omnisoftComboBox('cserial_facc','serial_faccaux','select concat(facturacompra.serial_facc,\'¬\',serial_odc,\'¬\',numeroDocumento_facc) as serial,concat(\'No\',\' \',numerodocumento_facc,\'=>\',fecha_facc) as nombre from facturacompra,ingresoegresodebodega where facturacompra.serial_ieb=ingresoegresodebodega.serial_ieb and  estado_facc=\'PENDIENTE\' and facturacompra.serial_facc='+getURLParam('serial_facc') +' order by numerodocumento_facc','250px',false,getURLParam('serial_facc'),'');
+                     cserial_facc.show();
+					 document.PaginaDatos.serial_faccaux.onchange=seleccionarFacturaCompra;
+
+					   </script>			</td>
+            <td width "110" class="inputtitle">&nbsp;</td>
+            <td colspan="3" >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Bodega Origen:</td>
+            <td >
+						<script>
+ var cbodegaorigen_ieb=new omnisoftComboBox('cbodegaorigen_ieb','bodegaorigen_ieb','select serial_bod,nombre_bod from bodega  order by nombre_bod','250px',true,getURLParam('bodegaorigen_ieb'));
+                     cbodegaorigen_ieb.show();	  </script>			</td>
+            <td width "110" class="inputtitle">&nbsp;</td>
+<td colspan="3" >											</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Nota de Debito:</td>
+            <td ><input name="numeroDocumentoGenera_ieb" type="text" id="numeroDocumentoGenera_ieb" class="emptyinteger" size="13" maxlength="13"  onBlur="esconderToolTip(); formularioGrabado=0;"></td>
+            <td "110" class="inputtitle"><!--Fecha Autorizacion SRI:-->Valor:</td>
+            <td width="71" ><input name="montoDevuelto_ieb" type="text" id="montoDevuelto_ieb" class="emptydouble" size="15" maxlength="15"  onBlur="esconderToolTip(); formularioGrabado=0;"></td>
+            <td width="109"  class="inputtitle">&nbsp;</td>
+            <td width="110" >&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td height="26"  class="inputtitle">Observaciones:</td>
+            <td height="26" colspan="3"  class="inputtitle"><input name="observaciones_ieb" type="text" id="observaciones_ieb" class="emptystring" size="80" maxlength="255"  onBlur="validarFacturaCaducada();esconderToolTip(); formularioGrabado=0;"></td>
+            <td height="26"  class="inputtitle">Estado:</td>
+            <td height="26"  class="inputtitle"><select name="estado_ieb" id="estado_ieb" class="combobox">
+              <option value="PENDIENTE">Pendiente</option>
+              <option value="PROCESADO">Procesado</option>
+              <option value="CONTABILIZADO">Procesado</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="26" colspan="6"  class="inputtitle">
+			<script>
+   if (getURLParam('action')=='insert')
+      document.PaginaDatos.fecha_ieb.value=fechaSistema();
+       var serial_pvd=getURLParam('serial_pvd');
+
+
+     var serial_odc=getURLParam('serial_odc');
+
+
+
+    var sql='SELECT SERIAL_DODC, nombre_prd, CANTIDADRECIBIDAUNIDADES_DODC/UNIDADESEMBALAJE_PRD,CANTIDADRECIBIDAUNIDADES_DODC , CANTIDADUNIDADESDEVUELTAS_DODC/UNIDADESEMBALAJE_PRD,CANTIDADUNIDADESDEVUELTAS_DODC,(CANTIDADRECIBIDAUNIDADES_DODC-CANTIDADUNIDADESDEVUELTAS_DODC)as diferenciaunidades,COSTOUNITARIO_PRD*CANTIDADUNIDADESDEVUELTAS_DODC as valor,producto.SERIAL_PRD FROM producto,detalleordendecompra where  CANTIDADRECIBIDAUNIDADES_DODC>0 and producto.serial_prd=detalleordendecompra.serial_prd and serial_odc=masterkey';
+
+//    var sql='SELECT SERIAL_DODC, nombre_prd,marca_dodc,CANTIDADREQUERIDA_DODC, CANTIDADREQUERIDA_DODC*UNIDADESEMBALAJE_PRD, CANTIDADRECIBIDAUNIDADES_DODC/UNIDADESEMBALAJE_PRD,CANTIDADRECIBIDAUNIDADES_DODC , CANTIDADREQUERIDA_DODC-CANTIDADRECIBIDAUNIDADES_DODC/UNIDADESEMBALAJE_PRD as diferencia,(CANTIDADREQUERIDA_DODC*UNIDADESEMBALAJE_PRD-CANTIDADRECIBIDAUNIDADES_DODC),SUBTOTAL_DODC, DESCUENTODOLARES_DODC, DESCUENTOPORCENTAJE_DODC,  TOTAL_DODC,OBSERVACIONES_DODC, ESTADO_DODC,OTROSPRODUCTOS_DODC,IVA_DODC, IVA0_DODC,producto.SERIAL_PRD,SERIAL_ODC FROM producto,detalleordendecompra where (CANTIDADREQUERIDA_DODC>0 or CANTIDADRECIBIDAUNIDADES_DODC>0) and producto.serial_prd=detalleordendecompra.serial_prd and serial_odc=masterkey';
+    omniObj=new omnisoftGridDetail('omniObj','serial_odc',serial_odc,'detalleordendecompra','serial_dodc',sql,document.PaginaDatos,Array(true,true,true),'registroIngresosBodegaEditor.html',800,230);
+
+     omniObj.addColumn('Serial','serial_dodc', 10,'hidden','','middle','');
+     omniObj.addColumn('Producto','nombre_prd', 25,'combobox',Array('select producto.serial_prd,nombre_prd,codigo_prd from producto where producto.serial_pvd'+serial_pvd,'serial_prd','nombre_prd'),'middle','');
+
+     //omniObj.addColumn('Marca','marca_dodc', 15,'string','','middle','');
+
+     omniObj.addColumn('Recibido Cajas','cantidadRecibida_dodc', 10,'readonly','','middle','','0');
+     omniObj.addColumn('Recibido Unidades','cantidadRecibidaUnidades_dodc', 10,'readonly','','middle','','0');
+     omniObj.addColumn('Devuelto Cajas','cantidadCajasDevueltas_dodc', 10,'readonly','','middle','');
+     omniObj.addColumn('Devuelto Unidades','cantidadUnidadesDevueltas_dodc', 10,'integer','','middle','','0','refresh');
+     omniObj.addColumn('Recibido-Devuelto Unidades','diferenciaunidades', 12,'readonly','','middle','');
+     omniObj.addColumn('Valor','valor', 12,'readonly','sum','middle','');
+     omniObj.addColumn('serial_prd','serial_prd', 2,'hidden','','middle','','1');
+
+
+//  omniObj.grid.fixedLeft(3);
+  omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');
+
+</script>			</td>
+          </tr>
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="grabarIngresoEgreso()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+
+    	if (getURLParam('action')!='insert') {
+           setTimeout('cargarDatos()',500);
+          }
+          else {
+          	document.PaginaDatos.fecha_ieb.value=fechaSistema();
+          }
+
+</script>
+</body>
+</html>

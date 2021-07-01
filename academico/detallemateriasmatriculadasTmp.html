@@ -1,0 +1,737 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+</script>
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+<script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+<script>
+var retiroMAT=0;
+var swRet = 0;
+function procesarMateria() {
+	if (document.PaginaDatos.materiaelectiva_dmat.value=="NO") {
+      document.getElementById('divtarea').style.visibility="hidden";
+	  document.getElementById('divarea').style.visibility="hidden";
+	  document.PaginaDatos.numerocreditos_dmat.readOnly = true;
+	  seleccionarMateria();
+	}else {
+	   document.getElementById('divtarea').style.visibility="visible";
+       document.getElementById('divarea').style.visibility="visible";
+	   document.PaginaDatos.numerocreditos_dmat.readOnly = false;
+	   cserial_mat.objDBComando.sqlCommand="Select serial_mat, nombre_mat from materia  where 1=2";
+	   cserial_mat.objDBComando.executeQuery();
+	} 
+}
+//********************************************************************************************************************************
+//*function seleccionarMateria(): Esta función seleccion la materia de acuerdo a si es o no una materia electiva (no es parte de  
+//*la malla del alumno, es de cualquier otra). Y estas materias estan de acuerdo al programa que consta en el calendario unificado.
+//*Si se quiere insertar una materia, se ven todas las abiertas menos en las que ya se registro (ya cogió). Al editar se ven todas.
+//*********************************************************************************************************************************
+function seleccionarMateria(){
+
+if(document.PaginaDatos.materiaelectiva_dmat.value=="NO"){
+
+//ESTO SOLAMENTE CUANDO INSERTA UN NUEVO REGISTRO
+	if (getURLParam('action')=='insert'){
+//alert('Entra');
+//hrr.serial_per,per.serial_sec, per.serial_suc
+			var sql='select -99,\'SELECCIONE...\' UNION SELECT DISTINCT dma.serial_mat, nombre_mat  FROM alumnomalla AS ama, malla AS maa,horario as hrr,periodo as per, detallemalla AS dma,materia AS mat LEFT JOIN homologacion as hom on hom.serial_alu = ama.serial_alu and hom.serial_sec ='+opener.PaginaDatos.serial_sec.value+' LEFT JOIN detallehomologacion dhom ON dhom.serial_hom = hom.serial_hom and mat.serial_mat<>dhom.serial_mat WHERE maa.serial_maa = ama.serial_maa and dma.serial_mat = mat.serial_mat AND mat.serial_mat = hrr.serial_mat AND maa.serial_maa = dma.serial_maa AND ama.serial_alu ='+opener.PaginaDatos.serial_alu.value+' AND hrr.serial_per ='+opener.PaginaDatos.serial_per.value+' AND per.serial_sec ='+opener.PaginaDatos.serial_sec.value+' and hrr.serial_per=per.serial_per AND mat.serial_mat NOT IN (SELECT serial_mat FROM materiamatriculada mmat, detallemateriamatriculada dmat,notasalumnos as nts WHERE dmat.serial_mmat = mmat.serial_mmat AND mmat.serial_alu ='+opener.PaginaDatos.serial_alu.value+'  AND serial_sec ='+opener.PaginaDatos.serial_sec.value+' and dmat.serial_dmat=nts.serial_dmat and estado_nal=\'APRUEBA\')';
+	//prompt('NO',sql);
+	cserial_mat.objDBComando.sqlCommand=sql;
+	cserial_mat.objDBComando.executeQuery();	
+	
+	}
+
+}else{
+	/*	if(document.PaginaDatos.serial_are.value==11){
+		var sql='SELECT distinct mat.serial_mat, concat(nombre_mat,\'->\',seccion_cun) nombre_mat FROM materia as mat, calendariounificado as cun left join detallecalendariounificado as dcun on cun.serial_cun = dcun.serial_cun WHERE estado_mat = \'ACTIVO\' and mat.serial_are = '+document.PaginaDatos.serial_are.value+' AND cun.serial_per= '+opener.PaginaDatos.serial_per.value+' and mat.serial_sec= '+opener.PaginaDatos.serial_sec.value+' order by nombre_mat asc';
+		}else{*/
+		var sql='select -99,\'SELECCIONE...\' UNION SELECT distinct mat.serial_mat, concat(nombre_mat) nombre_mat FROM materia as mat, horario as hrr  WHERE mat.serial_mat = hrr.serial_mat and mat.serial_are = '+document.PaginaDatos.serial_are.value+' AND hrr.serial_per= '+opener.PaginaDatos.serial_per.value+' and mat.serial_sec= '+opener.PaginaDatos.serial_sec.value+' ';
+		//prompt('SI',sql);
+			//}// and estado_mat = \'ACTIVO\'
+		cserial_mat.objDBComando.sqlCommand=sql;
+		cserial_mat.objDBComando.executeQuery();
+			
+			//prompt('sql',sql);
+}
+
+
+seleccionarHorario();
+seleccionarFacultad();
+}
+//********************************************************************************************************************************
+//*function numeroCreditos(): Esta función despliega el numero de creditos que corresponde a cada materia que estan en la tabla //*detallemalla de la malla del alumno. No se despliega los créditos de materias electivas==SI, porque no son de la malla del //*alumno. En este caso el ingreso es manual.
+//*********************************************************************************************************************************
+function numeroCreditos(){
+ seleccionarFacultad();
+if(document.PaginaDatos.materiaelectiva_dmat.value=="NO"){
+//alert('numeroCreditos');
+//prompt('numeroCreditos','select distinct mat.serial_mat, numerocreditos_dma, concat( nombre_fac, \' - \', nombre_car ) AS facultad, mat.serial_are, nombre_mat from malla as maa left join detallemalla  as dma on maa.serial_maa = dma.serial_maa left join alumnomalla as ama on maa.serial_maa = ama.serial_maa left join carrera as car on maa.serial_car = car.serial_car, materia as mat left join area as are on mat.serial_are = are.serial_are left join facultad as fac on are.serial_fac = fac.serial_fac where dma.serial_mat = mat.serial_mat and ama.serial_alu= '+opener.PaginaDatos.serial_alu.value+' AND mat.serial_mat = '+document.PaginaDatos.serial_mat.value+'');
+	objDB=new omnisoftDB('select distinct mat.serial_mat, numerocreditos_dma, concat( nombre_fac, \' - \', nombre_car ) AS facultad, mat.serial_are, nombre_mat from malla as maa left join detallemalla  as dma on maa.serial_maa = dma.serial_maa left join alumnomalla as ama on maa.serial_maa = ama.serial_maa left join carrera as car on maa.serial_car = car.serial_car, materia as mat left join area as are on mat.serial_are = are.serial_are left join facultad as fac on are.serial_fac = fac.serial_fac where dma.serial_mat = mat.serial_mat and ama.serial_alu= '+opener.PaginaDatos.serial_alu.value+' AND mat.serial_mat = '+document.PaginaDatos.serial_mat.value+'','../lib/server/omnisoftSQLData.php','omnisoftProcesarDatos');
+  setTimeout('objDB.executeQuery()',0);
+ //OJO
+ // omnisoftProcesarDatos(data);
+
+ }else{
+ //alert('entro 4');
+  if (document.PaginaDatos.numerocreditos_dmat.value=="0" ) {
+                     document.getElementById('divtcreditos').style.visibility='visible';
+                     document.getElementById('divcreditos').style.visibility='visible';
+					  document.PaginaDatos.numerocreditos_dmat.value=0;
+					  if(getURLParam('numerocreditos_dmat')>0)
+					 	document.PaginaDatos.numerocreditos_dmat.value=getURLParam('numerocreditos_dmat');
+                  }else{
+                     document.getElementById('divtcreditos').style.visibility='hidden';
+                     document.getElementById('divcreditos').style.visibility='hidden';
+					 document.PaginaDatos.numerocreditos_dmat.value=0;
+					 document.PaginaDatos.creditosequivalentes_dmat.value=0;
+					if(getURLParam('creditosequivalentes_dmat')>0)
+					 	document.PaginaDatos.creditosequivalentes_dmat.value=getURLParam('creditosequivalentes_dmat');
+								 	
+                  }
+// document.PaginaDatos.numerocreditos_dmat.value=0;
+// document.PaginaDatos.numerocreditos_dmat.value=document.PaginaDatos.numerocreditos_dmat.value;
+
+ } 
+
+}  
+
+function omnisoftProcesarDatos(data)
+{
+		 var registros=data.split('~');
+		 ///alert(registros);
+		 var n=0;
+		 document.PaginaDatos.numerocreditos_dmat.value=registros[1];
+		 var serial_area;
+		 //serial_are=registros[3];
+		// alert('serial_are'+document.PaginaDatos.numerocreditos_dmat.value);
+		  if (parseInt(document.PaginaDatos.numerocreditos_dmat.value)==0) {
+                     document.getElementById('divtcreditos').style.visibility='visible';
+                     document.getElementById('divcreditos').style.visibility='visible';
+					 document.PaginaDatos.creditosequivalentes_dmat.value=0;
+					 if(getURLParam('creditosequivalentes_dmat')>0 && getURLParam('action')!='insert')				 
+					 	document.PaginaDatos.creditosequivalentes_dmat.value=getURLParam('creditosequivalentes_dmat');
+                  }else{
+                     document.getElementById('divtcreditos').style.visibility='hidden';
+                     document.getElementById('divcreditos').style.visibility='hidden';
+					 
+                  }
+				  
+		//alert('paty_proce'+document.PaginaDatos.creditosequivalentes_dmat.value);		  
+}
+//********************************************************************************************************************************
+//*function seleccionarFacultad(): Esta función muestra la facultad a la que pertenece el alumno. De acuerdo a la especialidad que 
+//*escogió previamente el mencionado alumno
+//*********************************************************************************************************************************
+function seleccionarFacultad() {
+	if(document.PaginaDatos.materiaelectiva_dmat.value=="NO"){
+	//alert('facultad_no');
+	   var sql='SELECT fac.serial_fac, concat( nombre_fac, \' - \', nombre_car ) AS facultad FROM facultad AS fac, carrera AS car LEFT JOIN malla AS maa ON car.serial_car = maa.serial_car LEFT JOIN alumnomalla AS ama ON maa.serial_maa = ama.serial_maa WHERE fac.serial_fac = car.serial_fac AND ama.serial_alu = '+opener.PaginaDatos.serial_alu.value+'';
+	  }else{
+	//alert('facultad_si');
+	  var sql='select fac.serial_fac, nombre_fac from facultad as fac left join area as are on fac.serial_fac = are.serial_fac where are.serial_are = '+document.PaginaDatos.serial_are.value+'';
+	//seleccionarHorario();
+	  }
+  cserial_fac.objDBComando.sqlCommand=sql;
+  cserial_fac.objDBComando.executeQuery();
+}
+//********************************************************************************************************************************
+//*function seleccionarHorario(): Esta función indica el horario al que pertenece el alumno. Se toma de la tabla horarios.
+//*********************************************************************************************************************************
+function seleccionarHorario(){
+
+	//alert('horario_no');
+	   var sql='select hrr.serial_hrr, concat_ws(\'->\',NOMBREHORARIO_HRR,seccion_hrr,nombre_par,serial_hrr) as nombrehorario_hrr from horario as hrr,periodo as per ,paralelo as par where hrr.serial_par=par.SERIAL_PAR  and estado_hrr = \'ACTIVO\' AND hrr.serial_per ='+opener.PaginaDatos.serial_per.value+'  AND hrr.serial_mat ='+document.PaginaDatos.serial_mat.value+' and  per.serial_per=hrr.serial_per and per.serial_suc='+getCookie('serial_suc')+'';
+	
+//prompt('horario',sql);
+cserial_hrr.objDBComando.sqlCommand=sql;
+cserial_hrr.objDBComando.executeQuery();
+}
+//********************************************************************************************************************************
+//*function totalCreditos(): En esta función se suman el número de créditos totales tomados por el alumno. Los creditos normales 
+//*de cada materia (numerocreditos_dmat) y los que son de valor 0 (cero) como los de Idiomas que se ingresan en al campo Créditos 
+//*Equivalentes (creditosequivalentes_dmat). Se totaliza el total de materias y el número de créditos resultante.
+//*********************************************************************************************************************************
+function totalCreditos(){
+//alert('totalCreditos');
+var query='SELECT mmat.serial_alu, sum( CASE WHEN numerocreditos_dmat IS NULL THEN 0  ELSE numerocreditos_dmat END + CASE WHEN creditosequivalentes_dmat IS NULL  THEN 0 ELSE creditosequivalentes_dmat END ) AS total_creditos, nummaxcreditos_alu, a.serial_alu FROM alumno AS a , detallemateriamatriculada AS dmat JOIN materiamatriculada AS mmat ON dmat.serial_mmat = mmat.serial_mmat WHERE a.serial_alu = mmat.serial_alu AND mmat.serial_alu = '+opener.PaginaDatos.serial_alu.value+' and dmat.serial_mmat = '+opener.PaginaDatos.serial_mmat.value+' and fecharetiro_dmat=\'0000-00-00\' GROUP BY mmat.serial_alu HAVING total_creditos <= nummaxcreditos_alu';
+
+//prompt('totalCreditossssssss',query);
+ objDB=new omnisoftDB(query,'../lib/server/omnisoftSQLData.php','recuperarDatosTotal');
+       setTimeout('objDB.executeQuery()',0);
+}
+
+var numero_creditos=0;
+//alert(opener.PaginaDatos.nummaxcreditos_mmat.value);
+var maximo_creditos=opener.PaginaDatos.nummaxcreditos_mmat.value;
+
+function recuperarDatosTotal(data)
+{
+		//alert('recuperarDatosTotal');
+		 var registros=data.split('~');
+		 //alert(registros);
+		 var n=0;
+		
+if(registros.length>1){
+		if(getURLParam('action')=='insert')
+		 	numero_creditos=registros[1];
+		 else{
+			//Resta los creditos de la materia que se este actualizando
+			
+		 	creditos_equivalentes=0;
+		 	if(document.PaginaDatos.creditosequivalentes_dmat!=null)
+				creditos_equivalentes=parseInt(document.PaginaDatos.creditosequivalentes_dmat.value);
+				
+		 	numero_creditos=parseInt(registros[1])-parseInt(document.PaginaDatos.numerocreditos_dmat.value)-parseInt(creditos_equivalentes);
+		    maximo_creditos=registros[2];
+		 
+		 }
+	//	 alert('totaL_CREDITOS: '+numero_creditos);
+						}		 
+}
+
+totalCreditos();
+function SumarCreditos(){
+//document.PaginaDatos.creditosequivalentes_dmat
+//Solo cuando la materia no se retira no se suma al numero de creditos
+   if(retiroMAT==0){
+		numero_creditos=parseInt(numero_creditos)+parseInt(document.PaginaDatos.numerocreditos_dmat.value);
+		if(document.PaginaDatos.creditosequivalentes_dmat!=null)
+			numero_creditos=parseInt(numero_creditos)+parseInt(document.PaginaDatos.creditosequivalentes_dmat.value);
+	}else numero_creditos=parseInt(numero_creditos);
+	
+	alert('numerocreditos=>'+numero_creditos);
+}
+///
+function retiroMateriaVerificacion(){
+	swRet = 1;
+	retiroMateria();
+}
+function retiroMateria(){
+
+//alert('retiroMateria');
+//Cuando esta editando
+ //if(getURLParam('retiromateria_dmat')!=''){
+	  if(document.getElementById('divtretiro').style.visibility=='visible')
+		{ 
+			retiroMAT=0;
+			document.getElementById('divtretiro').style.visibility='hidden';
+			document.PaginaDatos.retiromateria_dmat.value='';			
+			document.PaginaDatos.fecharetiro_dmat.value='0000-00-00';
+		}else{
+			retiroMAT=1;
+			document.getElementById('divtretiro').style.visibility='visible';
+			if(swRet==0){
+				return;
+			}
+			autoRetiro();			
+		}	 
+	 //alert(retiroMAT);
+ }
+ 
+ /*
+ * Funcion para el autoretiro
+ */
+function autoRetiro(){
+ 	var perRetiro = opener.PaginaDatos.serial_per.value;
+	var query = 'select fechaCambioini_per,fechaCambioFin_per from periodo where serial_per = '+perRetiro;
+	
+   	objDB=new omnisoftDB(query,'../lib/server/omnisoftSQLData.php','autoRetData');
+       setTimeout('objDB.executeQuery()',0);
+ } 
+function autoRetData(data){
+	var registros = data.split('|');
+	var reg =  registros[1].split('~');
+	var fecini = reg[0];
+	var fecfin = reg[1];
+	var myDate  = new Date(); 	
+
+	//alert(myDate.getYear()+"-"+(myDate.getMonth()+1)+"-"+myDate.getDate());
+	var mes=(myDate.getMonth()+1);		
+	if(mes<10){
+		mes='0'+mes;
+	}
+	var fecact = myDate.getYear()+"-"+mes+"-"+myDate.getDate();
+	
+	var val='';	
+			
+	if(fecact>= fecini && fecact<= fecfin){
+		val = 'SIN COSTO';				
+	}else{
+		val = 'CON COSTO';
+//		alert(fecact)
+	//	alert(fecini)
+		//alert(fecfin)
+
+	}	
+	var answer = confirm(" EL RETIRO DE LA MATERIA SE REALIZARA CON FECHA "+fecact+" Y  "+val+", ESTA SEGURO?");
+	if (answer){
+		document.PaginaDatos.retiromateria_dmat.value = val;			
+		document.PaginaDatos.fecharetiro_dmat.value=fecact;	
+	}else{
+		retiroMAT=0;
+		document.PaginaDatos.retiromateria_dmat.value='';			
+		document.PaginaDatos.fecharetiro_dmat.value='0000-00-00';
+		document.getElementById('divtretiro').style.visibility='hidden';
+
+	}
+ }
+
+///
+
+//********************************************************************************************************************************
+//*secuenciaMateria: 
+//*Estas funciones chequean la concatenación de las materias. Y que la materia a matricular tenga el valor
+//*de APROBADO para poder matricularse. Sino la matriculación se detiene.
+//*
+//*secuenciaMateria(): toma el serial del alumno (serial_ama) y de la materia (serial_mat) busca el serial de datallemalla //*(serial_dma). Es decir su malla
+//********************************************************************************************************************************* 
+ function secuenciaMateria(){
+//alert('entro_secuenciaMateria');
+  seleccionarHorario();
+  seleccionarFacultad();
+//SI EXISTE PRE-REQUISITOS DE LA MATERIA
+  var sq = 'select count(distinct prerequisito.serial_mat) from alumnomalla,malla,detallemalla ,prerequisito where alumnomalla.serial_alu='+opener.PaginaDatos.serial_alu.value+' and alumnomalla.serial_maa=malla.serial_maa and malla.serial_maa=detallemalla.serial_maa and prerequisito.serial_dma=detallemalla.serial_dma and malla.serial_sec='+opener.PaginaDatos.serial_sec.value+' and detallemalla.serial_mat='+document.PaginaDatos.serial_mat.value+' AND prerequisito.serial_mat NOT IN (SELECT  serial_mat FROM homologacion as hom LEFT JOIN detallehomologacion dhom ON dhom.serial_hom = hom.serial_hom, alumnomalla as ama where hom.serial_alu = ama.serial_alu and ama.serial_alu ='+opener.PaginaDatos.serial_alu.value+' AND hom.serial_sec ='+opener.PaginaDatos.serial_sec.value+')';
+  
+  // var sq = 'select count(prerequisito.serial_mat) from alumnomalla,malla,detallemalla ,prerequisito where alumnomalla.serial_alu='+opener.PaginaDatos.serial_alu.value+' and alumnomalla.serial_maa=malla.serial_maa and malla.serial_maa=detallemalla.serial_maa and prerequisito.serial_dma=detallemalla.serial_dma and malla.serial_sec='+opener.PaginaDatos.serial_sec.value+' and detallemalla.serial_mat='+document.PaginaDatos.serial_mat.value+' AND prerequisito.serial_mat NOT IN (SELECT  serial_mat FROM homologacion as hom LEFT JOIN detallehomologacion dhom ON dhom.serial_hom = hom.serial_hom, alumnomalla as ama where hom.serial_alu = ama.serial_alu and ama.serial_alu ='+opener.PaginaDatos.serial_alu.value+' AND hom.serial_sec ='+opener.PaginaDatos.serial_sec.value+')';
+ 
+  //prompt('sql',sq);  
+  objDB=new omnisoftDB(sq,'../lib/server/omnisoftSQLData.php','secuenciaM');
+
+  setTimeout('objDB.executeQuery()',0);
+
+ }
+//********************************************************************************************************************************
+//*secuenciaM(): con el serial de datallemalla (pma.serial_dma) encuentro el serial de la materia prerequisito (pma.serial_mat) en //*la tabla del mismo nombre. Y que tiene que estar también en la tabla detallemateriamatriculada, es decir que su prerequisito //*tenga estado (estadomateria_dmat): APROBADO o REPROBADO, para poder matricularla.
+//*********************************************************************************************************************************  
+var numero_prerequisitos=0;
+ function secuenciaM(data){
+	 //alert ("data: "+data);
+	 var registros=data.split('~');
+	 var reg=registros[0].split('|');
+//	 alert(reg[0]+':'+reg[1]);
+	 numero_prerequisitos=parseInt(reg[1]);
+	 //alert('No Prerequisitos: '+numero_prerequisitos);
+	 //El ELSE inactivar cuando no control pre-requisito
+	 ///PRERRE<strong></strong>
+
+	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	if(getCookie('serial_suc')==4){
+		document.getElementById('divGuardar').style.visibility='visible';
+		numeroCreditos();
+		terceramatricula();
+	}	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	 if(numero_prerequisitos==0){
+	 	document.getElementById('divGuardar').style.visibility='visible';
+		numeroCreditos();
+		terceramatricula();
+	 }else{
+		var sql='select detallemateriamatriculada.serial_dmat,serial_mat,estado_nal from notasalumnos,detallemateriamatriculada,materiamatriculada where  detallemateriamatriculada.serial_mmat=materiamatriculada.serial_mmat and detallemateriamatriculada.serial_dmat=notasalumnos.serial_dmat and materiamatriculada.serial_alu='+opener.PaginaDatos.serial_alu.value+' AND materiamatriculada.serial_sec='+opener.PaginaDatos.serial_sec.value+' and serial_mat IN (select prerequisito.serial_mat from alumnomalla,malla,detallemalla ,prerequisito where alumnomalla.serial_alu='+opener.PaginaDatos.serial_alu.value+' and alumnomalla.serial_maa=malla.serial_maa and malla.serial_maa=detallemalla.serial_maa and prerequisito.serial_dma=detallemalla.serial_dma and detallemalla.serial_mat='+document.PaginaDatos.serial_mat.value+') and estado_nal = \'APRUEBA\'';
+		objDB=new omnisoftDB(sql,'../lib/server/omnisoftSQLData.php','secuenciaP');
+		setTimeout('objDB.executeQuery()',0); 
+	 	//prompt('ff',sql);
+	}
+			 
+			 
+}
+//********************************************************************************************************************************
+//*secuenciaP(): Esta función compara el estado de la materia: APROBADO, REPROBADO, null y de acuerdo al caso realiza la //*instrucción correspondiente. En el caso de APROBADO y null, realiza una consulta con el serial de la (misma) materia y cuenta 
+//*el número de matriculas, este dato lo envia a la función terceravez.
+//*********************************************************************************************************************************  
+ function secuenciaP(data)
+{
+		//alert('secuenciaP');
+		//alert('datasecuenciaP'+data);
+		 var registros=data.split('|');
+		 //alert('registros_secuenciaP: '+registros.length+'>>>'+numero_prerequisitos+'data:'+data);
+		if(registros==','){
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
+//alert(getCookie('serial_suc'));
+		if(getCookie('serial_suc')!=4){
+			alert('No tiene aprobado el Prerequisito de la Materia...!!!');
+			document.getElementById('divGuardar').style.visibility='hidden';
+			document.PaginaDatos.serial_mat.focus();
+		}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////			
+		}else{	
+		 var n=0;
+		 var numRegReal = 0;
+     		// resp=respuestas.split('~');
+			//serial_rsp=>resp[0],valor_rsp=>resp[2]
+			 //alert(': '+registros[2]);
+			 
+			 numR = registros.length-1;
+			 //alert('Aprobados y numero de prereq: '+numR+" - "+numero_prerequisitos);
+			 
+			 //Determinando el numero real de prerequisitos tomados por el estudiante para esta materia
+			 for (var i=1; i < numR; i++) {
+			 	if(registros[i].length>0){
+					numRegReal++;
+				} 
+			 }
+			 /*for (var i=1; i < numR; i++) {
+						//alert("resp"+resp[i]);
+					var reg=registros[i].split(',');
+					serial_materia=registros[1];
+					materia_prerequisito=registros[2];
+					//alert("Estado:"+resp[i]);
+					 if (materia_prerequisito=='REPROBADO'){
+							alert('Prerequisito de la Materia no esta APROBADO...!!!');
+							document.getElementById('divGuardar').style.visibility='hidden';
+							document.PaginaDatos.serial_mat.focus();
+							n=1;
+						}
+					
+				}*/		
+			 //Validando que el mismo numero de prerequisitos hayan sido tomados 
+ 			 if(numRegReal!=numero_prerequisitos){
+			 	alert('Prerequisito de la Materia no esta APROBADO...!!!');
+				document.getElementById('divGuardar').style.visibility='hidden';
+				document.PaginaDatos.serial_mat.focus();
+				n=1;
+			 }			 	
+			 if(n==0){
+			 	document.getElementById('divGuardar').style.visibility='visible';
+				terceramatricula();
+				numeroCreditos();
+			   }
+		}	   
+	}	
+	
+function terceramatricula(){
+		var query='SELECT mmat.serial_alu, COUNT(dmat.serial_mat) as numero_matricula, nombre_mat, dmat.serial_mat, dmat.serial_mmat FROM detallemateriamatriculada as dmat  join materia as mat on  dmat.serial_mat = mat.serial_mat  JOIN materiamatriculada AS mmat ON dmat.serial_mmat = mmat.serial_mmat where mmat.serial_alu = '+opener.PaginaDatos.serial_alu.value+' GROUP BY serial_alu HAVING dmat.serial_mat = '+document.PaginaDatos.serial_mat.value+'';
+			  objDB=new omnisoftDB(query,'../lib/server/omnisoftSQLData.php','terceravez');
+
+
+}	
+//********************************************************************************************************************************
+//*terceravez(): Esta función compara el resultado del conteo del número de matricula y de acuerdo al caso de ser (3) tercera //*matricula se despliega un mensaje de alerta informando de este particular. Al mismo tiempo que se registra los datos del //*alumno, la materia, la sucursal, la seccion, el periodo en la tabla terceramatricula, esta tabla trabaja con el módulo
+//* financiero. (Porcentaje de recargo en el costo de matrícula) 
+//********************************************************************************************************************************
+function terceravez(data)
+{
+		//alert('terceravezzzzzz');
+		//alert('data_tercera'+data);
+		 var registros=data.split('~');
+		// alert('registros_terceravez: '+registros);
+		 var n=0;
+		 numero_matricula=registros[1];
+		 nombre_materia=registros[2];
+		 //alert(registros[3]);
+		 serialmateria=registros[3];
+		if(registros=!'|'){
+					  if (numero_matricula >= 3){
+						 alert('El alumno se matricula por tercera vez en '+nombre_materia);
+						 guardartercera();
+						}else{
+							 //alert('no es tercera');
+							 numeroCreditos();
+							 }
+		}else{ 
+			 //if(registros=='|')
+		//alert('registros=|!!!!!!!');
+		 numeroCreditos();
+		   }
+}
+//var serialmateria;
+//********************************************************************************************************************************
+//*guardartercera(): Registra los datos del alumno, la materia, la sucursal, la seccion, el periodo en la tabla terceramatricula, //*esta tabla trabaja con el módulo financiero. (Porcentaje de recargo en el costo de matrícula). Funciona solamente al GUARDAR.
+//********************************************************************************************************************************
+function guardartercera(){
+//alert('se_guarda_terceravez...');
+		  var SQLCommand="insert into terceramatricula(serial_tmat, serial_suc, serial_sec, serial_per, serial_mat, serial_alu) values (0,'"+opener.PaginaDatos.serial_suc.value+"','"+opener.PaginaDatos.serial_sec.value+"','"+opener.PaginaDatos.serial_per.value+"','"+document.PaginaDatos.serial_mat.value+"','"+opener.PaginaDatos.serial_alu.value+"')";	  
+//alert(SQLCommand);		  
+//alert('insertado');
+
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftDataManager.php");
+      objDBComando.executeQuery();
+	  numeroCreditos();
+}
+
+//alert('prueba_credit'+getURLParam('creditosequivalentes_dmat'));
+//alert(document.PaginaDatos.creditosequivalentes_dmat.value);
+
+function EvaluacionesPendientes() {
+	var attributes='width=400,height=300,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=yes,copyhistory=no,statusbar=no';
+    omnisoftNewWindow=window.open('../lib/export/omnisoftEvaluacionesPendientes.php?serial_alu='+opener.PaginaDatos.serial_alu.value,'MateriasPendientes',attributes);
+
+    if (window.focus) {omnisoftNewWindow.focus()}
+	
+}
+
+</script>
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_dmat" type="hidden" id="serial_dmat" class="hidden">
+<input name="serial_mmat" type="hidden" id="serial_mmat" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          ACADEMICO<br>
+          DETALLE DE REGISTRO DE MATERIAS TEMPORAL
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="820" height="207" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+        <tr>
+          <td height="27" colspan="2"  class="inputtitle">Materias Electivas :  </td>
+          <td ><span class="inputtitle">
+            <select name="materiaelectiva_dmat" id="materiaelectiva_dmat" class="combobox" onChange="procesarMateria()">
+			 <option value="NO" selected>NO</option>
+              <option value="SI">SI</option>
+              </select>
+          </span>            </td>
+          <td >&nbsp;</td>
+          <td colspan="2" class="inputtitle">Evaluaciones Pendientes<a href="javaScript:EvaluacionesPendientes()"><img src="../images/buscar.png" width="43" height="37"></a></td>
+          </tr>
+        
+        <tr>
+		 <td height="26"  class="inputtitle"><div id="divtarea" style="visibility:hidden">Area : </div></td>
+          <td colspan="2" > <div id="divarea" style="visibility:hidden">
+            <script>
+				
+                 var cserial_are=new omnisoftComboBox('cserial_are','serial_are','SELECT serial_are,  nombre_are FROM area order by nombre_are','250px',false,getURLParam('serial_are'),'',seleccionarMateria);
+                     cserial_are.show();
+					 //document.PaginaDatos.serial_are.onchange=seleccionarHorario;
+					 //document.PaginaDatos.serial_are.onclick=seleccionarHorario;
+					 
+	          </script>
+          </div>         </td>
+		 
+          <td height="26" class="inputtitle">Materia :</td>
+          <td colspan="2" >
+		   <script>
+	//, hrr.serial_per,per.serial_sec, per.serial_suc
+			var cserial_mat=new omnisoftComboBox('cserial_mat','serial_mat','select -99,\'SELECCIONE...\' UNION SELECT DISTINCT dma.serial_mat, nombre_mat FROM alumnomalla AS ama, malla AS maa,horario as hrr,periodo as per, detallemalla AS dma,materia AS mat WHERE maa.serial_maa = ama.serial_maa and dma.serial_mat = mat.serial_mat AND mat.serial_mat = hrr.serial_mat AND maa.serial_maa = dma.serial_maa AND ama.serial_alu ='+opener.PaginaDatos.serial_alu.value+' AND hrr.serial_per ='+opener.PaginaDatos.serial_per.value+' AND per.serial_sec ='+opener.PaginaDatos.serial_sec.value+' and hrr.serial_per=per.serial_per AND dma.serial_mat NOT IN (SELECT  serial_mat FROM homologacion as hom LEFT JOIN detallehomologacion dhom ON dhom.serial_hom = hom.serial_hom, alumnomalla as ama where hom.serial_alu = ama.serial_alu and ama.serial_alu ='+opener.PaginaDatos.serial_alu.value+' and hom.serial_per ='+opener.PaginaDatos.serial_per.value+' AND hom.serial_sec ='+opener.PaginaDatos.serial_sec.value+') AND mat.serial_mat NOT IN (SELECT serial_mat FROM materiamatriculada mmat, detallemateriamatriculada dmat WHERE dmat.serial_mmat = mmat.serial_mmat AND mmat.serial_alu ='+opener.PaginaDatos.serial_alu.value+' AND serial_per ='+opener.PaginaDatos.serial_per.value+' AND serial_sec ='+opener.PaginaDatos.serial_sec.value+' and serial_mat<>'+getURLParam('serial_mat')+')  ','350px',true,getURLParam('serial_mat'),'',secuenciaMateria);
+			
+			//var cserial_mat=new omnisoftComboBox('cserial_mat','serial_mat','select -99,\'SELECCIONE...\' UNION SELECT DISTINCT dma.serial_mat, nombre_mat FROM alumnomalla AS ama, malla AS maa,horario as hrr,periodo as per, detallemalla AS dma,materia AS mat WHERE maa.serial_maa = ama.serial_maa and dma.serial_mat = mat.serial_mat AND mat.serial_mat = hrr.serial_mat AND maa.serial_maa = dma.serial_maa AND ama.serial_alu ='+opener.PaginaDatos.serial_alu.value+' AND hrr.serial_per ='+opener.PaginaDatos.serial_per.value+' AND per.serial_sec ='+opener.PaginaDatos.serial_sec.value+' and hrr.serial_per=per.serial_per AND dma.serial_mat NOT IN (SELECT  serial_mat FROM homologacion as hom LEFT JOIN detallehomologacion dhom ON dhom.serial_hom = hom.serial_hom, alumnomalla as ama where hom.serial_alu = ama.serial_alu and ama.serial_alu ='+opener.PaginaDatos.serial_alu.value+' and hom.serial_per ='+opener.PaginaDatos.serial_per.value+' AND hom.serial_sec ='+opener.PaginaDatos.serial_sec.value+') AND mat.serial_mat NOT IN (SELECT serial_mat FROM materiamatriculada mmat, detallemateriamatriculada dmat WHERE dmat.serial_mmat = mmat.serial_mmat AND mmat.serial_alu ='+opener.PaginaDatos.serial_alu.value+' AND serial_per ='+opener.PaginaDatos.serial_per.value+' AND serial_sec ='+opener.PaginaDatos.serial_sec.value+' and serial_mat<>'+getURLParam('serial_mat')+')  ','350px',true,getURLParam('serial_mat'),'','');
+				
+                     cserial_mat.show();
+					 
+					 
+		 
+					 
+					// document.PaginaDatos.serial_mat.onchange = seleccionarHorario();
+					 //document.PaginaDatos.serial_mat.onclick = numeroCreditos;
+					 </script>		            </td>
+        </tr>
+        <tr>
+          <td height="27"  class="inputtitle">N&uacute;mero de Cr&eacute;ditos :</td>
+          <td colspan="2" ><img src="../images/camporequerido.gif">
+            <input name="numerocreditos_dmat" type="text" id="numerocreditos_dmat" size="15" maxlength="9" class="integer" readonly="true" >          </td>
+          <td width="176" class="inputtitle"><div id="divtcreditos" style="visibility:hidden" > Cr&eacute;ditos Equivalentes :</div></td>
+          <td colspan="2" ><div id="divcreditos" style="visibility:hidden" >  <img src="../images/camporequerido.gif"><span class="inputtitle">
+            <input name="creditosequivalentes_dmat" type="text" id="creditosequivalentes_dmat" size="15" maxlength="9" value="0"class="integer" >
+          </span></div>		  </td>
+        </tr>
+          
+          <tr>
+            <td height="24"  class="inputtitle">Facultad : </td>
+            <td colspan="5" ><span class="inputtitle">
+              <script>
+                 var cserial_fac=new omnisoftComboBox('cserial_fac','serial_fac','SELECT fac.serial_fac, concat( nombre_fac, \' - \', nombre_car ) AS facultad FROM facultad AS fac, carrera AS car LEFT JOIN malla AS maa ON car.serial_car = maa.serial_car LEFT JOIN alumnomalla AS ama ON maa.serial_maa = ama.serial_maa WHERE fac.serial_fac = car.serial_fac AND ama.serial_alu = '+opener.PaginaDatos.serial_alu.value+'','680px',false,getURLParam('serial_fac'),'',seleccionarHorario);
+				 		 
+                     cserial_fac.show();
+					 //alert('serial_fac'+getURLParam('serial_fac'));
+					 //document.PaginaDatos.serial_fac.onchange=numeroCreditos;
+					 //document.PaginaDatos.serial_fac.onclick=numeroCreditos;
+					 
+	              </script>
+            </span></td>
+          </tr>
+          <tr>
+            <td width="146" height="24"  class="inputtitle">Horario : </td>
+            <td colspan="5" ><img src="../images/camporequerido.gif">
+		<span class="inputtitle">
+			<script>
+                 var cserial_hrr=new omnisoftComboBox('cserial_hrr','serial_hrr','SELECT hrr.serial_hrr,  concat_ws(\'->\',NOMBREHORARIO_HRR,seccion_hrr,nombre_par) as nombrehorario_hrr FROM horario as hrr, paralelo as par WHERE hrr.serial_par=par.SERIAL_PAR and  estado_hrr = \'ACTIVO\' AND hrr.serial_per = '+opener.PaginaDatos.serial_per.value+' AND dmab.serial_mat ='+getURLParam('serial_mat')+'','600px',true,getURLParam('serial_hrr'));
+                     cserial_hrr.show();
+				 
+				 					
+	            </script>
+			</span></td>
+          </tr>
+          
+          
+          <tr>
+            <td height="26"  class="inputtitle">Observaciones : </td>
+            <td colspan="4"  class="inputtitle">
+              <input name="observaciones_dmat" type="text" id="observaciones_dmat" size="45" maxlength="60" class="emptystring"  onBlur="esconderToolTip()" value="NINGUNA">            </td>
+            <td width="304" ><div id="divtboton" style="visibility:hidden" > 
+			
+			<input name="button" type="button" onclick="retiroMateriaVerificacion()" value="Retiro de Materia"></div></td>
+          </tr>
+          
+		  <tr>
+		  <td height="18" colspan="8" >
+		  <div id="divtretiro" style="visibility:hidden" >
+		  <table  width="100%">
+		  <tr>
+           <td height="18" colspan="8"  bgcolor="#000166"><div align="center" class="style1 style1">RETIRO DE MATERIA</div></td>
+          </tr>
+          <tr>
+            <td width="120" height="26"  class="inputtitle">Retiro Materia :</td>
+            <td colspan="2" ><input name="retiromateria_dmat" type="text" id="retiromateria_dmat" size="15" maxlength="9" class="emptystring" readonly="true" ></td>
+            <td width="196" class="inputtitle">Fecha Retiro:</td>
+            <td width="232" colspan="2" ><input name="fecharetiro_dmat" type="text" id="fecharetiro_dmat" class="date" size="15" maxlength="20"  value="0000-00-00"onBlur="esconderToolTip()" readonly="true"></td>
+          </tr>
+		  </table>
+		  </div>		  </td>
+		  </tr>
+
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="javascript:ValidarDatos()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<script>
+/* onClick="if (numero_creditos<=maximo_creditos)  omnisoftGrabar() else {'el alumno ha alcanzado su número máximo de creditos '}			*/
+   	omnisoftLoadData(document.PaginaDatos);
+
+   var serial_dmat=(getURLParam('action')=='insert')? 0:getURLParam('serial_dmat');
+
+	document.PaginaDatos.serial_mmat.value=opener.PaginaDatos.serial_mmat.value;
+	//document.PaginaDatos.serial_ama.value=opener.PaginaDatos.serial_ama.value;
+   //alert(opener.PaginaDatos.serial_mmat.value);
+//alert('manejarBoton');
+//alert('divtboton: '+getURLParam('action'));
+ if(getURLParam('action')=='insert'){
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		document.getElementById('divtboton').style.visibility="hidden";
+		document.getElementById('divGuardar').style.visibility='hidden';
+		//document.PaginaDatos.creditosequivalentes_dmat.value=0;
+		//alert('manejarBoton_paso');
+
+  }else{//alert('manejarBoton_paso');
+			   document.getElementById('divtboton').style.visibility="visible";
+			   document.getElementById('divGuardar').style.visibility='visible';
+			 //  alert(getURLParam('retiromateria_dmat'));
+			   if(getURLParam('retiromateria_dmat')!='' &&  getURLParam('retiromateria_dmat')!=null)
+			   		retiroMateria();
+   }
+   
+   if(getURLParam('materiaelectiva_dmat')=="SI") procesarMateria();
+   
+   //alert(parseInt(getURLParam('creditosequivalentes_dmat')));
+    if(parseInt(getURLParam('creditosequivalentes_dmat'))>0 && getURLParam('action')!='insert')
+	{
+	//alert('Entra'+getURLParam('creditosequivalentes_dmat'));
+		document.getElementById('divtcreditos').style.visibility='visible';
+		document.getElementById('divcreditos').style.visibility='visible';
+		document.PaginaDatos.creditosequivalentes_dmat.value=getURLParam('creditosequivalentes_dmat');
+	}  
+
+
+//alert('Equivalentes:'+document.PaginaDatos.creditosequivalentes_dmat.value);
+
+function ValidarDatos(){
+//alert(retiroMAT+' retiro:'+document.PaginaDatos.retiromateria_dmat.value+'fecha:'+document.PaginaDatos.fecharetiro_dmat.value);
+
+//Validación para que los numeros de créditos no esten vacíos
+
+//alert(document.PaginaDatos.creditosequivalentes_dmat.value);
+//alert('numero_creditos:'+document.PaginaDatos.numerocreditos_dmat.value+'creditos equi:'+document.PaginaDatos.creditosequivalentes_dmat.value);
+
+
+	if((parseFloat(document.PaginaDatos.numerocreditos_dmat.value)==0 &&  parseFloat(document.PaginaDatos.creditosequivalentes_dmat.value)>0 ) || (parseFloat(document.PaginaDatos.numerocreditos_dmat.value)>0 &&  parseFloat(document.PaginaDatos.creditosequivalentes_dmat.value)==0) || (parseFloat(document.PaginaDatos.numerocreditos_dmat.value)>0 && document.PaginaDatos.creditosequivalentes_dmat.value==null)){
+				if(parseInt(document.PaginaDatos.serial_mat.value)>0)
+				if(parseInt(document.PaginaDatos.serial_hrr.value)>0)
+					if(retiroMAT==0 || (retiroMAT==1 && document.PaginaDatos.retiromateria_dmat.value!='' && document.PaginaDatos.fecharetiro_dmat.value!='0000-00-00')){  
+							//Es para cuando se retiran de la materia que los creditos vaya en negativo
+							////////////////////////////////////////////////////////////////////////////////////
+							/*if(retiroMAT==1){ 
+								if(parseInt(document.PaginaDatos.numerocreditos_dmat.value)>0)
+									document.PaginaDatos.numerocreditos_dmat.value=parseInt(document.PaginaDatos.numerocreditos_dmat.value)*-1;
+								else
+									document.PaginaDatos.creditosequivalentes_dmat.value=parseInt(document.PaginaDatos.creditosequivalentes_dmat.value)*-1;
+								}*/
+							/////////////////////////////////////////////////////////////////////	
+					
+								//Si cumple todas estas condicones puede grabar
+								 //guardartercera(); 
+								 SumarCreditos(); 
+								 alert(numero_creditos+'<='+maximo_creditos); 
+								 if(parseFloat(numero_creditos)<=parseFloat(maximo_creditos)){
+									omnisoftGrabar(); 
+								 }else {  alert('El alumno ha alcanzado su número máximo de creditos ');}
+							
+						}else alert('Debe Ingresar los datos de Retiro de la materia');
+					else alert('Debe seleccionar el horario ');	
+				else alert('Debe seleccionar la materia');	
+	} else alert('Debe ingresar el número de créditosss diferente a cero (0)');
+ }
+//document.PaginaDatos.numerocreditos_dmat.readOnly = true;
+</script>
+</form>
+</body>
+</html>

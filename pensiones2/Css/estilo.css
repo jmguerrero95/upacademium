@@ -1,0 +1,17 @@
+/* CSS Document */
+
+body { background:#ffffff}
+#contenedor{width:1200px; color:4169e1; margin:0 auto;}
+#header{background: #6ea0d3; height:100px; border:1px}
+#main{background:#70b4f5; height:200px}
+#centro{background:#fff; height:550px}
+#foot{background:#4682b4; height: 120px}
+/* para hacer le menú*/
+#ul{list-style-type:none; padding:o; margin:0;}
+#ul li{display: inline;padding:10px; border:1px outset #375f85}
+.tabla{border:1px solid; width:400px;border-collapse:collapse}
+.tabla td{border:1px solid; text-aling:center;}
+.tabla.formtable {background: url(../../images/titulos.jpg);}
+td.inputtitle {font-family: Arial, Helvetica, sans-serif;color: navy;font-weight: bold;font-size: 12px;	text-decoration: none;}
+
+

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script></head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="818" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="150" height="52"  class="ingeniumtoptitle"></td>
+      <td width="540"  class="maintoptitle fonttitle"><center>
+          MARKETING Y VENTAS<br>
+          MENSAJES TELEMARKETING </center></td>
+      <td width="150"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="170" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="140" height="24"  class="inputtitle">Fecha Desde:</td>
+            <td width="659"  class="inputtitle"><input name="desde_mte" type="text" id="desde_mte" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Fecha Hasta:</td>
+            <td height="24"  class="inputtitle"><input name="hasta_mte" type="text" id="hasta_mte" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Canal:</td>
+            <td height="24"  class="inputtitle"><input name="nombre_can" type="text" id="nombre_can" class="string" size="10" maxlength="10"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"table="canal" serial="serial_can" info="codigo_can"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Documento:</td>
+            <td height="24"  class="inputtitle"><select name="tipoDocumento_met" id="tipoDocumento_met" class="combo" style="font-family:Tahoma; font-size:10px">
+                <option value="Factura">Factura</option>
+                <option value="Notas-Venta">Nota de Venta</option>
+                <option value="Guias-Remision">Gu&iacute;as de Remisi&oacute;n</option>
+                <option value="Comprobante-Retencion">Comprobante de Retenci&oacute;n</option>
+                <option value="Nota-Credito">Nota de Cr&eacute;dito</option>
+                <option value="Nota-Debito">Nota de D&eacute;bito</option>
+                <option value="Liquidacion-Compra">Liquidaci&oacute;n de Compra</option>
+                <option value="Ingresos-Bodega">Ingresos de Bodega</option>
+                <option value="Egresos-Bodega">Egresos de Bodega</option>
+                <option value="Ordenes-Compra">Ordenes de Compra</option>
+                <option value="Ordenes-Produccion">Ordenes de Producci&oacute;n</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Mensaje:</td>
+            <td height="24"  class="inputtitle"><input name="mensaje_met" type="text" class="string" id="mensaje_met" style="font-family:Tahoma; font-size:10px" onBlur="esconderToolTip()" value="" size="75"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Estado Impresion:</td>
+            <td height="24"  class="inputtitle"><select select name="estadoImpresion_met" id="estadoImpresion_met" class="combo" style="font-family:Tahoma; font-size:10px">
+                <option value="Si">Si</option>
+                <option value="No">No</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Estado:</td>
+            <td height="24"  class="inputtitle"><select select name="estado_met" id="estado_met" class="combo" style="font-family:Tahoma; font-size:10px">
+                <option value="A">Activo</option>
+                <option value="I">Inactivo</option>
+              </select></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td width="150" height="31"> <div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+      <td width="540"></td>
+      <td width="150"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+    </tr>
+  </table>
+  </td>
+    </tr>
+  </table>
+</form>
+<script>
+function llamar()
+{
+	//window.close();
+}
+	omnisoftLoadData(document.PaginaDatos);
+	
+	var fhoy=new Date();
+  var mes =fhoy.getUTCMonth()+1;
+	if (document.PaginaDatos.desde_mte.value=='')
+        document.PaginaDatos.desde_mte.value=fhoy.getYear()+'-'+mes+'-'+  fhoy.getUTCDate();
+
+		Calendar.setup({
+		inputField     :    "desde_mte",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+	
+	Calendar.setup({
+		inputField     :    "hasta_mte",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

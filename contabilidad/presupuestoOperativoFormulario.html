@@ -1,0 +1,311 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftAcciones.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script language="javascript">
+function calcular(){
+//	alert("calculo")
+document.PaginaDatos.VALOR_POP.value = (document.PaginaDatos.CANTENERO_POP.value * document.PaginaDatos.VALORENERO_POP.value) + (document.PaginaDatos.CANTFEBRERO_POP.value * document.PaginaDatos.VALORFEBRERO_POP.value) + (document.PaginaDatos.CANTMARZO_POP.value * document.PaginaDatos.VALORMARZO_POP.value) + (document.PaginaDatos.CANTABRIL_POP.value * document.PaginaDatos.VALORABRIL_POP.value) + (document.PaginaDatos.CANTMAYO_POP.value * document.PaginaDatos.VALORMAYO_POP.value) + (document.PaginaDatos.CANTJUNIO_POP.value * document.PaginaDatos.VALORJUNIO_POP.value) + (document.PaginaDatos.CANTJULIO_POP.value * document.PaginaDatos.VALORJULIO_POP.value) + (document.PaginaDatos.CANTAGOSTO_POP.value * document.PaginaDatos.VALORAGOSTO_POP.value) + (document.PaginaDatos.CANTSEPTIEMBRE_POP.value * document.PaginaDatos.VALORSEPTIEMBRE_POP.value) + (document.PaginaDatos.CANTOCTUBRE_POP.value * document.PaginaDatos.VALOROCTUBRE_POP.value) + (document.PaginaDatos.CANTNOVIEMBRE_POP.value * document.PaginaDatos.VALORNOVIEMBRE_POP.value) + (document.PaginaDatos.CANTDICIEMBRE_POP.value * document.PaginaDatos.VALORDICIEMBRE_POP.value);
+
+document.PaginaDatos.CANTIDAD_POP.value = parseFloat(document.PaginaDatos.CANTENERO_POP.value) + parseFloat(document.PaginaDatos.CANTFEBRERO_POP.value) + parseFloat(document.PaginaDatos.CANTMARZO_POP.value) + parseFloat(document.PaginaDatos.CANTABRIL_POP.value) + parseFloat(document.PaginaDatos.CANTMAYO_POP.value) + parseFloat(document.PaginaDatos.CANTJUNIO_POP.value) + parseFloat(document.PaginaDatos.CANTJULIO_POP.value) + parseFloat(document.PaginaDatos.CANTAGOSTO_POP.value) + parseFloat(document.PaginaDatos.CANTSEPTIEMBRE_POP.value) + parseFloat(document.PaginaDatos.CANTOCTUBRE_POP.value) + parseFloat(document.PaginaDatos.CANTNOVIEMBRE_POP.value)  + parseFloat(document.PaginaDatos.CANTDICIEMBRE_POP.value);
+}
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="SERIAL_POP" type="hidden" id="SERIAL_POP" class="hidden" >
+<input name="SERIAL_SUC" type="hidden" id="SERIAL_SUC" class="hidden" >
+
+  <table width="900" height="162" border="0" cellpadding="0" cellspacing="0" >
+    <tr  >
+      <td width="212" height="52"  class="ingeniumtoptitle"></td>
+      <td width="556"  class="maintoptitle fonttitle"><center>
+        FINANCIERO<br>
+ PRESUPUESTARIOS -
+      OPERATIVO
+      </center></td>
+      <td width="1"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> 
+	  <table width="900" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">                 	  
+	  <tr>
+		  <td class="inputtitle">Producto:</td>
+            <td colspan="3"><img src="../images/camporequerido.gif"> 
+			<script>
+			var CSERIAL_SRPD = new omnisoftComboBox('CSERIAL_SRPD','SERIAL_SRPD','SELECT srpd.serial_srpd, descripcion_sgrp FROM subrubrosgrupospresupuestarios_departamentos AS srpd, subgruposrubrospresupuestarios AS srp, departamentos AS dep, gruposrubrospresupuestarios as grp, tiposrubrospresupuestarios as trp WHERE srpd.serial_sgrp = srp.serial_sgrp AND srpd.serial_dep = dep.serial_dep and srp.SERIAL_GRP = grp.SERIAL_GRP and grp.SERIAL_TRP = trp.SERIAL_TRP AND srpd.serial_dep ='+ getCookie('serial_dep') +' and trp.TIPO_TRP like "EGRESO" ORDER BY descripcion_sgrp','230px',true,getURLParam('SERIAL_SRPD'));
+			//prompt("sql","SELECT srpd.serial_srpd, descripcion_sgrp FROM subrubrosgrupospresupuestarios_departamentos AS srpd, subgruposrubrospresupuestarios AS srp, departamentos AS dep WHERE srpd.serial_sgrp = srp.serial_sgrp AND srpd.serial_dep = dep.serial_dep AND srpd.serial_dep ='+ getCookie('serial_dep') +' ORDER BY descripcion_sgrp")
+                 CSERIAL_SRPD.show();			
+				 	 		
+			</script>            
+			</td>
+			<td height="24"  class="inputtitle">Año :</td>
+            <!--<td height="15" colspan="5" ><img src="../images/camporequerido.gif"><input name="ANIO_POP" type="text" id="ANIO_POP" size="15" maxlength="15" class="emptyinteger"></td>-->
+			<td class="inputtitle"><select name="ANIO_POP" id="ANIO_POP" class="combobox">
+                <option value="2009">2009</option>
+				<option value="2010">2010</option>
+                <option value="2011">2011</option>
+				<option value="2012">2012</option>
+                <option value="2013">2013</option>
+				<option value="2014">2014</option>
+                <option value="2015">2015</option>
+				<option value="2016">2016</option>
+                <option value="2017">2017</option>
+				<option value="2018">2018</option>
+                <option value="2019">2019</option>
+				<option value="2020">2020</option>
+                <option value="2021">2021</option>
+				<option value="2022">2022</option>
+				<option value="2023">2023</option>
+				<option value="2024">2024</option>
+				<option value="2025">2025</option>
+              </select></td>
+			
+			<td height="24"  class="inputtitle">Fecha :</td>
+            <td height="15"  colspan="5" ><input name="FECHAREALIZADA_POP" type="text" id="FECHAREALIZADA_POP" size="10" maxlength="15" class="string" readonly="true"></td>
+			
+            <!-- <td class="inputtitle">Sede:</td>
+			<td colspan="3"><img src="../images/camporequerido.gif"> 
+			<script>
+	//		var CSERIAL_SUC = new omnisoftComboBox('CSERIAL_SUC','SERIAL_SUC','select suc.SERIAL_SUC, suc.NOMBRE_SUC from departamentos as dep, sucursal as suc where dep.serial_age = suc.SERIAL_AGE and serial_dep = '+ getCookie('serial_dep'),'230px',true,getURLParam('SERIAL_SUC'));
+			//prompt("sql","SELECT srpd.serial_srpd, descripcion_sgrp FROM subrubrosgrupospresupuestarios_departamentos AS srpd, subgruposrubrospresupuestarios AS srp, departamentos AS dep WHERE srpd.serial_sgrp = srp.serial_sgrp AND srpd.serial_dep = dep.serial_dep AND srpd.serial_dep ='+ getCookie('serial_dep') +' ORDER BY descripcion_sgrp")
+//                 CSERIAL_SUC.show();							 	 		
+			</script>            
+			</td>-->	
+			
+		</tr>
+		
+</table>
+
+<table width="900" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable"> 
+	<tr>	
+			<td height="24"  class="inputtitle">Cantidad :</td>
+            <td height="15" colspan="5" ><input name="CANTIDAD_POP" type="text" id="CANTIDAD_POP" size="7" maxlength="15" class="emptydouble"></td>
+
+<td height="24"  class="inputtitle">Valor :</td>
+            <td height="15" colspan="5" ><input name="VALOR_POP" type="text" id="VALOR_POP" size="15" maxlength="15" class="emptydouble"readonly="true"></td>
+			
+			<td height="24"  class="inputtitle">Aprobado? :</td>
+	<!--		<td class="inputtitle"><select name="aprobado_pop" id="aprobado_pop" class="combobox">
+                <option value="NO">NO</option>
+				<option value="SI">SI</option>
+              </select></td>         
+-->
+			<td height="3" colspan="2" class="inputtitle">
+			  <input name="aprobado_pop" type="text" id="aprobado_pop" value="NO" class="hidden" readonly="true">
+			 </td> 
+			  
+			  <script>
+					document.PaginaDatos.aprobado_pop.value=getURLParam('aprobado_pop');
+					//alert(document.PaginaDatos.aprobado_pop.value);			  
+//				  	getURLParam('SERIAL_SRPD')
+			  </script>
+
+</tr>  
+     
+      
+        </table>
+		
+		
+		<table width="900" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">                 	  
+	  	
+		<tr>
+			<td height="24"  class="inputtitle">Enero:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTENERO_POP" type="text" id="CANTENERO_POP " size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALORENERO_POP" type="text" id="VALORENERO_POP " size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>
+			<td height="24"  class="inputtitle">Febrero:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTFEBRERO_POP" type="text" id="CANTFEBRERO_POP " size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALORFEBRERO_POP" type="text" id="VALORFEBRERO_POP " size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>
+			<td height="24"  class="inputtitle">Marzo:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTMARZO_POP" type="text" id="CANTMARZO_POP " size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALORMARZO_POP" type="text" id="VALORMARZO_POP " size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>
+			<td height="24"  class="inputtitle">Abril:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTABRIL_POP" type="text" id="CANTABRIL_POP" size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALORABRIL_POP" type="text" id="VALORABRIL_POP" size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>
+			
+	   </tr>
+	   <tr>	<td height="24"></td>  </tr>	   
+	   <tr>
+			<td height="24"  class="inputtitle">Mayo:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTMAYO_POP" type="text" id="CANTMAYO_POP" size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALORMAYO_POP" type="text" id="VALORMAYO_POP" size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>
+			<td height="24"  class="inputtitle">Junio:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTJUNIO_POP" type="text" id="CANTJUNIO_POP" size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALORJUNIO_POP" type="text" id="VALORJUNIO_POP" size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>
+			<td height="24"  class="inputtitle">Julio:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTJULIO_POP" type="text" id="CANTJULIO_POP" size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALORJULIO_POP" type="text" id="VALORJULIO_POP" size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>
+			<td height="24"  class="inputtitle">Agosto:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTAGOSTO_POP" type="text" id="CANTAGOSTO_POP" size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALORAGOSTO_POP" type="text" id="VALORAGOSTO_POP" size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>
+			
+	   </tr>
+	   <tr>	<td height="24"></td>  </tr>
+	   
+	   <tr>
+			<td height="24"  class="inputtitle">Septiembre:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTSEPTIEMBRE_POP" type="text" id="CANTSEPTIEMBRE_POP" size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALORSEPTIEMBRE_POP" type="text" id="VALORSEPTIEMBRE_POP" size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>
+			<td height="24"  class="inputtitle">Octubre:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTOCTUBRE_POP" type="text" id="CANTOCTUBRE_POP" size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALOROCTUBRE_POP" type="text" id="VALOROCTUBRE_POP" size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>
+			<td height="24"  class="inputtitle">Noviembre:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTNOVIEMBRE_POP" type="text" id="CANTNOVIEMBRE_POP" size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALORNOVIEMBRE_POP" type="text" id="VALORNOVIEMBRE_POP" size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>
+			<td height="24"  class="inputtitle">Diciembre:</td>
+			<td height="15" colspan="5" class="inputtitle">
+				<input name="CANTDICIEMBRE_POP" type="text" id="CANTDICIEMBRE_POP" size="4" maxlength="7" class="emptyinteger" onBlur="calcular()" value="0">
+				$
+				<input name="VALORDICIEMBRE_POP" type="text" id="VALORDICIEMBRE_POP" size="13" maxlength="13" class="emptydouble" onBlur="calcular()">
+			</td>		
+	   </tr>	
+	   
+        </table>
+	</td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="747" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="150" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="505">
+			 <div align="center" id="divImprimir" style="visibility:visible"><a href="#"  onClick="javascript:imprimirMalla()"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a></div>
+			</td>
+            <td width="150"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+  
+</form>
+<script>
+omnisoftLoadData(document.PaginaDatos);
+
+if (getURLParam('action')=='insert'){
+   document.PaginaDatos.FECHAREALIZADA_POP.value=fechaSistema();
+   document.PaginaDatos.aprobado_pop.value="NO";
+}
+
+document.PaginaDatos.SERIAL_SUC.value=getCookie('serial_suc');
+
+//alert(getCookie('serial_suc'));
+
+	//function procesarTotales(row) {
+	//alert('omniObj.....'+omniObj.grid.getFooterTemplate(4,0).getContent("box/text").element().innerHTML);	
+	//document.getElementById('spanTotal').innerHTML=omniObj.grid.getFooterTemplate(4,0).getContent("box/text").element().innerHTML;
+	//alert(omniObj.grid.getFooterTemplate(4,0).getContent("box/text").element().innerHTML);*/
+//}
+</script>
+<script>
+
+
+</script>
+
+</body>
+</html>

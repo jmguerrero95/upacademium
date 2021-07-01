@@ -1,0 +1,12 @@
+
+function executeUpdate(sqlcmd) {
+
+  var req = new AW.HTTP.Request;
+      req.setURL("../lib/server/omnisoftDataManager.php");
+      req.setRequestMethod("POST");
+      req.setParameter("query",sqlCommand);
+      req.request();
+      req.response=function(data) {
+       alert(data);
+      }
+}

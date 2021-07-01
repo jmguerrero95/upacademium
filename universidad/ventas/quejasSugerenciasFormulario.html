@@ -1,0 +1,128 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script></head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="818" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="150" height="52"  class="ingeniumtoptitle"></td>
+      <td width="540"  class="maintoptitle fonttitle"><center>
+          MARKETING Y VENTAS<br>
+          QUEJAS Y SUGERENCIAS 
+        </center></td>
+      <td width="150"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="805" height="266" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="140" height="24"  class="inputtitle">No. Documento:</td>
+            <td width="659"  class="inputtitle"><input name="numeroDocumento_rqs" type="text" id="numeroDocumento_rqs" class="string" size="16" maxlength="16"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none" readonly="yes" ></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Fecha:</td>
+            <td height="24"  class="inputtitle"><input name="fecha_rqs" type="text" id="fecha_rqs" class="date" size="15" maxlength="15"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Tipo:</td>
+            <td height="24"  class="inputtitle"><input name="descripcion_gus" type="text" id="descripcion_gus" class="date" size="15" maxlength="15"  onBlur="esconderToolTip()" style="font-family:Tahoma; font-size:10px"table="tiposquejassugerencias" serial="serial_gus" info="codigo_gus"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Emite Comentario:</td>
+            <td height="24"  class="inputtitle"><select id="tipoEmisor_rqs" name="tipoEmisor_rqs" class="combo" onChange="cargarDatos();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px;  outline-color:#FF3366">
+                <option value="Cliente">Cliente</option>
+                <option value="Proveedor">Proveedor</option>
+                <option value="Empleado">Empleado</option>
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">&nbsp;</td>
+            <td height="24"  class="inputtitle"><select name="serial" id="serial" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:350px;  outline-color:#FF3366">
+              </select></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Descripcion:</td>
+            <td height="24"  class="inputtitle"><select id="tipoDestinatario_rqs" name="tipoDestinatario_rqs" class="combo" onChange="cargarDescripcion();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px;  outline-color:#FF3366">
+                <option value="Producto">Producto</option>
+                <option value="Empleado">Empleado</option>
+                <option value="Otro">Otro</option>
+              </select></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">&nbsp;</td>
+            <td height="24"  class="inputtitle"><select name="serialDes" id="serialDes" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:350px;  outline-color:#FF3366">
+              </select></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Investigaci&oacute;n:</td>
+            <td height="24"  class="inputtitle"><textarea name="investigacion_rqs" cols="100" class="emptytext" id="investigacion_rqs" style="font-family:Tahoma; font-size:10px" onBlur="esconderToolTip()"></textarea></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Seguimiento:</td>
+            <td height="24"  class="inputtitle"><textarea name="seguimiento_rqs" cols="100" class="emptytext" id="seguimiento_rqs" style="font-family:Tahoma; font-size:10px" onBlur="esconderToolTip()"></textarea></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Observaciones:</td>
+            <td height="24"  class="inputtitle"><input name="observaciones_rqs" type="text" class="string" id="observaciones_rqs" style="font-family:Tahoma; font-size:10px" onBlur="esconderToolTip()" value="" size="100"></td>
+          </tr>
+          <tr> 
+            <td height="24"  class="inputtitle">Estado:</td>
+            <td height="24"  class="inputtitle"><select id="estado_rqs" name="estado_rqs" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF;   outline-color:#FF3366">
+                <option value="A">Aprobado</option>
+                <option value="S">Suspendido</option>
+              </select></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr> 
+      <td width="150" height="31"> <div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+      <td width="540"></td>
+      <td width="150"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+    </tr>
+  </table>
+  </td>
+    </tr>
+  </table>
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	 var fhoy=new Date();
+  var mes =fhoy.getUTCMonth()+1;
+	if (document.PaginaDatos.fecha_rqs.value=='')
+        document.PaginaDatos.fecha_rqs.value=fhoy.getYear()+'-'+mes+'-'+  fhoy.getUTCDate();
+
+		Calendar.setup({
+		inputField     :    "fecha_rqs",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+</script>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

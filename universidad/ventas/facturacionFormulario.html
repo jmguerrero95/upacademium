@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+   var serial_odc=getURLParam('serial_odc');
+
+   if (serial_odc=='' || serial_odc==null) {
+
+       serial_odc=getCookie('serial_odc');
+//       alert(serial_odc);
+
+   }
+
+function recuperarDatos(data) {
+alert(data);
+   setCookie('serial_orp',data);
+}
+
+
+ function procesarDireccionEntrega() {
+   cdireccionentrega_orp.objDBComando.sqlCommand='select direccion_cli,concat(\'MATRIZ-\',direccion_cli) as nombre from cliente where serial_cli='+document.PaginaDatos.serial_cli.value +' UNION select direccion_scl,concat(nombre_scl,\'-\',direccion_scl) as nombre from clientesucursal where serial_cli='+document.PaginaDatos.serial_cli.value +' order by nombre';
+   cdireccionentrega_orp.objDBComando.executeQuery();
+
+   cserial_forc.objDBComando.sqlCommand='select formacobro.serial_forc,nombre_forc from formacobro,cliente where formacobro.serial_forc=cliente.serial_forc and cliente.serial_cli='+document.PaginaDatos.serial_cli.value+' order by nombre_forc'  ;
+   cserial_forc.objDBComando.executeQuery();
+   omniObj.grid.fields[1].list[0]='select producto.serial_prd,nombre_prd,codigo_prd from producto,listaprecios,cliente where producto.serial_prd=listaprecios.serial_prd and listaprecios.serial_tpr=cliente.serial_tpr and cliente.serial_cli='+document.PaginaDatos.serial_cli.value;
+   omniObj.grid.sqlCommand='select serial_dorp, nombre_prd,  (@cajas:=if(cantidad_dorp is NULL or cantidad_dorp=0,cantidadunidades_dorp/unidadesembalaje_prd,cantidad_dorp )) as cantidad_dorp, (@unidades:=if(cantidad_dorp is NULL or cantidad_dorp=0,cantidadunidades_dorp,cantidad_dorp*unidadesembalaje_prd))as cantidadunidades_dorp,(@compensacion:=round(@unidades*if(descuento_dca is NULL,0,descuento_dca),0)) as compensacion_dorp,(@totalunidades:=@unidades+@compensacion) as totalunidades_dorp,(@totaldespachar:=if (cantidaddespachar_dorp is NULL or cantidaddespachar_dorp =0,@totalunidades,cantidaddespachar_dorp)) as cantidaddespachar_dorp,format(valor_lpr,4) as valor_lpr, format(@totaldespachar*valor_lpr,2) as subtotal,format((@descuento:=@compensacion*valor_lpr),2) as descuento,format((@iva12:=if (grabaiva_prd =\'SI\',0.12*@unidades*valor_lpr,0)),2) as valorIva12_dorp, format((@iva12+@totaldespachar*valor_lpr-@descuento),2) as total,producto.serial_prd,comision_dorp FROM listaprecios,detalleordenpedido,producto,cliente left join descuentocanal on descuentocanal.serial_tpr=cliente.serial_tpr and descuentocanal.serial_can=cliente.serial_can and descuentocanal.serial_prd=producto.serial_prd  and descuento_dca is NOT NULL WHERE producto.serial_prd=detalleordenpedido.serial_prd and  listaprecios.serial_prd=producto.serial_prd and listaprecios.serial_tpr=cliente.serial_tpr and  cliente.serial_cli='+document.PaginaDatos.serial_cli.value+' and detalleordenpedido.serial_orp=masterkey'
+
+   cvendedor_orp.objDBComando.sqlCommand='select vendedor_rut,concat(apellido_cli,nombre_cli) as nombre from cliente,ruta,clienteruta,clientesucursal  where cliente.serial_cli=ruta.vendedor_rut and ruta.serial_rut=clienteruta.serial_rut and clienteruta.serial_scl=clientesucursal.serial_scl and clientesucursal.serial_cli=cliente.serial_cli and cliente.serial_cli='+document.PaginaDatos.serial_cli.value+' UNION select serial_cli,concat(apellido_cli,\' \',nombre_cli) as nombre from cliente where serial_cli='+document.PaginaDatos.serial_cli.value;
+   cvendedor_orp.objDBComando.executeQuery();
+
+   ccobrador_orp.objDBComando.sqlCommand='select cobrador_rut,cobrador_rut from  cliente,ruta,clienteruta,clientesucursal where ruta.serial_rut=clienteruta.serial_rut and clienteruta.serial_scl=clientesucursal.serial_scl and clientesucursal.serial_cli=cliente.serial_cli and cliente.serial_cli='+ document.PaginaDatos.serial_cli.value+ ' UNION select \'SIN COBRADOR\' as cobrador_rut,\'SIN COBRADOR\' as cobrador'   ;
+   ccobrador_orp.objDBComando.executeQuery();
+
+
+
+   if (document.PaginaDatos.serial_cli.value!=-1) {
+   document.getElementById('divnombre_orp').style.visibility='hidden';
+   document.getElementById('divtnombre_orp').style.visibility='hidden';
+   document.getElementById('divtcedula_orp').style.visibility='hidden';
+   document.getElementById('divcedula_orp').style.visibility='hidden';
+
+   }
+   else {
+   document.getElementById('divnombre_orp').style.visibility='visible';
+   document.getElementById('divtnombre_orp').style.visibility='visible';
+   document.getElementById('divtcedula_orp').style.visibility='visible';
+   document.getElementById('divcedula_orp').style.visibility='visible';
+
+
+   }
+ }
+
+
+ function imprimirFactura() {
+
+            var attributes='';
+            var sURL='../lib/export/omnisoftFacturaPDFApp.php?numerofactura='+document.PaginaDatos.serial_orp.value;
+            var sWidth=1000;
+            var sHeight=750;
+             if (window.screen) {
+                 sWidth=window.screen.availWidth;
+                 sHeight=window.screen.availHeight;
+             }
+
+               attributes=attributes.concat('width=',sWidth,',height=',sHeight,',scrollbars=yes,resizable=yes,toolbar=no,location=no,status=no,menubar=no');
+
+               omnisoftNewWindow=window.open(sURL,'PDF',attributes);
+               if (window.focus) {omnisoftNewWindow.focus()}
+
+
+ }
+function validarFechaFactura() {
+    var mes=parseFloat(document.PaginaDatos.fecha_orp.value.substr(5,2))-1;
+    var fecha=new Date(document.PaginaDatos.fecha_orp.value.substr(0,4),mes,document.PaginaDatos.fecha_orp.value.substr(8,2));
+     var dias=dateDifference( new Date(), fecha);
+     if (dias>=0 && dias <=2)
+        return true;
+     else {
+           if (dias <0)
+           alert('Advertencia: No puede facturar '+ dias*-1+' dias posteriores al dia de hoy');
+           else
+           alert('Advertencia: No puede facturar '+ dias+' dias anteriores al dia de hoy');
+           document.PaginaDatos.fecha_orp.focus();
+     }
+     return false;
+     }
+</script>
+
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_orp" type="hidden" id="serial_orp" class="hidden" >
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          VENTAS<br>
+          FACTURA
+        </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="241" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="20"  class="inputtitle">Fecha :</td>
+            <td width="92"><img  src="../images/camporequerido.gif">
+            <input name="fecha_orp" type="text" id="fecha_orp" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()" onChange="validarFechaFactura()" ></td>
+            <td width="113" class="inputtitle">Numero Pedido :</td>
+            <td width="114"><span class="inputtitle">
+              <input name="numero_orp" type="text" id="numero_orp" class="emptyinteger" size="10" maxlength="10"  onBlur="esconderToolTip()" table="ordenpedido" fieldid="serial_orp">
+            </span></td>
+            <td class="inputtitle">Numero Factura :</td>
+            <td class="inputtitle"><img  src="../images/camporequerido.gif">
+              <input name="numerofactura_orp" type="text" id="numerofactura_orp" class="autoincrement" size="17" maxlength="15"  onBlur="esconderToolTip()" table="ordenpedido" fieldid="serial_orp">
+
+            <!--<select name="tipoOrdenCompra_odc" id="tipoOrdenCompra_odc" class="combobox">
+                <option value="KARDEX">Productos con Kardex</option>
+                <option value="SIN KARDEX">Productos sin Kardex</option>
+              </select>--></td>
+            <td width="0" class="inputtitle"></td>
+          </tr>
+          <tr>
+            <td height="20"  class="inputtitle">Cliente</td>
+            <td colspan="3" class="inputtitle"><img  src="../images/camporequerido.gif">
+			 <script>
+			 var ccliente_orp=new omnisoftComboBox('ccliente_orp','serial_cli','select serial_cli,concat(apellido_cli,\' \',nombre_cli) as cliente from cliente order by razonsocial_cli','250px',true,getURLParam('serial_cli'));
+                             ccliente_orp.show();
+                             document.PaginaDatos.serial_cli.onchange=procesarDireccionEntrega;
+
+	        </script>			</td>
+            <td class="inputtitle"> Numero Pedido Cliente :</td>
+            <td class="inputtitle"><input name="ordencliente_orp" type="text" id="ordencliente_orp" class="emptytext" size="10" maxlength="10" ></td>
+            <td class="inputtitle"></td>
+          </tr>
+          <tr>
+            <td height="25"  class="inputtitle">Direccion Entrega:</td>
+            <td colspan="3">
+						 <script>
+			 var cdireccionentrega_orp=new omnisoftComboBox('cdireccionentrega_orp','direccionentrega_orp','select direccion_scl,concat(nombre_scl,\'-\',direccion_scl) as nombre from clientesucursal order by nombre_scl','250px',true,getURLParam('direccionentrega_orp'));
+                             cdireccionentrega_orp.show();
+	        </script>			</td>
+            <td class="inputtitle">Fecha Cancelacion : </td>
+            <td class="inputtitle"><input name="fechapago_orp" type="text" id="fechapago_orp" class="emptydate" size="10" maxlength="10"  onBlur="esconderToolTip()" ></td>
+            <td class="inputtitle"></td>
+          </tr>
+          <tr>
+            <td height="25"  class="inputtitle">Distribuidor : </td>
+            <td colspan="3"><img  src="../images/camporequerido.gif"><script>                var cvendedor_orp=new omnisoftComboBox('cvendedor_orp','vendedor_orp','select serial_cli,razonsocial_cli from cliente where serial_cli>0 order by razonsocial_cli','250px',true,getURLParam('vendedor_orp'));
+                     cvendedor_orp.show();
+	        </script></td>
+            <td class="inputtitle">Estado: </td>
+            <td class="inputtitle">
+	        <img  src="../images/camporequerido.gif">
+			  <select name="estado_orp" id="estado_orp" class="combobox">
+	            <option value="FACTURADO" selected="selected">FACTURADO</option>
+	            <option value="DESPACHADO">DESPACHADO</option>
+              </select>            </td>
+            <td class="inputtitle"></td>
+          </tr>
+          <tr>
+            <td width="120" height="25"  class="inputtitle">Cobrador : </td>
+            <td colspan="3" class="inputtitle"><img  src="../images/camporequerido.gif">
+			<script>
+
+               var ccobrador_orp=new omnisoftComboBox('ccobrador_orp','cobrador_orp','select cobrador_rut,cobrador_rut from  cliente,ruta,clienteruta,clientesucursal where ruta.serial_rut=clienteruta.serial_rut and clienteruta.serial_scl=clientesucursal.serial_scl and clientesucursal.serial_cli=cliente.serial_cli '+ ' UNION select \'SIN COBRADOR\' as cobrador_rut,\'SIN COBRADOR\' as cobrador'   ,'250px',true,getURLParam('cobrador_orp'));
+                                 ccobrador_orp.show();
+	        </script>			</td>
+            <td width="211" class="inputtitle">Forma de Cobro : </td>
+            <td class="inputtitle"><img  src="../images/camporequerido.gif"><script>
+                           var cserial_forc=new omnisoftComboBox('cserial_forc','serial_forc','select serial_forc,nombre_forc from formacobro order by nombre_forc','250px',true,getURLParam('serial_forc'));
+                     cserial_forc.show();
+	        </script></td>
+          </tr>
+
+
+          <tr>
+            <td height="21" class="inputtitle"><div id="divtnombre_orp" style="visibility:visible">Nombre :</div></td>
+            <td height="21" colspan="3" class="inputtitle">
+              <div id="divnombre_orp" style="visibility:visible"><input name="nombre_orp" type="text" id="nombre_orp" class="emptytext" size="75" maxlength="200"  onBlur="esconderToolTip()"  ></div>
+            </td>
+            <td height="21" class="inputtitle"><div id="divtcedula_orp" style="visibility:visible">Cedula/Ruc :</div> </td>
+            <td height="21" class="inputtitle"><div id="divcedula_orp" style="visibility:visible">
+              <input name="cedula_orp" type="text" id="cedula_orp" class="emptycedula" size="15" maxlength="15"  onBlur="esconderToolTip()" > </div>
+            </td>
+            <td height="21"></td> </div>
+          </tr>
+          <tr>
+            <td height="21"
+			class="inputtitle">Observaciones&nbsp; :</td>
+            <td height="21" colspan="4"><span class="inputtitle">
+              <input name="observaciones_orp" type="text" id="observaciones_orp" class="emptytext" size="100" maxlength="200"  onBlur="esconderToolTip()"  >
+            </span></td>
+            <td height="21"><div align="right">
+            <td height="21"></td>
+          </tr>
+          <tr>
+            <td height="25" colspan=7> <script>
+   omnisoftLoadData(document.PaginaDatos);
+
+   if (top.opener.omniObj.grid.action=='insert') {
+      document.PaginaDatos.fecha_orp.value=fechaSistema();
+      document.PaginaDatos.fechapago_orp.value=fechaSistema();
+
+    }
+
+    var serial_orp=getURLParam('serial_orp');
+    var cliente_orp=getURLParam('serial_cli');
+
+
+    var sql='select serial_dorp, nombre_prd,  (@cajas:=if(cantidad_dorp is NULL or cantidad_dorp=0,cantidadunidades_dorp/unidadesembalaje_prd,cantidad_dorp )) as cantidad_dorp, (@unidades:=if(cantidad_dorp is NULL or cantidad_dorp=0,cantidadunidades_dorp,cantidad_dorp*unidadesembalaje_prd))as cantidadunidades_dorp,(@compensacion:=round(@unidades*if(descuento_dca is NULL,0,descuento_dca),0)) as compensacion_dorp,(@totalunidades:=@unidades+@compensacion) as totalunidades_dorp,(@totaldespachar:=if (cantidaddespachar_dorp is NULL or cantidaddespachar_dorp =0,@totalunidades,cantidaddespachar_dorp)) as cantidaddespachar_dorp,format(valor_lpr,4) as valor_lpr, format(@totaldespachar*valor_lpr,2) as subtotal,format((@descuento:=@compensacion*valor_lpr),2) as descuento,format((@iva12:=if (grabaiva_prd =\'SI\',0.12*@unidades*valor_lpr,0)),2) as valorIva12_dorp, format((@iva12+@totaldespachar*valor_lpr-@descuento),2) as total,producto.serial_prd,comision_dorp FROM listaprecios,detalleordenpedido,producto,cliente left join descuentocanal on descuentocanal.serial_tpr=cliente.serial_tpr and descuentocanal.serial_can=cliente.serial_can and descuentocanal.serial_prd=producto.serial_prd  and descuento_dca is NOT NULL WHERE producto.serial_prd=detalleordenpedido.serial_prd and  listaprecios.serial_prd=producto.serial_prd and listaprecios.serial_tpr=cliente.serial_tpr and  cliente.serial_cli='+cliente_orp+' and detalleordenpedido.serial_orp=masterkey';
+//alert(serial_orp);
+//alert(serial_cli);
+    var omniObj=new omnisoftGridDetail('omniObj','serial_orp',serial_orp,'detalleordenpedido','serial_dorp',sql,document.PaginaDatos);
+
+     omniObj.addColumn('Serial','serial_dorp', 10,'hidden','','middle','');
+     omniObj.addColumn('Producto','nombre_prd', 15,'combobox',Array('select producto.serial_prd,nombre_prd,codigo_prd from producto,listaprecios,cliente where producto.serial_prd=listaprecios.serial_prd and listaprecios.serial_tpr=cliente.serial_tpr and cliente.serial_cli='+cliente_orp,'serial_prd','nombre_prd'),'middle','');
+
+     omniObj.addColumn('Unidades de Embalaje','cantidad_dorp', 15,'integer','sum','right','','0','refresh');
+     omniObj.addColumn('Unidades Solicitadas','cantidadunidades_dorp', 12,'integer','sum','right','','0','refresh');
+     omniObj.addColumn('Compensacion','compensacion_dorp', 12,'readonly','sum','right','');
+     omniObj.addColumn('Total Unidades','totalunidades_dorp', 12,'readonly','sum','right','');
+     omniObj.addColumn('Unidades Despachar','cantidaddespachar_dorp', 12,'integer','sum','right','','0','refresh');
+
+     omniObj.addColumn('Precio','preciounitario_dorp', 8,'readonly','sum','middle','');
+	 omniObj.addColumn('Subtotal','subtotal', 10,'readonly','sum','middle','','0');
+     omniObj.addColumn('Descuento Porcentaje','descuentoPorcentaje_dorp', 12,'readonly','sum','middle','');
+	 omniObj.addColumn('IVA 12','valoriva12_dorp', 10,'readonly','sum','middle','','0');
+     omniObj.addColumn('Total','total_dorp', 12,'readonly','sum','middle','');
+     omniObj.addColumn('serial_prd','serial_prd', 1,'hidden','','middle','','1');
+	 omniObj.addColumn('comision_dorp','comision_dorp', 1,'hidden','','middle','','1');
+
+     omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');
+
+
+ </script> </td>
+          </tr>
+          <tr>
+            <td height="32" colspan=7 class="inputtitle"> Creado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoCreadoPor" id="FotoCreadoPor">
+<input name="creadopor_orp" type="text" id="creadopor_orp" size="28" maxlength="30"  onBlur="esconderToolTip()"    readonly>
+              Modificado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoModificadoPor" id="FotoModificadoPor">
+<input name="modificadopor_orp" type="text" id="modificadopor_orp"  size="28" maxlength="30"  onBlur="esconderToolTip()"  readonly  >
+              Autorizado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoAutorizadoPor" id="FotoAutorizadoPor">
+<input name="autorizadopor_orp" type="text" id="autorizadopor_orp" size="28" maxlength="30"  onBlur="esconderToolTip()"   readonly >            </td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="150" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="169"></td>
+            <td width="130"><a href="javascript:imprimirFactura()"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a><a href="javascript:imprimirFactura()"></a></td>
+            <td width="205"></td>
+            <td width="151"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+<input name="elaboradopor_orp" type="hidden" id="elaboradopor_orp" class="hidden" value="1">
+<input name="modificadopor_orp" type="hidden" id="modificadopor_orp" class="hidden" value="1"  >
+<input name="aprobadopor_orp" type="hidden" id="aprobadopor_orp" class="hidden"  value="1" >
+
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

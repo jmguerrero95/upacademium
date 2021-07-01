@@ -1,0 +1,342 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <div align="left">
+              <script>
+   omnisoftLoadData(document.PaginaDatos,'iframe');
+      var serial_alu = document.PaginaDatos.serial_alu.value;
+//+getURLParam('serial_alu','iframe')+''
+
+var sql="select engra.* from encuestaGraduados2 as engra,alumno as alu where alu.serial_alu=engra.serial_alu and alu.serial_alu = "+serial_alu;
+//prompt('sql',sql);
+   	 
+	  var omniObj=new omnisoftGridDetail('omniObj','serial_alu',serial_alu,'encuestaGraduados2','serial_engra',sql,document.PaginaDatos,Array(true,true,true),'detalleSeguimientoGraduadoFormulario2.html',900,700);
+
+omniObj.addColumn('Serial_engra','serial_engra',1,'hidden','','middle','');
+omniObj.addColumn('serial_alu','serial_alu',1,'hidden','','middle','');
+omniObj.addColumn('serial_epl','serial_epl',10,'string','','middle','');
+omniObj.addColumn('Cedula Encuaestador','cedula_del_encuestador',15,'string','','middle','');
+omniObj.addColumn('Fecha Encuesta','fecha_de_encuesta', 10,'date','','middle','');
+omniObj.addColumn('Sede','sede',15,'string','','middle','');
+omniObj.addColumn('Cedula Alumno','cedula_alumno',15,'string','','middle','');
+omniObj.addColumn('Priorize los 5 criterios importantes 1','priorize_entre_los_siguientes_criterios_los_5_mas_importantes1',15,'string','','middle','');
+omniObj.addColumn('Priorize los 5 criterios importantes 2','priorize_entre_los_siguientes_criterios_los_5_mas_importantes2',15,'string','','middle','');
+omniObj.addColumn('Priorize los 5 criterios importantes 3','priorize_entre_los_siguientes_criterios_los_5_mas_importantes3',15,'string','','middle','');
+omniObj.addColumn('Priorize los 5 criterios importantes 4','priorize_entre_los_siguientes_criterios_los_5_mas_importantes4',15,'string','','middle','');
+omniObj.addColumn('Priorize los 5 criterios importantes 5','priorize_entre_los_siguientes_criterios_los_5_mas_importantes5',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_busqueda_de_oportunids','medida_considera_existencia_dependido_de_busqueda_de_oportunids',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es1','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es1',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor1','donde_desarrollo_la_habilidad_de_manejo_de_este_factor1',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_que_la_univers_apoyo_ala_formacion_este_factor1','cuanto_considera_que_la_univers_apoyo_ala_formacion_este_factor1',20,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_persistencia_y_disciplina','medida_considera_existencia_dependido_persistencia_y_disciplina',20,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es2','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es2',20,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor2','donde_desarrollo_la_habilidad_de_manejo_de_este_factor2',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_universidad_apoyo_formacion_de_este_factor2','cuanto_considera_universidad_apoyo_formacion_de_este_factor2',20,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_cumplimiento_metas_objs','medida_considera_existencia_dependido_cumplimiento_metas_objs',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es3','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es3',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor3','donde_desarrollo_la_habilidad_de_manejo_de_este_factor3',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_universidad_apoyo_formacion_de_este_factor3','cuanto_considera_universidad_apoyo_formacion_de_este_factor3',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_logro_eficiencia_y_calidad','medida_considera_existencia_dependido_logro_eficiencia_y_calidad',20,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es4','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es4',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor4','donde_desarrollo_la_habilidad_de_manejo_de_este_factor4',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_universidad_apoyo_formacion_de_este_factor4','cuanto_considera_universidad_apoyo_formacion_de_este_factor4',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_depend_de_correr_riesgos_calculados','medida_considera_existencia_depend_de_correr_riesgos_calculados',20,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es5','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es5',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor5','donde_desarrollo_la_habilidad_de_manejo_de_este_factor5',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_univer_apoyo_a_la_formacion_de_este_factor5','cuanto_considera_univer_apoyo_a_la_formacion_de_este_factor5',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_vision_del_futuro','medida_considera_existencia_dependido_de_vision_del_futuro',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es6','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es6',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor6','donde_desarrollo_la_habilidad_de_manejo_de_este_factor6',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_l_universidad_apoyo_formacion_este_factor5','cuanto_considera_l_universidad_apoyo_formacion_este_factor5',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_busqueda_de_informacion','medida_considera_existencia_dependido_de_busqueda_de_informacion',20,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es7','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es7',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor7','donde_desarrollo_la_habilidad_de_manejo_de_este_factor7',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_la_universidad_apoyo_formacion_este_factor6','cuanto_considera_la_universidad_apoyo_formacion_este_factor6',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_planificacion_sistemica_seguimiento','medida_considera_existencia_planificacion_sistemica_seguimiento',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es8','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es8',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor8','donde_desarrollo_la_habilidad_de_manejo_de_este_factor8',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_que_universidad_apoyo_la_formacion_este_factor7','cuanto_considera_que_universidad_apoyo_la_formacion_este_factor7',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_persuacion_capaci_relaci_redes_apoyo','medida_considera_existencia_persuacion_capaci_relaci_redes_apoyo',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es9','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es9',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor9','donde_desarrollo_la_habilidad_de_manejo_de_este_factor9',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_universidad_apoyo_formacion_de_este_factor8','cuanto_considera_universidad_apoyo_formacion_de_este_factor8',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_autoconfianza_y_control_interno','medida_considera_existencia_autoconfianza_y_control_interno',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es10','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es10',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor10','donde_desarrollo_la_habilidad_de_manejo_de_este_factor10',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_universidad_apoyo_formacion_este_factor9','cuanto_considera_universidad_apoyo_formacion_este_factor9',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_solucion_de_problemas','medida_considera_existencia_dependido_de_solucion_de_problemas',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es11','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es11',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor11','donde_desarrollo_la_habilidad_de_manejo_de_este_factor11',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_q_universidad_apoyo_formacion_este_factor10','cuanto_considera_q_universidad_apoyo_formacion_este_factor10',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_vocacion_por_negocios','medida_considera_existencia_dependido_de_vocacion_por_negocios',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es12','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es12',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor12','donde_desarrollo_la_habilidad_de_manejo_de_este_factor12',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_l_universidad_apoyo_la_formacion_este_factor11','cuanto_considera_l_universidad_apoyo_la_formacion_este_factor11',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_negociacion','medida_considera_existencia_dependido_de_negociacion',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es13','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es13',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor13','donde_desarrollo_la_habilidad_de_manejo_de_este_factor13',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_qla_univers_apoyo_formacion_de_este_factor12','cuanto_considera_qla_univers_apoyo_formacion_de_este_factor12',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_trabajo_en_equipo','medida_considera_existencia_dependido_de_trabajo_en_equipo',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es14','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es14',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor14','donde_desarrollo_la_habilidad_de_manejo_de_este_factor14',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_universidad_apoyo_formacion_de_este_factor13','cuanto_considera_universidad_apoyo_formacion_de_este_factor13',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_creatividad','medida_considera_existencia_dependido_de_creatividad',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es15','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es15',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor15','donde_desarrollo_la_habilidad_de_manejo_de_este_factor15',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_ql_universidad_apoyo_formacion_de_este_factor14','cuanto_considera_ql_universidad_apoyo_formacion_de_este_factor14',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_conoc_tecnico_negocios','medida_considera_existencia_dependido_de_conoc_tecnico_negocios',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es16','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es16',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor16','donde_desarrollo_la_habilidad_de_manejo_de_este_factor16',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_universidad_apoyo_a_la_formac_de_este_factor15','cuanto_considera_universidad_apoyo_a_la_formac_de_este_factor15',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_mercadeo','medida_considera_existencia_dependido_de_mercadeo',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es17','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es17',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor17','donde_desarrollo_la_habilidad_de_manejo_de_este_factor17',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_universidad_apoyo_formacion_de_este_factor16','cuanto_considera_universidad_apoyo_formacion_de_este_factor16',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_adminis_empresas','medida_considera_existencia_dependido_de_adminis_empresas',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es18','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es18',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor18','donde_desarrollo_la_habilidad_de_manejo_de_este_factor18',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_universidad_apoyo_a_la_formacion_dste_factor17','cuanto_considera_universidad_apoyo_a_la_formacion_dste_factor17',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_comunicacion','medida_considera_existencia_dependido_de_comunicacion',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es19','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es19',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor19','donde_desarrollo_la_habilidad_de_manejo_de_este_factor19',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_universidad_apoyo_formacion_de_este_factor18','cuanto_considera_universidad_apoyo_formacion_de_este_factor18',15,'string','','middle','');
+omniObj.addColumn('medida_considera_existencia_dependido_de_motivacion','medida_considera_existencia_dependido_de_motivacion',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es20','considera_usted_que_el_manejo_de_este_factor_en_su_empresa_es20',15,'string','','middle','');
+omniObj.addColumn('donde_desarrollo_la_habilidad_de_manejo_de_este_factor20','donde_desarrollo_la_habilidad_de_manejo_de_este_factor20',15,'string','','middle','');
+omniObj.addColumn('cuanto_considera_universidad_apoyo_a_la_formacion_dl_factor19','cuanto_considera_universidad_apoyo_a_la_formacion_dl_factor19',15,'string','','middle','');
+omniObj.addColumn('cuantos_empleados_tiene_su_empresa','cuantos_empleados_tiene_su_empresa',15,'string','','middle','');
+omniObj.addColumn('considera_usted_que_las_ventas_de_su_empresa_han_venido','considera_usted_que_las_ventas_de_su_empresa_han_venido',15,'string','','middle','');
+omniObj.addColumn('la_tasa_promedio_a_la_que_evoluciona_su_empresa_es','la_tasa_promedio_a_la_que_evoluciona_su_empresa_es',15,'string','','middle','');
+omniObj.addColumn('la_tasa_promedio_a_la_que_evoluciona_su_empresa_se_aproxima_a','la_tasa_promedio_a_la_que_evoluciona_su_empresa_se_aproxima_a',15,'string','','middle','');
+omniObj.addColumn('su_nivel_de_contactos_empresariales_y_redes_personales_es','su_nivel_de_contactos_empresariales_y_redes_personales_es',15,'string','','middle','');
+omniObj.addColumn('su_nivel_de_contactos_empresariales_y_redes_pers_proviene_de','su_nivel_de_contactos_empresariales_y_redes_pers_proviene_de',15,'string','','middle','');
+omniObj.addColumn('su_nivel_de_contactos_empresariales_y_redes_comerciales_es','su_nivel_de_contactos_empresariales_y_redes_comerciales_es',15,'string','','middle','');
+omniObj.addColumn('su_nivel_de_contactos_empresariales_y_redes_comer_proviene_de','su_nivel_de_contactos_empresariales_y_redes_comer_proviene_de',15,'string','','middle','');
+omniObj.addColumn('numero_instituciones_que_mantiene_alianzas_estrategicas_es_de','numero_instituciones_que_mantiene_alianzas_estrategicas_es_de',15,'string','','middle','');
+omniObj.addColumn('sus_alianzas_estrategicas_provienen_de','sus_alianzas_estrategicas_provienen_de',15,'string','','middle','');
+omniObj.addColumn('usted_a_recibido_apoyo_institucional','usted_a_recibido_apoyo_institucional',15,'string','','middle','');
+omniObj.addColumn('su_apoyo_institucional_ha_venido_desde','su_apoyo_institucional_ha_venido_desde',15,'string','','middle','');
+omniObj.addColumn('en_que_consistio_el_apoyo_institucional','en_que_consistio_el_apoyo_institucional',15,'string','','middle','');
+omniObj.addColumn('priorice_entre_3_factores_mas_importantes_el_rendimiento_empres','priorice_entre_3_factores_mas_importantes_el_rendimiento_empres',15,'string','','middle','');
+omniObj.addColumn('priorice_entre_3_factores_mas_importantes_en_rendimiento_empres','priorice_entre_3_factores_mas_importantes_en_rendimiento_empres',15,'string','','middle','');
+omniObj.addColumn('priorice_entre_3_factores_mas_importantes_rendimiento_empresar','priorice_entre_3_factores_mas_importantes_rendimiento_empresar',15,'string','','middle','');
+omniObj.addColumn('nuemro_de_socios_fundadores','nuemro_de_socios_fundadores',15,'string','','middle','');
+omniObj.addColumn('tiene_usted_diferenciadas_y_asignadas_las_funciones_empresa','tiene_usted_diferenciadas_y_asignadas_las_funciones_empresa',15,'string','','middle','');
+omniObj.addColumn('sector_de_actividad_empresarial','sector_de_actividad_empresarial',15,'string','','middle','');
+omniObj.addColumn('tipo_de_propuesta_comercial','tipo_de_propuesta_comercial',15,'string','','middle','');
+omniObj.addColumn('tipo_de_clientes_iniciales','tipo_de_clientes_iniciales',15,'string','','middle','');
+omniObj.addColumn('tipo_de_clientes_actuales','tipo_de_clientes_actuales',15,'string','','middle','');
+omniObj.addColumn('experiencia_laboral_previa','experiencia_laboral_previa',15,'string','','middle','');
+omniObj.addColumn('fuente_de_identificacion_de_la_oportunidad','fuente_de_identificacion_de_la_oportunidad',15,'string','','middle','');
+omniObj.addColumn('fuentes_de_financiamiento','fuentes_de_financiamiento',15,'string','','middle','');
+omniObj.addColumn('priorice_los_5_factores_que_le_han_impedido_desarr_su_empresa1','priorice_los_5_factores_que_le_han_impedido_desarr_su_empresa1',15,'string','','middle','');
+omniObj.addColumn('priorice_los_5_factores_q_mas_han_impedido_desarr_su_empresa2','priorice_los_5_factores_q_mas_han_impedido_desarr_su_empresa2',15,'string','','middle','');
+omniObj.addColumn('priorice_los_5_factores_q_mas_han_impedido_desarr_su_empresa3','priorice_los_5_factores_q_mas_han_impedido_desarr_su_empresa3',15,'string','','middle','');
+omniObj.addColumn('priorice_los_5_factores_q_mas_le_han_impedido_desarr_su_empresa4','priorice_los_5_factores_q_mas_le_han_impedido_desarr_su_empresa4',15,'string','','middle','');
+omniObj.addColumn('priorice_los_5_factores_q_mas_le_han_impedido_desarr_su_empresa5','priorice_los_5_factores_q_mas_le_han_impedido_desarr_su_empresa5',15,'string','','middle','');
+omniObj.addColumn('universidad_preparo_manejar_obstaculo_informacion_de_mercado','universidad_preparo_manejar_obstaculo_informacion_de_mercado',15,'string','','middle','');
+omniObj.addColumn('considera_este_factor_superado1','considera_este_factor_superado1',15,'string','','middle','');
+omniObj.addColumn('como_a_superado_este_factor1','como_a_superado_este_factor1',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_superar_este_factor1','que_le_ha_impedido_superar_este_factor1',15,'string','','middle','');
+omniObj.addColumn('que_vacios_fueron_los_mas_notorios_en_su_formacion_academica1','que_vacios_fueron_los_mas_notorios_en_su_formacion_academica1',15,'string','','middle','');
+omniObj.addColumn('que_ares_contribuyeron_mas_en_su_formacion_academica','que_ares_contribuyeron_mas_en_su_formacion_academica',15,'string','','middle','');
+omniObj.addColumn('universidad_preparo_manejar_obstaculo_obtencion_de_clientes','universidad_preparo_manejar_obstaculo_obtencion_de_clientes',15,'string','','middle','');
+omniObj.addColumn('considera_este_factor_superado2','considera_este_factor_superado2',15,'string','','middle','');
+omniObj.addColumn('como_a_superado_este_factor2','como_a_superado_este_factor2',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_superar_este_factor2','que_le_ha_impedido_superar_este_factor2',15,'string','','middle','');
+omniObj.addColumn('que_vacios_fueron_los_mas_notorios_en_su_formacion_academica2','que_vacios_fueron_los_mas_notorios_en_su_formacion_academica2',15,'string','','middle','');
+omniObj.addColumn('que_areas_contribuyeron_mas_en_su_formacion_academica1','que_areas_contribuyeron_mas_en_su_formacion_academica1',15,'string','','middle','');
+omniObj.addColumn('universidad_preparomanejar_obstaculo_consecuc_proveed_adecuados','universidad_preparomanejar_obstaculo_consecuc_proveed_adecuados',15,'string','','middle','');
+omniObj.addColumn('considera_este_factor_superado3','considera_este_factor_superado3',15,'string','','middle','');
+omniObj.addColumn('como_a_superado_este_factor3','como_a_superado_este_factor3',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_superar_este_factor3','que_le_ha_impedido_superar_este_factor3',15,'string','','middle','');
+omniObj.addColumn('que_vacios_fueron_los_mas_notorios_en_su_formacion_academica3','que_vacios_fueron_los_mas_notorios_en_su_formacion_academica3',15,'string','','middle','');
+omniObj.addColumn('que_areas_contribuyeron_mas_en_su_formacion_academica2','que_areas_contribuyeron_mas_en_su_formacion_academica2',15,'string','','middle','');
+omniObj.addColumn('univer_preparo_manejar_obstaculocontratac_pers_ejecu_calificad','univer_preparo_manejar_obstaculocontratac_pers_ejecu_calificad',15,'string','','middle','');
+omniObj.addColumn('considera_este_factor_superado4','considera_este_factor_superado4',15,'string','','middle','');
+omniObj.addColumn('como_a_superado_este_factor4','como_a_superado_este_factor4',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_superar_este_factor','que_le_ha_impedido_superar_este_factor',15,'string','','middle','');
+omniObj.addColumn('que_vacios_fueron_los_mas_notorios_en_su_formacion_academica4','que_vacios_fueron_los_mas_notorios_en_su_formacion_academica4',15,'string','','middle','');
+omniObj.addColumn('que_areas_contribuyeron_mas_en_su_formacion_academica3','que_areas_contribuyeron_mas_en_su_formacion_academica3',15,'string','','middle','');
+omniObj.addColumn('univers_preparomanejar_obstac_contratacpersonal_opera_calificad','univers_preparomanejar_obstac_contratacpersonal_opera_calificad',15,'string','','middle','');
+omniObj.addColumn('considera_este_factor_superado5','considera_este_factor_superado5',15,'string','','middle','');
+omniObj.addColumn('como_a_superado_este_factor5','como_a_superado_este_factor5',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_superar_este_factor4','que_le_ha_impedido_superar_este_factor4',15,'string','','middle','');
+omniObj.addColumn('que_vacios_fueron_los_mas_notorios_en_su_formacion_academica5','que_vacios_fueron_los_mas_notorios_en_su_formacion_academica5',15,'string','','middle','');
+omniObj.addColumn('que_areas_contribuyeron_mas_en_su_formacion_academica4','que_areas_contribuyeron_mas_en_su_formacion_academica4',15,'string','','middle','');
+omniObj.addColumn('universidad_le_preparo_manejar_obstaculo_de_equipos_y_logistica','universidad_le_preparo_manejar_obstaculo_de_equipos_y_logistica',15,'string','','middle','');
+omniObj.addColumn('considera_este_factor_superado6','considera_este_factor_superado6',15,'string','','middle','');
+omniObj.addColumn('como_a_superado_este_factor6','como_a_superado_este_factor6',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_superar_este_factor5','que_le_ha_impedido_superar_este_factor5',15,'string','','middle','');
+omniObj.addColumn('que_vacios_fueron_los_mas_notorios_en_su_formacion_academica6','que_vacios_fueron_los_mas_notorios_en_su_formacion_academica6',15,'string','','middle','');
+omniObj.addColumn('que_areas_contribuyeron_mas_en_su_formacion_academica5','que_areas_contribuyeron_mas_en_su_formacion_academica5',15,'string','','middle','');
+omniObj.addColumn('la_universidad_preparo_para_manejar_obstaculo_financiamiento','la_universidad_preparo_para_manejar_obstaculo_financiamiento',15,'string','','middle','');
+omniObj.addColumn('considera_este_factor_superado7','considera_este_factor_superado7',15,'string','','middle','');
+omniObj.addColumn('como_a_superado_este_factor7','como_a_superado_este_factor7',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_superar_este_factor6','que_le_ha_impedido_superar_este_factor6',15,'string','','middle','');
+omniObj.addColumn('que_vacios_fueron_los_mas_notorios_en_su_formacion_academica7','que_vacios_fueron_los_mas_notorios_en_su_formacion_academica7',15,'string','','middle','');
+omniObj.addColumn('que_areas_contribuyeron_mas_en_su_formacion_academica6','que_areas_contribuyeron_mas_en_su_formacion_academica6',15,'string','','middle','');
+omniObj.addColumn('universidad_preparo_manejar_obstaculo_conocim_tecn_area_negocios','universidad_preparo_manejar_obstaculo_conocim_tecn_area_negocios',15,'string','','middle','');
+omniObj.addColumn('considera_este_factor_superado8','considera_este_factor_superado8',15,'string','','middle','');
+omniObj.addColumn('como_a_superado_este_factor8','como_a_superado_este_factor8',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_superar_este_factor7','que_le_ha_impedido_superar_este_factor7',15,'string','','middle','');
+omniObj.addColumn('que_vacios_fueron_los_mas_notorios_en_su_formacion_academica8','que_vacios_fueron_los_mas_notorios_en_su_formacion_academica8',15,'string','','middle','');
+omniObj.addColumn('que_areas_contribuyeron_mas_en_su_formacion_academica7','que_areas_contribuyeron_mas_en_su_formacion_academica7',15,'string','','middle','');
+omniObj.addColumn('univer_preparo_manejar_obstaculo_conoc_tecnico_admin_empresas','univer_preparo_manejar_obstaculo_conoc_tecnico_admin_empresas',15,'string','','middle','');
+omniObj.addColumn('considera_este_factor_superado9','considera_este_factor_superado9',15,'string','','middle','');
+omniObj.addColumn('como_a_superado_este_factor9','como_a_superado_este_factor9',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_superar_este_factor8','que_le_ha_impedido_superar_este_factor8',15,'string','','middle','');
+omniObj.addColumn('que_vacios_fueron_los_mas_notorios_en_su_formacion_academica9','que_vacios_fueron_los_mas_notorios_en_su_formacion_academica9',15,'string','','middle','');
+omniObj.addColumn('que_areas_contribuyeron_mas_en_su_formacion_academica8','que_areas_contribuyeron_mas_en_su_formacion_academica8',15,'string','','middle','');
+omniObj.addColumn('univers_preparo_manejar_obstaculo_consecucion_estandarde_calidad','univers_preparo_manejar_obstaculo_consecucion_estandarde_calidad',15,'string','','middle','');
+omniObj.addColumn('considera_este_factor_superado','considera_este_factor_superado',15,'string','','middle','');
+omniObj.addColumn('como_a_superado_este_factor10','como_a_superado_este_factor10',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_superar_este_factor9','que_le_ha_impedido_superar_este_factor9',15,'string','','middle','');
+omniObj.addColumn('que_vacios_fueron_los_mas_notorios_en_su_formacion_academica10','que_vacios_fueron_los_mas_notorios_en_su_formacion_academica10',15,'string','','middle','');
+omniObj.addColumn('que_areas_contribuyeron_mas_en_su_formacion_academica9','que_areas_contribuyeron_mas_en_su_formacion_academica9',15,'string','','middle','');
+omniObj.addColumn('univers_preparo_manejar_obstaculo_consecucion_estandares_calidad','univers_preparo_manejar_obstaculo_consecucion_estandares_calidad',15,'string','','middle','');
+omniObj.addColumn('considera_este_factor_superado11','considera_este_factor_superado11',15,'string','','middle','');
+omniObj.addColumn('como_a_superado_este_factor11','como_a_superado_este_factor11',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_superar_este_factor10','que_le_ha_impedido_superar_este_factor10',15,'string','','middle','');
+omniObj.addColumn('que_vacios_fueron_los_mas_notorios_en_su_formacion_academica11','que_vacios_fueron_los_mas_notorios_en_su_formacion_academica11',15,'string','','middle','');
+omniObj.addColumn('que_areas_contribuyeron_mas_en_su_formacion_academica10','que_areas_contribuyeron_mas_en_su_formacion_academica10',15,'string','','middle','');
+omniObj.addColumn('priorice_los_5_factores_qmas_han_motivado_a_desarr_su_empresa','priorice_los_5_factores_qmas_han_motivado_a_desarr_su_empresa',15,'string','','middle','');
+omniObj.addColumn('priorice_los_5_factores_qmas_han_motivado_a_desarro_su_empresa','priorice_los_5_factores_qmas_han_motivado_a_desarro_su_empresa',15,'string','','middle','');
+omniObj.addColumn('priorice_los_5_factores_qmas_han_motivado_a_desarroll_su_empres1','priorice_los_5_factores_qmas_han_motivado_a_desarroll_su_empres1',15,'string','','middle','');
+omniObj.addColumn('priorice_los_5_factores_qmas_han_motivado_a_desarroll_su_empres2','priorice_los_5_factores_qmas_han_motivado_a_desarroll_su_empres2',15,'string','','middle','');
+omniObj.addColumn('priorice_los_5_factores_qmas_han_motivado_a_desarroll_su_empres3','priorice_los_5_factores_qmas_han_motivado_a_desarroll_su_empres3',15,'string','','middle','');
+omniObj.addColumn('la_universidad_contribuyo_a_motivarle_para_ser_su_propio_jefe','la_universidad_contribuyo_a_motivarle_para_ser_su_propio_jefe',15,'string','','middle','');
+omniObj.addColumn('considera_contar_con_las_herramientas_necesarias1','considera_contar_con_las_herramientas_necesarias1',15,'string','','middle','');
+omniObj.addColumn('como_ha_desarrollado_este_factor1','como_ha_desarrollado_este_factor1',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_desarrollar_este_factor1','que_le_ha_impedido_desarrollar_este_factor1',15,'string','','middle','');
+omniObj.addColumn('que_areas_academicas_contribuyeron_mas1','que_areas_academicas_contribuyeron_mas1',15,'string','','middle','');
+omniObj.addColumn('universidad_contribuyo_motivarle_buscar_realizacion_personal','universidad_contribuyo_motivarle_buscar_realizacion_personal',15,'string','','middle','');
+omniObj.addColumn('considera_contar_con_las_herramientas_necesarias2','considera_contar_con_las_herramientas_necesarias2',15,'string','','middle','');
+omniObj.addColumn('como_ha_desarrollado_este_factor2','como_ha_desarrollado_este_factor2',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_desarrollar_este_factor2','que_le_ha_impedido_desarrollar_este_factor2',15,'string','','middle','');
+omniObj.addColumn('que_areas_academicas_contribuyeron_mas2','que_areas_academicas_contribuyeron_mas2',15,'string','','middle','');
+omniObj.addColumn('univer_contribuyo_a_motivarle_a_buscar_la_realizacion_personal','univer_contribuyo_a_motivarle_a_buscar_la_realizacion_personal',15,'string','','middle','');
+omniObj.addColumn('considera_contar_con_las_herramientas_necesarias3','considera_contar_con_las_herramientas_necesarias3',15,'string','','middle','');
+omniObj.addColumn('como_ha_desarrollado_este_factor3','como_ha_desarrollado_este_factor3',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_desarrollar_este_factor3','que_le_ha_impedido_desarrollar_este_factor3',15,'string','','middle','');
+omniObj.addColumn('que_areas_academicas_contribuyeron_mas3','que_areas_academicas_contribuyeron_mas3',15,'string','','middle','');
+omniObj.addColumn('universidad_contribuyo_a_motivarle_para_contribuir_comunidad','universidad_contribuyo_a_motivarle_para_contribuir_comunidad',15,'string','','middle','');
+omniObj.addColumn('considera_contar_con_las_herramientas_necesarias4','considera_contar_con_las_herramientas_necesarias4',15,'string','','middle','');
+omniObj.addColumn('como_ha_desarrollado_este_factor4','como_ha_desarrollado_este_factor4',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_desarrollar_este_factor4','que_le_ha_impedido_desarrollar_este_factor4',15,'string','','middle','');
+omniObj.addColumn('que_areas_academicas_contribuyeron_mas4','que_areas_academicas_contribuyeron_mas4',15,'string','','middle','');
+omniObj.addColumn('universidad_contribuyo_a_motivarle_para_mejorar_estatus_social','universidad_contribuyo_a_motivarle_para_mejorar_estatus_social',15,'string','','middle','');
+omniObj.addColumn('considera_contar_con_las_herramientas_necesarias5','considera_contar_con_las_herramientas_necesarias5',15,'string','','middle','');
+omniObj.addColumn('como_ha_desarrollado_este_factor5','como_ha_desarrollado_este_factor5',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_desarrollar_este_factor5','que_le_ha_impedido_desarrollar_este_factor5',15,'string','','middle','');
+omniObj.addColumn('que_areas_academicas_contribuyeron_mas5','que_areas_academicas_contribuyeron_mas5',15,'string','','middle','');
+omniObj.addColumn('universidad_contribuyo_motivarle_para_seguir_tradicion_familiar','universidad_contribuyo_motivarle_para_seguir_tradicion_familiar',15,'string','','middle','');
+omniObj.addColumn('considera_contar_con_las_herramientas_necesarias6','considera_contar_con_las_herramientas_necesarias6',15,'string','','middle','');
+omniObj.addColumn('como_ha_desarrollado_este_factor6','como_ha_desarrollado_este_factor6',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_desarrollar_este_factor6','que_le_ha_impedido_desarrollar_este_factor6',15,'string','','middle','');
+omniObj.addColumn('que_areas_academicas_contribuyeron_mas6','que_areas_academicas_contribuyeron_mas6',15,'string','','middle','');
+omniObj.addColumn('universidad_contribuyo_motivar_para_superar_carencia_de_empleo','universidad_contribuyo_motivar_para_superar_carencia_de_empleo',15,'string','','middle','');
+omniObj.addColumn('considera_contar_con_las_herramientas_necesarias7','considera_contar_con_las_herramientas_necesarias7',15,'string','','middle','');
+omniObj.addColumn('como_ha_desarrollado_este_factor7','como_ha_desarrollado_este_factor7',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_desarrollar_este_factor7','que_le_ha_impedido_desarrollar_este_factor7',15,'string','','middle','');
+omniObj.addColumn('que_areas_academicas_contribuyeron_mas7','que_areas_academicas_contribuyeron_mas7',15,'string','','middle','');
+omniObj.addColumn('universidad_contribuyo_motivarle_superar_falta_oport_estudio','universidad_contribuyo_motivarle_superar_falta_oport_estudio',15,'string','','middle','');
+omniObj.addColumn('considera_contar_con_las_herramientas_necesarias8','considera_contar_con_las_herramientas_necesarias8',15,'string','','middle','');
+omniObj.addColumn('como_ha_desarrollado_este_factor8','como_ha_desarrollado_este_factor8',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_desarrollar_este_factor8','que_le_ha_impedido_desarrollar_este_factor8',15,'string','','middle','');
+omniObj.addColumn('que_areas_academicas_contribuyeron_mas8','que_areas_academicas_contribuyeron_mas8',15,'string','','middle','');
+omniObj.addColumn('universidad_contribuyo_a_motivarle_nivel_de_bienestar_economico','universidad_contribuyo_a_motivarle_nivel_de_bienestar_economico',15,'string','','middle','');
+omniObj.addColumn('considera_contar_con_las_herramientas_necesarias9','considera_contar_con_las_herramientas_necesarias9',15,'string','','middle','');
+omniObj.addColumn('como_ha_desarrollado_este_factor9','como_ha_desarrollado_este_factor9',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_desarrollar_este_factor9','que_le_ha_impedido_desarrollar_este_factor9',15,'string','','middle','');
+omniObj.addColumn('que_areas_academicas_contribuyeron_mas9','que_areas_academicas_contribuyeron_mas9',15,'string','','middle','');
+omniObj.addColumn('universidad_contribuyo_motivarle_para_poner_profesion_practica','universidad_contribuyo_motivarle_para_poner_profesion_practica',15,'string','','middle','');
+omniObj.addColumn('considera_contar_con_las_herramientas_necesarias10','considera_contar_con_las_herramientas_necesarias10',15,'string','','middle','');
+omniObj.addColumn('como_ha_desarrollado_este_factor10','como_ha_desarrollado_este_factor10',15,'string','','middle','');
+omniObj.addColumn('que_le_ha_impedido_desarrollar_este_factor10','que_le_ha_impedido_desarrollar_este_factor10',15,'string','','middle','');
+omniObj.addColumn('que_areas_academicas_contribuyeron_mas10','que_areas_academicas_contribuyeron_mas10',15,'string','','middle','');
+//omniObj.addColumn('Serial alu','serial_alu', 1,'hidden','','middle','');
+ omniObj.showGrid('omniObj',20,389,1020,'menu','#FF9900');
+
+	            </script>
+            </div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+  <p>&nbsp;</p>
+  <p>&nbsp;</p>
+</form>
+
+</body>
+</html>

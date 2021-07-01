@@ -1,0 +1,70 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/omnisoft.js"></script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_epl" type="hidden" id="serial_epl" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+   omnisoftLoadData(document.PaginaDatos,'iframe');
+
+      var serial_epl=document.PaginaDatos.serial_epl.value;
+
+      var sql="select histescalafon.serial_esc,concat( nombre_car, '/', nombre_tes ) AS escalafon,fecha_hes, estado_hes,observacion_hes from tipoescalafones,cargos,escalafones,histescalafon WHERE cargos.serial_car = escalafones.serial_car AND tipoescalafones.serial_tes = escalafones.serial_tes and escalafones.serial_esc = histescalafon.serial_esc and histescalafon.serial_epl = masterkey order by histescalafon.serial_hes";
+
+	omniObj=new omnisoftGridDetail('omniObj','serial_epl',serial_epl,'histescalafon','serial_hes',sql,document.PaginaDatos,Array(false,false,false),'',800,210);
+     omniObj.addColumn('Serial','serial_esc', 10,'hidden','','middle','');
+     omniObj.addColumn('Escalafon','escalafon', 30,'string','','middle','');
+     omniObj.addColumn('Fecha Cambio','fecha_hes', 10,'date','','middle','');
+     omniObj.addColumn('Estado','estado_hes', 20,'string','','middle','');
+     omniObj.addColumn('Observaciones','observacion_hes', 30,'string','','middle','');
+
+     omniObj.showGrid('omniObj',20,496,1020,'menu','#FF9900');
+
+
+
+
+
+
+ </script> </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

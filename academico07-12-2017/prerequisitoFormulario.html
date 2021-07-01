@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftAcciones.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+<script>
+ //OBTIENE EL VALOR DEL PARAMETRO DEL URL
+function gup( name ){
+	var regexS = "[\\?&]"+name+"=([^&#]*)";
+	var regex = new RegExp ( regexS );
+	var tmpURL = window.location.href;
+	var results = regex.exec( tmpURL );
+	if( results == null )
+		return"";
+	else
+		return results[1];
+}
+//var ventana=this.window.name='perueba1';
+//alert(ventana);
+var serial_pma=gup('serial_pma');
+
+function GuardarPrerequisito(){
+	//cuando el serial_pma es mayor que 0 va actualizar
+	if(serial_pma>0)
+	  	var SQLCommand='update prerequisito set serial_pma,serial_tpr='+document.getElementById('serial_tpr').value+',serial_mat='+document.getElementById('serial_mat').value+',observacion_pma=\''+document.getElementById('observacion_pma').value+'\' where serial_pma='+serial_pma;
+	else
+		var SQLCommand='insert into prerequisito (serial_pma,serial_tpr,serial_dma,serial_mat,observacion_pma) values(0,'+document.getElementById('serial_tpr').value+','+gup('serial_dma')+','+document.getElementById('serial_mat').value+',\''+document.getElementById('observacion_pma').value+'\')';
+  
+ 
+   //prompt('trtr',SQLCommand);
+   var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftDataManager.php");
+   objDBComando.executeQuery();
+//  alert('No puede registrar la evaluacion..!');
+window.opener.location.reload();
+   this.window.close();
+}
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+<body>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_pma" type="hidden" id="serial_pma" class="hidden">
+<input name="serial_dma" type="hidden" id="serial_dma" class="hidden">
+
+  <table width="905" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="212" height="52"  class="ingeniumtoptitle"></td>
+      <td width="582"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO<br>
+          PREREQUISITOS ENTRE MATERIAS
+      </center></td>
+      <td width="111"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="668" height="222" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000"  bordercolordark="#FFFFFF"class="formtable">
+          <tr>
+      		 <td height="24" colspan="7" class="formtitle"><div align="center">PREREQUISITO</div></td>
+		  </tr>
+		  
+		
+		  <tr>  
+		    <td height="29"  class="inputtitle">Tipo Prerequisito :</td>
+		    <td width="494" height="29"><img src="../images/camporequerido.gif">
+	        <script>   var cserial_tpr=new omnisoftComboBox('cserial_tpr','serial_tpr','select serial_tpr, nombre_tpr from tipoprerequisito order by nombre_tpr asc','270px',true,gup('serial_tpr'));
+                    cserial_tpr.show();	 
+                    
+	            </script></td></tr>
+				
+			<tr>
+				<td width="196" height="29" class="inputtitle">Pre-requisito :  </td>
+		        <td height="29" colspan="2"class="inputtitle">
+              <img src="../images/camporequerido.gif">
+              <script>  
+			  var cserial_mat=new omnisoftComboBox('cserial_mat','serial_mat','SELECT  serial_mat, nombre_mat FROM materia  WHERE serial_mat in(select serial_mat from detallemalla where serial_maa='+opener.PaginaDatos.serial_maa.value+' and serial_dma not in('+gup('serial_dma')+') UNION select serial_mat from malla,detallemalla where malla.serial_maa=detallemalla.serial_maa and serial_maa_p=0 and  malla.serial_maa in (select serial_maa_p from malla where serial_maa='+opener.PaginaDatos.serial_maa.value+') )order by nombre_mat','270px',true,gup('serial_mat'));
+			
+                     cserial_mat.show();
+
+	              </script>
+            </td>
+	      </tr>
+         <tr>
+            <td height="29"
+			class="inputtitle">Observaciones : </td>
+            <td height="29"><span class="inputtitle">
+              <input name="observacion_pma" id="observacion_pma" type="text" class="emptystring" size="100" maxlength="100" value="NINGUNA">
+            </span> </td>
+         
+    <tr>
+		<td height="30" colspan="3" align="center" class="menuborder"> <table width="482" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:GuardarPrerequisito();"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="162"></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+
+ omnisoftLoadData(document.PaginaDatos);
+ //var serial_pma=(getURLParam('action')=='insert')?0:getURLParam('serial_pma');
+
+
+</script>
+</body>
+</html>

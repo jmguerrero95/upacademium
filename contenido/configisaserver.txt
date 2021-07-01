@@ -1,0 +1,12 @@
+isa server nuevo campus
+red externa
+ip 157.100.133.106
+sr 255.255.255.248
+gw 157.100.133.105
+
+dns prima	64.46.64.254
+dns secu	157.100.45.2
+
+red interna
+ip 172.20.2.10
+sr 255.255.255.0

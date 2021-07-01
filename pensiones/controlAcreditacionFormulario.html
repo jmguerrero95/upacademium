@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script language="javascript" src="../lib/tools/ValidarIdentificacion.js"></script>
+
+
+<script language="javascript">
+function recuperarDatosComprobante(data) {
+alert(data);
+  /* var datos=data.split('|');
+   if (datos[0]!='') {
+      alert(datos[0]);
+   }
+   else {
+ //      imprimirFactura();
+       opener.omniObj.lastPage();
+       window.close();
+   }*/
+    var datos=data.split('|');
+  if (datos[0]=='')
+      alert(datos[0]);
+  else alert('La Contabilización se a realizado con éxito');  
+  opener.omniObj.lastPage();
+  window.close();
+
+}
+
+function ImprimirComprobante(){
+  	/*
+	
+	var openurl ="../../academico-financiero/contabilidad/fVistaPreComprobante.php?serial_com="+getURLParam('serial_com')";
+	//alert(openurl);
+	//return;
+	window.open(openurl, "Comprobante Contable" , "width=850,height=600,scrollbars=SI"); 
+	*/
+	var attributes='width=800,height=600,toolbar=yes,location=no,directories=no,status=yes,menubar=no, scrollbars=yes,copyhistory=no,statusbar=no';
+    omnisoftNewWindow=window.open('../../academico-financiero/contabilidad/fVistaPreComprobante.php?serial_com='+getURLParam('serial_com'),'OmnisoftFile',attributes);
+	
+
+}
+function contabilizarDep(){
+	//var answer = confirm("Esta seguro que desea Contabilizar?")
+	//alert(answer);
+	if(confirm("Esta seguro que desea Contabilizar?")){
+		var SQLCommand=document.PaginaDatos.serial_acd.value+'|DPO|'+document.PaginaDatos.fechaacre_acd.value;
+		//prompt('Hell',SQLCommand);
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftContabilizarAcreditaciones.php",'recuperarDatosComprobante');
+		objDBComando.executeQuery();
+		opener.omniObj.firstPage();
+        window.close(); 
+	 	//if (getURLParam('action')=='insert')
+     	//	top.opener.omniObj.lastPage();		
+	}	
+}
+
+
+</script>
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+<body>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_acd" type="hidden" id="serial_acd" class="hidden">
+<input name="serial_suc" type="hidden" id="serial_suc" class="hidden">
+<input name="serial_usr" type="hidden" id="serial_usr" class="hidden">
+  <table width="709" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="212" height="52"  class="ingeniumtoptitle"></td>
+      <td width="370"  class="maintoptitle fonttitle"><center>
+          MODULO PENSIONES<br>
+          COTROL DE ACREDITACION
+      </center></td>
+      <td width="127"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="709" height="222" border="1" cellpadding="0" cellspacing="0" bordercolorlight="#000000"  bordercolordark="#FFFFFF"class="formtable">
+          <tr>
+      		 <td height="24" colspan="7" class="formtitle"><div align="center"><span class="style1">DATOS GENERALES </span>ACREDITACION</div></td>
+		  </tr>
+		  
+		 <tr>
+            <td height="25"  class="inputtitle">Fecha :</td>
+            <td colspan="2"><input name="fechaacre_acd" type="text" id="fechaacre_acd" size="10" maxlength="15" readonly="yes"  class="date"></td>
+			<td width="132" height="25"  class="inputtitle">&nbsp;</td>
+            <td width="172" colspan="2"><span id="cierre_dia"></span>   </td>
+          </tr>
+	      <tr>
+            <td width="132" height="24"  class="inputtitle">Tipo cobro: </td>
+            <td colspan="2"><script>
+				var vs = "select serial_forc, nombre_forc from formacobro where activo_forc='SI'";
+				var cserial_forc=new omnisoftComboBox('cserial_forc','serial_forc',vs,'250px',true,getURLParam('serial_forc'));
+				cserial_forc.show();
+			</script>
+			 <!--<span id="nombre_forc"></span> -->		    </td>
+			 <td height="28"  class="inputtitle">Valor:</td>
+            <td colspan="2" ><input name="valor_acd" type="text" id="valor_acd" size="20" maxlength="120" class="float" readonly="yes"></td>
+          </tr>
+		   <tr>
+            <td height="25"  class="inputtitle">Cuenta:</td>
+            <td colspan="2"><script>
+				var vs = "select serial_bat, concat_ws(' ',cuenta_bat,nombre_ban) as cuenta_banco from bancotesoreria , banco  where bancotesoreria.serial_ban=banco.serial_ban and serial_bat not in ( 4,6,11,15,16,13)";
+				var cserial_bat=new omnisoftComboBox('cserial_bat','serial_bat',vs,'250px',true,getURLParam('serial_bat'));
+				cserial_bat.show();
+			</script></td>
+			<td height="25"  class="inputtitle">Nro. Documento</td>
+            <td colspan="2" ><label>
+              <input name="ndeposito_acd" type="text" id="ndeposito_acd" size="20" maxlength="60" class="integer">
+            </label></td>
+          </tr>
+        
+		           
+		     <tr>
+            <td height="25"  class="inputtitle">Descripcion :</td>
+            <td colspan="2" ><input name="descripcion_acd" type="text" id="descripcion_acd" size="80" maxlength="100" class="string"></td>
+			<td height="25"  class="inputtitle">Estado:</td>
+            <td colspan="2" ><input name="estado_acd" type="text" id="estado_acd" size="15" maxlength="20" class="string" readonly="yes" ></td>
+         
+          <tr>
+		    <td height="24" colspan="7"  class="formtitle"><div align="center">DETALLE</div></td>
+	      </tr>
+		  
+		  <tr>
+		    <td height="30" colspan="7"  class="inputtitle"><script>
+//document.getElementById('cierre_dia').innerHTML= getURLParam('cierre_dia');
+//document.getElementById('nombre_forc').innerHTML= getURLParam('nombre_forc');
+
+   omnisoftLoadData(document.PaginaDatos);
+   if (getURLParam('action')=='insert'){
+   		document.PaginaDatos.fechaacre_acd.value=fechaSistema();
+		document.PaginaDatos.estado_acd.value='PENDIENTE';
+   }
+   
+   // var serial_cdc = getURLParam('serial_adc');
+   var serial_acd=(getURLParam('action')=='insert')?0:getURLParam('serial_acd');
+	//alert(serial_cdc);
+  var sql="select serial_cdca,fechaefec_cdc,fdc.nombre_forc,cdc.valor_cdc, cdc.comision_cdc,cdc.estado_cdc, caf.numero_caf,fechaacre_acd,cdc.serial_cid,fdc.serial_forc from formacobro fdc,cierredia_control cdc, cierredia_control_acreditacion cdca,acreditacion_cierredia acd, detallerecibo as dre ,cabecerarecibo as cre, cabecerafactura as caf where  fdc.serial_forc = cdc.serial_forc and cdca.serial_cdc=cdc.serial_cdc and cdca.serial_acd=acd.serial_acd and  dre.serial_dre=cdc.serial_dre and  dre.serial_cre=cre.serial_cre and cre.serial_caf = caf.serial_caf and acd.serial_acd=masterkey";
+	 
+	 
+   // var sql="select serial_cdca,fechaefec_cdc,fdc.nombre_forc,cdc.valor_cdc, cdc.comision_cdc,cdc.estado_cdc,fechaacre_acd,cdc.serial_cid,fdc.serial_forc from formacobro fdc,cierredia_control cdc, cierredia_control_acreditacion cdca,acreditacion_cierredia acd where  fdc.serial_forc = acd.serial_forc and cdca.serial_cdc=cdc.serial_cdc and cdca.serial_acd=acd.serial_acd and acd.serial_acd=masterkey";
+
+	 // = masterkey";
+	// 	prompt('sql',sql);
+	 if (getURLParam('serial_com')>0)
+	    var  omniObj=new omnisoftGridDetail('omniObj','serial_acd',serial_acd,'cierredia_control_acreditacion','serial_cdca',sql,document.PaginaDatos,Array(false,false,false),'detallecontrolAcreditacionFormulario.php',820,406,'');
+	else
+		var  omniObj=new omnisoftGridDetail('omniObj','serial_acd',serial_acd,'cierredia_control_acreditacion','serial_cdca',sql,document.PaginaDatos,Array(true,true,true),'detallecontrolAcreditacionFormulario.php',820,406,'');	
+
+   omniObj.addColumn('Serial','serial_cdca', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('F. Efectivisacion','fechaefec_cdc', 10,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('TCobro','nombre_forc', 20,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Valor','valor_cdc', 10,'readonly',Array('sum','valor_cdc'),'middle','#ffffcc');
+   omniObj.addColumn('Comision','comision_cdc', 10,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Estado','estado_cdc', 10,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('No Factura','numero_caf', 10,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Fechaacred','fechaacre_acd', 10,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Serial','serial_cid', 1,'hidden','','middle','#ffffcc'); 
+   omniObj.addColumn('Serialforc','serial_forc', 1,'hidden','','middle','#ffffcc'); 
+   omniObj.showGrid('omniObj',20,228,1020,'menu','#FF9900');
+	 
+            </script></td>
+	      </tr>
+		
+        </table></td>
+    </tr>
+    <tr>
+		<td height="30" colspan="3" align="center" class="menuborder"> <table width="707" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="185" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="199"><div  id="mostrar_contabilizar" style="display:none;"><a href="#"  onClick="javascript:contabilizarDep()"><img src="../images/comprobante.png" alt="" width="48" height="48" border="0" align="middle">Contabilizar</a></div></td>
+            <td width="179"><div  id="mostrar_imprimir" style="display:none;"><a href="#"  onClick="javascript:ImprimirComprobante();"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir Comprobante</a></div></td>
+            <td width="90"></td>
+            <td width="54"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+//procesarTotales();
+//	omnisoftLoadData(document.PaginaDatos);
+	document.PaginaDatos.serial_suc.value=getCookie('serial_suc');
+	document.PaginaDatos.serial_usr.value=getCookie('serial_usr');
+	 if (getURLParam('serial_com')>0){
+		mostrar_imprimir.style.display='block';
+		mostrar_contabilizar.style.display='none';
+	}else{
+		mostrar_imprimir.style.display='none';
+		if(serial_acd>0) 
+			mostrar_contabilizar.style.display='block';
+	}	
+//	if (getURLParam('action')=='insert')
+
+</script>
+</body>
+</html>

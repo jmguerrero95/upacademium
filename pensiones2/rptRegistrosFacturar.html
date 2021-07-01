@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script type="text/javascript" src="../lib/fisheyes/jquery.js"></script>
+<script type="text/javascript" src="../lib/fisheyes/interface.js"></script>
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+<script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="JavaScript" type="text/JavaScript">
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+</HEAD>
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td height="541" valign="top">
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top"> <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td><td width="482"  class="toptitle" > <center> MODULO DE <br>FACTURAS PENDIENTES</center></td>
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>  <td height="20" class="menuborder" >
+          	<ul id="myMenu" class='zpHideOnLoad'>            </ul>        <script>              OmnisoftPerfilUsuario(moduloPensiones);
+</script>
+
+		  </td>
+ 		  </tr>
+          <tr>  <td height="412" valign="top" ><div align="center"> <table width="100%" height="447" border="0" align="center" cellpadding="0" cellspacing="0">
+          <tr>  <td width="1123" height="447" colspan="2" >
+ <script>
+facturapendiente="SELECT materiamatriculada.SERIAL_MMAT, codigoIdentificacion_alu, codigo_alu, materiamatriculada.SERIAL_MMAT, apellidopaterno_alu, apellidomaterno_alu, nombre1_alu,	nombre2_alu, periodo.nombre_per, materiamatriculada.FECHAMATRICULA_MMAT, periodo.fecini_per,alumno.serial_alu FROM	alumno,	periodo,(materiamatriculada LEFT JOIN cabecerafactura ON materiamatriculada.serial_mmat = cabecerafactura.serial_mmat) LEFT JOIN detallecreditoportomar as dcpt ON dcpt.serial_mmat=materiamatriculada.SERIAL_MMAT WHERE cabecerafactura.serial_caf IS NULL AND dcpt.serial_dcpt IS NULL and 	alumno.serial_alu=materiamatriculada.serial_alu AND	materiamatriculada.serial_per=periodo.serial_per AND alumno.serial_suc="+getCookie('serial_suc');   
+var  omniObj=new omnisoftGrid('omniObj','materiamatriculada','SERIAL_MMAT',facturapendiente,'generarFacturasPendientes.html',1020,490,'generarFacturasPendientes.html',1020,490,Array(false,false,false));
+	
+   //prompt("",facturapendiente)  
+   //
+ 
+   omniObj.addColumn('Serial','SERIAL_MMAT,',1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('Identificacion','codigoIdentificacion_alu',15,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Codigo de alumno','codigo_alu',15,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Numero','SERIAL_MMAT',10,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('ApellidoPaterno','apellidopaterno_alu',15,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('ApellidoMaterno','apellidomaterno_alu',15,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('PrimerNombre','nombre1_alu',15,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('SegundoNombre','nombre2_alu',15,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Periodo','nombre_per',20,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Fecha Matricula','FECHAMATRICULA_MMAT',20,'readonly','','middle','#ffffcc');
+   omniObj.addColumn('Fecha Per','fecini_per',10,'hidden','','middle','#ffffcc'); 
+  //   
+   omniObj.addColumn('alumno','serial_alu',10,'hidden','','middle','#ffffcc'); 
+   omniObj.showGrid('omniObj',20,475,1020,'menu','#FF9900');
+  
+
+</script></td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<table width="100%" height="58"  cellpadding="0" cellspacing="0">
+<tr>
+<td class="menuborder"> </td>
+</tr>
+</table>
+</body>
+
+
+</HTML>.

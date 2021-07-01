@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+	<script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+	<script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+	<script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script></head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mod" type="hidden" id="serial_mod" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  > 
+      <td width="216" height="52"  class="ingeniumtoptitle"></td>
+      <td width="742"  class="maintoptitle fonttitle"><center>
+          MARKETING Y VENTAS<br>
+          COMPETENCIA 
+        </center></td>
+      <td width="119"  class="logotoptitle"></td>
+    </tr>
+    <tr> 
+      <td height="30" colspan="3"> <table width="1072" height="262" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="131" height="26"  class="inputtitle">No Documento:</td>
+            <td width="260"  class="inputtitle"><input name="numeroDocumento_comp" type="text" id="numeroDocumento_comp" class="string" size="10" maxlength="10"  style="font-family:Tahoma; font-size:10px; background-color:#ffff80; border-style:none" disabled></td>
+            <td width="180"  class="inputtitle">Fecha:</td>
+            <td width="300"  class="inputtitle"><input name="fecha_comp" type="text" id="fecha_comp" class="date" size="10" maxlength="10"  onBlur="esconderToolTip(); formularioGrabado=0;" style="font-family:Tahoma; font-size:10px;" readonly="yes" disabled ></td>
+          </tr>
+          <tr> 
+            <td height="26"  class="inputtitle">Marca:</td>
+            <td height="26"  class="inputtitle"><input name="marca_comp" type="text" id="marca_comp" class="string" size="50" maxlength="50"  onBlur="esconderToolTip();" style="font-family:Tahoma; font-size:10px"></td>
+            <td height="26"  class="inputtitle">R.U.C.:</td>
+            <td height="26"  class="inputtitle"><input name="ruc_comp" type="text" id="ruc_comp" class="string" size="13" maxlength="13" onBlur="esconderToolTip(); validarDocumento();" style="font-family:Tahoma; font-size:10px"></td>
+          </tr>
+          <tr> 
+            <td height="26"  class="inputtitle">Proveedor/Distribuidor:</td>
+            <td height="26"  class="inputtitle"><input name="proveedor_comp" type="text" id="proveedor_comp" class="string" size="60" maxlength="100"  onBlur="esconderToolTip();" style="font-family:Tahoma; font-size:10px"></td>
+            <td height="26"  class="inputtitle">Telefono:</td>
+            <td height="26"  class="inputtitle"><input name="telefono_comp" type="text" id="telefono_comp" class="string" size="16" maxlength="16"  onBlur="esconderToolTip();" style="font-family:Tahoma; font-size:10px"></td>
+          </tr>
+          <tr> 
+            <td height="26"  class="inputtitle">Personeria Juridica:</td>
+            <td height="26"  class="inputtitle"><select name="tipo_comp" id="tipo_comp" class="combo" style="font-family:Tahoma; font-size:10px" tabindex="2">
+                <option value="Persona_Natural">Persona Natural</option>
+                <option value="Persona_Juridica">Persona Jurídica</option>
+                <option value="Empresa_Extranjera">Empresa Extranjera</option>
+              </select></td>
+            <td height="26"  class="inputtitle">E-mail:</td>
+            <td height="26"  class="inputtitle"><input name="email_comp" type="text" id="email_comp" class="string" size="60" maxlength="65"  onBlur="esconderToolTip(); validaremail();" style="font-family:Tahoma; font-size:10px"></td>
+          </tr>
+          <tr> 
+            <td height="26"  class="inputtitle">Direccion:</td>
+            <td height="26"  class="inputtitle"><input name="direccion_comp" type="text" id="direccion_comp" class="string" size="65" maxlength="100"  onBlur="esconderToolTip();" style="font-family:Tahoma; font-size:10px"></td>
+            <td height="26"  class="inputtitle">Web:</td>
+            <td height="26"  class="inputtitle"><input name="web_comp" type="text" id="web_comp" class="string" size="60" maxlength="65"  onBlur="esconderToolTip();" style="font-family:Tahoma; font-size:10px"></td>
+          </tr>
+          <tr> 
+            <td height="26"  class="inputtitle">Pais:</td>
+            <td height="26"  class="inputtitle"><select name="serial_pai" id="serial_pai" onChange="cargarProvincia();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:150px; outline-color:#FF3366">
+              </select></td>
+            <td height="26"  class="inputtitle">Gerente General:</td>
+            <td height="26"  class="inputtitle"><input name="gerenteGeneral_comp" type="text" id="gerenteGeneral_comp" class="string" size="60" maxlength="100"  onBlur="esconderToolTip();" style="font-family:Tahoma; font-size:10px"></td>
+          </tr>
+          <tr> 
+            <td height="26"  class="inputtitle">Provincia:</td>
+            <td height="26"  class="inputtitle"><select name="serial_prv" id="serial_prv" onChange="cargarCiudades();" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:200px;">
+              </select></td>
+            <td height="26"  class="inputtitle">Gerente Ventas:</td>
+            <td height="26"  class="inputtitle"><input name="gerenteVentas_comp" type="text" id="gerenteVentas_comp" class="string" size="60" maxlength="100"  onBlur="esconderToolTip();" style="font-family:Tahoma; font-size:10px"></td>
+          </tr>
+          <tr> 
+            <td height="26"  class="inputtitle">Ciudad:</td>
+            <td height="26"  class="inputtitle"><select name="ciudad_comp" id="ciudad_comp" style="font-family:Tahoma; font-size:10px; border-top-color:#0000FF; width:200px;">
+              </select></td>
+            <td height="26"  class="inputtitle">Accionistas:</td>
+            <td height="26"  class="inputtitle"><input name="accionistas_comp" type="text" id="accionistas_comp" class="string" size="75" maxlength="200"  onBlur="esconderToolTip();" style="font-family:Tahoma; font-size:10px"></td>
+          </tr>
+          <tr>
+	          <td height="15" colspan="7" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">DETALLE </span></div></td>
+            </tr>
+	        <tr>
+	          <td width="131"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Familia Producto</span></td>
+	          <td width="260"><div align="center"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Nuestro Producto</span></div></td>
+	          <td width="180"><div align="center"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Producto Competencia </span></div></td>
+	          <td><div align="center"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Precio</span></div></td>
+	          <td width="40"><div align="center"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Fecha</span></div></td>
+	          <td width="132"><div align="center"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">Caracteristicas</span></div></td>
+	          <td width="15">&nbsp;</td>
+	        </tr>
+	        <tr>
+	          <td>	    
+	          <script>
+		   
+			omnisoftComboBoxJSShow('170px','serial_cap');
+			omnisoftNormalComboBoxJS('serial_cap','SELECT serial_cap, concat(codigo_cap, \' \',nombre_cap) as categoriaproducto FROM categoriaproducto ORDER BY codigo_cap ','',getURLParam('serial_cap'));
+		</script>   
+	          </td>
+	          <td><center>
+	            <script>
+		    
+			omnisoftComboBoxJSShow('370px','serial_prd');
+			omnisoftNormalComboBoxJS('serial_prd','SELECT serial_prd, concat(codigo_prd, \' \',nombre_prd) as producto FROM producto as p, tipoproducto as tp WHERE p.serial_tpo = tp.serial_tpo AND tp.facturable_tpo = \'SI\' ','',getURLParam('serial_prd'));
+		</script>
+	          </center></td>
+	          <td><div align="center">
+	            <input name="producto_pcomp" type="string" id="producto_pcomp" size="45" maxlength="200" style="font-family:Tahoma; font-size:10px">
+	          </div></td>
+	          <td width="300"><div align="center">
+	            <input name="precio_pcomp" type="number" id="precio_pcomp" size="6" maxlength="6" style="font-family:Tahoma; font-size:10px">	    
+              </div></td>
+	          <td><div align="center">
+	            <input name="fecha_pcomp" type="date" id="fecha_pcomp" size="10" maxlength="10" style="font-family:Tahoma; font-size:10px">
+              </div></td>
+	          <td><div align="center">
+	            <input name="caracteristicas_pcomp" type="string" id="caracteristicas_pcomp" size="33" maxlength="200" style="font-family:Tahoma; font-size:10px;">
+              </div></td>
+	          
+            <td><a href="#" onClick="grabarDetalle();"><img src="../btnBack.gif" width="15" height="15" border="0"></a></td>
+            </tr>
+        </table></td>
+    </tr>
+	
+    <tr > 
+      <td height="30" colspan="3" align="center"> <table width="1077" border="0" cellpadding="0" cellspacing="0"  >
+        
+          </script>
+	
+<tr>
+
+  <td ><div align="left" id="ver"></div></td>
+  <td >&nbsp;</td>
+  <td >&nbsp;</td>
+  <td ><div align="right"><span class="style1 style4 style5" style="font-family:Tahoma; font-size:10px">
+  </span></div></td>
+  <td >&nbsp;</td>
+</tr>
+<tr>
+  <td width="150" height="31"> <div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="1"></td>
+  <td width="248" height="15" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">Creado Por:
+    <input name="ncreadoPor_com" type="text" id="ncreadoPor_com" readonly="yes" style="font-family:Tahoma; font-size:10px">
+  </span></div></td>
+  <td width="223" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">Modificado Por:
+    <input name="nmodificadoPor_com" type="text" id="nmodificadoPor_com" readonly="yes" style="font-family:Tahoma; font-size:10px">
+  </span></div></td>
+  <td width="274" background="../images/bg_blue_v_1.jpg"><div align="center"><span class="style1 style4 style5">Autorizado Por:
+    <input name="nautorizadoPor_com" type="text" id="nautorizadoPor_com" readonly="yes" style="font-family:Tahoma; font-size:10px">
+  </span></div></td>
+<td width="181"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+</tr>
+<tr>
+  <td background="images/titulos.jpg"><div align="center">
+  </div></td>
+  <td width="1" background="images/titulos.jpg"><div align="center">
+  </div></td>
+  <td width="248" background="images/titulos.jpg"><div align="center">
+  </div></td>
+  </table></td>
+</tr>
+</table>
+</form>
+<script>
+
+
+
+
+  var fhoy=new Date();
+  var mes =fhoy.getUTCMonth()+1;
+  if (document.PaginaDatos.fecha_pcomp.value=='')
+  document.PaginaDatos.fecha_pcomp.value=fhoy.getYear()+'-'+mes+'-'+  fhoy.getUTCDate();
+		Calendar.setup({
+		inputField     :    "fecha_pcomp",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+  if (document.PaginaDatos.fecha_comp.value=='')
+  document.PaginaDatos.fecha_comp.value=fhoy.getYear()+'-'+mes+'-'+  fhoy.getUTCDate();
+		Calendar.setup({
+		inputField     :    "fecha_comp",	// id of the input field
+		ifFormat       :    "%Y-%m-%d",		// format of the input field  %I:%M %p"
+		showsTime      :    false,			// will display a time selector
+		button         :    "f_trigger_b",	// trigger for the calendar (button ID)
+		singleClick    :    true,			// double-click mode
+		step           :    1				// show all years in drop-down boxes (instead of every other year as default)
+    });
+
+         
+
+function omnisoftLoadDetail(data){
+if (data!=undefined) 
+{
+serial_pcomp=parseInt(data[0]);
+document.PaginaDatos.producto_pcomp.value=data[3];
+document.PaginaDatos.precio_pcomp.value=parseFloat(data[4]);
+document.PaginaDatos.fecha_pcomp.value=data[5];
+document.PaginaDatos.caracteristicas_pcomp.value=data[6];
+document.PaginaDatos.serial_cap.value = data[7];
+document.PaginaDatos.serial_prd.value = data[8];
+}
+
+}
+
+</script>
+<script>
+        </table></td>
+    </tr>
+  </table>
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

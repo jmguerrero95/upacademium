@@ -1,0 +1,256 @@
+<HTML>
+<HEAD>
+<TITLE>ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/hint/codethatsdk.js"></script>
+<script language="javascript1.2" src="../lib/hint/codethathintstd.js"></script>
+<script language="javascript1.2" src="../lib/hint/omnisoftHint.js"></script></head>
+
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language="javascript" src="../lib/aw/lib/aw.js"></script>
+<script language="javascript" src="../lib/grid/omnisoftDB.js"></script>
+<script language="javascript" src="../lib/tools/omnisoftMenu.js"></script>
+<script language="javascript" src= "../config/config.js" ></script>
+<script language="javascript" src= "../lib/tools/disableRightClick.js" ></script>
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+
+var omniHintRecepcionLeche=new omnisoftHint(430,180,'Este modulo permite el registro de la leche receptada, el control de calidad, evaluación de la categoria de leche recibida');
+omniHintRecepcionLeche.create();
+
+var omniHintMantenimiento=new omnisoftHint(430,220,'Este modulo permite la planificación del matenimiento preventivo de equipos, maquinas y componentes');
+omniHintMantenimiento.create();
+
+var omniHintGestionFinanciera=new omnisoftHint(450,250,'Este modulo permite el manejo contable, financiero y presupuestario de la empresa');
+omniHintGestionFinanciera.create();
+
+var omniHintInventarios=new omnisoftHint(430,280,'Este modulo permite la gestion del inventario de productos, activos fijos, ordenes y facturas de compra');
+omniHintInventarios.create();
+
+var omniHintVentas=new omnisoftHint(430,310,'Este modulo permite la gestion de clientes, pedidos, publicidad y marketing, facturación');
+omniHintVentas.create();
+
+var omniHintRRHH=new omnisoftHint(430,310,'Este modulo permite la gestion de empleados, la generación de los roles de pago y evaluaciones de personal');
+omniHintRRHH.create();
+
+var omniHintProduccion=new omnisoftHint(430,310,'Este modulo permite la gestion de ordenes, recetas y requerimientos de producción');
+omniHintProduccion.create();
+
+var omniHintSistema=new omnisoftHint(430,310,'Este modulo permite la gestion de usuarios,perfiles, procesos y toda la información de base empleada por el sistema');
+omniHintSistema.create();
+
+//-->
+</script>
+</HEAD>
+<BODY  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_gestionfinanciera_b.gif','../images/bot_proveedores_b.gif','../images/bot_marketing_b.gif','../images/bot_nomina_b.gif','../images/bot_calidad_b.gif','../images/bot_sistema_b.gif')">
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="4"><IMG SRC="../images/index1024_01.jpg" WIDTH=4 HEIGHT=81 ALT=""></td>
+    <td background="../images/index1024_02.jpg">
+      <div align="left">
+        <table width="100%" height="81" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+      </div></td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="6EA0D3">
+  <tr>
+    <td width="4" background="../images/index1024_04.jpg">&nbsp;</td>
+    <td width="278"><IMG SRC="../images/index1024_05.jpg" WIDTH=416 HEIGHT=365 ALT=""></td>
+    <td width="132">&nbsp;</td>
+    <td colspan="2" >
+<table width="501" height="365" border="0" cellpadding="0" cellspacing="0" bgcolor="6EA0D3">
+        <tr>
+          <td height="367" valign="middle"> <br>
+            <br>
+            <br>
+            <br>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="158">&nbsp;</td>
+                <td width="82">&nbsp;</td>
+                <td width="261"><a href="#" onClick="procesarOpcion(1)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image142','','../images/bot_recepcionleche_b.gif',1)"><img src="../images/bot_recepcionleche_a.gif" name="imgRecepcionLeche" width="220" height="37" border="0" id="imgRecepcionLeche" onMouseOver="omniHintRecepcionLeche.show()" onMouseOut="omniHintRecepcionLeche.hide();"></a></td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="158">&nbsp;</td>
+                <td width="108">&nbsp;</td>
+                <td width="235"><a href="#" onClick="procesarOpcion(2)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image141','','../images/bot_mantenimiento_b.gif',1)"><img src="../images/bot_mantenimiento_a.gif" name="Image141" width="220" height="37" border="0" id="Image141" onMouseOver="omniHintMantenimiento.show()" onMouseOut="omniHintMantenimiento.hide();"></a></td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="292">&nbsp;</td>
+                <td width="220"><a href="#" onClick="procesarOpcion(3)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image9','','../images/bot_gestionfinanciera_b.gif',1)"><img src="../images/bot_gestionfinanciera_a.gif" name="Image9" width="220" height="37" border="0" onMouseOver="omniHintGestionFinanciera.show()" onMouseOut="omniHintGestionFinanciera.hide();"></a></td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="266">&nbsp;</td>
+                <td width="235"><a href="#" onClick="procesarOpcion(4)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image10','','../images/bot_proveedores_b.gif',1)"><img src="../images/bot_proveedores_a.gif" name="Image10" width="220" height="37" border="0" onMouseOver="omniHintInventarios.show()" onMouseOut="omniHintInventarios.hide();"></a></td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="249">&nbsp;</td>
+                <td width="252"><a href="#" onClick="procesarOpcion(5)" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image11','','../images/bot_marketing_b.gif',1)"><img src="../images/bot_marketing_a.gif" name="Image11" width="220" height="37" border="0" onMouseOver="omniHintVentas.show()" onMouseOut="omniHintVentas.hide();"></a></td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="233">&nbsp;</td>
+                <td width="268"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image12','','../images/bot_nomina_b.gif',1)"><img src="../images/bot_nomina_a.gif" name="Image12" width="220" height="37" border="0" onMouseOver="omniHintRRHH.show()" onMouseOut="omniHintRRHH.hide();"></a></td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="159">&nbsp;</td>
+                <td width="51">&nbsp;</td>
+                <td width="291"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image13','','../images/bot_calidad_b.gif',1)"><img src="../images/bot_calidad_a.gif" name="Image13" width="220" height="37" border="0" onMouseOver="omniHintProduccion.show()" onMouseOut="omniHintProduccion();"></a></td>
+              </tr>
+            </table>
+            <table width="501" border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="158">&nbsp;</td>
+                <td width="15">&nbsp;</td>
+                <td width="328"><a href="#" onMouseOut="MM_swapImgRestore()" onMouseOver="MM_swapImage('Image14','','../images/bot_sistema_b.gif',1)"><img src="../images/bot_sistema_a.gif" name="Image14" width="220" height="37" border="0" onMouseOver="omniHint.HintSistema.show()" onMouseOut="omniHintSistema.hide();"></a></td>
+              </tr>
+            </table></td>
+        </tr>
+      </table> </td>
+    <td width="39" >&nbsp;</td>
+    <td width="96" >&nbsp;</td>
+    <td width="7" background="../images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+  <tr>
+    <td background="../images/index1024_04.jpg">&nbsp;</td>
+    <td height="88">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td background="../images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="34" colspan="2" background="../images/index1024_18.jpg"><IMG SRC="../images/index1024_17.jpg" WIDTH=420 HEIGHT=36 ALT=""></td>
+    <td background="../images/index1024_18.jpg">&nbsp;</td>
+    <td background="../images/index1024_18.jpg">&nbsp;</td>
+    <td background="../images/index1024_18.jpg">&nbsp;</td>
+    <td background="../images/index1024_18.jpg">&nbsp;</td>
+    <td background="../images/index1024_18.jpg">&nbsp;</td>
+    <td background="../images/index1024_08.jpg">&nbsp;</td>
+  </tr>
+</table>
+<script>
+
+var serial_usr=getCookie('serial_usr');
+
+   if (serial_usr==null) {
+
+       alert('Error Grave:  Usuario NO permitido!');
+       window.close();
+   }
+else {
+       objDB=new omnisoftDB("SELECT modulos.serial_mod,trim(nombre_prc),trim(url_prc) FROM  accionproceso,modulos, procesos,usuario WHERE serial_usr='"+serial_usr+"' and  accionproceso.serial_pfl =usuario.serial_pfl and procesos.serial_prc=accionproceso.serial_prc and modulos.serial_mod = procesos.serial_mod and navegar_acp='SI'  order by modulos.serial_mod, procesos.serial_prc ","../lib/server/omnisoftSQLData.php");
+       setTimeout('objDB.executeQuery()',0);
+
+
+
+}
+
+var registroModulos=new Array();
+
+var opcionesMenu=new Array();
+
+
+function omnisoftProcesarDatos(data)
+{
+ // alert(data);
+ var registros=data.split('|');
+ var n=0;
+ var regmodulo=registros[1].split('~');
+ var  moduloActual=regmodulo[0];
+ registroModulos[n]=Array(regmodulo[0],regmodulo[2]);
+
+ opcionesMenu[0]=registros[1];
+
+
+ for (var i=2; i < registros.length-1; i++) {
+
+     regmodulo=registros[i].split('~');
+
+     if (regmodulo[0]!=moduloActual) {
+        moduloActual=regmodulo[0];
+        n++;
+        registroModulos[n]=new Array(regmodulo[0],regmodulo[2]);
+        opcionesMenu[n]=registros[i];
+  //      alert(opcionesMenu[n]);
+     }
+
+     else opcionesMenu[n]=opcionesMenu[n]+'|'+registros[i];
+ }
+
+   if ( registroModulos[0][0]==0)
+    document.imgRecepcionLeche.src='../images/bot_blanco.jpg';
+
+   if ( registroModulos[1][0]==0)
+    document.imgRecepcionLeche.src='../images/bot_blanco.jpg';
+
+   if ( registroModulos[2][0]==0)
+    document.imgRecepcionLeche.src='../images/bot_blanco.jpg';
+
+   if ( registroModulos[3][0]==0)
+    document.imgRecepcionLeche.src='../images/bot_blanco.jpg';
+
+   if ( registroModulos[4][0]==0)
+    document.imgRecepcionLeche.src='../images/bot_blanco.jpg';
+
+   if ( registroModulos[5][0]==0)
+    document.imgRecepcionLeche.src='../images/bot_blanco.jpg';
+
+   if ( registroModulos[6][0]==0)
+    document.imgRecepcionLeche.src='../images/bot_blanco.jpg';
+
+
+
+}
+
+function procesarOpcion(id) {
+// alert(id);
+}
+</script>
+</BODY>
+</HTML>

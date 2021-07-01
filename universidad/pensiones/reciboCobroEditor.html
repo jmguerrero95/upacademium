@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script>
+function imprimirReciboCobro() {
+
+  var query='../lib/export/omnisoftReciboCobroPensionesPDFApp.php?dummy=1&query=';
+  var objFieldInput  = document.PaginaDatos.getElementsByTagName('input');
+  var objFieldSelect = document.PaginaDatos.getElementsByTagName('select');
+
+     for (var i=0; i<objFieldInput.length; i++)
+        query=query+'|'+objFieldInput[i].value;
+
+     for (var i=0; i<objFieldSelect.length; i++)
+        query=query+'|'+objFieldSelect[i].value;
+
+//	alert(query);
+       var attributes='width=1020,height=650,scrollbars=no,resizable=no,toolbar=no,location=no,status=no,menubar=no';
+           omnisoftNewWindow=window.open(query,'OmnisoftConsulta',attributes);
+           if (window.focus) {omnisoftNewWindow.focus()}
+        omnisoftGrabar();
+
+}
+</script>
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_cre" type="hidden" id="serial_cre" class="hidden">
+<input name="serial_caf" type="hidden" id="serial_caf" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          PENSIONES <br>
+          RECIBO DE COBRO
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="135" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="149" height="20"  class="inputtitle">N&uacute;mero :</td>
+            <td width="650"> <img  src="../images/camporequerido.gif"><input name="numero_cre" type="text" id="numero_cre" class="autoincrement" fieldid="serial_cre" table="cabecerarecibo" maxlength="10"  size="10" onBlur="esconderToolTip()"    ></td>
+          </tr>
+
+          <tr>
+            <td height="18"  class="inputtitle">Descripci&oacute;n :</td>
+            <td ><img  src="../images/camporequerido.gif"><input name="descripcion_cre" type="text" id="descripcion_cre" size="100" maxlength="255" class="text"></td>
+          </tr>
+
+          <tr>
+            <td height="24"  class="inputtitle">Fecha:</td>
+            <td ><img  src="../images/camporequerido.gif"><input name="fecha_cre" type="text" id="fecha_cre" size="10" maxlength="10" class="date"></td>
+          </tr>
+          <tr>
+            <td height="22"  class="inputtitle">Referencia:</td>
+            <td ><input name="referencia_cre" type="text" id="referencia_cre" size="40" maxlength="40" class="emptytext" ></td>
+          </tr>
+          <tr>
+            <td height="22"  class="inputtitle">Valor:</td>
+            <td ><img  src="../images/camporequerido.gif"><input name="valor_cre" type="text" id="valor_cre" size="10" maxlength="10" class="double" ></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Estado:</td>
+            <td ><img  src="../images/camporequerido.gif"><select name="estado_cre" id="estado_cre" class="comboBox">
+              <option value="REGISTRADO" selected>Registrado</option>
+              <option value="CONTABILIZADO">Contabilizado</option>
+            </select></td>
+          </tr>
+
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="345"></td>
+            <td width="172"><a href="#" onClick="imprimirReciboCobro()"><img src="../images/imprimir.jpg" alt="" width="150" height="30" border="0"></a></td>
+            <td width="173"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	if (getURLParamGET('action')=='insert')
+	   document.PaginaDatos.fecha_cre.value=fechaSistema();
+   	   document.PaginaDatos.serial_caf.value=getURLParamGET('serial_caf');
+
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftAcciones.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+<script>
+
+function SeleccionarPeriodo()
+{
+				 //alert('serial_programa..:'+serial_programa);
+		 cserial_per.objDBComando.sqlCommand='select serial_per, nombre_per from periodo as per where per.serial_sec='+document.PaginaDatos.serial_sec.value+' and per.serial_suc='+getCookie('serial_suc')+' order by nombre_per';
+  cserial_per.objDBComando.executeQuery();
+  seleccionarAlumno();
+  }
+function seleccionarAlumno() {
+//alert('seleccionarAlumno');
+   cserial_ama.objDBComando.sqlCommand='select ama.serial_ama, concat(apellidopaterno_alu,\' \',apellidomaterno_alu,\' \',nombre1_alu,\' \',nombre2_alu) as alumno FROM alumno AS a  JOIN periodo AS per ON a.serial_per = per.serial_per  JOIN seccion AS sec ON a.serial_sec = sec.serial_sec, alumnomalla AS ama   join malla as maa on ama.serial_maa = maa.serial_maa WHERE a.serial_alu = ama.serial_alu and maa.serial_maa_p=0 AND maa.serial_maa is not null and a.serial_per= '+document.PaginaDatos.serial_per.value+' and a.serial_sec='+document.PaginaDatos.serial_sec.value+' and a.serial_suc = '+getCookie('serial_suc')+' order by apellidopaterno_alu,apellidomaterno_alu ';
+   cserial_ama.objDBComando.executeQuery();
+
+  }
+  
+function seleccionarMalla(){
+//alert('seleccionarAlumno');
+var query='SELECT maa.serial_esp, nombre_maa, serial_maa_p, ama.serial_maa, ama.serial_ama, ama.serial_alu, serial_sec FROM alumnomalla AS ama left join malla as maa on ama.serial_maa = maa.serial_maa  WHERE ama.serial_ama='+document.PaginaDatos.serial_ama.value+' and activo_maa=\'SI\''; 
+//prompt('seleccionarAlumno',query);	
+objDB=new omnisoftDB(query,'../lib/server/omnisoftSQLData.php','serialMalla');
+       setTimeout('objDB.executeQuery()',0);
+
+}
+var serial_malla=0;
+var serial_alu=0;
+function serialMalla(data)
+{
+		//alert('serial_Malla');
+		 var registros=data.split('~');
+		 //alert(registros);
+		 var n=0;
+	
+		serial_malla=registros[3];
+		serial_alu=registros[5];
+		//alert('serial_alu'+serial_alu);
+	 seleccionarEspecializacion();
+} 
+function seleccionarEspecializacion() {
+//alert('seleccionarEspecializacion...***');
+//prompt('test','SELECT serial_esp, nombre_maa, serial_maa_p, serial_sec FROM malla WHERE serial_maa_p ='+serial_malla+' and activo_maa=\'SI\'');
+   cserial_maa.objDBComando.sqlCommand='SELECT serial_maa, nombre_maa, serial_maa_p, serial_sec FROM malla WHERE serial_maa_p ='+serial_malla+' and activo_maa=\'SI\'';
+   
+  cserial_maa.objDBComando.executeQuery();
+  } 
+  
+function nuevaMalla() {
+var query='SELECT serial_maa, nombre_maa, serial_maa_p, nombre_esp, malla.serial_esp, serial_sec FROM malla, especialidad  WHERE malla.serial_esp = especialidad.serial_esp  and serial_maa='+document.PaginaDatos.serial_maa.value+''; 
+//prompt('seleccionarAlumno',query);	
+objDB=new omnisoftDB(query,'../lib/server/omnisoftSQLData.php','DatoNuevaMalla');
+       setTimeout('objDB.executeQuery()',0);
+}
+
+function DatoNuevaMalla(data)
+{
+		//alert('serial_Malla');
+		 var registros=data.split('~');
+	
+		
+		nombre_esp=registros[3];
+		serial_esp=registros[4];
+		//alert('nombre_esp: '+nombre_esp);
+		//alert('serial_esp: '+serial_esp);
+		document.PaginaDatos.ESPECIALIDAD.value=nombre_esp;
+		document.PaginaDatos.serial_esp.value=serial_esp;
+		// document.PaginaDatos.serial_maa.value=registros[3];
+	 //alert('serial_maa2: '+document.PaginaDatos.serial_maa.value);
+	 //seleccionarEspecializacion();
+} 
+
+function ActualizarMalla(){
+//alert('entro_ActualizarMalla');
+var query='insert into alumnomalla (serial_alu, serial_maa, fecharegistro_ama) values ('+serial_alu+','+document.PaginaDatos.serial_maa.value+',\''+document.PaginaDatos.fecha_eal.value+'\')'; 
+//prompt('ActualizarMalla',query);	
+objDB=new omnisoftDB(query,'../lib/server/omnisoftSQLData.php');
+     setTimeout('objDB.executeQuery()',0);
+omnisoftGrabar();
+//alert(document.PaginaDatos.serial_esp.value);
+}
+</script>
+
+
+
+<style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+</style>
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_eal" type="hidden" id="serial_eal" class="hidden" >
+<input name="serial_suc" type="hidden" id="serial_suc" class="hidden" >
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+        ACADEMICO<br>
+        ESPECIALIZACION ALUMNO
+      </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="921" height="241" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+	  <tr>
+            <td height="18" colspan="8"  bgcolor="#000166"><div align="center" class="style1 style1">DATOS GENERALES </div></td>
+          </tr>
+           <tr>
+            <td height="29"  class="inputtitle">Fecha : </td>
+            <td height="29" colspan="5"><img src="../images/camporequerido.gif">
+             <input name="fecha_eal" id="fecha_eal" type="text" class="date" size="12" maxlength="13"></td>
+          </tr>
+           <tr>
+             <td height="29"  class="inputtitle">Programa :</td>
+             <td width="282"><span class="inputtitle"><img src="../images/camporequerido.gif"></span>
+             <script>                var cserial_sec=new omnisoftComboBox('cserial_sec','serial_sec','select serial_sec, nombre_sec from seccion order by nombre_sec','180px',true,getURLParam('serial_sec'),'',SeleccionarPeriodo);
+			 
+                     cserial_sec.show();
+					 //document.PaginaDatos.serial_sec.onchange=seleccionarAlumno();SeleccionarPeriodo();
+					 //document.PaginaDatos.serial_sec.onclick=seleccionarMalla;
+	            </script></td>
+             <td width="183" class="inputtitle">Periodo : </td>
+             <td height="29" colspan="3"><span class="inputtitle">
+               <img src="../images/camporequerido.gif">
+               <script>
+                 var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per, nombre_per from periodo where serial_sec='+getURLParam('serial_sec')+' and serial_suc='+getCookie('serial_suc')+' order by nombre_per','180px',true,getURLParam('serial_per'),'',seleccionarAlumno);
+                     cserial_per.show();
+	              </script>
+             </span></td>
+           </tr>
+          <tr>
+            <td height="26"  class="inputtitle">Alumno  :</td>
+            <td height="26" colspan="5"><span class="inputtitle"><img src="../images/camporequerido.gif">
+                <script>                var cserial_ama=new omnisoftComboBox('cserial_ama','serial_ama','select ama.serial_ama, concat(apellidopaterno_alu,\' \',apellidomaterno_alu,\' \',nombre1_alu,\' \',nombre2_alu) as alumno FROM alumno AS a  JOIN periodo AS per ON a.serial_per = per.serial_per  JOIN seccion AS sec ON a.serial_sec = sec.serial_sec, alumnomalla AS ama  join malla as maa on ama.serial_maa = maa.serial_maa  WHERE a.serial_alu = ama.serial_alu and maa.serial_maa_p=0 and a.serial_per = '+getURLParam('serial_per')+' and a.serial_sec='+getURLParam('serial_sec')+' and a.serial_suc = '+getCookie('serial_suc')+' order by apellidopaterno_alu,apellidomaterno_alu','255px',true,getURLParam('serial_ama'),'',seleccionarMalla); 
+                     cserial_ama.show();
+/*prompt('alumno malla','select ama.serial_ama, concat(apellidopaterno_alu,\' \',apellidomaterno_alu,\' \',nombre1_alu,\' \',nombre2_alu) as alumno FROM alumno AS a  JOIN periodo AS per ON a.serial_per = per.serial_per  JOIN seccion AS sec ON a.serial_sec = sec.serial_sec, alumnomalla AS ama  join malla as maa on ama.serial_maa = maa.serial_maa  WHERE a.serial_alu = ama.serial_alu and maa.serial_maa_p=0 and a.serial_per = '+getURLParam('serial_per')+' and a.serial_sec='+getURLParam('serial_sec')+' order by apellidopaterno_alu,apellidomaterno_alu');	*/				 
+	            </script>
+            </span></td>
+          </tr>
+          
+          <tr>
+            <td height="27"  class="inputtitle">Especializacion :</td>
+            <td><span class="inputtitle">
+              <img src="../images/camporequerido.gif"><script>         var cserial_maa=new omnisoftComboBox('cserial_maa','serial_maa','SELECT serial_maa, nombre_maa, serial_maa_p, serial_sec FROM malla WHERE serial_maa_p ='+getURLParam('serial_maa')+' and activo_maa=\'SI\'','380px',true,getURLParam('serial_maa'),'',nuevaMalla); 
+                     cserial_maa.show();
+					 
+					 
+	            </script>
+            </span></td>
+            <td><input name="ESPECIALIDAD" id="ESPECIALIDAD" type="text" size="40" maxlength="40" readonly>
+			<input name="serial_esp" id="serial_esp" type="hidden" class="hidden" ></td>
+            <td width="34" class="inputtitle">Tipo  :</td>
+            <td width="283" class="inputtitle"><img src="../images/camporequerido.gif">
+              <select name="tipo_eal" size="1" class="combobox" id="tipo_eal">
+                <option value="MAYOR">Mayor</option>
+                <option value="MENOR">Menor</option>
+              </select>
+            </span></td>
+            <td width="6" colspan="3" class="inputtitle">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="27"  class="inputtitle"> Guardar Acta Grado:</td>
+            <td><span class="inputtitle">
+              <input name="documento_eal" type="text" id="documento_eal"  class="emptytext" size="30" maxlength="255">
+            </span><a href="#" onClick="cargarDocumento()">
+            <image alt="Cargar Documento" src="../images/buscar.png" width="20" heigth="20" name="documento">
+            </a></td>
+            <td colspan="3" class="inputtitle"><a href="javascript:verDocumento();">Ver 
+	  Acta Grado </a></td>
+            <td colspan="3" class="inputtitle">&nbsp;</td>
+          </tr>
+          
+          <tr>
+            <td width="119" height="25"  class="inputtitle">Observaciones : </td>
+            <td colspan="5"><input name="observaciones_eal" type="text" id="observaciones_eal" size="120" maxlength="150" class="emptystring" value="NINGUNA"></td>
+          </tr>
+<tr>
+            <td height="18" colspan="8"  bgcolor="#000166"><div align="center" class="style1 style1">REQUISITOS PARA GRADUACION</div></td>
+          </tr>
+          <tr>
+            <td height="40" colspan=6><script>
+
+   omnisoftLoadData(document.PaginaDatos);
+
+  //if (getURLParam('action')=='insert')
+      //document.PaginaDatos.fecha_hom.value=fechaSistema();
+
+    var serial_eal=(getURLParam('action')=='insert')?0:getURLParam('serial_eal');
+	
+	//alert('Serial horario'+serial_hrr);
+
+   //alert(document.PaginaDatos.serial_maa.value);
+    var sql='SELECT serial_rgra, nombre_lrg, entregado_rgra, observaciones_rgra, rgra.serial_lrg, serial_eal FROM requisitosgraduacion AS rgra LEFT JOIN listarequisitosgraduacion AS lrg ON rgra.serial_lrg = lrg.serial_lrg where  rgra.serial_eal=masterkey'; 
+	//prompt('sql',sql);
+
+    var     omniObj=new omnisoftGridDetail('omniObj','serial_eal',serial_eal,'requisitosgraduacion','serial_rgra',sql,document.PaginaDatos,Array(true,true,true),'detalleespecializacionFormulario.html',801,160);
+		
+     omniObj.addColumn('Serial','serial_rgra', 1,'hidden','','middle','');
+  	 omniObj.addColumn('Requisito','nombre_lrg', 25,'string','','middle','');
+	 omniObj.addColumn('Entregado','estado_rgra', 10,'string','','right','');
+	 //omniObj.addColumn('Tipo','tipo_dhom', 18,'string','','middle','');
+	 omniObj.addColumn('Observaciones','observaciones_rgra', 20,'string','','middle','');
+	 omniObj.addColumn('serial lista requisitos graduacion','serial_lrg', 1,'hidden','','middle','');
+	 omniObj.addColumn('Serial alumnomalla','serial_ama', 1,'hidden','','middle','');
+	 omniObj.addColumn('Serial especializacion aluno','serial_eal', 1,'hidden','','middle','');
+	 //omniObj.addColumn('Serial detallemalla','serial_dma', 1,'hidden','','middle','');
+     //omniObj.addColumn('serial materia','serial_mat', 1,'hidden','','middle','');
+		 
+  	 omniObj.showGrid('omniObj',10,308,1020,'menu','#FF9900');
+
+
+            </script></td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:ActualizarMalla()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+/*function cargarDocumento() {
+
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportDocumento.php?campoarchivo=documento_hom&archivo='+document.PaginaDatos.documento_hom.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+
+function verDocumento() {
+   var attributes='width=750,height=700,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=yes, copyhistory=no, statusbar=no';
+                   omnisoftNewWindow=window.open('../documento/'+document.PaginaDatos.documento_hom.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+}*/
+</script>
+<script>
+/*function cargarDocumento() {
+
+
+   var attributes='width=350,height=250,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportDocumento.php?campoarchivo=documento_eal&archivo='+document.PaginaDatos.documento_eal.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+
+function verDocumento() {
+   var attributes='width=750,height=700,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=yes, copyhistory=no, statusbar=no';
+                   omnisoftNewWindow=window.open('../documento/'+document.PaginaDatos.documento_eal.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+}*/
+</script>
+<script>
+omnisoftLoadData(document.PaginaDatos);
+	document.PaginaDatos.serial_suc.value=getCookie('serial_suc');
+	
+ if (getURLParam('action')=='insert')
+      document.PaginaDatos.fecha_eal.value=fechaSistema();	
+	  	
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

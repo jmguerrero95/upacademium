@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+<script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+<script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script>
+function seleccionarTipoAnalisis() {
+  cserial_tan.objDBComando.sqlCommand='select serial_tan,concat(codigo_tan,\'- \',nombre_tan) as nombre from tiposanalisis WHERE serial_etp ='+document.PaginaDatos.serial_etp.value;
+  cserial_tan.objDBComando.executeQuery();
+}
+</script>
+  <style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+  </style>
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_pal" type="hidden" id="serial_pal" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          PRODUCCI&Oacute;N<br>
+          PARAMETROS DE AN&Aacute;LISIS 
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+    	<td height="30" colspan="3"> 
+	  	<table width="805" height="118" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+	  	<tr>
+      		<td height="18" colspan="8"  bgcolor="#000166"><div align="center" class="style1">IDENTIFICACION</div></td>
+		</tr>
+		<tr>
+			<td width="135" class="inputtitle">Etapa de Producci&oacute;n : </td>
+        	<td width="227">
+			<script>
+            	var cserial_etp=new omnisoftComboBox('cserial_etp','serial_etp','select serial_etp, nombre_etp as nombre from etapasProduccion  ORDER  BY codigo_etp ASC','200px',false,getURLParam('serial_etp'));
+				cserial_etp.show();
+				document.PaginaDatos.serial_etp.onchange=seleccionarTipoAnalisis;
+				document.PaginaDatos.serial_etp.onclick=seleccionarTipoAnalisis;
+	  		</script>	
+			</td>
+			<td width="135" class="inputtitle">Tipo Analisis</td>
+			<td width="227">
+			<script>
+				var cserial_tan=new omnisoftComboBox('cserial_tan','serial_tan','select serial_tan, concat(codigo_tan,\'- \',nombre_tan) as nombre from tiposanalisis where serial_etp='+getURLParam('serial_etp')+' order by codigo_tan','200px',true,getURLParam('serial_tan'));
+				cserial_tan.show();
+			</script>
+			</td>
+		  </tr>
+          <tr>
+            <td width="126" height="24"  class="inputtitle">Nombre  :</td>
+            <td width="307"><img src="../images/camporequerido.gif">
+            <input name="nombre_pal" type="text" id="nombre_pal" size="30" maxlength="25" class="string"></td>
+            <td width="135" class="inputtitle">Unidad :</td>
+            <td width="227"><img src="../images/camporequerido.gif">
+            <input name="unidad_pal" type="text" id="unidad_pal" size="30" maxlength="15" class="string"></td>
+          </tr>
+          
+
+       <tr>
+            <td height="21" colspan="8"  bgcolor="#000066"><div align="center" class="style1 style1">RANGOS</div></td>
+          </tr>   
+          
+           <tr>
+            <td width="126" height="24"  class="inputtitle">Valor M&iacute;nimo  :</td>
+            <td width="307"><input name="valorinicial_pal" type="text" id="valorinicial_pal" size="40" maxlength="16" class="float"></td>
+            <td width="135" class="inputtitle">Valor M&aacute;ximo: </td>
+            <td width="227"><input name="valorfinal_pal" type="text" id="valorfinal_pal" size="40" maxlength="16" class="float"></td>
+          </tr>
+          <tr>
+            <td height="29"  class="inputtitle">Fuera de Rango   :</span></td>
+            <td ><select name="fuerarango_pal" id="fuerarango_pal" class="combobox">
+              <option value="SI">Si</option>
+              <option value="NO">No</option>
+            </select></td>
+            
+          
+            <td width="126" height="24"  class="inputtitle">Norma de Calidad   :</td>
+            <td width="307" colspan="3">
+				<script>
+                 var cserial_nca=new omnisoftComboBox('cserial_nca','serial_nca','select serial_nca, nombre_nca as nombre from normascalidad  ORDER  BY nombre_nca ASC','200px',true);
+                 cserial_nca.show();
+	  			</script>	
+			</td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

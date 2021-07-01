@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+<script language="javascript1.2" src="../lib/jscalendar/calendar.js" ></script>
+
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+  <script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+
+
+  <style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+-->
+  </style>
+<script>
+
+function procesarNombres() {
+ document.PaginaDatos.nombrecomercial_pvd.value=document.PaginaDatos.apellido_pvd.value+' '+document.PaginaDatos.nombre_pvd.value;
+ document.PaginaDatos.razonsocial_pvd.value=document.PaginaDatos.nombrecomercial_pvd.value;
+ document.PaginaDatos.nombrerepresentante_pvd.value=document.PaginaDatos.nombre_pvd.value ;
+ document.PaginaDatos.apellidorepresentante_pvd.value=document.PaginaDatos.apellido_pvd.value ;
+}
+function procesarPersoneria() {
+
+ if ( document.PaginaDatos.personeriajuridica_pvd.value=="JURIDICA") {
+
+     document.getElementById('divnombre_pvd').style.visibility='hidden';
+     document.getElementById('divapellido_pvd').style.visibility='hidden';
+     document.getElementById('tdivnombre_pvd').style.visibility='hidden';
+     document.getElementById('tdivapellido_pvd').style.visibility='hidden';
+
+
+ }
+ else {
+     document.getElementById('divnombre_pvd').style.visibility='visible';
+     document.getElementById('divapellido_pvd').style.visibility='visible';
+     document.getElementById('tdivnombre_pvd').style.visibility='visible';
+     document.getElementById('tdivapellido_pvd').style.visibility='visible';
+
+
+ }
+
+}
+
+
+function procesarTipoDocumento() {
+
+if ( document.PaginaDatos.tipodocumento_pvd.value=='CEDULA')
+     document.PaginaDatos.ruccedula_pvd.className='cedula';
+else if ( document.PaginaDatos.tipodocumento_pvd.value=='RUC')
+     document.PaginaDatos.ruccedula_pvd.className='ruc';
+else document.PaginaDatos.ruccedula_pvd.className='text';
+
+}
+</script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_pvd" type="hidden" id="serial_pvd" class="hidden">
+
+  <table width="1020" border="0" cellspacing="0" cellpadding="0" >
+    
+    <tr>
+      <td width="1020" height="30" colspan="3"> <table width="1020" height="464" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="18" colspan="8"  bgcolor="#000066"><div align="center" class="style1">DATOS GENERALES </div></td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Tipo Proveedor :</td>
+            <td colspan="7"><img  src="../images/camporequerido.gif">
+			                	  <script>
+ var cserial_tpd=new omnisoftComboBox('cserial_tpd','serial_tpd','select serial_tpd,nombre_tpd from tipoproveedor','250px',true);
+                     cserial_tpd.show();	  </script>			</td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Codigo:</td>
+            <td width="189"><img  src="../images/camporequerido.gif"><input name="codigo_pvd" type="text" id="codigo_pvd" class="autoincrement" fieldid="serial_pvd" table="proveedor" size="10" maxlength="10"  onBlur="esconderToolTip()"    ></td>
+            <td class="inputtitle">Personeria:</td>
+            <td class="inputtitle"><img  src="../images/camporequerido.gif"><select name="personeriajuridica_pvd" id="personeriajuridica_pvd" class="combobox" onchange="procesarPersoneria()">
+              <option value="JURIDICA">JURIDICA</option>
+              <option value="NATURAL">NATURAL</option>
+                        </select></td>
+            <td class="inputtitle">Estado :</td>
+            <td colspan="3" class="inputtitle"><img  src="../images/camporequerido.gif"><select name="estado_pvd" id="estado_pvd" class="combobox">
+              <option value="ACTIVO">ACTIVO</option>
+              <option value="INACTIVO">INACTIVO</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle"><div id="tdivnombre_pvd" style="visibility:visible">Nombre:</div></td>
+            <td>  	<div id="divnombre_pvd" style="visibility:visible">
+              <input name="nombre_pvd" type="text" id="nombre_pvd" size="40" maxlength="60" class="emptystring" onBlur="procesarNombres();esconderToolTip()"></div></td>
+            <td class="inputtitle"><div id="tdivapellido_pvd" style="visibility:visible">Apellido:</div></td>
+            <td class="inputtitle"><div id="divapellido_pvd" style="visibility:visible"><input name="apellido_pvd" type="text" id="apellido_pvd" size="40" maxlength="60" class="emptystring" onBlur="procesarNombres();esconderToolTip()"></div></td>
+            <td class="inputtitle">Nombre comercial :</td>
+            <td colspan="3" class="inputtitle"><input name="nombrecomercial_pvd" type="text" id="nombrecomercial_pvd" class="emptystring" size="40" maxlength="100"  onBlur="esconderToolTip()"    ></td>
+          </tr>
+          <tr>
+            <td width="139" height="21"  class="inputtitle">Razon Social :</td>
+            <td> <img  src="../images/camporequerido.gif"><input name="razonsocial_pvd" type="text" id="razonsocial_pvd" class="string" size="40" maxlength="150"  onBlur="esconderToolTip()"    ></td>
+            <td width="158" class="inputtitle">Tipo Documento :</td>
+            <td width="177"><span class="inputtitle"><img  src="../images/camporequerido.gif">
+              <select name="tipodocumento_pvd" id="tipodocumento_pvd" class="combobox" onchange="procesarTipoDocumento()">
+                <option value="CEDULA">CEDULA</option>
+                <option value="RUC">RUC</option>
+                <option value="PASAPORTE">PASAPORTE</option>
+                <option value="CONSUMIDORFINAL">CONSUMIDOR FINAL</option>
+				<option value="SOCIEDADEXTRANJERA">SOCIEDAD EXTRANJERA</option>
+				<option value="ENTIDADPUBLICA">ENTIDADPUBLICA </option>
+              </select>
+            </span></td>
+            <td width="115" class="inputtitle">RUC/CI :</td>
+            <td colspan="3"><img  src="../images/camporequerido.gif"><input name="ruccedula_pvd" type="text" id="ruccedula_pvd" size="15" maxlength="15" class="cedula"></td>
+          </tr>
+
+          <tr>
+            <td height="24"  class="inputtitle">Direccion :</td>
+            <td ><img  src="../images/camporequerido.gif"><input name="direccion_pvd" type="text" id="direccion_pvd" size="40" maxlength="255" class="string"></td>
+            <td class="inputtitle">Numero Casa:</td>
+            <td ><input name="numerocasa_pvd" type="text" id="numerocasa_pvd" size="10" maxlength="10" class="emptytext"></td>
+            <td  class="inputtitle">Ciudad :</td>
+            <td colspan="3" >
+             <input name="nombre_ciu" type="text" id="nombre_ciu" size="30" maxlength="60" class="autosuggest" onBlur="esconderToolTip()" table="ciudad" serial="serial_ciu" info="codigo_ciu" >            		</td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Calificacion:</td>
+            <td >
+			  <script>
+ var ccalificacion_pvd=new omnisoftComboBox('ccalificacion_pvd','calificacion_pvd','select serial_cpvd,descripcion_nivcp from calificacionproveedor,nivelcalificacionproveedor where nivelcalificacionproveedor.serial_nivcp=calificacionproveedor.serial_nivcp','200px',true);
+                     ccalificacion_pvd.show();	  </script>			</td>
+            <td class="inputtitle">Descuento: </td>
+            <td ><input name="descuento_pvd" type="text" id="descuento_pvd" size="5" maxlength="5" class="emptydouble" value="0.00"></td>
+            <td  class="inputtitle">Proveedor Desde: </td>
+            <td width="83" ><input name="proveedordesde_pvd" type="text" id="proveedordesde_pvd" size="10" maxlength="10" class="emptydate"></td>
+            <td width="57" class="inputtitle">Plazo:</span></td>
+            <td width="84" ><input name="plazocredito_pvd" type="text" id="plazocredito_pvd" size="5" maxlength="5" class="emptyinteger"></td>
+          </tr>
+
+
+          <tr>
+            <td height="24" colspan="8"  bgcolor="#000066"><div align="center" class="style1">DATOS SERVICIO DE RENTAS INTERNAS (SRI) </div></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Actividad Econ&oacute;mica: </td>
+            <td ><input name="actividadeconomicasri_pvd" type="text" id="actividadeconomicasri_pvd" size="40" maxlength="255" class="emptystring"></td>
+            <td class="inputtitle">Contribuyente Especial: </td>
+            <td ><span class="inputtitle"><img  src="../images/camporequerido.gif">
+              <select name="contribuyenteespecial_pvd" id="contribuyenteespecial_pvd" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+            </span></td>
+            <td  class="inputtitle">Fecha Caducidad:  </td>
+            <td colspan="3" ><img  src="../images/camporequerido.gif"><input name="fechacaducidad_pvd" type="text" id="fechacaducidad_pvd" size="10" maxlength="10" class="date"></td>
+          </tr>
+
+          <tr>
+            <td height="21"  class="inputtitle">Nro. Autorizaci&oacute;n: </td>
+            <td ><img  src="../images/camporequerido.gif"><input name="numeroautorizacion_pvd" type="text" id="numeroautorizacion_pvd" size="11" maxlength="11" class="integer"></td>
+            <td class="inputtitle">Fecha Autorizaci&oacute;n: </td>
+            <td ><input name="fechaautorizacion_pvd" type="text" id="fechaautorizacion_pvd" size="10" maxlength="10" class="emptydate"></td>
+            <td >&nbsp;</td>
+            <td colspan="3" >&nbsp;</td>
+          </tr>
+
+          <tr>
+            <td height="21"  class="inputtitle">Imprenta: </td>
+            <td ><input name="imprenta_pvd" type="text" id="imprenta_pvd" size="40" maxlength="80" class="emptystring"></td>
+            <td class="inputtitle">Ruc Imprenta: </td>
+            <td colspan="5" ><input name="rucimprenta_pvd" type="text" id="rucimprenta_pvd" size="13" maxlength="13" class="emptyruc"></td>
+          </tr>
+          <tr bgcolor="#000066">
+            <td height="24" colspan="8"  ><div align="center" class="style1">REPRESENTANTE LEGAL </div></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Nombre :</td>
+            <td ><input name="nombrerepresentante_pvd" type="text" id="nombrerepresentante_pvd" size="40" maxlength="60" class="emptystring"></td>
+            <td  class="inputtitle">Apellido :</td>
+            <td colspan="5" ><input name="apellidorepresentante_pvd" type="text" id="apellidorepresentante_pvd" size="40" maxlength="60" class="emptystring"></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Telefono1 :</td>
+            <td ><label>
+              <input name="telefono1_pvd" type="text" id="telefono1_pvd" size="15" maxlength="15" class="emptyinteger">
+            </label></td>
+            <td class="inputtitle">Telefono2 :</td>
+            <td colspan="5" ><input name="telefono2_pvd" type="text" id="telefono2_pvd" size="15" maxlength="15" class="emptyinteger"></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Fax :</td>
+            <td ><input name="fax_pvd" type="text" id="fax_pvd" class="emptyinteger" size="15" maxlength="15"  onBlur="esconderToolTip()"    ></td>
+            <td  class="inputtitle">Celular : </td>
+            <td  class="inputtitle"><input name="celular_pvd" type="text" id="celular_pvd" class="emptyinteger" size="25" maxlength="40"  onBlur="esconderToolTip()"    ></td>
+            <td  class="inputtitle">Email :</td>
+            <td colspan="3"  class="inputtitle"><input name="correoelectronico_pvd" type="text" id="correoelectronico_pvd" size="40" maxlength="65" class="emptyemail"></td>
+          </tr>
+          
+          <tr bgcolor="#000066">
+            <td height="24" colspan="8"  class=" style1"><div align="center">REPRESENTANTE DE VENTAS </div></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Nombre:</td>
+            <td ><input name="nombreventas_pvd" type="text" id="nombreventas_pvd" class="emptystring" size="40" maxlength="60"  onBlur="esconderToolTip()"    ></td>
+            <td  class="inputtitle">Apellido: </td>
+            <td colspan="5" ><input name="apellidoventas_pvd" type="text" id="apellidoventas_pvd" class="emptystring" size="40" maxlength="60"  onBlur="esconderToolTip()"    ></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Telefono :</td>
+            <td ><input name="telefonoventas_pvd" type="text" id="telefonoventas_pvd" class="emptyinteger" size="15" maxlength="15"  onBlur="esconderToolTip()"    ></td>
+            <td class="inputtitle">Email :</td>
+            <td colspan="5" ><input name="correoelectronicoventas_pvd" type="text" id="correoelectronicoventas_pvd" class="emptyemail" size="40" maxlength="65"  onBlur="esconderToolTip()"    ></td>
+          </tr>
+          <tr bgcolor="#000066">
+            <td height="24" colspan="8"  ><div align="center" class="style1">REPRESENTANTE DE COBRANZAS </div></td>
+          </tr>
+          <tr>
+            <td height="21"  class="inputtitle">Nombre :</td>
+            <td ><input name="nombrecobros_pvd" type="text" id="nombrecobros_pvd" class="emptystring" size="40" maxlength="60"  onBlur="esconderToolTip()"    ></td>
+            <td class="inputtitle">Apellido: </td>
+            <td colspan="5" ><input name="apellidocobros_pvd" type="text" id="apellidocobros_pvd" class="emptystring" size="40" maxlength="60"  onBlur="esconderToolTip()"    ></td>
+          </tr>
+          <tr>
+            <td height="33"  class="inputtitle">Telefono:</td>
+            <td ><input name="telefonocobros_pvd" type="text" id="telefonocobros_pvd" class="emptyinteger" size="15" maxlength="15"  onBlur="esconderToolTip()"    ></td>
+            <td  class="inputtitle">Email :</td>
+            <td colspan="5" ><input name="correoelectronicocobros_pvd" type="text" id="correoelectronicocobros_pvd" class="emptyemail" size="40" maxlength="65"  onBlur="esconderToolTip()"    ></td>
+          </tr>
+
+
+
+        </table></td>
+    </tr>
+  </table>
+<input name="serial_ciu" type="hidden" id="serial_ciu" class="hidden">
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos,'iframe');
+	procesarPersoneria();
+	procesarTipoDocumento();
+    if (getURLParam('action','iframe')=='insert') 
+	document.PaginaDatos.proveedordesde_pvd.value=fechaSistema();
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

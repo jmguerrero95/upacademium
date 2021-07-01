@@ -1,0 +1,29 @@
+SELECT  serial_cah, 
+        nombre_maa, 
+        nombre_are,
+        nombre_esp,
+        nombre_niv,
+        nombre_mat,
+        activo_cah,
+        observaciones_cah,
+        maa.serial_maa,
+        are.serial_are,
+        esp.serial_esp,
+        niv.serial_niv,
+        mat.serial_epl,
+        mat.serial_mat
+FROM 
+     cargahoraria AS cah, 
+     malla AS maa, 
+     area AS are,
+     nivel as niv,
+     especialidad as esp,
+     materia AS mat
+WHERE
+       maa.serial_maa = cah.serial_maa AND
+       are.serial_are = maa.serial_are and
+       esp.serial_esp = niv.serial_esp AND 
+       are.serial_are = mat.serial_are and
+       es.serial_esp = mat.serial_esp
+       
+SELECT serial_epl, (codigo_epl,'',apellido_epl,'',nombre_epl) as empleado FROM empleado WHERE tipoEmpleado_epl='Contrato' order by apellido_epl

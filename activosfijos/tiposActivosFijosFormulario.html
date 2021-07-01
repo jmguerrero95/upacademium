@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<style type="text/css">
+<!--
+.style1 {
+	color: #FFFFFF;
+	font-weight: bold;
+}
+-->
+</style>
+<script>
+<!--
+var numeroAtributo=0;
+
+function manejarAtributo(vista) {
+
+if (vista=='visible')
+   if ( numeroAtributo==8) {
+       alert('Usted ha alcanzado el máximo número de atributos');
+       return false;
+	   }
+   else 
+        numeroAtributo=numeroAtributo+1;
+else if (numeroAtributo<=0) return false;
+var nomAtributo='div'+numeroAtributo;
+
+var atrib=document.getElementById(nomAtributo);
+atrib.style.visibility=vista;
+
+nomAtributo='t'+nomAtributo;
+atrib=document.getElementById(nomAtributo);
+atrib.style.visibility=vista;
+if (vista=='hidden') {
+var nomVal='atributo'+numeroAtributo+'_taf';
+var valor=document.getElementById(nomVal);
+    valor.value=''; 
+  numeroAtributo=numeroAtributo-1;
+}
+return true;
+}
+function insertarAtributo() {
+manejarAtributo('visible') ;
+}
+
+function eliminarAtributo() {
+manejarAtributo('hidden') ;
+}
+function cargarAtributos() {
+var nomAtributo='';
+var atrib='';
+var nomVal='';
+var valor='';
+for ( numeroAtributo=1; numeroAtributo <= 8; numeroAtributo++) {
+ nomAtributo='div'+numeroAtributo;
+ nomVal='atributo'+numeroAtributo+'_taf';
+ atrib=document.getElementById(nomAtributo);
+ valor=document.getElementById(nomVal);
+ if (valor.value!='') {
+    atrib.style.visibility='visible';
+    nomAtributo='t'+nomAtributo;
+    atrib=document.getElementById(nomAtributo);
+    atrib.style.visibility='visible';
+ }
+ else break;
+ }
+ numeroAtributo--;
+}
+-->
+
+</script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_taf" type="hidden" id="serial_taf" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          ACTIVOS FIJOS <br>
+          SUBGRUPOS DE ACTIVOS FIJOS
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="239" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="24"  class="inputtitle">Grupo :*</td>
+            <td colspan="3">
+			                	  <script>
+                 var cserial_faf=new omnisoftComboBox('cserial_faf','serial_faf','select serial_faf,nombre_faf from familiaActivoFijo','250px',true,getURLParam('serial_faf'));
+                     cserial_faf.show();
+	  </script>			</td>
+          </tr>
+          <tr>
+            <td width="149" height="24"  class="inputtitle">C&oacute;digo :*</td>
+            <td width="220"> <input name="codigo_taf" type="text" id="codigo_taf" class="autoincrement" size="3" maxlength="3" fieldid="serial_taf" table="tipoactivofijo" onBlur="esconderToolTip()"    ></td>
+            <td width="116" class="inputtitle">Nombre :*</td>
+            <td width="310"><input name="nombre_taf" type="text" id="nombre_taf" size="50" maxlength="50" class="string"></td>
+          </tr>
+
+          <tr>
+            <td height="24"  class="inputtitle">Tipo :*</td>
+            <td ><select name="tipo_taf" id="tipo_taf" class="combobox">
+              <option value="DEPRECIABLE">Depreciable</option>
+              <option value="NO DEPRECIABLE">No Depreciable</option>
+              <option value="AMORTIZABLE">Amortizable</option>
+              <option value="ACTIVO DE CONTROL">Activo de Control</option>
+            </select></td>
+            <td class="inputtitle">Vida Util:*</td>
+            <td ><input name="vidautil_taf" type="text" id="vidautil_taf" class="integer" size="2" maxlength="2"  onBlur="esconderToolTip()"    >
+            (a&ntilde;os)</td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle">Tipo Depreciaci&oacute;n: * </td>
+            <td ><label><span class="inputtitle">
+              <select name="tipodepreciacion_taf" id="tipodepreciacion_taf" class="combobox">
+                <option value="LINEAL">Lineal</option>
+                <option value="NO DEPRECIABLE">No Depreciable</option>
+                <option value="ACELERADA">Acelerada</option>
+              </select>
+            </span></label></td>
+            <td class="inputtitle">Tangible :*</td>
+            <td ><select name="tangible_taf" id="tangible_taf" class="combobox">
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+            </select></td>
+          </tr>
+          
+          <tr>
+            <td height="21"  class="inputtitle">Clase :*</td>
+            <td colspan="3" >			                	  <script>
+                 var cserial_claf=new omnisoftComboBox('cserial_claf','serial_claf','select serial_claf,nombre_claf from claseActivoFijo','250px',true,getURLParam('serial_claf'));
+                     cserial_claf.show();
+	  </script></td>
+          </tr>
+          <tr>
+            <td height="24" colspan="4"  bgcolor="#000066"><table width="799" height="13" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="53"><img alt="Insertar Atributo" src="../images/bot_insertar.gif" width="51" height="27" onClick="insertarAtributo()"></td>
+                <td width="703"><div align="center" class="style1">ATRIBUTOS</div></td>
+                <td width="43"><img alt="Eliminar Atributo" src="../images/bot_eliminar.gif" width="51" height="27" onClick="eliminarAtributo()"></td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+          <td height="24"  class="inputtitle"> <div id="tdiv1" style="visibility:hidden"> Atributo1 :</div></td> 
+            <td height="24"  class="inputtitle"><div id="div1" style="visibility:hidden"><input name="atributo1_taf" type="text" id="atributo1_taf" size="30" maxlength="30" class="emptystring"></div></td>
+            <td height="24"  class="inputtitle"><div id="tdiv2" style="visibility:hidden">Atributo2 :</div></td>
+            <td height="24"  class="inputtitle"><div id="div2" style="visibility:hidden"><input name="atributo2_taf" type="text" id="atributo2_taf" size="30" maxlength="30" class="emptystring"></div></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle"><div id="tdiv3" style="visibility:hidden">Atributo3 :</div></td>
+            <td height="24"  class="inputtitle"><div id="div3" style="visibility:hidden"><input name="atributo3_taf" type="text" id="atributo3_taf" size="30" maxlength="30" class="emptystring"></div></td>
+            <td height="24"  class="inputtitle"><div id="tdiv4" style="visibility:hidden">Atributo4 :</div></td>
+            <td height="24"  class="inputtitle"><div id="div4" style="visibility:hidden"><input name="atributo4_taf" type="text" id="atributo4_taf" size="30" maxlength="30" class="emptystring"></div></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle"><div id="tdiv5" style="visibility:hidden">Atributo5 :</div></td>
+            <td height="24"  class="inputtitle"><div id="div5" style="visibility:hidden"><input name="atributo5_taf" type="text" id="atributo5_taf" size="30" maxlength="30" class="emptystring"></div></td>
+            <td height="24"  class="inputtitle"><div id="tdiv6" style="visibility:hidden">Atributo6 :</div></td>
+            <td height="24"  class="inputtitle"><div id="div6" style="visibility:hidden"><input name="atributo6_taf" type="text" id="atributo6_taf" size="30" maxlength="30" class="emptystring"></div></td>
+          </tr>
+          <tr>
+            <td height="24"  class="inputtitle"><div id="tdiv7" style="visibility:hidden">Atributo7 : </div></td>
+            <td height="24"  class="inputtitle"><div id="div7" style="visibility:hidden"><input name="atributo7_taf" type="text" id="atributo7_taf" size="30" maxlength="30" class="emptystring"></div></td>
+            <td height="24"  class="inputtitle"><div id="tdiv8" style="visibility:hidden">Atributo8 :</div></td>
+            <td height="24"  class="inputtitle"><div id="div8" style="visibility:hidden"><input name="atributo8_taf" type="text" id="atributo8_taf" size="30" maxlength="30" class="emptystring"></div></td>
+          </tr>
+
+        </table></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+            <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	cargarAtributos();
+	
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

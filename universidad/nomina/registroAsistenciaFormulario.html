@@ -1,0 +1,220 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<style type="text/css">
+<!--
+.Estilo1 {
+	font-size: 16px;
+	font-weight: bold;
+	color: #FF0000;
+}
+-->
+</style>
+</head>
+<body >
+<script>
+function omnisoftProcesarDatos(data)
+{
+ var dias=Array('','Domingo','Lunes','Martes', 'Miercoles','Jueves','Viernes','Sabado');
+ var registros=data.split('|');
+// alert(registros);
+ var n=0;
+ var registro=registros[1].split('~');
+ document.PaginaDatos.fecha_asi.value=registro[0];
+ document.PaginaDatos.hora_asi.value=registro[1];
+ document.PaginaDatos.dia_asi.value=dias[registro[2]];
+ document.PaginaDatos.serial_epl.value=registro[3];
+ if (registros.length>1 && registro[37]!='') {
+ document.PaginaDatos.observacion.value='Su horario: '+registro[6]+',\nLos accesos que ha tenido el dia de hoy son:\n';
+  for (var i=1; i < registros.length-1; i++) {
+    var reg=registros[i].split('~');
+
+    document.PaginaDatos.observacion.value+='Entro a las:'+reg[40];
+    if (reg[41]=='')
+    document.PaginaDatos.observacion.value+=' y todavia no sale';
+    else
+    document.PaginaDatos.observacion.value+=' y Salio a las :'+reg[41]+'\n';
+
+
+  }
+
+
+ }
+ else
+ document.PaginaDatos.observacion.value='Su horario: '+registro[6]+',\nNo ha registrado ningun acceso';
+ if (registro[4]==-99)
+    document.PaginaDatos.estado_asi.value='A TIEMPO';
+ else  if ((registros.length-1)%2!=0) {
+
+    n=parseInt(registro[2]-1)*4+5;
+    var horario=registro[25].split(':');
+    var entrada=document.PaginaDatos.hora_asi.value.split(':');
+    var minutos=parseInt(entrada[0])*3600+parseInt(entrada[1])*60+parseInt(entrada[2])-parseInt(horario[0])*3600-parseInt(horario[1])*60-parseInt(horario[2]);
+    if (minutos>300)  {
+    document.PaginaDatos.estado_asi.value='ATRASADO';
+    document.PaginaDato.atraso_asi.value=parseInt(minutos/60);
+    }
+    else
+    document.PaginaDatos.estado_asi.value='A TIEMPO';
+
+    }
+    else
+    document.PaginaDatos.estado_asi.value='A TIEMPO';
+
+ }
+
+var serial_usr=getCookie('serial_usr');
+
+   if (serial_usr==null) {
+
+       alert('Error Grave:  Usuario NO permitido!');
+       window.close();
+   }
+else {
+       objDB=new omnisoftDB(' SELECT  CURRENT_DATE as fecha,CURRENT_TIME as hora ,DAYOFWEEK(CURRENT_DATE),empleado.serial_epl,turnos.*,asistencia.* from turnos,usuario,empleado left join asistencia on asistencia.serial_epl=empleado.serial_epl and asistencia.fecha_asi=CURRENT_DATE where turnos.serial_tur=empleado.serial_tur and empleado.serial_epl=usuario.serial_epl and usuario.serial_usr='+serial_usr,"../lib/server/omnisoftSQLData.php");
+       setTimeout('objDB.executeQuery()',0);
+
+
+
+}
+function recuperarDatos(data){
+//alert(data);
+var resultado=data.split('|');
+if (resultado[1]!=0) {
+    alert('Su asistencia ha sido registrada exitosamente!');
+    window.close();
+ }
+ else alert('La clave ingresada es incorrecta!');
+
+
+}
+
+function registrarAsistencia() {
+       var query=document.PaginaDatos.serial_epl.value+'|'+document.PaginaDatos.fecha_asi.value +'|'+document.PaginaDatos.hora_asi.value+'|'+document.PaginaDatos.estado_asi.value+'|'+document.PaginaDatos.atraso_asi.value+'|'+document.PaginaDatos.clave_usr.value;
+       objDB=new omnisoftDB(query,"../lib/server/omnisoftRegistrarAsistencia.php",'recuperarDatos');
+       setTimeout('objDB.executeQuery()',0);
+}
+</script>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_asi" type="hidden" id="serial_asi" class="hidden">
+<input name="serial_usr" type="hidden" id="serial_usr" class="hidden">
+<input name="serial_epl" type="hidden" id="serial_epl" class="hidden">
+<input name="atraso_asi" type="hidden" id="atraso_asi" class="hidden" value="0">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0"  class="formtable">
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+        REGISTRO ASISTENCIA<br>
+        <script>document.write(getCookie('nombre_usr')+'  '+ getCookie('apellido_usr'))</script>
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="15" colspan="3"> <table width="805" height="102" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="82" height="21" class="inputtitle" >Dia:</td>
+            <td width="130" class="inputtitle" ><input name="dia_asi" type="text" id="dia_asi" class="string" size="15" maxlength="15"  onBlur="esconderToolTip()" readonly="yes"></td>
+            <td width="124" height="21"   class="inputtitle">Fecha Actual:</td>
+            <td width="125"  ><input name="fecha_asi" type="text" id="fecha_asi" class="string" size="12" maxlength="10"  onBlur="esconderToolTip()" readonly="yes"></td>
+            <td width="85" class="inputtitle" >Hora Actual:</td>
+            <td width="138"  ><input name="hora_asi" type="text" id="hora_asi" class="string" size="12" maxlength="10"  onBlur="esconderToolTip()" readonly="yes"></td>
+            <td width="105" rowspan="4"><img src="../fotos/foto.jpg"  name="imgfoto" width="100" height="100"></td>
+          </tr>
+          <tr>
+            <td height="28" colspan="2"  class="inputtitle">Usted esta:</td>
+            <td height="28" colspan="4" ><input name="estado_asi" type="text" id="estado_asi"  size="25" maxlength="25"  onBlur="esconderToolTip()" readonly="yes"></td>
+          </tr>
+
+          <tr>
+            <td height="25" colspan="2"  class="inputtitle"><span class="style1 style4 style5">Registre su clave de acceso:</span></td>
+            <td colspan="4" ><span class="inputtitle"><img  src="../images/camporequerido.gif" alt="">
+              <input name="clave_usr" type="password" id="clave_usr" class="string" size="20" maxlength="32"  onBlur="esconderToolTip()">
+            </span></td>
+          </tr>
+          <tr>
+            <td height="25" colspan="6"  class="inputtitle"><label>Observaciones:</label></td>
+          </tr>
+          
+          
+          
+
+      </table>      </td>
+    </tr>
+    <tr >
+      <td height="15" colspan="3" class="inputtitle"><textarea name="observacion" id="observacion" cols="195" rows="10" readonly="yes"></textarea></td>
+    </tr>
+    <tr >      <td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:registrarAsistencia()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <td width="165">&nbsp;</td>
+            <td width="158"><a href="#"  onClick="javascript:omnisoftAyuda()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>
+            <td width="162">&nbsp;</td>
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:window.close()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+</form>
+
+<script>
+   document.PaginaDatos.imgfoto.src='../fotos/'+getCookie('foto_usr');
+</script>
+
+</body>
+</html>

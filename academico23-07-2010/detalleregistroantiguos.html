@@ -1,0 +1,182 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+
+<script>
+function mostrarMateria(){
+
+cserial_mataux.objDBComando.sqlCommand='select concat(dma.serial_mat,\'^\',numerocreditos_dma) as serial, nombre_mat from materia as mat, detallemalla as dma, malla as maa where mat.serial_mat = dma.serial_mat and maa.serial_maa = dma.serial_maa and maa.serial_maa='+opener.PaginaDatos.serial_maa.value+'  and serial_niv='+document.PaginaDatos.serial_niv.value;
+
+
+/*
+prompt('sql','select concat(dma.serial_mat,\'^\',numerocreditos_dma) as serial, nombre_mat from materia as mat, detallemalla as dma, malla as maa where mat.serial_mat = dma.serial_mat and maa.serial_maa = dma.serial_maa and maa.serial_maa='+opener.PaginaDatos.serial_maa.value+'  and serial_niv='+document.PaginaDatos.serial_niv.value);*/
+//   cserial_mataux.objDBComando.sqlCommand='select  dma.serial_mat, mat.nombre_mat FROM materia as mat, detallemalla as dma where //mat.serial_mat = dma.serial_mat and serial_niv='+document.PaginaDatos.serial_niv.value;
+	cserial_mataux.objDBComando.executeQuery();
+}
+
+
+function cargarCreditos(){
+
+var serial_mat=documentPaginaDatos.serial_mataux.value.split('^');
+alert('serial_mat:'+serial_mat);
+document.PaginaDatos.numerocreditos_mins.value=serial_mat[1];
+document.PaginaDatos.serial_mat.value=serial_mat[0];
+
+}
+</script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_mins" type="hidden" id="serial_mins" class="hidden">
+<input name="serial_ama" type="hidden" id="serial_ama" class="hidden">
+<input name="serial_mat" type="hidden" id="serial_mat" class="hidden">
+
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO DE ADMISIONES<br>
+          DETALLE DE REGISTRO CREDITOS ALUMNOS
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="121" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="25"  class="inputtitle">Periodo : </td>
+            <td colspan="3" ><span class="inputtitle">
+              <script>
+                 var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per,nombre_per from periodo','200px',true,getURLParam('serial_per'));
+                     cserial_per.show();
+	            </script>
+            </span></td>
+          </tr>
+          
+          <tr> 
+            <td width="149" height="26"  class="inputtitle">Nivel : </td>
+            <td colspan="3" ><script>                var cserial_niv=new omnisoftComboBox('cserial_niv','serial_niv','select serial_niv, nombre_niv from nivel','190px',true,getURLParam('serial_niv'),'',mostrarMateria);
+                     cserial_niv.show();
+					
+	              </script></td>
+          </tr>
+          <tr>
+            <td height="26"  class="inputtitle">Materia :</td>
+            <td width="296" ><script>                var cserial_mataux=new omnisoftComboBox('cserial_mataux','serial_mataux','select concat(dma.serial_mat,\'^\',numerocreditos_dma) as serial, nombre_mat from materia as mat, detallemalla as dma, malla as maa where mat.serial_mat = dma.serial_mat and maa.serial_maa = dma.serial_maa and maa.serial_maa='+opener.PaginaDatos.serial_maa.value,'250px',true,getURLParam('serial_mat'),'',cargarCreditos);
+                     cserial_mataux.show();
+					
+	                </script></td>
+            <td width="138" class="inputtitle">N&uacute;mero de Cr&eacute;ditos :</td>
+            <td width="212" ><span class="inputtitle">
+              <input name="numerocreditos_mins" type="text" id="numerocreditos_mins" size="15" maxlength="9" class="integer"  onBlur="cargarCreditos()">
+            </span></td>
+          </tr>
+          
+          
+          <tr>
+            <td height="22"  class="inputtitle">Observaciones : </td>
+            <td colspan="3" ><span class="inputtitle">
+              <input name="observaciones_mins" type="text" id="observaciones_mins" size="45" maxlength="60" class="emptystring"  onBlur="esconderToolTip()" value="NINGUNA">
+            </span></td>
+          </tr>
+          
+          
+          
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<script>
+			
+   	omnisoftLoadData(document.PaginaDatos);
+
+    var serial_mins=(getURLParam('action')=='insert')? 0:getURLParam('serial_mins');
+	//alert('serial_mins'+serial_mins);
+	document.PaginaDatos.serial_ama.value=opener.PaginaDatos.serial_ama.value;
+	
+	//document.PaginaDatos.serial_maa.value=opener.PaginaDatos.serial_maa.value;
+
+	//alert('Serial malla '+document.PaginaDatos.serial_maa.value);
+	 //alert('serial_ama:'+opener.PaginaDatos.serial_ama.value); 
+	//var serial_maa=opener.PaginaDatos.serial_maa.value;
+	 //alert('serial_maa11222:'+opener.PaginaDatos.serial_maa.value); 
+
+</script>
+
+</form>
+
+</body>
+</html>

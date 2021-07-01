@@ -1,0 +1,173 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script>
+function grabarCalificacion() {
+var url=frames['iframeDatos'].location.href.split('/');
+//alert(url[url.length-1]);
+  if (url[url.length-1]=='iframeNotasProfesorXCedulaFormulario.html' ||url[url.length-1]=='iframeNotasProfesorXCedulaFormulario.html#') {
+      checkForm(frames['iframeDatos'].PaginaDatos);
+     frames['iframeDatos'].grabarNotas();
+
+	}  
+   else window.close();
+}
+var activo_per=getURLParam('activo_per');
+var serial_nts=getURLParam('serial_nts');
+//alert('serial_nts: '+serial_nts);
+var serial_hrr=getURLParam('serial_hrr');
+var fecha_nts=getURLParam('fecha_nts');
+//alert('fecha_nts: '+fecha_nts);
+var serial_suc=getURLParam('serial_suc');
+//alert('serial_suc: '+serial_suc);
+var serial_sec=getURLParam('serial_sec');
+var serial_per=getURLParam('serial_per');
+var serial_mat=getURLParam('serial_mat');
+var serial_epl=getURLParam('serial_epl');
+var nombre_sec=getURLParam('nombre_sec');
+var nombre_per=getURLParam('nombre_per');
+var fecini_per=getURLParam('fecini_per');
+var fecfin_per=getURLParam('fecfin_per');
+var nombre_epl=getURLParam('nombre_epl');
+var apellido_epl=getURLParam('apellido_epl');
+var nombre_mat=getURLParam('nombre_mat');
+var ntotalclases_nts=getURLParam('ntotalclases_nts');
+var documentoidentidad_epl=getURLParam('documentoidentidad_epl');
+function procesarConsulta() {
+
+
+var query='../lib/export/omnisoftNotasXMateriaPDFApp.php?dummy=1&';
+//var serial_par=document.PaginaDatos.serial_par1.value.split('#')[0];
+ 	query = query+'&'+'serial_nts='+serial_nts;
+	query = query+'&'+'serial_sec='+serial_suc+'&'+'nombre_sec='+nombre_sec;
+	
+	query = query+'&'+'serial_per='+serial_per+'&'+'nombre_per='+nombre_per;
+	
+    query = query+'&'+'serial_mat='+serial_mat+'&'+'nombre_mat='+nombre_mat;
+	
+	 query = query+'&'+'apellido_epl='+apellido_epl+'&'+'nombre_epl='+nombre_epl;
+	 query = query+'&'+'serial_suc='+serial_suc;
+ 	 query = query+'&'+'fecini_per='+fecini_per+'&'+'fecfin_per='+fecfin_per;
+	 query = query+'&'+'ntotalclases_nts='+ntotalclases_nts;
+	 query = query+'&'+'serial_hrr='+serial_hrr;
+//alert(query);
+	//query=query+'&titulo='+getURLParamGET('titulo');
+
+       var attributes='width=1020,height=650,scrollbars=no,resizable=no,toolbar=no,location=no,status=no,menubar=no';
+           omnisoftNewWindow=window.open(query,'OmnisoftConsulta',attributes);
+           if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+</script>
+<!--
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+-->
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_nts" type="hidden" id="serial_nts" class="hidden">
+<input name="serial_suc" type="hidden" id="serial_suc" class="hidden">
+
+  <table width="1020" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO<br>
+          CALIFICACIONES ALUMNOS
+</center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="1020" height="400" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="25"  class="maintoptitle fonttitle"><left>
+			  <div align="left">
+			    <!--<script>
+			var nombreEmpleado=(getURLParam('nombre_epl')=='')? 'NUEVO EMPLEADO' :getURLParam('nombre_epl')+' '+getURLParam('apellido_epl');
+
+			document.write(nombreEmpleado);</script></center></td>
+          </tr>
+          <tr>
+            <td> <script>
+//   omnisoftLoadData(document.PaginaDatos);-->
+			    </script> 
+		                   </div>
+			  <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+				
+				<td height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeNotasProfesorXCedulaFormulario.html');">Notas por 
+				       Cédula</a></div></td> 
+				
+                  <td  class="tabs"><div align="center"><a href="javascript:omnisoftTab('iframeNotasParcialesalumnosFormulario.html');"> Notas Parciales </a></div></td>
+					  
+			     <td height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeresumenNotasTerminales.html');">Resumen de Notas </a></div></td>	  
+					  	  
+				 <td height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeNotasApelacion.html');">Apelaciones
+				       Notas</a></div></td>
+					   
+			     <td height="21"  class="tabs"> <div align="center"><a href="javascript:omnisoftTab('iframeNotasAlumnosFormulario.html');">Notas 
+                      Totales</a></div></td>
+					   
+			
+					  
+                 
+                </tr>
+              </table>
+ <div align="left"></div>
+ <div align="left"></div></td>
+          </tr>
+          <tr>
+            <td height="512"> <iframe id="iframeDatos" frameborder="0" name="iframeDatos" src="iframeNotasProfesorXCedulaFormulario.html" width="1025" height="512"></iframe>            </td>
+          </tr>
+          
+        </table></td>
+    </tr>
+    <tr>
+		<td height="30" colspan="3" align="center" class="menuborder"> <table width="805" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="168" height="31">
+<div  id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:grabarCalificacion()"><img src="../images/save.png" width="48" height="48" border="0" align="middle">Grabar</a></div></td>
+            <!--<td width="165"><a href="#"  onClick="javascript:grabarInscripcion()"><img src="../images/saveas.jpg" alt="" width="48" height="48" border="0" align="middle">Grabar Como</a></td>-->
+            <td width="158"><a href="#"  onClick="javascript:procesarConsulta()"><img src="../images/impresora.png" alt="" width="48" height="48" border="0" align="middle">Imprimir</a></td>
+           <!-- <td width="162"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/ayuda.png" alt="" width="48" height="48" border="0" align="middle">Ayuda</a></td>-->
+            <td width="152"><div  id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/cancel.png" width="48" height="48" border="0" align="middle">Cancelar</a></div></td>
+          </tr>
+      </table></td>
+    </tr>
+  </table>
+<input name="elaboradoPor_alu" type="hidden" id="elaboradoPor_alu" class="hidden" value="1">
+<input name="modificadoPor_alu" type="hidden" id="modificadoPor_alu" class="hidden" value="1"  >
+<input name="aprobadoPor_alu" type="hidden" id="aprobadoPor_alu" class="hidden"  value="1" >
+
+</form>
+
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+	document.PaginaDatos.serial_suc.value=getCookie('serial_suc');
+</script>
+</body>
+</html>

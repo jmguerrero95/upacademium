@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script>
+function mostrarProcesos(){
+   cserial_prc.objDBComando.sqlCommand='select serial_prc,nombre_prc from upprocesos where serial_mod='+document.PaginaDatos.serial_mod.value;
+	cserial_prc.objDBComando.executeQuery();
+}
+</script>
+
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_acp" type="hidden" id="serial_acp" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          SISTEMA<br>
+          SUCURSAL
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3">
+      <table width="805" height="460" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="210" height="28"  class="inputtitle">Perfil :</td>
+            <td colspan="5" class="inputtitle"> <img  src="../images/camporequerido.gif">
+            <script>
+              var cserial_pfl=new omnisoftComboBox('cserial_pfl','serial_pfl','select serial_pfl,nombre_pfl from upperfil','250px',true,getURLParam('serial_pfl'));
+                     cserial_pfl.show();
+
+					   </script></td>
+      </tr>
+          
+          <tr>
+            <td height="27"  class="inputtitle">Modulo:</td>
+            <td colspan="5" class="inputtitle"><img  src="../images/camporequerido.gif" alt="">
+                        <script>
+              var cserial_mod=new omnisoftComboBox('cserial_mod','serial_mod','select serial_mod,nombre_mod from upmodulos','250px',false,getURLParam('serial_mod'),'',mostrarProcesos);
+                     cserial_mod.show();
+
+					   </script>
+            </td>
+          </tr>
+          <tr> 
+           <td width="210" height="27"  class="inputtitle">Proceso :</td>
+            <td colspan="5" class="inputtitle"><img  src="../images/camporequerido.gif">
+            <script>
+              var cserial_prc=new omnisoftComboBox('cserial_prc','serial_prc','select serial_prc,nombre_prc from upprocesos where serial_mod='+getURLParam('serial_mod')+'','380px',true,getURLParam('serial_prc'));
+                     cserial_prc.show();
+
+					   </script></td>
+          </tr>
+          <tr>
+            <td height="27" colspan="6"  class="formtitle"><div align="center">BARRA DE HERRAMIENTAS </div></td>
+          </tr>
+          <tr>
+            <td height="27"  class="inputtitle"><span class="style5 style3">Insertar un nuevo registro:</span></td>
+            <td width="71" class="inputtitle"><select name="insertar_acp" class="combobox" id="insertar_acp">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td width="195" class="inputtitle"><span class="style5 style3">Editar un registro: </span></td>
+            <td width="77" class="inputtitle"><select name="editar_acp" class="combobox" id="editar_acp">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td width="129" class="inputtitle"><span class="style5 style3">Buscar :</span></td>
+            <td width="109" class="inputtitle"><select name="buscar_acp" class="combobox" id="buscar_acp">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="25"  class="inputtitle"><span class="style5 style3">Eliminar : </span></td>
+            <td class="inputtitle"><select name="eliminar_acp" class="combobox" id="eliminar_acp">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td class="inputtitle"><span class="style5 style3">Eviar Correo Electr&oacute;nico : </span></td>
+            <td class="inputtitle"><select name="enviocorreo_acp" class="combobox" id="enviocorreo_acp">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td class="inputtitle"><span class="style5 style3">Graficar : </span></td>
+            <td class="inputtitle"><select name="graficar_acp" class="combobox" id="graficar_acp">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="27"  class="inputtitle style3"><span class="style4 style5 style3">Imprimir Grilla o Pantalla : </span></td>
+            <td class="inputtitle style3"><select name="imprimir_acp" id="imprimir_acp" class="comboBox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td class="inputtitle style3"><span class="style4 style5 style3">Imprimir Comprobante :</span></td>
+            <td class="inputtitle style3"><select name="imprimirComprobante_acp" id="imprimirComprobante_acp" class="comboBox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td class="inputtitle style3"><span class="style4 style5 style3">Ayuda : </span></td>
+            <td class="inputtitle style3"><select name="ayuda_acp" id="ayuda_acp" class="comboBox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="27"  class="inputtitle style3"><span class="style4 style5 style3">Acerca del Sistema Ingenium: </span></td>
+            <td class="inputtitle style3"><select name="acercade_acp" id="acercade_acp" class="comboBox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td class="inputtitle style3"><span class="style4 style5 style3">Salir del Sistema:</span></td>
+            <td class="inputtitle style3"><select name="salir_acp" id="salir_acp" class="comboBox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td class="inputtitle style3">&nbsp;</td>
+            <td class="inputtitle style3">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="27" colspan="6"  class="formtitle "><div align="center">BARRA DE DESPLAZAMIENTO </div></td>
+          </tr>
+          <tr>
+            <td height="27"  class="inputtitle"><span class="style5 style4">Inicio :</span></td>
+            <td class="inputtitle style3"><select name="principio_acp" id="principio_acp" class="comboBox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td height="27"  class="inputtitle"><span class="style5 style4">Anterior :</span></td>
+            <td background="../images/titulos.jpg"><select name="anterior_acp" id="anterior_acp" class="comboBox">
+                <option value="NO">No</option>
+                <option value="SI" selected>Si</option>
+            </select></td>
+            <td height="27"  class="inputtitle">&nbsp;</td>
+            <td background="../images/titulos.jpg">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="27"  class="inputtitle style3"><span class="style1 style4 style5">&Uacute;ltimo : </span></td>
+            <td class="inputtitle style3"><select name="ultimo_acp" id="ultimo_acp" class="comboBox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td class="inputtitle style3"><span class="inputtitle"><span class="style5 style4">Siguiente :</span></span></td>
+            <td class="inputtitle style3"><select name="siguiente_acp" id="siguiente_acp" class="comboBox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td class="inputtitle style3">&nbsp;</td>
+            <td class="inputtitle style3">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="27" colspan="6"  class="formtitle"><div align="center">DESCARGA Y MENEJO DE INFORMACION</div></td>
+          </tr>
+          <tr>
+            <td height="27"  class="inputtitle"><span class="style1 style4 style5">Exportar a  Excel :</span></td>
+            <td background="../images/titulos.jpg"><select name="envioexcel_acp" id="envioexcel_acp" class="comboBox">
+                <option value="NO">No</option>
+                <option value="SI" selected>Si</option>
+            </select></td>
+            <td height="27"  class="inputtitle style3"><span class="style1 style4 style5">Exportar a  XML : </span></td>
+            <td background="../images/titulos.jpg"><select name="envioxml_acp" id="envioxml_acp" class="comboBox">
+                <option value="NO">No</option>
+                <option value="SI" selected>Si</option>
+            </select></td>
+            <td height="27"  class="inputtitle">Filtrar : </td>
+            <td background="../images/titulos.jpg"><select name="filtrar_acp" id="filtrar_acp" class="comboBox">
+                <option value="NO">No</option>
+                <option value="SI" selected>Si</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="27" colspan="6"  class="formtitle"><div align="center"> INSERCION DE REGISTROS </div></td>
+          </tr>
+          <tr>
+            <td height="27"  class="inputtitle"><span class="style1 style4 style5">Grabar Registro : </span></td>
+            <td height="27"  class="inputtitle"><select name="guardar_acp" id="guardar_acp" class="comboBox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td height="27"  class="inputtitle"><span class="style1 style4 style5">Cancelar Registro : </span></td>
+            <td height="27" colspan="3"  class="inputtitle"><select name="cancelar_acp" id="cancelar_acp" class="comboBox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="27" colspan="6"  class="formtitle"><div align="center">OTRAS SEGURIDADES </div></td>
+          </tr>
+          <tr>
+            <td height="27"  class="inputtitle"><span class="style1 style4 style5">Navegar o Visualizar la Pantalla :</span></td>
+            <td height="27"  class="inputtitle"><select name="navegar_acp" id="navegar_acp" class="combobox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td height="27"  class="inputtitle"><span class="style1 style4 style5">Aprobar Documentos : </span></td>
+            <td height="27"  class="inputtitle"><select name="aprobardocumento_acp" id="aprobardocumento_acp" class="combobox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+            <td height="27"  class="inputtitle"><span class="style1 style4 style5">Anular Documento :</span></td>
+            <td height="27"  class="inputtitle"><select name="anularDocumento_acp" id="anularDocumento_acp" class="combobox">
+              <option value="NO">No</option>
+              <option value="SI" selected>Si</option>
+            </select></td>
+          </tr>
+        </table>
+      
+      </td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="30"> 
+              <div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690">
+            
+            </td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

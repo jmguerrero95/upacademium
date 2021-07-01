@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/jscalendar/calendar.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/lang/calendar-es.js" ></script>
+<script language="javascript1.2" src="../lib/jscalendar/calendar-setup.js" ></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+</head>
+
+<body >
+  <table width="1020" border="0" cellspacing="0" cellpadding="0" >
+
+    <tr  >
+      <td width="160" height="52"  class="ingeniumtoptitle"></td>
+      <td width="526"  class="maintoptitle fonttitle"><center>
+          CUSTODIOS DE ACTIVOS FIJOS <br>
+      <script>
+	  document.write(getURLParam('nombre_acf'));
+	   </script>
+
+
+      </center></td>
+      <td width="86"  class="logotoptitle"></td>
+    </tr>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_acf" type="hidden" id="serial_acf" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+				          document.PaginaDatos.serial_acf.value=getURLParam('serial_acf');
+
+
+      var serial_acf=document.PaginaDatos.serial_acf.value;
+      var sql='SELECT SERIAL_ASAF,  apellido_epl,nombre_epl,FECHA_ASAF, ESTADO_ASAF, FECHAENTREGA_ASAF, FECHARECEPCION_ASAF, ENCUSTODIA_ASAF, TIPO_ASAF,OBSERVACION_ASAF, empleado.SERIAL_EPL, SERIAL_PVD, SERIAL_ACF, SERIAL_UBI from asignacionactivosfijos,empleado where empleado.serial_epl=asignacionactivosfijos.serial_epl and serial_acf=masterkey';
+//prompt('test',sql);
+//alert(serial_acf);
+	  //,ELABORADOPOR_ASAF, MODIFICADOPOR_ASAF, FECHAMODIFICACION_ASAF, APROBADOPOR_ASAF, FECHAAPROBACION_ASAF
+
+      omniObj=new omnisoftGridDetail('omniObj','serial_acf',serial_acf,'asignacionactivosfijos','serial_asaf',sql,document.PaginaDatos,Array(false,false));
+
+
+     omniObj.addColumn('Serial','serial_asaf', 10,'hidden','','middle','');
+     omniObj.addColumn('Apellido','apellido_epl', 20,'string','','middle','');
+     omniObj.addColumn('Nombre','nombre_epl', 20,'string','','middle','');
+     omniObj.addColumn('Fecha','fecha_asaf', 12,'date','','middle','');
+     omniObj.addColumn('Estado','estado_asaf', 10,'string','','middle','');
+     omniObj.addColumn('Fecha Entrega','fechaEntrega_asaf', 10,'date','','middle','');
+     omniObj.addColumn('Fecha Recepcion','fechaRecepcion_asaf', 10,'date','','middle','');
+     omniObj.addColumn('En Custodia','encustodia_asaf', 10,'string','','middle','');
+     omniObj.addColumn('Tipo','tipo_asaf', 8,'string','','middle','');
+     omniObj.addColumn('Observacion','observacion_asaf', 25,'string','','middle','');
+     omniObj.addColumn('serial_epl','serial_epl', 5,'hidden','','middle','','1');
+     omniObj.addColumn('serial_pvd','serial_pvd', 5,'hidden','','middle','','1');
+     omniObj.addColumn('serial_acf','serial_acf', 5,'hidden','','middle','','1');
+     omniObj.addColumn('serial_ubi','serial_ubi', 5,'hidden','','middle','','1');
+//     omniObj.addColumn('elaborado_por','elaborado_por', 5,'hidden','','middle','','1');
+//     omniObj.addColumn('modificado_por','modificado_por', 5,'hidden','','middle','','1');
+
+     omniObj.showGrid('omniObj',20,448,1020,'menu','#FF9900');
+
+
+
+
+ </script> </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</table>
+</body>
+</html>

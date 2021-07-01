@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+
+<script>
+function seleccionarMateria(){
+
+cserial_mat.objDBComando.sqlCommand='SELECT serial_mat, nombre_mat FROM materia AS mat LEFT JOIN seccion AS sec ON mat.serial_sec = sec.serial_sec WHERE mat.serial_sec = '+opener.PaginaDatos.serial_sec.value+' AND mat.serial_are ='+document.PaginaDatos.serial_are.value+' AND estado_mat =\'ACTIVO\' ORDER BY nombre_mat ASC';
+
+
+/*
+prompt('sql','select concat(dma.serial_mat,\'^\',numerocreditos_dma) as serial, nombre_mat from materia as mat, detallemalla as dma, malla as maa where mat.serial_mat = dma.serial_mat and maa.serial_maa = dma.serial_maa and maa.serial_maa='+opener.PaginaDatos.serial_maa.value+'  and serial_niv='+document.PaginaDatos.serial_niv.value);*/
+//   cserial_mataux.objDBComando.sqlCommand='select  dma.serial_mat, mat.nombre_mat FROM materia as mat, detallemalla as dma where //mat.serial_mat = dma.serial_mat and serial_niv='+document.PaginaDatos.serial_niv.value;
+	cserial_mat.objDBComando.executeQuery();
+}
+
+
+
+</script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_dcun" type="hidden" id="serial_foa" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO <br>
+          DETALLE FORMACION EMPLEADO 
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="148" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="116" height="29"  class="inputtitle">Tipo Titulo  : </td>
+            <td ><input name="tipoTitulo_foa" type="text" id="tipoTitulo_foa" size="60" maxlength="65" class="string" ></td>
+            <td class="inputtitle">Instituci&oacute;n : </td>
+            <td colspan="3" ><input name="institucion_foa" type="text" id="institucion_foa" size="60" maxlength="65" class="string" ></td>
+          </tr>
+          
+          <tr>
+            <td height="30"  class="inputtitle">Carrera/Curso :</td>
+            <td width="273" ><input name="descripcion_foa" type="text" id="descripcion_foa" size="60" maxlength="65" class="string" ></td>
+            <td width="102" class="inputtitle">Fecha Inicio  :</td>
+            <td width="103" ><input name="fechainicio_foa" type="text" id="fechainicio_foa" size="10" maxlength="10" class="date" onBlur="esconderToolTip()"></td>
+            <td width="71"class="inputtitle" >Fecha Fin : </td>
+            <td width="126" ><input name="fechafin_foa" type="text" id="fechafin_foa" size="10" maxlength="10" class="date" onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="31"  class="inputtitle">A&ntilde;o : </td>
+            <td ><input name="aniograduacion_foa" type="text" id="aniograduacion_foa" size="10" maxlength="10" class="date" onBlur="esconderToolTip()"></td>
+            <td class="inputtitle"> Nivel : </td>
+            <td ><input name="nivel_foa" type="text" id="nivel_foa" size="10" maxlength="10" class="date" onBlur="esconderToolTip()"></td>
+            <td class="inputtitle"> Pais : </td>
+            <td ><script>                var cserial_pai=new omnisoftComboBox('cserial_pai','serial_pai','SELECT serial_pai, nombre_pai, codigo_pai FROM pais','130px',true,getURLParam('serial_pai'));
+                     cserial_pai.show();
+					//document.PaginaDatos.serial_car.onchange=seleccionarEspecialidad;
+					//document.PaginaDatos.serial_car.onclick=seleccionarEspecialidad;
+
+	              </script></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle">Sub Unesco: </td>
+            <td colspan="5"><span class="inputtitle">
+              <select name="subunesco_foa" id="subunesco_foa" class="combo" style="font-family:Tahoma; font-size:10px">
+                <option value="NINGUNO">NINGUNO</option>
+                <option value="ARQUITECTURA Y CONSTRUCCION" >ARQUITECTURA Y CONSTRUCCION</option>
+                <option value="ARTES">ARTES</option>
+                <option value="CIENCIAS DE LA VIDA" >CIENCIAS DE LA VIDA</option>
+                <option value="CIENCIAS FISICAS">CIENCIAS FISICAS</option>
+                <option value="CIENCIAS SOCIALES Y DEL COMPORTAMIENTO">CIENCIAS SOCIALES Y DEL COMPORTAMIENTO</option>
+                <option value="DERECHO">DERECHO</option>
+                <option value="EDUCACION COMERCIAL Y ADMINISTRACION">EDUCACION COMERCIAL Y ADMINISTRACION</option>
+                <option value="FORMACION DE PERSONAL DOCENTE Y CIENCIAS DE LA EDUCACION">FORMACION DE PERSONAL DOCENTE Y CIENCIAS DE LA EDUCACION</option>
+                <option value="HUMANIDADES">HUMANIDADES</option>
+                <option value="INFORMATICA">INFORMATICA</option>
+                <option value="INGENIERIA Y PROFESIONES AFINES">INGENIERIA Y PROFESIONES AFINES</option>
+                <option value="MATEMATICAS Y ESTADISTICA">MATEMATICAS Y ESTADISTICA</option>
+                <option value="MEDICINA">MEDICINA</option>
+                <option value="PROTECCION DEL MEDIO AMBIENTE">PROTECCION DEL MEDIO AMBIENTE</option>
+                <option value="SECTORES DESCONOCIDOS O NO ESPECIFICADOS">SECTORES DESCONOCIDOS O NO ESPECIFICADOS</option>
+                <option value="SERVICIOS PERSONALES">SERVICIOS PERSONALES</option>
+              </select>
+            </span></td>
+          </tr>
+          <tr>
+            <td height="28"  class="inputtitle">Registro Conesup : </td>
+            <td ><input name="regconesup_foa" type="text" id="regconesup_foa" size="30" maxlength="35" class="string" onBlur="esconderToolTip()"></td>
+            <td class="inputtitle">Fecha Registro : </td>
+            <td colspan="3" ><input name="fecregconesup_foa" type="text" id="fecregconesup_foa" size="10" maxlength="10" class="date" onBlur="esconderToolTip()"></td>
+          </tr>
+          
+          
+          
+
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<script>
+			
+   	omnisoftLoadData(document.PaginaDatos);
+
+    var serial_mins=(getURLParam('action')=='insert')? 0:getURLParam('serial_mins');
+	//alert('serial_mins'+serial_mins);
+	document.PaginaDatos.serial_cun.value=opener.PaginaDatos.serial_cun.value;
+	
+	//document.PaginaDatos.serial_maa.value=opener.PaginaDatos.serial_maa.value;
+
+	//alert('Serial malla '+document.PaginaDatos.serial_maa.value);
+	 //alert('serial_ama:'+opener.PaginaDatos.serial_ama.value); 
+	//var serial_maa=opener.PaginaDatos.serial_maa.value;
+	 //alert('serial_maa11222:'+opener.PaginaDatos.serial_maa.value); 
+
+</script>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+
+
+
+
+
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+	<title>Zapatec DHTML Menu Widget - Two menu on the same page</title>
+	<script type="text/javascript" src="../utils/utils.js"></script>
+	<script type="text/javascript" src="../src/menu.js"></script>
+	<link href="../doc/css/zpcal.css" rel="stylesheet" type="text/css">
+	<link href="../doc/css/template.css" rel="stylesheet" type="text/css">
+<!--	<link rel="SHORTCUT ICON" href="http://www.zapatec.com/website/main/favicon.ico">-->
+	<style type="text/css">
+		#squares td {
+			padding: 20px;
+		}
+		#squares div {
+			width: 200px;
+			height: 200px;
+			border: 1px solid #000;
+			text-align: center;
+			font: bold 12px sans-serif;
+		}
+	</style>
+</head>
+<body>
+
+	<table class='zpStandard'><tr><td>
+
+	<div class="topMenuHeader">
+		<div class="logo">
+			<a href='http://www.zapatec.com'><img src='../doc/images/logoNew.gif' alt='Zapatec logo' border='0'></a>
+		</div>
+		<div class="btn1">
+			<a href="https://www.zapatec.com/zadmin/buy.jsp">
+				<img src="../doc/images/buttonBuy.png" alt='Buy Zapatec Menu' border="0">
+			</a>
+		</div>
+
+		<div class="btn1">
+			<a href="http://www.zapatec.com/website/main/pricing.jsp">
+				<img src="../doc/images/buttonPricing.png" alt='Pricing for Zapatec Menu' border="0">
+			</a>
+		</div>
+	</div>
+
+	<div class="pageMain">
+	<a href="click.html" style="float:left; margin-left:2em; margin-top:.5em;" accesskey="P">
+			<img border="0" src="previous.png" alt="Previous Javascript Menu Example"></a>
+	<a href="interval.html" style="float:right; margin-right:2em; margin-top:.5em;" accesskey="N">
+			<img border="0" src="next.png" alt="Next Javascript Menu Example"></a>
+		<div class='zpCalSubheader' style='text-align:center'>Triggers</div>
+
+		<br/>	
+		<div class='zpCalDemoText'>
+		<ul>
+		<li>Right click (left click in Opera) on a square to see menu. Click on menu item.
+		 It will show alert with square number from which menu was invoked.</li>
+		</ul>
+		</div>
+	</div>
+
+	<ul id="myMenu" class='zpHideOnLoad'>
+		<li>
+			Demo Menu
+			<ul>
+				<li> <a href="javascript:alert(myMenu.triggerArgs)">Click Me</a> </li>
+			</ul>
+		</li>
+		<li>
+			Demo Menu
+			<ul>
+				<li> <a href="javascript:alert(myMenu.triggerArgs)">Click Me</a> </li>
+			</ul>
+		</li>
+		<li>
+			Demo Menu
+			<ul>
+				<li> <a href="javascript:alert(myMenu.triggerArgs)">Click Me</a> </li>
+			</ul>
+		</li>
+	</ul>
+
+	<table id="squares">
+		<tr>
+			<td><div id="area1">This is Area 1</div></td>
+			<td><div id="area2">This is Area 2</div></td>
+		</tr>
+	</table>
+
+	<script type="text/javascript">
+		var myMenu = new Zapatec.Menu('myMenu', {vertical: true, theme: 'winxp1', triggerEvent: 'mouseup', triggerObject: []});
+		myMenu.setTriggerObject([
+			{
+				triggerObject: 'area1',
+				triggerArgs: 'Menu was invoked from Area 1'
+			},
+			{
+				triggerObject: 'area2',
+				triggerArgs: 'Menu was invoked from Area 2'
+			}
+		]);
+	</script>
+
+	<noscript>
+		<br/>
+	  This page uses a 
+		<a href='http://www.zapatec.com/website/main/products/prod2/'>
+		Javascript Menu</a>, but your browser does not support Javascript.
+		<br/>
+		<br/>
+	</noscript>
+
+	<br/><br/><br/>
+	<div id="divFooter" class="footer" style='text-align:center; margin-top:2em'>
+		&copy; 2004 <strong> <a href='http://www.zapatec.com/'>Zapatec, Inc.</a> </strong>
+	</div>
+</td></tr></table>
+</body>
+</html>
+

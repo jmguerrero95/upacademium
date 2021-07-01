@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+   omnisoftLoadData(document.PaginaDatos,'iframe');
+
+      var serial_alu=document.PaginaDatos.serial_alu.value;
+
+// var sql='SELECT ama.serial_ama, maa.nombre_maa, fac.nombre_fac, car.nombre_car, per.nombre_per ama.serial_per, fac.serial_fac, car.serial_car, maa.serial_maa,a.serial_alu FROM malla AS maa, facultad AS fac, carrera AS car, alumnomalla AS ama,alumno as a, Periodo as per WHERE maa.serial_maa = ama.serial_maa AND car.serial_car = maa.serial_car AND fac.serial_fac = car.serial_fac AND a.serial_alu = ama.serial_alu and ama.serial_per = per.serial_per and a.serial_alu=masterkey';
+	
+	var sql='SELECT ama.serial_ama, maa.nombre_maa, fac.nombre_fac, car.nombre_car,per.nombre_per,  fecegresamiento_ama, fectitulacion_ama,numacta_ama,fecharegistro_ama,numrefrendacion_ama,fecharegSENECYT_ama,numregSENECYT_ama, proyectotitulacion_ama, codigobiblioteca_ama, ama.pruebaceaaces,ama.Titulo_ama ,ama.serial_per, fac.serial_fac, car.serial_car, maa.serial_maa,a.serial_alu, maa.serial_sec FROM malla AS maa, facultad AS fac, carrera AS car, alumno as a, alumnomalla AS ama  left join periodo as per on ama.serial_per = per.serial_per WHERE maa.serial_maa = ama.serial_maa AND car.serial_car = maa.serial_car AND fac.serial_fac = car.serial_fac AND a.serial_alu = ama.serial_alu and a.serial_alu=masterkey';
+			//
+
+   	 
+	 var omniObj=new omnisoftGridDetail('omniObj','serial_alu',serial_alu,'alumnomalla','serial_ama',sql,document.PaginaDatos,Array(true,true,true),'detalleinscripciones.html',1000,600);
+
+  	 omniObj.addColumn('Serial','serial_ama', 1,'hidden','','middle','');
+     omniObj.addColumn('Malla','nombre_maa', 30,'string','','middle','');
+     omniObj.addColumn('Facultad','nombre_fac', 25,'string','','middle','');
+     omniObj.addColumn('Titulo','nombre_car', 20,'string','','middle','');
+	 omniObj.addColumn('Periodo','nombre_per', 20,'string','','middle','');
+	 omniObj.addColumn('Egresado el','fecegresamiento_ama', 15,'date','','middle','');
+	 omniObj.addColumn('Acta de grado','fectitulacion_ama', 15,'date','','middle','');
+ 	 omniObj.addColumn('Número Acta grado','numacta_ama', 15,'string','','middle','');
+	 
+	 omniObj.addColumn('Fecha refrendacion','fecharegistro_ama', 15,'date','','middle','');
+	 omniObj.addColumn('Número refrendacion','numrefrendacion_ama', 15,'string','','middle','');
+	 omniObj.addColumn('Fecha SENECYT','fecharegSENECYT_ama', 15,'date','','middle','');
+	 omniObj.addColumn('Número SENECYT','numregSENECYT_ama', 15,'string','','middle','');
+ 	 omniObj.addColumn('Proyecto de Titulación','proyectotitulacion_ama', 25,'string','','middle','');
+  	 omniObj.addColumn('Código de Biblioteca','codigobiblioteca_ama', 10,'string','','middle','');
+	 omniObj.addColumn('Prueba Ceaaces','pruebaceaaces', 10,'string','','middle','');
+	 omniObj.addColumn('Titulo','Titulo_ama', 6,'readonly','','middle','');
+	  
+	  
+	 omniObj.addColumn('Serial','serial_per', 1,'hidden','','middle','');	 
+	 omniObj.addColumn('Serial','serial_fac', 1,'hidden','','middle','');	 
+	 omniObj.addColumn('Serial','serial_car', 1,'hidden','','middle','');
+	 omniObj.addColumn('Serial','serial_maa', 5,'hidden','','middle','');
+	 omniObj.addColumn('Serial','serial_alu', 1,'hidden','','middle','');
+	 omniObj.addColumn('Serial','serial_sec', 1,'hidden','','middle','');
+
+   omniObj.showGrid('omniObj',20,389,1020,'menu','#FF9900');
+
+ </script></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

@@ -1,0 +1,1253 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+<script>
+function verEncuesta() {
+	if(document.PaginaDatos.documentoEncuesta_seg.value == ""){
+		alert("No existen documentos adjuntos en esta encuesta...");
+	}else{
+	   var attributes='width=950,height=650,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=yes,copyhistory=no,statusbar=no';
+       omnisoftNewWindow=window.open('../encuestas/'+document.PaginaDatos.documentoEncuesta_seg.value,'OmnisoftFile',attributes);
+       if (window.focus) {omnisoftNewWindow.focus()}
+	
+	}
+
+}
+
+
+function evaluar(){
+	//Control de suma de fechas
+	if(getURLParam('action')=='insert'){
+		var res;
+		var type;
+		var nTime;
+		type = document.PaginaDatos.tipoencuestaanterior_seg.value;
+		
+		switch(type){
+			case 'PRIMERA': 
+				nTime = 1;
+				break;
+			case 'SEGUNDA': 
+				nTime = 2;
+				break;
+			case 'TERCERA': 
+				nTime = 3;
+				break;			
+			case 'OTRA': 
+				nTime = 4;
+				break;			
+		}
+		res = document.PaginaDatos.fechaencuesta_seg.value;
+		var fec = res.split('-');
+		var myDate  = new Date (); 
+		myDate.setYear(fec[0]); 
+		myDate.setMonth(fec[1]);
+		myDate.setDate(fec[2]);
+		myDate.setYear (myDate.getYear() + nTime); 
+		dateSum = myDate.getYear()+"-"+myDate.getMonth()+"-"+myDate.getDate(); 	
+		document.PaginaDatos.fechaencuestaant_seg.value = dateSum ;		
+	}
+	
+	var primernombre;
+	var segundonombre;
+	//primer nombre
+	if (document.PaginaAlumno.primernombresi_alu.checked==true){
+		primernombre = "SI";
+	}else{
+		primernombre = "NO";
+	}
+	//segundo nombre
+	if (document.PaginaAlumno.segundonombresi_alu.checked==true){
+		segundonombre = "SI";
+	}else{
+		segundonombre = "NO";
+	}	
+	var SQLCommand="update alumno set direcciondomic_alu='"+document.PaginaAlumno.direcciondomic_alu.value+"',mail_alu= '"+document.PaginaAlumno.mail_alu.value+"', telefodomic_alu='"+document.PaginaAlumno.telefodomic_alu.value+"', celular_alu='"+document.PaginaAlumno.celular_alu.value+"', serial_sex = '"+document.PaginaAlumno.serial_sex.value+"', serial_eci = '"+document.PaginaAlumno.serial_eci.value+"',primernombresi_alu = '"+primernombre+"',segundonombresi_alu = '"+segundonombre+"'  where serial_alu ="+document.PaginaDatos.serial_alu.value;
+	//alert('entro')
+	//prompt("SQLCommand",SQLCommand);
+	var res = omnisoftGrabar();
+	if( res != false){
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'');
+		objDBComando.executeQuery();	
+	}
+	
+}
+
+ var serial_sec=opener.serial_sec;
+
+	//alert('serial_sec:'+serial_sec);
+</script>
+<style type="text/css">
+<!--
+.style5 {color: #000066; font-weight: bold; font-size: 11px; }
+-->
+</style>
+<body scroll = "auto">
+<table width="" border="0" cellspacing="0" cellpadding="0" >
+<tr>
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO <br>
+          DETALLE DE ENCUESTA
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+</table>
+<form method="POST" enctype="multipart/form-data"  name="PaginaAlumno" onClick="highlight(event)" onKeyUp="highlight(event)">
+ <table width="780" border="1" cellspacing="0" cellpadding="0" class="formtable" >
+<!--BEGIN TABLE PASTE-->
+   <tr>
+      <td height="30" colspan="3"> 
+		   <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS PERSONALES ALUMNO</span></div></td>
+		  </tr>
+          <tr>
+            <td height="15"  class="style5">Primer Nombre: </td>
+            <td ><input name="nombre1_alu" id="nombre1_alu" type="text" class="" size="30" maxlength="40" onBlur="" />
+            <input type="checkbox" name="primernombresi_alu" id="primernombresi_alu" value=""></td>
+            <td class="style5">Segundo Nombre :</td>
+            <td ><span class="style5">
+              <input name="nombre2_alu" id="nombre2_alu" type="text" class="" size="30" maxlength="40"  />
+              <input type="checkbox" name="segundonombresi_alu" id="segundonombresi_alu" value="">
+            </span></td>
+          </tr>
+          <tr>
+            <td height="15"  class="style5">Apellido Paterno: </td>
+            <td ><img src="../images/camporequerido.gif">
+            <input name="apellidopaterno_alu" id="apellidopaterno_alu" type="text" class="" size="29" maxlength="40"   onBlur=""/></td>
+            <td class="style5">Apellido Materno: </td>
+            <td ><input name="apellidomaterno_alu" id="apellidomaterno_alu" type="text" class="" size="30" maxlength="40" /></td>
+          </tr>
+          <tr>
+            <td height="15"  class="style5">Direcci&oacute;n Domicilio: </td>
+            <td ><input name="direcciondomic_alu" id="direcciondomic_alu" type="text" class="" size="29" maxlength="40"   onBlur=""/></td>
+            <td class="style5">Email Personal:</td>
+            <td ><input name="mail_alu" id="mail_alu" type="text" class="" size="29" maxlength="40"   onBlur=""/></td>
+          </tr>
+          <tr>
+            <td height="15"  class="style5"># Telf Local:</td>
+            <td ><input name="telefodomic_alu" id="telefodomic_alu" type="text" class="" size="29" maxlength="40"   onBlur=""/></td>
+            <td class="style5"># Telf. Celular:</td>
+            <td ><input name="celular_alu" id="celular_alu" type="text" class="" size="29" maxlength="40"   onBlur=""/></td>
+          </tr>          
+          <tr>
+            <td height="15"  class="style5">Sexo</td>
+            <td ><span class=""><img src="../images/camporequerido.gif"><script>
+                 var cserial_sex=new omnisoftComboBox('cserial_sex','serial_sex','select serial_sex, descripcion_sex from sexo','90px',true,getURLParam('serial_sex'));
+                     cserial_sex.show();
+	            </script></span></td>
+            <td class="style5">Estado Civil: </td>
+            <td ><span class=""><img src="../images/camporequerido.gif">   <script>
+                 var cserial_eci=new omnisoftComboBox('cserial_eci','serial_eci','select serial_eci,nombre_eci from estadocivil','90px',true,getURLParam('serial_eci'));
+                     cserial_eci.show();
+					 
+	            </script></span></td>
+          </tr>
+		   <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS GRADUACION  </span></div></td>
+		  </tr>
+           <tr>
+             <td height="15"  class="style5">Titulo Obtenido: </td>
+             <td colspan="3" ><input name="nombre_car" id="nombre_car" type="text" class="" size="160" maxlength="40" onBlur="" /></td>
+           </tr>
+          <tr>
+            <td height="15"  class="style5">Fecha Graduacion </td>
+            <td ><input name="fectitulacion_ama" id="fectitulacion_ama" type="text" class="" size="30" maxlength="40" onBlur="" /></td>
+            <td class="style5">Fecha Egresamiento</td>
+            <td ><span class="style5">
+              <input name="fecegresamiento_ama" id="fecegresamiento_ama" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr> 
+		  
+<!--END TABLE PASTE-->
+ </table>
+</form>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_seg" type="hidden" id="serial_seg" class="hidden">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+<!--aqui-->
+<table width="90%" border="1" cellspacing="0" cellpadding="0" class="formtable" >
+  <tr>
+    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS SEGUIMIENTO</span></div></td>
+  </tr>
+  <tr>
+    <td  height="15"  class="style5">Medio de Contacto: </td>
+    <td ><p><span class="style5">
+      <select name="medioContacto" id="medioContacto" class="combobox">
+        <option value="">SELECCIONE</option>
+		<option value="LLAMADA">LLAMADA</option>
+        <option value="FACEBOOK">FACEBOOK</option>
+        <option value="CORREO ELECTRONICO">CORREO ELECTRONICO</option>
+        <option value="DIRECTO">DIRECTO</option>
+      </select>
+    </span>Contesto:<span class="style5"> 
+    <select name="contesto_encuesta" id="contesto_encuesta" class="combobox">
+        <option value=""> </option>
+		<option value="SI"> SI</option>
+        <option value="NO">NO</option>
+      </select></span> 
+      </td>
+	   </tr>
+  
+  <tr>
+    <td  height="15"  class="style5">Tipo Encuesta: </td>
+    <td ><span class="style5">
+      <select name="tipoencuestaanterior_seg" id="tipoencuestaanterior_seg" class="combobox">
+        <option value="PRIMERA">PRIMERA</option>
+        <option value="SEGUNDA">SEGUNDA</option>
+        <option value="TERCERA">TERCERA</option>
+        <option value="OTRA">OTRA</option>
+      </select>
+       </span> </td>
+	  </tr>
+  <tr>
+    <td height="15"  class="style5">Fecha Encuesta :</td>
+    <td ><span class="style5">
+      <input name="fechaencuesta_seg" id="fechaencuesta_seg" type="text" class="date" size="30" maxlength="40"  />
+    </span></td>
+  </tr>
+  <tr>
+    <td height="15"  class="style5">Fecha Caducidad Encuesta: </td>
+    <td ><input name="fechaencuestaant_seg" id="fechaencuestaant_seg" type="text" class="emptytext" size="30" maxlength="40" onBlur="" /></td>
+  </tr>
+  <tr>
+    <td height="15"  class="style5">Tiempo Encuesta: </td>
+    <td ><input name="tiempoEncuesta_seg" id="tiempoEncuesta_seg" type="text" class="emptytext"  size="30" maxlength="40" onBlur="" /></td>
+  </tr>
+  <tr>
+    <td class="style5">Tiempo que tardo en conseguir su primer trabajo despues de graduado: </td>
+    <td ><span class="style5">
+      <select name="tiempotardoprimertrabajodgraduado_seg" id="tiempotardoprimertrabajodgraduado_seg" class="combobox">
+        <option value="MENOS DE ANIO">MENOS DE UN ANIO</option>
+        <option value="DE UNO A DOS ANIOS">DE UNO A DOS ANIOS</option>
+        <option value="MAS DE DOS ANIOS">MAS DE DOS ANIOS</option>
+      </select>
+    </span></td>
+  </tr>
+  <tr>
+    <td  class="style5">Tiempo que le tardo organizar su primer emprendiemiento despues de graduado: </td>
+    <td ><span class="style5">
+      <select name="tiempotardoprimeremprendgraduado_seg" id="tiempotardoprimeremprendgraduado_seg" class="combobox">
+        <option value="NO EMPRENDIO">NO EMPRENDIO</option>
+        <option value="MENOS DE UN ANIO">MENOS DE UN ANIO</option>
+        <option value="DE UNO A TRES ANIOS">DE UNO A TRES ANIOS</option>
+        <option value="MAS DE TRES ANIOS">MAS DE TRES ANIOS</option>
+      </select>
+    </span></td>
+  </tr>
+<!--
+	$encuesta['ingresoanualalprimeraniograduado_seg'] = $excel_reader->sheets[0]['cells'][13][3];
+	$encuesta['montosalarialprimertrabajodgraduado_seg'] = $excel_reader->sheets[0]['cells'][14][3];	
+< DE 6000
+>= DE 6000  Y < 12000
+>= QUE 12000
+
+MENOS DE 600
+IGUAL O MAYOR QUE 600
+
+-->
+  <tr>
+    <td height="15"  class="style5">Ingresos anuales al primer a&ntilde;o de graduado, o en el primer a&ntilde;o de su emprendimiento : </td>
+    <td ><span class="style5">
+      <select name="ingresoanualalprimeraniograduado_seg" id="ingresoanualalprimeraniograduado_seg" class="combobox">
+        <option value="< DE 6000">< DE 6000</option>
+        <option value=">= DE 6000  Y < 12000">>= DE 6000  Y < 12000</option>
+        <option value=">= QUE 12000">>= QUE 12000</option>
+      </select>
+    </span></td>
+  </tr>
+  <tr>
+    <td height="15"  class="style5">Monto Salarial en el primer trabajo luego de graduado  : </td>
+    <td ><span class="style5">
+      <select name="montosalarialprimertrabajodgraduado_seg" id="montosalarialprimertrabajodgraduado_seg" class="combobox">
+        <option value="MENOS DE 600">MENOS DE 600</option>
+        <option value="IGUAL O MAYOR QUE 600">IGUAL O MAYOR QUE 600</option>
+      </select>
+    </span></td>
+  </tr>
+  <tr>
+    <td height="15"  class="style5">&nbsp;</td>
+    <td >&nbsp;</td>
+  </tr>
+<tr>
+    <td colspan="15" class="formtitle"><div align="center"><span class="style1"> ENCUESTA DE IMPACTO ACAD&Eacute;MICO PRODUCTIVO Y SOCIAL</span></div></td>
+  </tr>
+
+<tr>
+	<td colspan='2'>		 	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Usted actualmente se desempe&ntilde;a como:	</td>
+	<td height="15"  class="style5"><select name='relacionDependencia_seg' id='relacionDependencia_seg' class='combobox'>
+<option value = 'EMPLEADO/PROPIETARIO'>EMPLEADO/PROPIETARIO</option>
+<option value = 'RELACION DE DEPENDENCIA'>RELACION DE DEPENDENCIA</option>
+</select>	</td>
+</tr>
+
+<tr>
+    <td colspan="15" class="formtitle"><div align="center"><span class="style1">A.- RENDIMIENTO EMPRESARIAL</span></div></td>
+  </tr>
+
+<tr>
+	<td height="15"  class="style5">
+		 Cuantos a&ntilde;os tiene su empresa:	</td>
+	<td height="15"  class="style5"><select name='aniosEmpresa_seg' id='aniosEmpresa_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = '1 A 3'>1 A 3</option>
+<option value = '4 A 10'>4 A 10</option>
+<option value = '10 A 20'>10 A 20</option>
+<option value = 'MAS DE 20'>MAS DE 20</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cuantas empresas pose&iacute;a al inicio de su actividad como empresario:	</td>
+	<td height="15"  class="style5"><select name='nEmpresasInicio_seg' id='nEmpresasInicio_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = '1'>1</option>
+<option value = '2'>2</option>
+<option value = '3 A 5'>3 A 5</option>
+<option value = 'MAS DE 5'>MAS DE 5</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cuantas empresas posee actualmente:	</td>
+	<td height="15"  class="style5"><select name='nEmpresasActual_seg' id='nEmpresasActual_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = '1'>1</option>
+<option value = '2'>2</option>
+<option value = '3 A 5'>3 A 5</option>
+<option value = 'MAS DE 5'>MAS DE 5</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cuantos Empleados tuvo su empresa o empresas en su comienzos:	</td>
+	<td height="15"  class="style5"><select name='nEmpleadosInicio_seg' id='nEmpleadosInicio_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'MENOS DE  10'>MENOS DE  10</option>
+<option value = '11 A 50'>11 A 50</option>
+<option value = '51 A 200'>51 A 200</option>
+<option value = 'MAS DE 200'>MAS DE 200</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cuantos Empleados tiene su empresa o empresas actualmente:	</td>
+	<td height="15"  class="style5"><select name='nEmpleadosActual_seg' id='nEmpleadosActual_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'MENOS DE  10'>MENOS DE  10</option>
+<option value = '11 A 50'>11 A 50</option>
+<option value = '51 A 200'>51 A 200</option>
+<option value = 'MAS DE 200'>MAS DE 200</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cu&aacute;l era su rango promedio de ventas anuales el primer a&ntilde;o de su actividad empresarial:	</td>
+	<td height="15"  class="style5"><select name='rVentasEmpresaInicio_seg' id='rVentasEmpresaInicio_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'DE USD 0 A USD 10.000'>DE USD 0 A USD 10.000</option>
+<option value = 'USD 10.001 A USD 50.000'>USD 10.001 A USD 50.000</option>
+<option value = 'USD 50.001 A USD 100.000'>USD 50.001 A USD 100.000</option>
+<option value = 'USD 100.000 A USD 500.000'>USD 100.000 A USD 500.000</option>
+<option value = 'DE USD 500.001 A USD 1.000.000'>DE USD 500.001 A USD 1.000.000</option>
+<option value = 'USD 1.000.001  O MAS '>USD 1.000.001  O MAS </option>
+<option value = 'NI'>NI</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cu&aacute;l es su rango promedio de ventas anuales actualmente:	</td>
+	<td height="15"  class="style5"><select name='rVentasEmpresaActual_seg' id='rVentasEmpresaActual_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'DE USD 0 A USD 10.000'>DE USD 0 A USD 10.000</option>
+<option value = 'USD 10.001 A USD 50.000'>USD 10.001 A USD 50.000</option>
+<option value = 'USD 50.001 A USD 100.000'>USD 50.001 A USD 100.000</option>
+<option value = 'USD 100.000 A USD 500.000'>USD 100.000 A USD 500.000</option>
+<option value = 'DE USD 500.001 A USD 1.000.000'>DE USD 500.001 A USD 1.000.000</option>
+<option value = 'USD 1.000.001  O MAS '>USD 1.000.001  O MAS </option>
+<option value = 'NI'>NI</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Considera Usted que las ventas de su empresa han venido:	</td>
+	<td height="15"  class="style5"><select name='ventasHanVenido_seg' id='ventasHanVenido_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'CRECIENDO'>CRECIENDO</option>
+<option value = 'ESTABLES'>ESTABLES</option>
+<option value = 'DECRECIENDO'>DECRECIENDO</option>
+<option value = 'NI'>NI</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 La tasa promedio de crecimiento de activos de su empresa es:	</td>
+	<td height="15"  class="style5"><select name='tasaCrecimientoActivos_seg' id='tasaCrecimientoActivos' class='combobox'>
+	  <option value = ''>SELECCIONE</option>
+      <option value = 'POSITIVA'>POSITIVA</option>
+      <option value = 'NEUTRA'>NEUTRA</option>
+      <option value = 'NEGATIVA'>NEGATIVA</option>
+    </select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 El rango de crecimiento de sus activos se aproxima a:	</td>
+	<td height="15"  class="style5"><select name='rangoCrecimientoActivos_seg' id='rangoCrecimientoActivos_seg' class='combobox'>
+	  <option value = ''>SELECCIONE</option>
+      <option value = '< DE 10%'>< DE 10%</option>
+      <option value = '11% A 15%'>11% A 15%</option>
+      <option value = '16% A 25%'>16% A 25%</option>
+      <option value = '> A 25%'>> A 25%</option>
+    </select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Su nivel de contactos empresariales y redes o clusters es:	</td>
+	<td height="15"  class="style5"><select name='nivelContactoEmpresarial_seg' id='nivelContactoEmpresarial_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'OPTIMO'>OPTIMO</option>
+<option value = 'BUENO'>BUENO</option>
+<option value = 'MEDIO'>MEDIO</option>
+<option value = 'BAJO'>BAJO</option>
+<option value = 'NULO'>NULO</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Su nivel de contactos empresariales y redes personales proviene de:	</td>
+	<td height="15"  class="style5"><select name='nivelContactoRedesVienen_seg' id='nivelContactoRedesVienen_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'FAMILIA'>FAMILIA</option>
+<option value = 'AMIGOS'>AMIGOS</option>
+<option value = 'UNIVERSIDAD'>UNIVERSIDAD</option>
+<option value = 'TRABAJO'>TRABAJO</option>
+<option value = 'OTROS'>OTROS</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 El n&uacute;mero de instituciones con las que Usted mantiene alianzas estrat&eacute;gicas actualmente es de:	</td>
+	<td height="15"  class="style5"><select name='nInstitucionesAlianzas_seg' id='nInstitucionesAlianzas_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = '0'>0</option>
+<option value = '1 A 3'>1 A 3</option>
+<option value = '3 A 5'>3 A 5</option>
+<option value = '5 A 7'>5 A 7</option>
+<option value = '> A 7'>> A 7</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Usted ha recibido apoyo institucional:	</td>
+	<td height="15"  class="style5"><select name='apoyoInstitucional_seg' id='apoyoInstitucional_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'SI'>SI</option>
+<option value = 'NO'>NO</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Su apoyo institucional ha venido desde:	</td>
+	<td height="15"  class="style5"><select name='apoyoInstitucionalDesde_seg' id='apoyoInstitucionalDesde_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'UNIVERSIDAD'>UNIVERSIDAD</option>
+<option value = 'CONSULTORAS'>CONSULTORAS</option>
+<option value = 'FUNDACIONES'>FUNDACIONES</option>
+<option value = 'SECTOR PUBLICO'>SECTOR PUBLICO</option>
+<option value = 'EMPRESA PRIVADA'>EMPRESA PRIVADA</option>
+<option value = 'INTERNACIONAL'>INTERNACIONAL</option>
+<option value = 'OTROS'>OTROS</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 En que consistio el apoyo institucional:	</td>
+	<td height="15"  class="style5"><select name='apoyoInsitucionalConsiste_seg' id='apoyoInsitucionalConsiste_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'FINANCIAMIENTO'>FINANCIAMIENTO</option>
+<option value = 'CAPACITACION'>CAPACITACION</option>
+<option value = 'INCUBACION'>INCUBACION</option>
+<option value = 'ASESORIA'>ASESORIA</option>
+<option value = 'CONVENIOS'>CONVENIOS</option>
+<option value = 'SEGURIDAD'>SEGURIDAD</option>
+<option value = 'OTROS'>OTROS</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Es usted Accionista de su empresa si es asi especifique con que porcentaje:	</td>
+	<td height="15"  class="style5"><select name='esAccionista_seg' id='esAccionista_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'SI'>SI</option>
+<option value = 'NO'>NO</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Porcentaje de Acci&oacute;n:	</td>
+	<td height="15"  class="style5"><input name="porcentajeAccion_seg" type="text" id="porcentajeAccion_seg"  class="emptydecimal" size="20" maxlength="20"></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Forma juridica del negocio o de la empresa:	</td>
+	<td height="15"  class="style5"><select name='formaJuridica_seg' id='formaJuridica_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'EMPRESARIO INDIVIDUAL'>EMPRESARIO INDIVIDUAL</option>
+<option value = 'SOCIEDAD LIMITADA'>SOCIEDAD LIMITADA</option>
+<option value = 'SOCIEDAD ANONIMA'>SOCIEDAD ANONIMA</option>
+<option value = 'ASOCIACIONES SIN ANIMO DE LUCRO'>ASOCIACIONES SIN ANIMO DE LUCRO</option>
+<option value = 'COMUNIDAD DE BIENES'>COMUNIDAD DE BIENES</option>
+<option value = 'SOCIEDAD COOPERATIVA'>SOCIEDAD COOPERATIVA</option>
+<option value = 'SOCIEDAD DE CUENTAS EN PARTICIPACION'>SOCIEDAD DE CUENTAS EN PARTICIPACION</option>
+<option value = 'OTROS'>OTROS</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Estar&iacute;a de acuerdo en que, en la pagina web de la Universidad del Pacifico se incluya el logo de su empresa:	</td>
+	<td height="15"  class="style5"><select name='logoEmpresaWebUpac_seg' id='logoEmpresaWebUpac_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'SI'>SI</option>
+<option value = 'NO'>NO</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Nombre de la Empresa:	</td>
+	<td height="15"  class="style5"><input name="nombreEmpresa_seg" id="nombreEmpresa_seg" type="text" class="emptytext"  size="80" maxlength="40" onBlur="" /></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Direccion:	</td>
+	<td height="15"  class="style5"><input name="direccionEmpresa_seg" id="direccionEmpresa_seg" type="text" class="emptytext"  size="80" maxlength="40" onBlur="" /></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Tel&eacute;fono:	</td>
+	<td height="15"  class="style5"><input name="telefonoEmpresa_seg" id="telefonoEmpresa_seg" type="text" class="emptytext"  size="80" maxlength="40" onBlur="" /></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Ciudad:	</td>
+	<td height="15"  class="style5"><select name='ciudadEmpresa_seg' id='ciudadEmpresa_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'AMBATO'>AMBATO</option>
+<option value = 'ARENILLAS'>ARENILLAS</option>
+<option value = 'ATUNTAQUI'>ATUNTAQUI</option>
+<option value = 'AZOGUES'>AZOGUES</option>
+<option value = 'BABAHOYO'>BABAHOYO</option>
+<option value = 'BAHIA DE CARAQUEZ'>BAHIA DE CARAQUEZ</option>
+<option value = 'BOLIVAR'>BOLIVAR</option>
+<option value = 'BUENA FE'>BUENA FE</option>
+<option value = 'CATAMAYO'>CATAMAYO</option>
+<option value = 'CHONE'>CHONE</option>
+<option value = 'CUENCA'>CUENCA</option>
+<option value = 'EL CARMEN'>EL CARMEN</option>
+<option value = 'EL GUABO'>EL GUABO</option>
+<option value = 'EL TRIUNFO'>EL TRIUNFO</option>
+<option value = 'ESMERALDAS'>ESMERALDAS</option>
+<option value = 'EXTERIOR - INTERNACIONAL'>EXTERIOR - INTERNACIONAL</option>
+<option value = 'GUARANDA'>GUARANDA</option>
+<option value = 'GUAYAQUIL'>GUAYAQUIL</option>
+<option value = 'HUAQUILLAS'>HUAQUILLAS</option>
+<option value = 'IBARRA'>IBARRA</option>
+<option value = 'JIPIJAPA'>JIPIJAPA</option>
+<option value = 'LA LIBERTAD'>LA LIBERTAD</option>
+<option value = 'LA MANA'>LA MANA</option>
+<option value = 'LA TRONCAL'>LA TRONCAL</option>
+<option value = 'LATACUNGA'>LATACUNGA</option>
+<option value = 'LOJA'>LOJA</option>
+<option value = 'MACAS'>MACAS</option>
+<option value = 'MACHALA'>MACHALA</option>
+<option value = 'MANTA'>MANTA</option>
+<option value = 'MONTALVO'>MONTALVO</option>
+<option value = 'MONTECRISTI'>MONTECRISTI</option>
+<option value = 'NUEVA LOJA'>NUEVA LOJA</option>
+<option value = 'OTAVALO'>OTAVALO</option>
+<option value = 'PASAJE'>PASAJE</option>
+<option value = 'PEDERNALES'>PEDERNALES</option>
+<option value = 'PLAYAS'>PLAYAS</option>
+<option value = 'PORTOVIEJO'>PORTOVIEJO</option>
+<option value = 'PUERTO FRANCISCO DE ORELLANA'>PUERTO FRANCISCO DE ORELLANA</option>
+<option value = 'PUYO'>PUYO</option>
+<option value = 'QUEVEDO'>QUEVEDO</option>
+<option value = 'QUININDE'>QUININDE</option>
+<option value = 'QUITO'>QUITO</option>
+<option value = 'RIOBAMBA'>RIOBAMBA</option>
+<option value = 'SALINAS'>SALINAS</option>
+<option value = 'SANTA ELENA'>SANTA ELENA</option>
+<option value = 'SANTA ROSA'>SANTA ROSA</option>
+<option value = 'SANTO DOMINGO'>SANTO DOMINGO</option>
+<option value = 'TENA'>TENA</option>
+<option value = 'TULCAN'>TULCAN</option>
+<option value = 'VENTANAS'>VENTANAS</option>
+<option value = 'VINCES'>VINCES</option>
+<option value = 'ZAMORA'>ZAMORA</option>
+<option value = 'GALAPAGOS'>GALAPAGOS</option>
+<option value = 'NACIONAL'>NACIONAL</option>
+<option value = 'INTERNACIONAL'>INTERNACIONAL</option>
+</select>	</td>
+</tr>
+
+<tr>
+    <td colspan="15" class="formtitle"><div align="center"><span class="style1">B.- CRITERIOS INFORMATIVOS GENERALES </span></div></td>
+  </tr>
+  <tr>
+	<td height="15"  class="style5">
+		 N&uacute;mero de socios fundadores:	</td>
+	<td height="15"  class="style5"><select name='nSociosFundadoresInicio_seg' id='nSociosFundadoresInicio_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = '1'>1</option>
+<option value = '2'>2</option>
+<option value = '3'>3</option>
+<option value = '>3'>>3</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 N&uacute;mero de socios actuales:	</td>
+	<td height="15"  class="style5"><select name='nSociosFundadoresActual_seg' id='nSociosFundadoresActual_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = '1'>1</option>
+<option value = '2'>2</option>
+<option value = '3'>3</option>
+<option value = '>3'>>3</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Sector de actividad empresarial en sus or&iacute;genes:	</td>
+	<td height="15"  class="style5"><select name='actividadComercialInicio_seg' id='actividadComercialInicio_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'COMERCIAL'>COMERCIAL</option>
+<option value = 'MANUFACTURA'>MANUFACTURA</option>
+<option value = 'TURISMO'>TURISMO</option>
+<option value = 'TRANSPORTE'>TRANSPORTE</option>
+<option value = 'SERVICIOS'>SERVICIOS</option>
+<option value = 'OTROS'>OTROS</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Sector o sectores de actividad empresarial actualmente:	</td>
+	<td height="15"  class="style5"><select name='actividadComercialActual_seg' id='actividadComercialActual_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'COMERCIAL'>COMERCIAL</option>
+<option value = 'MANUFACTURA'>MANUFACTURA</option>
+<option value = 'TURISMO'>TURISMO</option>
+<option value = 'TRANSPORTE'>TRANSPORTE</option>
+<option value = 'SERVICIOS'>SERVICIOS</option>
+<option value = 'OTROS'>OTROS</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Tipo de propuesta comercial en sus inicios:	</td>
+	<td height="15"  class="style5"><select name='tPropuestaInicial_seg' id='tPropuestaInicial_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'TRADICIONAL'>TRADICIONAL</option>
+<option value = 'INNOVADORA'>INNOVADORA</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Tipo de propuesta comercial actualmente:	</td>
+	<td height="15"  class="style5"><select name='tPropuestaActual_seg' id='tPropuestaActual_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'TRADICIONAL'>TRADICIONAL</option>
+<option value = 'INNOVADORA'>INNOVADORA</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Tipo de clientes iniciales:	</td>
+	<td height="15"  class="style5"><select name='tClientesInicio_seg' id='tClientesInicio_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'GRANDES'>GRANDES</option>
+<option value = 'MEDIANOS'>MEDIANOS</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Tipo de clientes actuales:	</td>
+	<td height="15"  class="style5"><select name='tClientesActual_seg' id='tClientesActual_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'GRANDES'>GRANDES</option>
+<option value = 'MEDIANOS'>MEDIANOS</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Experiencia laboral previa:	</td>
+	<td height="15"  class="style5"><select name='experienciaLaboral_seg' id='experienciaLaboral_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'NINGUNA'>NINGUNA</option>
+<option value = 'SECTOR PUBLICO'>SECTOR PUBLICO</option>
+<option value = 'SECTOR PRIVADO'>SECTOR PRIVADO</option>
+<option value = 'FUNDACION'>FUNDACION</option>
+<option value = 'DOCENCIA'>DOCENCIA</option>
+<option value = 'EMPRESA FAMILIAR'>EMPRESA FAMILIAR</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Fuente de identificaci&oacute;n de la oportunidad de negocios:	</td>
+	<td height="15"  class="style5"><select name='fuenteOportunidadNegocio_seg' id='fuenteOportunidadNegocio_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'UNIVERSIDAD'>UNIVERSIDAD</option>
+<option value = 'PUBLICACIONES'>PUBLICACIONES</option>
+<option value = 'MONIT MERC'>MONIT MERC</option>
+<option value = 'IMITACION'>IMITACION</option>
+<option value = 'OBSERVACION'>OBSERVACION</option>
+<option value = 'SUGERENCIA'>SUGERENCIA</option>
+<option value = 'OTROS'>OTROS</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Fuentes de financiamiento:	</td>
+	<td height="15"  class="style5"><select name='fuenteFinanciamiento_seg' id='fuenteFinanciamiento_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'PROPIA'>PROPIA</option>
+<option value = 'ENTIDAD FINANCIERA PUBLICA'>ENTIDAD FINANCIERA PUBLICA</option>
+<option value = 'ENTIDAD FINANCIERA PRIVADA'>ENTIDAD FINANCIERA PRIVADA</option>
+<option value = 'INVERSION'>INVERSION</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Est&aacute; interesado que estudiantes de la Universidad hagan pasant&iacute;as en su empresa:	</td>
+	<td height="15"  class="style5"><select name='interesadoPasantias_seg' id='interesadoPasantias_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'SI'>SI</option>
+<option value = 'NO'>NO</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Est&aacute; interesado en ser MENTOR de estudiantes de la Universidad:	</td>
+	<td height="15"  class="style5"><select name='interesadoMentor_seg' id='interesadoMentor_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'SI'>SI</option>
+<option value = 'NO'>NO</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Est&aacute; interesado en Documentar como caso acad&eacute;mico su negocio:	</td>
+	<td height="15"  class="style5"><select name='documentarEmpresaCNegocio_seg' id='documentarEmpresaCNegocio_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'SI'>SI</option>
+<option value = 'NO'>NO</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Esta interesado en ser miembro de la Asociaci&oacute;n de Graduados:	</td>
+	<td height="15"  class="style5"><select name='asociacionGraduados_seg' id='asociacionGraduados_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'SI'>SI</option>
+<option value = 'NO'>NO</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Qu&eacute; sugerencias nos puede ofrecer para servicios de valor que podr&iacute;a brindarle dicha asociaci&oacute;n :	</td>
+	<td height="15"  class="style5"><input name="sugerenciaAsociacion_seg" id="sugerenciaAsociacion_seg" type="text" class="emptytext"  size="30" maxlength="40" onBlur="" /></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Productos nuevos que deba ofrecer la Universidad:	</td>
+	<td height="15"  class="style5"><input name="productosNuevos_seg" id="productosNuevos_seg" type="text" class="emptytext"  size="80" maxlength="30" onBlur="" /></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Qu&eacute; opini&oacute;n tiene acerca de la campa&ntilde;a de la Universidad:	</td>
+	<td height="15"  class="style5"><input name="opinionDeUniversidad_seg" id="opinionDeUniversidad_seg" type="text" class="emptytext"  size="80" maxlength="40" onBlur="" /></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Estar&iacute;a de acuerdo en tener publicidad de la Universidad en su empresa:	</td>
+	<td height="15"  class="style5"><select name='publicidadUpacEnEmpresa_seg' id='publicidadUpacEnEmpresa_seg' class='combobox'>
+	  <option value = ''>SELECCIONE</option>
+      <option value = 'SI'>SI</option>
+      <option value = 'NO'>NO</option>
+    </select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Estar&iacute;a de acuerdo en que la publicidad de la Universidad salga su empresa o personal como testimonio:	</td>
+	<td height="15"  class="style5"><select name='testimonioEmpresaUpac_seg' id='testimonioEmpresaUpac_seg' class='combobox'>
+	  <option value = ''>SELECCIONE</option>
+      <option value = 'SI'>SI</option>
+      <option value = 'NO'>NO</option>
+    </select></td>
+</tr>
+
+<tr>
+    <td colspan="15" class="formtitle"><div align="center"><span class="style1">C.- INTRAEMPRENDIMIENTO (Emprendimiento en Relación de Dependencia)	 </span></div></td>
+  </tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cuantos a&ntilde;os tiene trabajando para su empresa:	</td>
+	<td height="15"  class="style5"><select name='aniosTrabajandoEmpresa_seg' id='aniosTrabajandoEmpresa_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = '1 A 3'>1 A 3</option>
+<option value = '4 A 10'>4 A 10</option>
+<option value = '10 A 20'>10 A 20</option>
+<option value = 'MAS DE 20'>MAS DE 20</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 En cuantas empresas a prestado sus servicios:	</td>
+	<td height="15"  class="style5"><select name='nEmpresasLaborado_seg' id='nEmpresasLaborado_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = '1'>1</option>
+<option value = '2'>2</option>
+<option value = '3 A 5'>3 A 5</option>
+<option value = 'MAS DE 5'>MAS DE 5</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cu&aacute;l es su nivel jer&aacute;rquico equivalente en la empresa en la que presta sus servicios:	</td>
+	<td height="15"  class="style5"><select name='tipoMando_seg' id='tipoMando_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'BASE'>BASE</option>
+<option value = 'MANDO MEDIO'>MANDO MEDIO</option>
+<option value = 'MANDO MEDIO -ALTO'>MANDO MEDIO -ALTO</option>
+<option value = 'GERENCIA - MANDO ALTO'>GERENCIA - MANDO ALTO</option>
+</select>	</td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 En que &aacute;rea considera su aporte a la organizacion en la que trabaja:	</td>
+	<td height="15"  class="style5"><select name='areaAporteEmpleado_seg' id='areaAporteEmpleado_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'TECNICO'>TECNICO</option>
+<option value = 'HUMANO'>HUMANO</option>
+<option value = 'COMERCIAL'>COMERCIAL</option>
+<option value = 'PRODUCTIVO'>PRODUCTIVO</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cuantos proyectos o propuestas de innovaci&oacute;n / diversificaci&oacute;n en su &aacute;rea de trabajo a generado para la empresa en la que trabaja:	</td>
+	<td height="15"  class="style5"><select name='nproyectosDiversificacionEmpresa_seg' id='nproyectosDiversificacionEmpresa_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'MENOS DE  10'>MENOS DE  10</option>
+<option value = '11 A 25'>11 A 25</option>
+<option value = '25 A 50'>25 A 50</option>
+<option value = 'MAS DE 50'>MAS DE 50</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Con que frecuenciapresenta Usted Innovaciones en procesos, m&eacute;todos o sistemas:	</td>
+	<td height="15"  class="style5"><select name='frecuenciaInnovaciones_seg' id='frecuenciaInnovaciones_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'ANUAL'>ANUAL</option>
+<option value = 'SEMESTRAL'>SEMESTRAL</option>
+<option value = 'TRIMESTRAL'>TRIMESTRAL</option>
+<option value = 'MENSUAL'>MENSUAL</option>
+<option value = 'SEMANAL'>SEMANAL</option>
+<option value = 'DIARIO'>DIARIO</option>
+<option value = 'NI'>NI</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Considera Usted que ha aportado a la diversificaci&oacute;n de producto / servicio o la apertura de nuevas propuestas comerciales:	</td>
+	<td height="15"  class="style5"><select name='aportadoDiversificacion_seg' id='aportadoDiversificacion_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'SI'>SI</option>
+<option value = 'NO'>NO</option>
+<option value = 'PARCIALMENTE'>PARCIALMENTE</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cuantos proyectos o propuestas de amplaci&oacute;n / diversificaci&oacute;n ha presentado a su organizaci&oacute;n:	</td>
+	<td height="15"  class="style5"><select name='nProyectosAmpliacion_seg' id='nProyectosAmpliacion_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'MENOS DE 10'>MENOS DE 10</option>
+<option value = 'DE 11 A 15'>DE 11 A 15</option>
+<option value = 'DE 16 A 25'>DE 16 A 25</option>
+<option value = 'MAS DE 25'>MAS DE 25</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Considera Usted que el impacto de su labor se ha reflejado en la generac&iacute;on de empleo en su organizaci&oacute;n:	</td>
+	<td height="15"  class="style5"><select name='impactoGeneracionEmpleo_seg' id='impactoGeneracionEmpleo_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'SI'>SI</option>
+<option value = 'NO'>NO</option>
+<option value = 'PARCIALMENTE'>PARCIALMENTE</option>
+<option value = 'NI'>NI</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cuantos puestos de trabajo que se han generado a trav&eacute;s de su aporte como empleado a la empresa:	</td>
+	<td height="15"  class="style5"><select name='puestosGenerados_seg' id='puestosGenerados_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = '0 A 10'>0 A 10</option>
+<option value = '11 A 25'>11 A 25</option>
+<option value = '26 A 50'>26 A 50</option>
+<option value = '50 A 100'>50 A 100</option>
+<option value = '100 A 500'>100 A 500</option>
+<option value = 'MAS DE 500'>MAS DE 500</option>
+<option value = 'NI'>NI</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Considera Usted que las ventas de su empresa se han incrementado gracias a su aporte:	</td>
+	<td height="15"  class="style5"><select name='creceVentas_seg' id='creceVentas_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'SI'>SI</option>
+<option value = 'NO'>NO</option>
+<option value = 'PARCIALMENTE'>PARCIALMENTE</option>
+<option value = 'NI'>NI</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 El aporte que Usted ha brindado a su organizaci&oacute;n se ha reflejado en las ventas a un promedio anual de incremento de:	</td>
+	<td height="15"  class="style5"><select name='aporteIncrementoVentas_seg' id='aporteIncrementoVentas_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = '< DE 10%'>< DE 10%</option>
+<option value = '11% A 15%'>11% A 15%</option>
+<option value = '16% A 25%'>16% A 25%</option>
+<option value = '> A 25%'>> A 25%</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Cuantos proyectos o propuestas de exportaci&oacute;n / ampliaci&oacute;n de mercado en su &aacute;rea de trabajo ha generado para la empresa en la que trabaja	</td>
+	<td height="15"  class="style5"><select name='nproyectosAmpliacionMercado_seg' id='nproyectosAmpliacionMercado_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'MENOS DE  10'>MENOS DE  10</option>
+<option value = '11 A 25'>11 A 25</option>
+<option value = '25 A 50'>25 A 50</option>
+<option value = 'MAS DE 50'>MAS DE 50</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Con que frecuencia presenta Usted propuestas de nuevos mercados para la empresa:	</td>
+	<td height="15"  class="style5"><select name='frecuenciaPropuestaNuevoMercado_seg' id='frecuenciaPropuestaNuevoMercado_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'ANUAL'>ANUAL</option>
+<option value = 'SEMESTRAL'>SEMESTRAL</option>
+<option value = 'TRIMESTRAL'>TRIMESTRAL</option>
+<option value = 'MENSUAL'>MENSUAL</option>
+<option value = 'SEMANAL'>SEMANAL</option>
+<option value = 'DIARIO'>DIARIO</option>
+<option value = 'NI'>NI</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Considera Usted que ha aportado al crecimiento y expansi&oacute;n de mercado de la empresa en la que trabaja:	</td>
+	<td height="15"  class="style5"><select name='aporteExpansionMercado_seg' id='aporteExpansionMercado_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'SI'>SI</option>
+<option value = 'NO'>NO</option>
+<option value = 'PARCIALMENTE'>PARCIALMENTE</option>
+</select></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">
+		 Que tiempo se tardo en conseguir su &uacute;ltimo empleo:	</td>
+	<td height="15"  class="style5"><select name='tiempoConseguirEmpleo_seg' id='tiempoConseguirEmpleo_seg' class='combobox'>
+<option value = ''>SELECCIONE</option>
+<option value = 'MENOS DE UN ANIO'>MENOS DE UN ANIO</option>
+<option value = 'DE UNO A DOS ANIOS'>DE UNO A DOS ANIOS</option>
+<option value = 'MAS DE DOS ANIOS'>MAS DE DOS ANIOS</option>
+</select></td>
+</tr>
+<tr>
+    <td colspan="15" class="formtitle"><div align="center"><span class="style1">OTROS</span></div></td>
+  </tr>
+<tr>
+	<td height="15"  class="style5">
+		 Observaciones Generales: </td>
+	<td height="15"  class="style5"><input name="observacionesGenerales_seg" id="observacionesGenerales_seg" type="text" class="emptytext"  size="60" maxlength="40" onBlur="" /></td>
+</tr>
+<tr>
+	<td height="15"  class="style5">Documento de Encuesta General: </td>
+	<td height="15"  class="style5"><input name="documentoEncuesta_seg" id="documentoEncuesta_seg" type="text" class="emptytext"  size="30" maxlength="40" onBlur="" /><a href="#" onclick="verEncuesta()"><image alt="Cargar Contrato" src="../images/buscar.png" width="30" heigth="30" name="contrato" ></a></td>
+</tr>
+
+<tr>
+	<td height="15"  class="style5">&nbsp;	</td>
+	<td height="15"  class="style5">&nbsp;	</td>
+</tr>
+  
+  
+  
+  
+  
+  <tr>
+    <td width="296" height="31"><div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="evaluar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+    <td width="326"></td>
+    <td width="150"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+  </tr>
+</table>
+</td>
+</tr>
+<tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+         
+        </table></td>
+  </tr>
+  </table>
+<script>
+function cargarDocumento() {
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportFileHistoricoAcademico.php?campoarchivo=documento_hac&archivo='+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+function verDocumento() {
+   var attributes='width=550,height=250,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no, copyhistory=no, statusbar=no';
+                   omnisoftNewWindow=window.open('../historicoacademico/'+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+}
+</script>
+<script>
+   	omnisoftLoadData(document.PaginaDatos);	
+	
+    var serial_alu=opener.PaginaDatos.serial_alu.value;
+	document.PaginaDatos.serial_alu.value=serial_alu;
+	//Nueva encuesta pero hay encuestas anteriores
+	if(getURLParam('action')=='insert'){
+		//alert("entro1");
+		document.PaginaDatos.fechaencuesta_seg.value = fechaSistema();	
+		var SQLCommand="select count(*) from seguimientograduado where serial_alu =" + serial_alu;
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'RecCount');
+		objDBComando.executeQuery();	  
+	}
+	var SQLCommand="select apellidopaterno_alu, apellidomaterno_alu, nombre1_alu, nombre2_alu,serial_sex,serial_eci,primernombresi_alu,segundonombresi_alu,direcciondomic_alu,telefodomic_alu,celular_alu,mail_alu from alumno where serial_alu =" + serial_alu;
+	//prompt("SQLCommand",SQLCommand);
+	var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperarDat');
+	objDBComando.executeQuery();	  
+	function recuperarDat(data){
+		var datos=data.split('|')[1].split('~');	
+		document.PaginaAlumno.apellidopaterno_alu.value = datos[0];
+		document.PaginaAlumno.apellidomaterno_alu.value = datos[1];	
+		document.PaginaAlumno.nombre1_alu.value = datos[2];
+		document.PaginaAlumno.nombre2_alu.value = datos[3];	
+		document.PaginaAlumno.serial_sex.value = datos[4];
+		document.PaginaAlumno.serial_eci.value = datos[5];	
+		
+		//primernombresi
+		switch(datos[6]){
+			case '': 
+				document.PaginaAlumno.primernombresi_alu.checked = false ;	
+				break;
+			case 'NO':
+				document.PaginaAlumno.primernombresi_alu.checked = false ;	
+				break;
+			case 'SI':
+				document.PaginaAlumno.primernombresi_alu.checked = true ;	
+				break;
+		}
+		//segundonombresi		
+		switch(datos[7]){
+			case '': 
+				document.PaginaAlumno.segundonombresi_alu.checked = false ;	
+				break;
+			case 'NO':
+				document.PaginaAlumno.segundonombresi_alu.checked = false ;	
+				break;
+			case 'SI':
+				document.PaginaAlumno.segundonombresi_alu.checked = true ;	
+				break;
+		}
+		document.PaginaAlumno.direcciondomic_alu.value = datos[8];	
+		document.PaginaAlumno.telefodomic_alu.value = datos[9];	
+		document.PaginaAlumno.celular_alu.value = datos[10];	
+		document.PaginaAlumno.mail_alu.value = datos[11];	
+var SQLGrad="select fectitulacion_ama, fecegresamiento_ama, carreraprincipal.nombre_crp as carrera, nombre_car from alumno as alu, sexo as sex left join alumnomalla on alumnomalla.serial_alu=alu.serial_alu left join malla on malla.serial_maa=alumnomalla.serial_maa and serial_maa_p=0 left join carrera on carrera.serial_car=malla.serial_car left join carreraprincipal on carreraprincipal.serial_crp=carrera.serial_crp left join facultad on facultad.serial_fac=carrera.serial_fac where alu.serial_sex = sex.serial_sex and alu.serial_alu = "+serial_alu;
+//prompt('sql',SQLGrad);
+	var objDBComando=new omnisoftDB(SQLGrad,"../lib/server/omnisoftSQLData.php",'recuperarDat2');
+	objDBComando.executeQuery();	
+		
+	}	
+//recuperar datos
+function recuperarDat2(datat){
+		var datost=datat.split('|')[1].split('~');	
+		document.PaginaAlumno.fectitulacion_ama.value = datost[0];
+		document.PaginaAlumno.fecegresamiento_ama.value = datost[1];
+		document.PaginaAlumno.nombre_car.value = datost[3]; 
+}
+function RecCount(data){
+	var datos=data.split('|')[1].split('~');	
+	if (datos[0]>0){
+			//alert("hay encuestas anteriores traer datos a nuevo form");
+
+		var SQLCommand="select tipoencuestaanterior_seg,fechaencuesta_seg,fechaencuestaant_seg,tiempoEncuesta_seg,tiempotardoprimertrabajodgraduado_seg,tiempotardoprimeremprendgraduado_seg,ingresoanualalprimeraniograduado_seg,montosalarialprimertrabajodgraduado_seg,relacionDependencia_seg,aniosEmpresa_seg,nEmpresasInicio_seg,nEmpresasActual_seg,nEmpleadosInicio_seg,nEmpleadosActual_seg,rVentasEmpresaInicio_seg,rVentasEmpresaActual_seg,ventasHanVenido_seg,tasaCrecimientoActivos_seg,rangoCrecimientoActivos_seg,nivelContactoEmpresarial_seg,nivelContactoRedesVienen_seg,nInstitucionesAlianzas_seg,apoyoInstitucional_seg,apoyoInstitucionalDesde_seg,apoyoInsitucionalConsiste_seg,esAccionista_seg,porcentajeAccion_seg,formaJuridica_seg,logoEmpresaWebUpac_seg,nombreEmpresa_seg,direccionEmpresa_seg,telefonoEmpresa_seg,ciudadEmpresa_seg,nSociosFundadoresInicio_seg,nSociosFundadoresActual_seg,actividadComercialInicio_seg,actividadComercialActual_seg,tPropuestaInicial_seg,tPropuestaActual_seg,tClientesInicio_seg,tClientesActual_seg,experienciaLaboral_seg,fuenteOportunidadNegocio_seg,fuenteFinanciamiento_seg,interesadoPasantias_seg,interesadoMentor_seg,documentarEmpresaCNegocio_seg,asociacionGraduados_seg,sugerenciaAsociacion_seg,productosNuevos_seg,opinionDeUniversidad_seg,publicidadUpacEnEmpresa_seg,testimonioEmpresaUpac_seg,aniosTrabajandoEmpresa_seg,nEmpresasLaborado_seg,tipoMando_seg,areaAporteEmpleado_seg,nproyectosDiversificacionEmpresa_seg,frecuenciaInnovaciones_seg,aportadoDiversificacion_seg,nProyectosAmpliacion_seg,impactoGeneracionEmpleo_seg,puestosGenerados_seg,creceVentas_seg,aporteIncrementoVentas_seg,nproyectosAmpliacionMercado_seg,frecuenciaPropuestaNuevoMercado_seg,aporteExpansionMercado_seg,tiempoConseguirEmpleo_seg,observacionesGenerales_seg,documentoEncuesta_seg from seguimientograduado where serial_alu = " + serial_alu;
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'putData');
+		objDBComando.executeQuery();	  
+		
+	}
+}
+function putData(data){
+	//alert('entro a la modificacion tambien el putdata');
+	var datos=data.split('|')[1].split('~');	
+	document.PaginaDatos.tipoencuestaanterior_seg.value = datos[0];
+	document.PaginaDatos.fechaencuesta_seg.value = datos[1];
+	document.PaginaDatos.fechaencuestaant_seg.value = datos[2];
+	document.PaginaDatos.tiempoEncuesta_seg.value = datos[3];
+	document.PaginaDatos.tiempotardoprimertrabajodgraduado_seg.value = datos[4];
+	document.PaginaDatos.tiempotardoprimeremprendgraduado_seg.value = datos[5];
+	document.PaginaDatos.ingresoanualalprimeraniograduado_seg.value = datos[6];
+	document.PaginaDatos.montosalarialprimertrabajodgraduado_seg.value = datos[7];
+	document.PaginaDatos.relacionDependencia_seg.value = datos[8];
+	document.PaginaDatos.aniosEmpresa_seg.value = datos[9];
+	document.PaginaDatos.nEmpresasInicio_seg.value = datos[10];
+	document.PaginaDatos.nEmpresasActual_seg.value = datos[11];
+	document.PaginaDatos.nEmpleadosInicio_seg.value = datos[12];
+	document.PaginaDatos.nEmpleadosActual_seg.value = datos[13];
+	document.PaginaDatos.rVentasEmpresaInicio_seg.value = datos[14];
+	document.PaginaDatos.rVentasEmpresaActual_seg.value = datos[15];
+	document.PaginaDatos.ventasHanVenido_seg.value = datos[16];
+	document.PaginaDatos.tasaCrecimientoActivos_seg.value = datos[17];
+	document.PaginaDatos.rangoCrecimientoActivos_seg.value = datos[18];
+	document.PaginaDatos.nivelContactoEmpresarial_seg.value = datos[19];
+	document.PaginaDatos.nivelContactoRedesVienen_seg.value = datos[20];
+	document.PaginaDatos.nInstitucionesAlianzas_seg.value = datos[21];
+	document.PaginaDatos.apoyoInstitucional_seg.value = datos[22];
+	document.PaginaDatos.apoyoInstitucionalDesde_seg.value = datos[23];
+	document.PaginaDatos.apoyoInsitucionalConsiste_seg.value = datos[24];
+	document.PaginaDatos.esAccionista_seg.value = datos[25];
+	document.PaginaDatos.porcentajeAccion_seg.value = datos[26];
+	document.PaginaDatos.formaJuridica_seg.value = datos[27];
+	document.PaginaDatos.logoEmpresaWebUpac_seg.value = datos[28];
+	document.PaginaDatos.nombreEmpresa_seg.value = datos[29];
+	document.PaginaDatos.direccionEmpresa_seg.value = datos[30];
+	document.PaginaDatos.telefonoEmpresa_seg.value = datos[31];
+	document.PaginaDatos.ciudadEmpresa_seg.value = datos[32];
+	document.PaginaDatos.nSociosFundadoresInicio_seg.value = datos[33];
+	document.PaginaDatos.nSociosFundadoresActual_seg.value = datos[34];
+	document.PaginaDatos.actividadComercialInicio_seg.value = datos[35];
+	document.PaginaDatos.actividadComercialActual_seg.value = datos[36];
+	document.PaginaDatos.tPropuestaInicial_seg.value = datos[37];
+	document.PaginaDatos.tPropuestaActual_seg.value = datos[38];
+	document.PaginaDatos.tClientesInicio_seg.value = datos[39];
+	document.PaginaDatos.tClientesActual_seg.value = datos[40];
+	document.PaginaDatos.experienciaLaboral_seg.value = datos[41];
+	document.PaginaDatos.fuenteOportunidadNegocio_seg.value = datos[42];
+	document.PaginaDatos.fuenteFinanciamiento_seg.value = datos[43];
+	document.PaginaDatos.interesadoPasantias_seg.value = datos[44];
+	document.PaginaDatos.interesadoMentor_seg.value = datos[45];
+	document.PaginaDatos.documentarEmpresaCNegocio_seg.value = datos[46];
+	document.PaginaDatos.asociacionGraduados_seg.value = datos[47];
+	document.PaginaDatos.sugerenciaAsociacion_seg.value = datos[48];
+	document.PaginaDatos.productosNuevos_seg.value = datos[49];
+	document.PaginaDatos.opinionDeUniversidad_seg.value = datos[50];
+	document.PaginaDatos.publicidadUpacEnEmpresa_seg.value = datos[51];
+	document.PaginaDatos.testimonioEmpresaUpac_seg.value = datos[52];
+	document.PaginaDatos.aniosTrabajandoEmpresa_seg.value = datos[53];
+	document.PaginaDatos.nEmpresasLaborado_seg.value = datos[54];
+	document.PaginaDatos.tipoMando_seg.value = datos[55];
+	document.PaginaDatos.areaAporteEmpleado_seg.value = datos[56];
+	document.PaginaDatos.nproyectosDiversificacionEmpresa_seg.value = datos[57];
+	document.PaginaDatos.frecuenciaInnovaciones_seg.value = datos[58];
+	document.PaginaDatos.aportadoDiversificacion_seg.value = datos[59];
+	document.PaginaDatos.nProyectosAmpliacion_seg.value = datos[60];
+	document.PaginaDatos.impactoGeneracionEmpleo_seg.value = datos[61];
+	document.PaginaDatos.puestosGenerados_seg.value = datos[62];
+	document.PaginaDatos.creceVentas_seg.value = datos[63];
+	document.PaginaDatos.aporteIncrementoVentas_seg.value = datos[64];
+	document.PaginaDatos.nproyectosAmpliacionMercado_seg.value = datos[65];
+	document.PaginaDatos.frecuenciaPropuestaNuevoMercado_seg.value = datos[66];
+	document.PaginaDatos.aporteExpansionMercado_seg.value = datos[67];
+	document.PaginaDatos.tiempoConseguirEmpleo_seg.value = datos[68];
+	document.PaginaDatos.observacionesGenerales_seg.value = datos[69];
+	document.PaginaDatos.documentoEncuesta_seg.value = datos[70];
+	//alert(document.PaginaDatos.puestosGenerados_seg.value);
+}
+
+	
+</script>
+
+</form>
+
+</body>
+</html>

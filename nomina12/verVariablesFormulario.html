@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftListBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script></head>
+<script>
+
+  function desplegarVariables() {
+  var attributes='width='+this.eWidth+',height='+this.eHeight+',toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('verVariables.html','',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+  }
+  function procesarFormula() {
+  opener.PaginaDatos.formula_rgr.value=opener.PaginaDatos.formula_rgr.value+' '+ document.PaginaDatos.formula.options[document.PaginaDatos.formula.selectedIndex].text;
+  }
+    function procesarVariable() {
+  opener.PaginaDatos.formula_rgr.value=opener.PaginaDatos.formula_rgr.value+' '+ document.PaginaDatos.variable.options[document.PaginaDatos.variable.selectedIndex].text;
+  }
+function procesarMensajeVariable() {
+var variable=document.PaginaDatos.variable.value.split('¬')[1];
+document.getElementById('mensaje').innerHTML=(variable!=undefined)?variable:'';
+}
+
+function procesarMensajeFormula() {
+var formula=document.PaginaDatos.formula.value.split('¬')[1];
+document.getElementById('mensaje').innerHTML=(formula!=undefined)?formula:'';
+}
+</script>
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_rgr" type="hidden" id="serial_rgr" class="hidden">
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          RECURSOS HUMANOS<br>
+          VARIABLES Y FORMULAS
+        </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="213" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr> 
+            <td width="380" height="17"  class="inputtitle"><div align="center">Variables</div></td>
+            <td colspan="2" class="inputtitle"><div align="center">Formulas</div></td>
+          </tr>
+          <tr> 
+            <td height="134"  class="inputtitle"><label>
+              <script>    var cvariable=new omnisoftListBox('cvariable','variable','select concat(nombreLogico_vam,\'¬\',descripcion_vam) as serial,nombreLogico_vam  from variablesModulo  where serial_mod=4 order by nombreLogico_vam',8,'400px',false,'','',procesarMensajeVariable);
+                     cvariable.show();
+	            </script>            </label></td>
+            <td colspan="2" >
+              <script>    var cformula=new omnisoftListBox('cformula','formula','select concat(formula_frm,\'¬\',descripcion_frm) as serial ,formula_frm  from formulas  order by formula_frm',8,'400px',false,'','',procesarMensajeFormula);
+                     cformula.show();
+	            </script></td>
+          </tr>
+          
+          
+          
+          <tr>
+            <td height="30" colspan="3"  class="inputtitle"><span id="mensaje">Mensaje </span></td>
+          </tr>
+          <tr> 
+            <td height="30"  class="inputtitle"><a href="#" onClick="procesarVariable()"><img src="../images/aceptar.jpg" alt="Insertar Variable" width="33" height="34"></a>Incluir variable</td>
+            <td width="380" class="inputtitle"><a href="#" onClick="procesarFormula()"><img src="../images/formula.jpg" alt="Insertar Formula" width="33" height="34"></a>Incluir formula</td>
+            <td width="37" ><a href="#" onClick="javascript:window.close()"><img src="../images/cancelar.jpg" alt="Salir sin seleccionar" width="35" height="35"></a></td>
+          </tr>
+      </table></td>
+    </tr>
+    <tr >
+      <td height="13" colspan="3" align="center">&nbsp; </td>
+    </tr>
+  </table>
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

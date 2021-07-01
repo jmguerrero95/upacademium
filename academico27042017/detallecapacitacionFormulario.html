@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+
+<script>
+function seleccionarMateria(){
+
+cserial_mat.objDBComando.sqlCommand='SELECT serial_mat, nombre_mat FROM materia AS mat LEFT JOIN seccion AS sec ON mat.serial_sec = sec.serial_sec WHERE mat.serial_sec = '+opener.PaginaDatos.serial_sec.value+' AND mat.serial_are ='+document.PaginaDatos.serial_are.value+' AND estado_mat =\'ACTIVO\' ORDER BY nombre_mat ASC';
+
+
+/*
+prompt('sql','select concat(dma.serial_mat,\'^\',numerocreditos_dma) as serial, nombre_mat from materia as mat, detallemalla as dma, malla as maa where mat.serial_mat = dma.serial_mat and maa.serial_maa = dma.serial_maa and maa.serial_maa='+opener.PaginaDatos.serial_maa.value+'  and serial_niv='+document.PaginaDatos.serial_niv.value);*/
+//   cserial_mataux.objDBComando.sqlCommand='select  dma.serial_mat, mat.nombre_mat FROM materia as mat, detallemalla as dma where //mat.serial_mat = dma.serial_mat and serial_niv='+document.PaginaDatos.serial_niv.value;
+	cserial_mat.objDBComando.executeQuery();
+}
+function cargarArchivo() {
+
+
+   var attributes='width=400,height=300,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportFile.php?campoarchivo=archcapacitacion_cap&archivo='+document.PaginaDatos.archcapacitacion_cap.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+function verArchivo() {
+   var attributes='width=800,height=800,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../contratos/'+document.PaginaDatos.archcapacitacion_cap.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+</script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_cap" type="hidden" id="serial_cap" class="hidden">
+<input name="serial_epl" type="hidden" id="serial_epl" class="hidden">
+<input name="tipo_cap" type="hidden" id="tipo_cap" class="hidden">
+
+  <table width="877" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO <br>
+          DETALLE DE EVENTO ACADEMICO PROFESOR 
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="874" height="125" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td width="116" height="29"  class="inputtitle"> Titulo Evento: </td>
+            <td colspan="3"><img src="../images/camporequerido.gif"><input name="descripcion_cap" type="text" id="descripcion_cap" size="60" maxlength="65" class="emptystring" ></td>
+            <td class="inputtitle">Instructor : </td>
+            <td colspan="2" ><input name="instructor_cap" type="text" id="instructor_cap" size="50" maxlength="100" class="emptystring" ></td>
+			 <td width="80"class="inputtitle" >Tipo de Curso </td>
+			 <td>
+			   <select name="metodologia_foa" id="metodologia_foa" class="combobox" style="text-align:center;">
+                 <option value="METODOLOGICA">Metodologica</option>
+                 <option value="NO METODOLOGICA" selected="selected">No metodologica</option>
+               </select></td>	
+          </tr>
+          
+          <tr>
+            <td height="30"  class="inputtitle">Institución:</td>
+            <td width="273" colspan="3"><input name="institucion_cap" type="text" id="institucion_cap" size="60" maxlength="100" class="emptystring" ></td>
+            <td width="102" class="inputtitle">Dias:</td>
+            <td width="103" ><input name="duraciondias_cap" type="text" id="duraciondias_cap"  size="10" maxlength="10" class="emptyinteger" onBlur="esconderToolTip()"></td>
+            <td width="71"class="inputtitle" >Horas : </td>
+            <td width="126" ><input name="duracionhoras_cap" type="text" id="duracionhoras_cap" size="10" maxlength="10" class="emptyinteger" onBlur="esconderToolTip()"></td>
+          </tr>
+		   <tr>
+            <td height="30"  class="inputtitle">Cargar Evento Académico:<!--Nombre/Certificado:--></td>
+            <td width="273"colspan="2" ><input name="archcapacitacion_cap" type="text" id="archcapacitacion_cap"  class="emptytext" size="30" maxlength="255">
+	  <a href="#" onClick="cargarArchivo()">
+      <image alt="Cargar Archivo" src="../images/buscar.png" width="20" heigth="20" name="archivo" >
+	  </a>-----<a href="javascript:verArchivo();">Ver
+      archivo</a><!--<input name="nombrecertificado_cap" type="text" id="nombrecertificado_cap" size="60" maxlength="65" class="emptystring" >--></td>
+            <td width="102" class="inputtitle">Inicio:</td>
+            <td width="103" ><input name="fechainicio_cap" type="text" id="fechainicio_cap"  size="20" value="0000-00-00" maxlength="10" class="date" onBlur="esconderToolTip()"></td>
+            <td width="71"class="inputtitle" >Finalización: </td>
+            <td width="126" ><input name="fechafin_cap" type="text" id="fechafin_cap" size="20" value="0000-00-00" maxlength="10" class="date" onBlur="esconderToolTip()"></td>
+          </tr>
+          <tr>
+            <td height="31"  class="inputtitle">Año: </td>
+            <td ><input name="anio_cap" type="text" id="anio_cap" size="10" maxlength="4" class="integer" onBlur="esconderToolTip()"></td>
+			
+			<td height="31"  class="inputtitle">Participación: </td>
+            <td >  
+				<img src="../images/camporequerido.gif">			  
+			  <select name="participacion_cap" id="participacion_cap" class="combobox">
+				<option value="EXPOSITOR">Expositor</option>
+                <option value="ASISTENTE" selected="selected">Asistente</option>
+				<option value="INVITADO" selected="selected">Invitado</option>
+              </select>			</td> 	
+			
+			
+            <td class="inputtitle"> Tipo: </td>
+            <td >  
+			<script>
+			var sqlCap = "select serial_tcap,descripcion_tcap  from tipocapacitacion order by descripcion_tcap";
+				var cserial_tcap=new omnisoftComboBox('cserial_tcap','serial_tcap',sqlCap,'130px',true,getURLParam('serial_tcap'));
+                     cserial_tcap.show();
+			</script>			</td>
+			
+			 <td height="21" class="inputtitle" >Movilidad :</td>
+       <td height="20" class="inputtitle" ><select name="movilidad_cap" id="movilidad_cap" class="combo" style="font-family:Tahoma; font-size:10px">
+         <option value=""></option>
+         <option value="NACIONAL">NACIONAL</option>
+         <option value="INTERNACIONAL">INTERNACIONAL</option>
+        </select></td>
+          </tr>
+		  <tr>
+		  	<td class="inputtitle"> Area del Conocimiento: </td>
+            <td colspan="5">  
+			<script>
+				var cserial_aun=new omnisoftComboBox('cserial_aun','serial_aun','select 0 as serial_aun, "-Seleccione" as area union select serial_aun, concat_ws("-", area_aun,subarea_aun) as area from area_unesco  order by area','400px',true,getURLParam('serial_aun'));
+                     cserial_aun.show();
+			</script>			</td>
+			
+			<td class="inputtitle">Lugar de Evento: </td>            
+           
+			<td >  	  
+			  <select name="modo_cap" id="modo_cap" class="combobox">
+				<option value="0" selected="selected"> </option>
+				<option value="NACIONAL">NACIONAL</option>
+                <option value="INTERNACIONAL">INTERNACIONAL</option>
+              </select>			</td>
+		  </tr>
+          <tr>
+            <td height="28"  class="inputtitle">Ciudad: </td>
+            <td colspan="2" ><input name="ciudad_cap" type="text" id="ciudad_cap" size="20" maxlength="50" class="emptystring" onBlur="esconderToolTip()"></td>
+               
+		    <td class="inputtitle">Beca: </td>            
+           	<td >  
+				<img src="../images/camporequerido.gif">			  
+			  <select name="beca_cap" id="beca_cap" class="combobox">
+				<option value="S">SI</option>
+                <option value="N" selected="selected">NO</option>
+              </select>			</td> 
+			
+            <td width="71"class="inputtitle" >Costo: </td>
+            <td width="126" ><input name="costo_cap" type="text" id="costo_cap" size="20"  maxlength="10" class="emptydouble" onBlur="esconderToolTip()"></td>	
+          </tr>
+          
+          
+          
+ 
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<script>
+			
+   	omnisoftLoadData(document.PaginaDatos);
+
+  //  var serial_mins=(getURLParam('action')=='insert')? 0:getURLParam('serial_mins');
+	//alert('serial_mins'+serial_mins);
+	document.PaginaDatos.serial_epl.value=opener.PaginaDatos.serial_epl.value;
+	document.PaginaDatos.tipo_cap.value=opener.PaginaDatos.tipo_cap.value;
+	document.PaginaDatos.serial_cap.value=opener.PaginaDatos.serial_cap.value;
+
+	
+	//document.PaginaDatos.serial_maa.value=opener.PaginaDatos.serial_maa.value;
+
+	//alert('Serial malla '+document.PaginaDatos.serial_maa.value);
+	 //alert('serial_ama:'+opener.PaginaDatos.serial_ama.value); 
+	//var serial_maa=opener.PaginaDatos.serial_maa.value;
+	 //alert('serial_maa11222:'+opener.PaginaDatos.serial_maa.value); 
+
+</script>
+
+</form>
+
+</body>
+</html>

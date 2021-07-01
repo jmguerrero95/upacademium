@@ -1,0 +1,117 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script type="text/javascript" src="../lib/fisheyes/jquery.js"></script>
+<script type="text/javascript" src="../lib/fisheyes/interface.js"></script>
+
+<script language="javascript1.2" src="../lib/omnisoft.js"></script><script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+
+
+
+
+<script language="JavaScript" type="text/JavaScript">
+
+</script>
+</HEAD>
+<BODY onLoad="initDisableRight();"  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td height="541" valign="top">
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top">
+                    <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td>                    <td width="482"  class="toptitle" > <center>
+MODULO
+                        DE INVENTARIOS<br>LIQUIDACION DE IMPORTACIONES</center></td>
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>  <td height="20" class="menuborder" >
+		<ul id="myMenu" class='zpHideOnLoad'>            </ul>
+        <script>
+              OmnisoftPerfilUsuario(moduloAdquisiciones);
+            </script>
+</td>
+
+          </tr>
+          <tr>            <td height="412" valign="top" >
+			<div align="center">
+                <table width="100%" height="447" border="0" align="center" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="1123" height="447" colspan="2" >
+        <script>
+        omniObj=new omnisoftGrid('omniObj','liquidacionimportacion','serial_lii','select serial_lii, numeroDocumento_lii, fecha_lii, concat(codigo_pvd,\' \',razonSocial_pvd) as pro, tipoImportacion_lii, tipoCosteo_lii, cantidad_lii, valorFactura_lii, cotizacion_lii, valorNacionalFactura_lii, totalImportacion_lii, estado_lii, flete_lii, seguro_lii, gastos_lii, cdi_lii, honorarios_lii, diu_lii, fodinfa_lii, lii.serial_imp, valorArancel_lii, advalorem_lii, bodegaje_lii, totalIva_lii, iva_lii, iva0_lii, ice_lii, elaboradoPor_lii, modificadoPor_lii, fechaModificacion_lii, aprobadoPor_lii, fechaAprobacion_lii, lii.serial_odc, lii.serial_tas from liquidacionimportacion lii, ordendecompra odc, proveedor prv where lii.serial_odc=odc.serial_odc and odc.serial_pvd=prv.serial_pvd','liquidacionImportacionFormulario.html',550,133);
+
+   omniObj.addColumn('Serial','serial_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('No. Documento','numeroDocumento_lii', 5,'string','','middle','#ffffcc');
+   omniObj.addColumn('Fecha','fecha_lii', 13,'string','','middle','#ffffcc');
+   omniObj.addColumn('Proveedor','pro', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Tipo','tipoImportacion_lii','nombre_prd', 13,'string','','middle','#ffffcc');
+   omniObj.addColumn('Tipo Costeo','tipoCosteo_lii', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Cantidad','cantidad_lii', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Valor','valorFactura_lii', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('Cotización','cotizacion_lii', 8,'string','','middle','#ffffcc');
+   omniObj.addColumn('Valor USD','valorNacionalFactura_lii', 6,'string','','middle','#ffffcc');
+   omniObj.addColumn('Total','totalImportacion_lii', 8,'string','','middle','#ffffcc');
+   omniObj.addColumn('Estado','estado_lii', 10,'string','','middle','#ffffcc');
+   omniObj.addColumn('flete_lii','flete_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('seguro_lii','seguro_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('gastos_lii','gastos_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('cdi_lii','cdi_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('honorarios_lii','honorarios_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('diu_lii','diu_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('fodinfa_lii','fodinfa_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('lii.serial_imp','lii.serial_imp', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('valorArancel_lii','valorArancel_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('advalorem_lii','advalorem_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('bodegaje_lii','bodegaje_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('totalIva_lii','totalIva_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('iva_lii','iva_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('iva0_lii','iva0_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('ice_lii','ice_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('elaboradoPor_lii','elaboradoPor_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('modificadoPor_lii','modificadoPor_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('fechaModificacion_lii','fechaModificacion_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('aprobadoPor_lii','aprobadoPor_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('fechaAprobacion_lii','fechaAprobacion_lii', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('lii.serial_odc','lii.serial_odc', 1,'hidden','','middle','#ffffcc');
+   omniObj.addColumn('lii.serial_tas','lii.serial_tas', 1,'hidden','','middle','#ffffcc');   omniObj.showGrid('omniObj',20,482,1020,'menu','#FF9900');
+</script></td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<table width="100%" height="58"  cellpadding="0" cellspacing="0" >
+<tr>
+<td class="menuborder"> </td>
+</tr>
+</table>
+</body>
+
+              
+</HTML>

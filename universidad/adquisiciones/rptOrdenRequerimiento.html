@@ -1,0 +1,272 @@
+<HTML>
+<HEAD>
+<TITLE>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<style> body, html {margin:0px; padding: 0px; overflow: hidden;} </style>
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language='javascript' src="../lib/tools/omnisoftMenu.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<link href="../lib/zpmenu/themes/images.css" rel="stylesheet" type="text/css">
+<link href="../lib/grid/styles/omnisoftGrid.css" rel="stylesheet" type="text/css">
+
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGrid.js" ></script>
+<script>
+
+function procesarConsulta() {
+
+  var query='./consultaGeneral.html?dummy=1&query=';
+  var objFieldInput  = document.PaginaDatos.getElementsByTagName('input');
+  var objFieldSelect = document.PaginaDatos.getElementsByTagName('select');
+
+     for (var i=0; i<objFieldInput.length; i++)
+        query=query+'|'+objFieldInput[i].name+'="'+objFieldInput[i].value+'"';
+
+     for (var i=0; i<objFieldSelect.length; i++)
+        query=query+'|'+objFieldSelect[i].name+'="'+objFieldSelect[i].value+'"';
+
+//	alert(query);
+       var attributes='width=1020,height=650,scrollbars=no,resizable=no,toolbar=no,location=no,status=no,menubar=no';
+           omnisoftNewWindow=window.open(query,'OmnisoftConsulta',attributes);
+           if (window.focus) {omnisoftNewWindow.focus()}
+
+}
+
+</script>
+</head>
+
+
+
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.style1 {	color: #FFFFFF;
+	font-weight: bold;
+}
+-->
+</style>
+</HEAD>
+<BODY onLoad="initDisableRight();"  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0 onLoad="MM_preloadImages('../images/bot_insertar_b.gif','../images/bot_editar_b.gif','../images/bot_buscar_b.gif','../images/bot_eliminar_b.gif','../images/bot_correo_b.gif','../images/bot_graficar_b.gif','../images/bot_imprimir_b.gif','../images/bot_ayuda_b.gif','../images/bot_acercad_b.gif','../images/bot_salir_b.gif','../images/bot_home_b.gif','../images/bot_inicio_b.gif','../images/bot_anterior_b.gif','../images/bot_siguiente_b.gif','../images/bot_ultimo_b.gif','../images/bot_xml_b.gif','../images/bot_excel_b.gif')">
+<script> window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';</script>
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+
+<table width="100%" height="541" border="0" cellpadding="0" cellspacing="0" >
+  <tr>
+    <td height="541" valign="top">
+      <div align="center">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>            <td> <div align="right">
+                <table width="100%" height="45" border="0" cellpadding="0" cellspacing="0" class="maintoptitle" >
+                  <tr valign="top">
+                    <td width="222" height="45" valign="bottom" class="ingeniumtoptitle"></td>                    <td width="482"  class="toptitle" > <center>
+MODULO
+                        DE INVENTARIOS<br>
+                        ANALISIS DE ORDENES DE REQUERIMIENTO
+                    </center></td>
+                    <td width="40" valign="bottom" ><img id="imgFoto" src="../fotos/foto.jpg" width="37" height="45"></td>
+                     <td width="169"  valign="middle" class="toptitle">
+                                        <script>document.write(getCookie('nombre_usr')+' '+getCookie('apellido_usr')); </script></td>
+                    <td width="128" class="logotoptitle"></td>
+
+                  </tr>
+                </table>
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../images/ind_01_back.jpg" width="100%" height="7"></td>
+                  </tr>
+                </table>
+              </div></td>
+          </tr>
+          <tr>  <td height="20" class="menuborder" >
+		<ul id="myMenu" class='zpHideOnLoad'>            </ul>        <script>
+              OmnisoftPerfilUsuario(moduloAdquisiciones);
+            </script>
+</td>
+
+          </tr>
+          <tr>            <td height="412" valign="top" >
+			<div align="center">
+                <table width="100%" height="467"  border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+                  <tr>
+                    <td width="1123" height="465" colspan="2" class="inputtitle" ><table width="1031" height="161" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+                      <tr>
+                        <td width="150" height="17"  class="inputtitle">Sucursal/Departamento :</td>
+                        <td><script>
+ var cserial_desc=new omnisoftComboBox('cserial_desc','serial_desc','select serial_desc,concat(nombre_suc,\'-\',descripcion_dep) as nombre from sucursal,departamentos,sucursaldepartamentos where sucursal.serial_suc=sucursaldepartamentos.serial_suc and departamentos.serial_dep=sucursaldepartamentos.serial_dep ','250px',false,'','TODOS');
+                     cserial_desc.show();	  </script>                        </td>
+                        <td width="123" class="inputtitle">Area:</td>
+                        <td colspan="3"><script>
+ var cserial_taf=new omnisoftComboBox('cserial_taf','serial_taf','select serial_taf,concat(nombre_faf,\'-\',nombre_taf) as nombre from familiaactivofijo,tipoactivofijo where tipoactivofijo.serial_faf=familiaactivofijo.serial_faf ','320px',false,'','TODOS');
+                     cserial_taf.show();
+                     	  </script></td>
+                      </tr>
+                      <tr>
+                        <td height="18"  class="inputtitle">Solicitado por:</td>
+                        <td>  <script>
+ var cserial_epl=new omnisoftComboBox('cserial_epl','serial_epl','select serial_epl,concat(apellido_epl,\' \',nombre_epl) as nombre from empleado where estado_epl=\'ACTIVO\' and prospecto_epl=\'NO\' ','250px',false,'','TODOS');
+                     cserial_epl.show();	  </script>                       </td>
+                        <td class="inputtitle"> N&uacute;mero:</td>
+                        <td width="117" class="inputtitle"><input name="numeroFacturaCompra_acf" type="text" id="numeroFacturaCompra_acf" size="15" maxlength="15" class="text"></td>
+                        <td colspan="2" class="inputtitle">&nbsp;</td>
+                        </tr>
+                      
+                      <tr>
+                        <td height="18"  class="inputtitle">Producto :</td>
+                        <td ><input name="razonSocial_pvd" type="text" id="razonSocial_pvd" size="40" maxlength="150" class="autosuggest" onBlur="esconderToolTip()" table="proveedor" serial="serial_pvd" info="codigo_pvd" ></td>
+                        <td  class="inputtitle">Unidad Medida:</td>
+                        <td colspan="3" class="inputtitle">&nbsp;</td>
+                        </tr>
+                      <tr>
+                        <td height="18"  class="inputtitle">Necesidad:</td>
+                        <td ><select name="necesidad_ore"  id="necesidad_ore" class="combobox">
+                          <option value="ESPECIFICA" selected>Especifica</option>
+                          <option value="PERMANENTE">Permanente</option>
+                        </select></td>
+                        <td  class="inputtitle">Tipo:</td>
+                        <td  class="inputtitle"><select name="tipo_ore"  id="tipo_ore" class="combobox">
+                          <option value="BIEN" selected>Bien</option>
+                          <option value="SERVICIO">Servicio</option>
+                        </select></td>
+                        <td colspan="2"  class="inputtitle">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td height="18"  class="inputtitle">Cantidad Requerida :</td>
+                        <td width="260" ><input name="marca_acf" type="text" id="marca_acf" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"    ></td>
+                        <td  class="inputtitle">Stock Minimo:</td>
+                        <td  class="inputtitle"><input name="modelo_acf" type="text" id="modelo_acf" class="emptytext" size="25" maxlength="40"  onBlur="esconderToolTip()"    ></td>
+                        <td colspan="2"  class="inputtitle">&nbsp;</td>
+                        </tr>
+                      <tr>
+                        <td height="18"  class="inputtitle">Fecha :</td>
+                        <td class="inputtitle">Desde:
+                          <input name="fechaDepreciacionDesde_acf" type="text" id="fechaDepreciacionDesde_acf" size="10" maxlength="10" class="date">
+Hasta
+<input name="fechaDepreciacionHasta_acf" type="text" id="fechaDepreciacionHasta_acf" size="10" maxlength="10" class="date"></td>
+                        <td  class="inputtitle">Para:</td>
+                        <td colspan="3" class="inputtitle" ><input name="para_spi" type="text" id="para_spi" class="emptytext" size="100" maxlength="255"  onBlur="esconderToolTip()"    ></td>
+                      </tr>
+                      <tr>
+                        <td height="18"  class="inputtitle">Prioridad:</td>
+                        <td class="inputtitle"><label>
+                          <select name="prioridad_odr" id="prioridad_odr">
+                            <option value="-1" selected>TODOS</option>
+                            <option value="NORMAL">NORMAL</option>
+                            <option value="URGENTE">URGENTE</option>
+                          </select>
+                        </label></td>
+                        <td  class="inputtitle">Estado:</td>
+                        <td colspan="3" class="inputtitle" ><select name="estado_sdi" id="estado_sdi">
+                          <option value="PENDIENTE">PENDIENTE</option>
+                          <option value="APROBADO">APROBADO</option>
+                          <option value="ENTREGADO">ENTREGADO</option>
+                        </select></td>
+                        </tr>
+                      
+                      <tr>
+                        <td height="34"  class="inputtitle"><a href="#" onClick="procesarConsulta()"><img src="../images/buscar.png" alt="Buscar" width="64" height="64" border="0"></a></td>
+                        <td height="34"  class="inputtitle">&nbsp;</td>
+                        <td height="34"  class="inputtitle">&nbsp;</td>
+                        <td height="34"  class="inputtitle">&nbsp;</td>
+                        <td width="123" height="34"  class="inputtitle">&nbsp;</td>
+                        <td width="244" height="34"  class="inputtitle"><a href="../modulos/modulos.html" ><img src="../images/home.png" alt="Inicio" width="64" height="64" border="0"></a></td>
+                      </tr>
+                    </table></td>
+		</tr>
+		</table>
+		</div>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+<table width="100%" height="58"  cellpadding="0" cellspacing="0" >
+<tr>
+<td class="menuborder"> </td>
+</tr>
+</table>
+</body></form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,140 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+
+</head>
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr>
+      <td width="961" height="30" colspan="3"> <table width="1020" height="128" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000">
+          <tr>
+            <td width="2753" colspan=5> <script>
+   omnisoftLoadData(document.PaginaDatos,'iframe');
+
+      var serial_alu=document.PaginaDatos.serial_alu.value;
+      var sql='SELECT padres.serial_pad,   apellido_pad, nombre_pad,tipoIdentificacion_pad, codigoIdentificacion_pad, fechaNacimiento_pad, celular_pad, proveedor_pad, telefono_pad, cargo_pad, mail_pad, sueldo_pad, tipoVehiculo_pad, anioVehiculo_pad, avaluoVehiculo_pad, referenciaBan1_pad, referenciaBan2_pad, cuentaBan1_pad, cuentaBan2_pad, nombreTarjetaCred1_pad, nTarjetaCredito1_pad, nombreTarjetaCred2_pad,nTarjetaCredito2_pad, fallecido_pad, direccion_pad, idpadre_pad, numeroDependientes_pad, antiguedad_pad, otrosIngresos_pad, totalIngresos_pad, serial_nac, padres.serial_ciu, serial_pai, serial_eci, serial_cpr,serial_palu, serial_alu, serial_prv, padres_alumno.serial_palu, representante_palu, repreEconomico_palu, padres.serial_prt FROM padres_alumno,padres left join ciudad on ciudad.serial_ciu=padres.serial_ciu where padres.serial_pad=padres_alumno.serial_pad and padres_alumno.serial_alu=masterkey';
+
+      omniObj=new omnisoftGridDetail('omniObj','serial_alu',serial_alu,'padres','serial_pad',sql,document.PaginaDatos,Array(true,true,true),'iframeAlumnoPadresFormulario.html',1020,640);
+
+
+     omniObj.addColumn('Serial','serial_pad', 10,'hidden','','middle','');
+     omniObj.addColumn('Apellido','apellido_pad', 20,'readonly','','middle','');
+     omniObj.addColumn('Nombre','nombre_pad', 20,'readonly','','middle','');
+     omniObj.addColumn('Tipo Identificacion','tipoIdentificacion_pad', 10,'readonly','','middle','');
+     omniObj.addColumn('Identificacion','codigoIdentificacion_pad', 13,'readonly','','middle','');
+     omniObj.addColumn('Fecha Nacimiento','fechaNacimiento_pad', 10,'readonly','','middle','');
+     omniObj.addColumn('Celular','celular_pad', 10,'readonly','','middle','');
+     omniObj.addColumn('Portador Celular','proveedor_pad', 10,'string','','middle','');
+     omniObj.addColumn('Telefono','telefono_pad', 10,'integer','','middle','','NO');
+     omniObj.addColumn('Cargo','cargo_pad', 15,'string','','middle','','NO');
+     omniObj.addColumn('Correo','mail_pad', 15,'string','','middle','','NO');
+     omniObj.addColumn('Sueldo','sueldo_pad', 8,'double','','middle','','NO');
+     omniObj.addColumn('Tipo Vehiculo','tipoVehiculo_pad', 10,'integer','','middle','','NO');
+     omniObj.addColumn('Año Vehiculo','anioVehiculo_pad', 10,'integer','','middle','','NO');
+     omniObj.addColumn('Avaluo Vehiculo','avaluoVehiculo_pad', 10,'double','','middle','','NO');
+     omniObj.addColumn('Referencia Bancaria 1','referenciaBan1_pad', 10,'string','','middle','','NO');
+     omniObj.addColumn('Referencia Bancaria 2','referenciaBan2_pad', 10,'string','','middle','','NO');
+     omniObj.addColumn('Cuenta Bancaria 1','cuentaBan1_pad', 10,'integer','','middle','','NO');
+     omniObj.addColumn('Cuenta Bancaria 2','cuentaBan2_pad', 10,'integer','','middle','','NO');
+     omniObj.addColumn('Tarjeta Credito 1','nombreTarjetaCred1_pad', 10,'string','','middle','','NO');
+     omniObj.addColumn('# Tarjeta Credito 1','nTarjetaCredito1_pad', 10,'string','','middle','','NO');
+     omniObj.addColumn('Tarjeta Credito 2','nombreTarjetaCred2_pad', 10,'string','','middle','','NO');
+     omniObj.addColumn('# Tarjeta Credito 2','nTarjetaCredito2_pad', 10,'string','','middle','','NO');
+     omniObj.addColumn('Fallecido','fallecido_pad', 10,'string','','middle','','NO');
+     omniObj.addColumn('Direccion','direccion_pad', 10,'string','','middle','','NO');
+     omniObj.addColumn('ID Padre','idpadre_pad', 10,'string','','middle','','NO');
+     omniObj.addColumn('# Dependientes','numeroDependientes_pad', 10,'integer','','middle','','NO');
+     omniObj.addColumn('Antiguedad','antiguedad_pad', 5,'integer','','middle','','NO');
+     omniObj.addColumn('Otros Ingresos','otrosIngresos_pad', 5,'integer','','middle','','NO');
+     omniObj.addColumn('Total Ingresos','totalIngresos_pad', 5,'integer','','middle','','NO');
+     //omniObj.addColumn('nombre_emp','nombre_emp', 15,'string','','middle','','NO');
+     omniObj.addColumn('serial_nac','serial_nac', 5,'hidden','','middle','','NO');
+     omniObj.addColumn('serial_ciu','serial_ciu', 5,'hidden','','middle','','NO');
+     omniObj.addColumn('serial_pai','serial_pai', 5,'hidden','','middle','','NO');
+     omniObj.addColumn('serial_eci','serial_eci', 5,'hidden','','middle','','NO');
+     omniObj.addColumn('serial_cpr','serial_cpr', 5,'hidden','','middle','','NO');
+     omniObj.addColumn('serial_palu','serial_palu', 5,'hidden','','middle','','NO');
+     omniObj.addColumn('serial_alu','serial_alu', 5,'hidden','','middle','','NO');
+     omniObj.addColumn('serial_prv','serial_prv', 5,'hidden','','middle','','NO');
+     omniObj.addColumn('serial_palu','serial_palu', 5,'hidden','','middle','','NO');
+     omniObj.addColumn('representante_palu','representante_palu', 5,'hidden','','middle','','NO');
+     omniObj.addColumn('repreEconomico_palu','repreEconomico_palu', 5,'hidden','','middle','','NO');
+	 omniObj.addColumn('serial_prt','serial_prt', 5,'hidden','','middle','','NO');
+	 
+     omniObj.showGrid('omniObj',16,389,1020,'menu','#FF9900');
+
+
+ </script> </td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+</form>
+<script>
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

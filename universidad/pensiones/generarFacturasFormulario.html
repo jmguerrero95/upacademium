@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>INGENIUM::ERP::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+<script>
+
+function procesarSeccion() {
+   cserial_niv.objDBComando.sqlCommand='select -99,\'TODOS\' UNION select serial_niv,nombre_niv from nivel where serial_sec='+document.PaginaDatos.serial_sec.value;
+                          cserial_niv.objDBComando.executeQuery();
+			}
+
+function procesarNivel() {
+   cserial_par.objDBComando.sqlCommand='select -99,\'TODOS\' UNION select serial_par,nombre_par from paralelo where serial_niv='+document.PaginaDatos.serial_niv.value;
+         cserial_par.objDBComando.executeQuery();
+			}
+
+function procesarParalelo() {
+   cserial_alu.objDBComando.sqlCommand='select alumno.serial_alu,concat(apellido_alu,\' \',nombre_alu) as nombre from alumno,paralelo_alumno where alumno.serial_alu=paralelo_alumno.serial_alu and paralelo_alumno.serial_par='+document.PaginaDatos.serial_par.value+' and activo_paralu=\'s\' and  estado_alu=\'A\'  order by apellido_alu,nombre_alu ';
+         cserial_alu.objDBComando.executeQuery();
+			}
+function recuperarDatos(data) {
+//alert(data);
+alert('La generación de la facturación ha sido terminada');
+
+opener.omniObj.lastPage();
+window.close();
+//var datos=data.split('|');
+//   omniObj.grid.masterKeyValue=document.PaginaDatos.serial_odc.value=datos[0];
+//   omniObj.grid.executeQuery(omniObj.grid.rows);
+}
+
+function generarFacturas() {
+
+ if (document.PaginaDatos.numero_caf.value!='') {
+ document.PaginaDatos.mensaje.value="Por favor espere un momento, la generación de facturas puede tardar unos minutos  ...procesando...";
+ document.PaginaDatos.action.value='edit';
+ top.opener.omniObj.grid.action='edit';
+ var SQLCommand=document.PaginaDatos.serial_mes.value+"|"+document.PaginaDatos.numero_caf.value+"|"+document.PaginaDatos.serial_sec.value+"|"+document.PaginaDatos.serial_niv.value+"|"+document.PaginaDatos.serial_par.value+"|"+document.PaginaDatos.serial_alu.value+"|"+document.PaginaDatos.serial_per.value;
+ var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftGenerarFacturacion.php",'recuperarDatos');
+     objDBComando.executeQuery();
+
+}
+else {
+      alert('Advertencia: Debe incluir el numero inicial a partir del cual se generaran las facturas');
+      document.PaginaDatos.numero_caf.focus();
+
+}
+
+}
+</script>
+
+</head>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_caf" type="hidden" id="serial_caf" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          PENSIONES <br>
+          GENERACION DE FACTURAS
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="136" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+
+
+          <tr>
+            <td height="18"  class="inputtitle">Periodo:</td>
+            <td ><img  src="../images/camporequerido.gif" alt=""><script>
+ var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per,nombre_per from periodo order by serial_per DESC','250px',true,getURLParam('serial_per'));
+                     cserial_per.show();	</script></td>
+            <td class="inputtitle" ></td>
+            <td > 	     </td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Mes:</td>
+            <td width="293" ><img  src="../images/camporequerido.gif">   	    <script>
+ var cserial_mes=new omnisoftComboBox('cserial_mes','serial_mes','select serial_mes,nombre_mes from meses','250px',true,getURLParam('serial_mes'));
+                     cserial_mes.show();	  </script></td>
+            <td width="192" class="inputtitle" >Numero Inicial de Factura:</td>
+            <td width="136" ><label>
+              <input type="text" name="numero_caf" id="numero_caf" class="integer" maxlength="15" size="15">
+            </label></td>
+          </tr>
+          <tr>
+            <td width="174" height="18"  class="inputtitle">Seccion :</td>
+            <td colspan="3" >    <img  src="../images/camporequerido.gif">
+              	    <script>
+ var cserial_sec=new omnisoftComboBox('cserial_sec','serial_sec','select serial_sec,nombre_sec from seccion order by nombre_sec','250px',true,getURLParam('serial_sec'),'TODOS',procesarSeccion);
+                     cserial_sec.show();
+                     </script>	</td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Nivel:</td>
+            <td colspan="3" ><script>
+ var cserial_niv=new omnisoftComboBox('cserial_niv','serial_niv','select serial_niv,nombre_niv from nivel where serial_sec='+getURLParam('serial_sec') ,'250px',true,getURLParam('serial_niv'),'TODOS',procesarNivel);
+                     cserial_niv.show();	  </script>	</td>
+          </tr>
+          <tr>
+            <td height="18"  class="inputtitle">Paralelo:</td>
+            <td colspan="3" ><script>
+ var cserial_par=new omnisoftComboBox('cserial_par','serial_par','select serial_par,nombre_par from paralelo where serial_niv='+getURLParam('serial_niv'),'250px',true,getURLParam('serial_par'),'TODOS',procesarParalelo);
+                     cserial_par.show();	  </script>	</td>
+          </tr>
+          <tr>
+            <td height="22"  class="inputtitle">Alumno:</td>
+            <td colspan="3" ><script>
+ var cserial_alu=new omnisoftComboBox('cserial_alu','serial_alu','select serial_alu,concat(apellido_alu,\' \',nombre_alu) as nombre from alumno where estado_alu=\'A\' order by apellido_alu,nombre_alu ' ,'250px',true,getURLParam('serial_alu'),'TODOS');
+                     cserial_alu.show();	  </script>	</td>
+          </tr>
+          <tr>
+            <td height="22"  class="inputtitle">&nbsp;</td>
+            <td colspan="3" ><label>
+              <input name="mensaje" type="text" id="mensaje" maxlength="155" size="155" readonly>
+            </label></td>
+          </tr>
+          
+
+      </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="generarFacturas()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+
+</form>
+<script>
+	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>

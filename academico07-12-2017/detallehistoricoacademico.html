@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+<script>
+ var serial_sec=opener.serial_sec;
+	 
+	//alert('serial_sec:'+serial_sec);
+</script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_hac" type="hidden" id="serial_hac" class="hidden">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO <br>
+          DETALLE DE HISTORICO ACADEMICO
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="155" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          
+          <tr>
+            <td width="123" height="31"  class="inputtitle">Estado Historico  : </td>
+            <td width="171" ><span class="inputtitle"><img src="../images/camporequerido.gif"></span>
+              <select name="estado_hac" id="estado_hac" class="combobox">
+                <option value="RETIRO">RETIRO</option>
+                <option value="REINGRESO">REINGRESO</option>
+              </select></td>
+            <td width="108" class="inputtitle">Fecha Hist&oacute;rico  : </td>
+            <td ><span class="inputtitle"><img src="../images/camporequerido.gif"></span>
+            <input name="fecestado_hac" type="text" id="fecestado_hac" size="10" maxlength="10" class="date" value="0000-00-00" ></td>
+          </tr>
+          <tr>
+            <td height="30"  class="inputtitle">Periodo : </td>
+            <td colspan="3" ><span class="inputtitle"><img src="../images/camporequerido.gif">
+                <script>
+var cserial_per=new omnisoftComboBox('cserial_per','serial_per','select serial_per,nombre_per from periodo where serial_suc = '+getCookie('serial_suc')+' and serial_sec =  '+serial_sec+' order by nombre_per','220px',true,getURLParam('serial_per'));
+                     cserial_per.show();	  </script>
+            </span></td>
+          </tr>
+          <tr>
+            <td height="30"  class="inputtitle">Motivos : </td>
+            <td ><select name="motivos_hac" id="motivos_hac" class="combobox">
+              <option value="MALAS CALIFICACIONES">MALAS CALIFICACIONES</option>
+              <option value="TERCERA MATRICULA">TERCERA MATRICULA</option>
+			  <option value="DEJO DE ESTUDIAR POR TRABAJAR">DEJO DE ESTUDIAR POR TRABAJAR</option>
+			  <option value="DEJO DE ESTUDIAR POR TRABAJAR EN SU EMPRESA">DEJO DE ESTUDIAR POR TRABAJAR EN SU EMPRESA</option>
+			  <option value="FALLECIMIENTO DE SU SOSTEN PRINCIPAL">FALLECIMIENTO DE SU SOSTEN PRINCIPAL</option>
+			  <option value="FALLECIMIENTO DEL ALUMNO">FALLECIMIENTO DEL ALUMNO</option>
+			  <option value="ESTUDIOS EN EL EXTERIOR">ESTUDIOS EN EL EXTERIOR</option>
+			  <option value="EMBARAZO">EMBARAZO</option>
+			  <option value="OTROS">OTROS</option>
+            </select></td>
+            <td height="31"  class="inputtitle">Descripci&oacute;n :</td>
+            <td ><input name="descmotivos_hac" type="text" id="descmotivos_hac"  class="emptytext" size="50" maxlength="255"></td>
+          </tr>
+          
+          <tr>
+            <td height="31"  class="inputtitle">Guardar Documento : </td>
+            <td > <input name="documento_hac" type="text" id="documento_hac"  class="emptytext" size="30" maxlength="35">
+            <a href="#" onClick="cargarDocumento()">
+            <image alt="Cargar Documento" src="../images/buscar.png" width="20" heigth="20" name="documento">
+            </a></td>
+            <td colspan="2" class="inputtitle"><a href="javascript:verDocumento();">Ver 
+	  Documento</a></td>
+          </tr>
+          <tr>
+            <td height="31"  class="inputtitle">Observaciones : </td>
+            <td colspan="3" ><input name="observaciones_hac" type="text" id="observaciones_hac" size="120" maxlength="150" class="emptystring" value="NINGUNA"></td>
+          </tr>
+          
+          
+          
+          
+
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<script>
+function cargarDocumento() {
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportFileHistoricoAcademico.php?campoarchivo=documento_hac&archivo='+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+function verDocumento() {
+   var attributes='width=550,height=250,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no, copyhistory=no, statusbar=no';
+                   omnisoftNewWindow=window.open('../historicoacademico/'+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+}
+</script>
+<script>
+   	omnisoftLoadData(document.PaginaDatos);
+	
+    var serial_alu=opener.PaginaDatos.serial_alu.value;
+	//alert('serial_alu:'+serial_alu);
+	document.PaginaDatos.serial_alu.value=serial_alu;
+	
+	
+</script>
+
+</form>
+
+</body>
+</html>

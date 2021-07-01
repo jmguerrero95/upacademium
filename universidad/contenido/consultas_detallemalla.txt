@@ -1,0 +1,71 @@
+//select para consulta de acuerdo al titulo
+SELECT 	dma.serial_dma, 
+	nombre_mat, 
+	numerocreditos_dma, 
+	tipocredito_dma, 
+	nombre_niv, 
+	mat.serial_mat, 
+	are.serial_are, 
+	niv.serial_niv 
+FROM 
+	area AS are, 
+	nivel AS niv,
+	malla as maa, 
+	detallemalla AS dma, 
+	materia AS mat 
+WHERE 
+	are.serial_are = mat.serial_are AND 
+	niv.serial_niv = dma.serial_niv AND 
+	maa.serial_maa = dma.serial_maa and
+	mat.serial_mat = dma.serial_mat and 
+	maa.serial_car =3 and
+	dma.serial_maa =20
+
+//select para consulta de acuerdo a la especialidad de acuerdo al titulo
+SELECT 	dma.serial_dma, 
+	nombre_mat, 
+	numerocreditos_dma, 
+	tipocredito_dma, 
+	nombre_niv, 
+	mat.serial_mat, 
+	are.serial_are, 
+	niv.serial_niv 
+FROM 
+	area AS are, 
+	nivel AS niv,
+	malla as maa, 
+	detallemalla AS dma, 
+	materia AS mat 
+WHERE 
+	are.serial_are = mat.serial_are AND 
+	niv.serial_niv = dma.serial_niv AND 
+	maa.serial_maa = dma.serial_maa and
+	mat.serial_mat = dma.serial_mat and 
+	maa.serial_car =3 and
+	maa.serial_esp = '53' and
+	dma.serial_maa =26
+
+//select para consulta de acuerdo a la especialidad mas la especialidad basica conforme al titulo 
+SELECT 	dma.serial_dma, 
+	nombre_mat, 
+	numerocreditos_dma, 
+	tipocredito_dma, 
+	nombre_niv, 
+	mat.serial_mat, 
+	are.serial_are, 
+	niv.serial_niv 
+FROM 
+	area AS are, 
+	nivel AS niv,
+	malla as maa,
+	especialidad as esp 
+	detallemalla AS dma, 
+	materia AS mat 
+WHERE 
+	are.serial_are = mat.serial_are AND 
+	niv.serial_niv = dma.serial_niv AND 
+	esp.serial_esp = maa.serial_esp and
+	maa.serial_maa = dma.serial_maa and
+	mat.serial_mat = dma.serial_mat and 
+	(esp.nombre_esp =  or esp.nombre_esp = ) and
+	dma.serial_maa =20

@@ -1,0 +1,553 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+<script>
+function evaluar(){
+	
+	var SQLCommand="update alumno set apellidopaterno_alu='"+document.PaginaAlumno.apellido1.value+"',apellidomaterno_alu= '"+document.PaginaAlumno.apellido2.value+"', nombre1_alu='"+document.PaginaAlumno.nombre1.value+"', nombre2_alu='"+document.PaginaAlumno.nombre2.value+"', serial_sex = '"+document.PaginaAlumno.sexoalu.value+"', serial_eci = '"+document.PaginaAlumno.estadocivil.value+"' where serial_alu ="+document.PaginaDatos.serial_alu.value;
+	var res = omnisoftGrabar();
+	if( res != false){
+		var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'');
+		objDBComando.executeQuery();	
+	}
+	
+}
+
+ var serial_sec=opener.serial_sec;
+
+	//alert('serial_sec:'+serial_sec);
+</script>
+<style type="text/css">
+<!--
+.style5 {color: #000066; font-weight: bold; font-size: 11px; }
+-->
+</style>
+<body scroll = "auto">
+<table width="" border="0" cellspacing="0" cellpadding="0" >
+<tr>
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO <br>
+          DETALLE DE ENCUESTA
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+</table>
+<form method="POST" enctype="multipart/form-data"  name="PaginaAlumno" onClick="highlight(event)" onKeyUp="highlight(event)">
+ <table width="780" border="1" cellspacing="0" cellpadding="0" class="formtable" >
+<!--BEGIN TABLE PASTE-->
+   <tr>
+      <td height="30" colspan="3"> 
+           <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS SEGUIMIENTO</span></div></td>
+		  </tr>
+             <tr>
+            <td height="15"  class="style5">Fecha Encuesta: </td>
+            <td ><span class="style5">
+              <select name="select5" id="select5" class="combobox">
+                <option value="">Seleccione</option>
+				<option value="PRIMERA">PRIMERA</option>
+                <option value="SEGUNDA">SEGUNDA</option>
+                <option value="TERCERA">TERCERA</option>
+                <option value="OTRA">OTRA</option>
+              </select>
+            </span></td>
+            <td class="style5">Fecha Encuesta :</td>
+            <td ><span class="style5">
+              <input name="fechaencuestaanterior" id="fechaencuestaanterior" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr>
+             <tr>
+            <td height="15"  class="style5">Fecha Encuesta Anterior: </td>
+            <td ><input name="tiempoencuesta" id="tiempoencuesta" type="text" class="" size="30" maxlength="40" onBlur="" /></td>
+            <td class="style5">Tiempo Encuesta: </td>
+            <td ><input name="tiempoencuesta2" id="tiempoencuesta2" type="text" class="" size="30" maxlength="40" onBlur="" /></td>
+          </tr>
+
+		   
+		   <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS PERSONALES ALUMNO</span></div></td>
+		  </tr>
+          <tr>
+            <td height="15"  class="style5">Primer Nombre: </td>
+            <td ><input name="nombre1" id="nombre1" type="text" class="" size="30" maxlength="40" onBlur="" />
+            <input type="checkbox" name="checkbox" value="checkbox"></td>
+            <td class="style5">Segundo Nombre :</td>
+            <td ><span class="style5">
+              <input name="nombre2" id="nombre2" type="text" class="" size="30" maxlength="40"  />
+              <input type="checkbox" name="checkbox2" value="checkbox">
+            </span></td>
+          </tr>
+          <tr>
+            <td height="15"  class="style5">Apellido Paterno: </td>
+            <td ><img src="../images/camporequerido.gif">
+            <input name="apellido1" id="apellido1" type="text" class="" size="29" maxlength="40"   onBlur="mailUPAC();"/></td>
+            <td class="style5">Apellido Materno: </td>
+            <td ><input name="apellido2" id="apellido2" type="text" class="" size="30" maxlength="40" /></td>
+          </tr>
+          <tr>
+            <td height="15"  class="style5">Direcci&oacute;n Domicilio: </td>
+            <td ><input name="apellido12" id="apellido12" type="text" class="" size="29" maxlength="40"   onBlur="mailUPAC();"/></td>
+            <td class="style5">Ciudad:</td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="15"  class="style5"># Telf Local:</td>
+            <td ><input name="apellido122" id="apellido122" type="text" class="" size="29" maxlength="40"   onBlur="mailUPAC();"/></td>
+            <td class="style5"># Telf. Celular:</td>
+            <td ><input name="apellido123" id="apellido123" type="text" class="" size="29" maxlength="40"   onBlur="mailUPAC();"/></td>
+          </tr>
+          <tr>
+            <td height="15"  class="style5">Email Personal:</td>
+            <td ><input name="emailcruzado" id="emailcruzado" type="text" class="" size="29" maxlength="40"   onBlur="mailUPAC();"/></td>
+            <td class="style5">&nbsp;</td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="15"  class="style5">Sexo</td>
+            <td ><span class=""><img src="../images/camporequerido.gif"><script>
+                 var cserial_sex=new omnisoftComboBox('cserial_sex','sexoalu','select serial_sex, descripcion_sex from sexo','90px',true,getURLParam('serial_sex1'));
+                     cserial_sex.show();
+	            </script></span></td>
+            <td class="style5">Estado Civil: </td>
+            <td ><span class=""><img src="../images/camporequerido.gif">   <script>
+                 var cserial_eci=new omnisoftComboBox('cserial_eci','estadocivil','select serial_eci,nombre_eci from estadocivil','90px',true,getURLParam('serial_eci1'));
+                     cserial_eci.show();
+					 
+	            </script></span></td>
+          </tr>
+		   <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS GRADUACION  </span></div></td>
+		  </tr>
+           <tr>
+             <td height="15"  class="style5">Titulo Obtenido: </td>
+             <td colspan="3" ><input name="fechagraduacion2" id="fechagraduacion2" type="text" class="" size="160" maxlength="40" onBlur="" /></td>
+           </tr>
+          <tr>
+            <td height="15"  class="style5">Fecha Graduacion </td>
+            <td ><input name="fechagraduacion" id="fechagraduacion" type="text" class="" size="30" maxlength="40" onBlur="" /></td>
+            <td class="style5">Fecha Egresamiento</td>
+            <td ><span class="style5">
+              <input name="fechaegresamiento" id="fechaegresamiento" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr> 
+		  <tr>
+            <td height="15" colspan="3"  class="style5">Tiempo que tardo en conseguir su primer trabajo despues de graduado: </td>
+            <td ><span class="style5">
+              <input name="fechaegresamiento" id="fechaegresamiento" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr> 
+		  <tr>
+            <td height="15" colspan="3"  class="style5">Tiempo que le tardo organizar su primer emprendiemiento despues de graduado: </td>
+            <td ><span class="style5">
+              <input name="fechaegresamiento" id="fechaegresamiento" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr> 
+		   <tr>
+            <td height="15" colspan="3"  class="style5">Ingresos anuales al primer a&ntilde;o de graduado, o en el primer a&ntilde;o de su emprendimiento : </td>
+            <td ><span class="style5">
+              <input name="fechaegresamiento" id="fechaegresamiento" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr> 
+		
+		   <tr>
+            <td height="15" colspan="3"  class="style5">Monto Salarial en el primer trabajo luego de graduado  : </td>
+            <td ><span class="style5">
+              <input name="fechaegresamiento" id="fechaegresamiento" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr> 
+		   <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS TRABAJO</span></div></td>
+		  </tr>
+          <tr>
+            <td height="15"  class="style5">Direccion:</td>
+            <td ><input name="nombre1" id="nombre1" type="text" class="" size="30" maxlength="40" onBlur="" /></td>
+            <td class="style5">Ciudad:</td>
+            <td ><span class="style5">
+              <input name="nombre2" id="nombre2" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr>
+		  <tr>
+            <td height="15"  class="style5">Lugar:</td>
+            <td ><input name="nombre1" id="nombre1" type="text" class="" size="30" maxlength="40" onBlur="" /></td>
+            <td class="style5">Tipo Empresa  : </td>
+            <td ><span class="style5">
+              <select name="select" id="select" class="combobox">
+                <option value="">Seleccione</option>
+                <option value="EDUCACION">EDUCACION</option>
+                <option value="TRANSPORTE">TRANSPORTE</option>
+                <option value="BANCA">BANCA</option>
+                <option value="SALUD">SALUD</option>
+                <option value="ALIMENTACION">ALIMENTACION</option>
+                <option value="OTROSSERVICIOS">OTROS SERVICIOS</option>
+              </select>
+            </span></td>
+          </tr>
+		   <tr>
+            <td height="15"  class="style5">Relaci&oacute;n Depen.  :</td>
+            <td ><span class="style5">
+              <select name="select2" id="select2" class="combobox">
+                <option value="">Seleccione</option>
+                <option value="EMPLEADO">EMPLEADO</option>
+                <option value="EMPLEADO ACCIONISTA">EMPLEADO ACCIONISTA</option>
+                <option value="ACCIONISTA">ACCIONISTA %</option>
+              </select>
+            </span></td>
+            <td class="style5">%Accion:</td>
+            <td ><span class="style5">
+              <input name="nombre2" id="nombre2" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr>
+		   <tr>
+            <td height="15"  class="style5">Ingresos Anuales  :</td>
+            <td ><span class="style5">
+              <select name="sueldo_alu" id="sueldo_alu" class="combobox">
+                <option value="">Seleccione</option>
+                <option value="MENOS DE 6000">MENOS DE 6000</option>
+                <option value="DE 6000 A 10000">DE 6000 A 10000</option>
+                <option value="DE 10001 A 25000">DE 10001 A 25000</option>
+                <option value="DE 25001 A 50000">DE 25001 A 50000</option>
+                <option value="DE 50001 A 75000">DE 50001 A 75000</option>
+                <option value="DE 75001 A 100000">DE 75001 A 100000</option>
+                <option value="DE 100001 A 125000">DE 100001 A 125000</option>
+                <option value="DE 125001 A 150000">DE 125001 A 150000</option>
+                <option value="MAS DE 150001">MAS DE 150001</option>
+              </select>
+            </span></td>
+            <td class="style5">Tel&eacute;fono:</td>
+            <td ><span class="style5">
+              <input name="nombre2" id="nombre2" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr>
+		  <tr>
+            <td height="15" colspan="3"  class="style5">Tiempo que se tardo en conseguir el ultimo empleo  : </td>
+            <td ><span class="style5">
+              <input name="fechaegresamiento" id="fechaegresamiento" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr>
+		      
+		   <tr>
+            <td height="15" align="left"  class="style5"># de Personas a su cargo: </td>
+            <td height="15" align="left"  class="style5"><input name="emailcruzado2" id="emailcruzado2" type="text" class="" size="29" maxlength="40"   onBlur="mailUPAC();"/></td>
+            <td height="15" align="left"  class="style5">Email Trabajo: </td>
+            <td ><span class="style5">
+              <input name="fechaegresamiento" id="fechaegresamiento" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr> 
+		   <tr>
+            <td height="15"  class="style5">Funcion Ultimo Cargo :</td>
+            <td ><span class="style5">
+              <select name="select3" id="select3" class="combobox">
+                <option value="">Seleccione</option>
+                <option value="TACTICO">TACTICO</option>
+                <option value="ESTRATEGICO">ESTRATEGICO</option>
+                <option value="OPERATIVO">OPERATIVO</option>
+              </select>
+            </span></td>
+            <td class="style5">Funcion Actual :</td>
+            <td ><span class="style5">
+              <select name="select4" id="select4" class="combobox">
+                <option value="">Seleccione</option>
+                <option value="TACTICO">TACTICO</option>
+                <option value="ESTRATEGICO">ESTRATEGICO</option>
+                <option value="OPERATIVO">OPERATIVO</option>
+              </select>
+            </span></td>
+          </tr>
+		    <tr>
+            <td height="15" colspan="3"  class="style5">Estar&iacute;a de acuerdo en que, en la pagina web de la Universidad del Pacifico se incluya el logotipo de su empresa? </td>
+            <td ><span class="style5">
+              <input name="fechaegresamiento" id="fechaegresamiento" type="text" class="" size="30" maxlength="40"  />
+            </span></td>
+          </tr> 
+ 
+<!--END TABLE PASTE-->
+ </table>
+</form>
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_npa" type="hidden" id="serial_npa" class="hidden">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+
+  <table width="780" border="1" cellspacing="0" cellpadding="0" class="formtable" >
+    
+            <tr>
+   		    <td colspan="15" class="formtitle"><div align="center"><span class="style1">DATOS NEGOCIO PROPIO</span></div></td>
+		  </tr>
+		  <tr>
+            <td width="103" height="31"  class="style5">Es usted due&ntilde;o del Negocio   : </td>
+            <td width="100" ><span class="style5"><img src="../images/camporequerido.gif"></span>
+              <select name="duenio_npa" id="duenio_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+            </select></td>
+            <td width="208" class="style5">Nombre Negocio/Empresa: </td>
+            <td width="206" ><input name="nombre_npa" type="text" id="nombre_npa"  class="emptytext" size="40" maxlength="40"></td>
+          </tr>
+          <tr>
+            <td height="30" colspan="2"  class="style5 style2">En caso de la respuesta sea Positiva   :Fue esta su Tema de Tesis o Grupo de Gesti&oacute;n:</td>
+            <td  class="style5"><img src="../images/camporequerido.gif">
+              <select name="tematesis_npa" id="tematesis_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="30"  class="style5">Cuantos Empleados tiene: </td>
+            <td ><input name="numempleados_npa" type="text" id="numempleados_npa"  class="emptyinteger" size="10" maxlength="20"></td>
+            <td  class="style5">Web Site: </td>
+            <td >
+              <input name="website_npa" type="text" id="website_npa"  class="emptytext" size="40" maxlength="40">            </td>
+          </tr>
+          <tr>
+            <td height="30"  class="style5">Tipo de Negocio  : </td>
+            <td height="31" colspan="2" ><span class="style5"><img src="../images/camporequerido.gif">
+                <select name="tipo_npa" id="tipo_npa" class="combobox">
+                  <option value="NEGOCIOS DE SERVICIO">NEGOCIOS DE SERVICIO</option>
+                  <option value="NEGOCIOS DE PRODUCCION O MANUFACTURA">NEGOCIOS DE PRODUCCION O MANUFACTURA</option>
+                  <option value="NEGOCIOS DE EXTRACCION">NEGOCIOS DE EXTRACCION</option>
+                  <option value="NEGOCIOS DE VENTAS AL POR MENOR (MINORISTAS)">NEGOCIOS DE VENTAS AL POR MENOR (MINORISTAS)</option>
+                  <option value="NEGOCIOS DE VENTAS AL POR MAYOR (MAYORISTAS)">NEGOCIOS DE VENTAS AL POR MAYOR (MAYORISTAS)</option><option value="EXPORTACION">EXPORTACION</option>
+                </select>
+            </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="30"  class="style5">Formas Jur&iacute;dicas del Negocio/Empresa:</td>
+            <td height="31" colspan="2" ><span class="style5"><img src="../images/camporequerido.gif">
+                <select name="tipojuridico_npa" id="tipojuridico_npa" class="combobox">
+                  <option value="EMPRESARIO INDIVIDUAL">EMPRESARIO INDIVIDUAL</option>
+                  <option value="SOCIEDAD LIMITADA">SOCIEDAD LIMITADA</option>
+                  <option value="SOCIEDAD ANONIMA">SOCIEDAD ANONIMA</option>
+                  <option value="ASOCIACIONES SIN ANIMO DE LUCRO">ASOCIACIONES SIN ANIMO DE LUCRO</option>
+                  <option value="COMUNIDAD DE BIENES">COMUNIDAD DE BIENES</option>
+				  <option value="SOCIEDAD COOPERATIVA">SOCIEDAD COOPERATIVA</option>
+				  <option value="SOCIEDAD DE CUENTAS EN PARTICIPACION">SOCIEDAD DE CUENTAS EN PARTICIPACION</option>
+				  <option value="OTROS">OTROS</option>
+                </select>
+            </span></td>
+            <td class="style5">Observaciones:<input name="observaciones_npa" type="text" id="observaciones_pna"  class="emptytext" size="50" maxlength="100"></td>
+          </tr>
+          
+          <tr>
+            <td height="31" colspan="2"  class="style5">Cu&aacute;l es el monto de facturaci&oacute;n de su Negocio/Empresa: </td>
+            <td class="style5"><img src="../images/camporequerido.gif">
+              <select name="ingresosanuales_npa" id="ingresosanuales_npa" class="combobox">
+                <option value="MENOS DE 50000">MENOS DE 50000</option>
+                <option value="DE 50000 A 100000">DE 50001 A 100000</option>
+                <option value="DE 100001 A 500000">DE 100001 A 500000</option>
+                <option value="DE 500001 A 1000000">DE 500001 A 1000000</option>
+                <option value="MAS DE 1000001">MAS DE 1000001</option>
+              </select></td>
+            <td class="style5">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31"  class="style5">Monto de Activos de su Empresa  : </td>
+            <td >            
+            <input name="montoactivos_npa" type="text" id="montoactivos_npa"  class="emptydecimal" size="20" maxlength="20">           </td>
+            <td class="style5"><a href="javascript:verDocumento();"></a></td>
+            <td class="style5">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Est&aacute; interesado que estudiantes de la Universidad  hagan pasant&iacute;as en su empresa:</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="pasantias_npa" id="pasantias_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Est&aacute; interesado en ser MENTOR de estudiantes de la  Universidad:</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="mentor_npa" id="mentor_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Est&aacute; interesado en Documentar como caso acad&eacute;mico su  negocio:</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="documentar_npa" id="documentar_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Esta interesado en ser miembro de la Asociaci&oacute;n de  Graduados:</td>
+            <td ><span class="style5"><img src="../images/camporequerido.gif">
+                <select name="asociacion_npa" id="asociacion_npa" class="combobox">
+                  <option value="SI">SI</option>
+                  <option value="NO">NO</option>
+                </select>
+            </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31"  class="style5">Que sugerencias nos puede ofrecer para servicios de  valor que podr&iacute;a brindarle dicha asociaci&oacute;n : </td>
+            <td colspan="3" ><input name="sugerencia_npa" type="text" id="sugerencia_npa" size="100" maxlength="100" class="emptystring" ></td>
+          </tr>
+          <tr>
+            <td height="31"  class="style5">           
+                Productos nuevos que deba ofrecer la Universidad:            </td>
+            <td colspan="3" ><input name="productos_npa" type="text" id="productos_npa" size="100" maxlength="100" class="string" ></td>
+          </tr>
+          <tr>
+            <td height="31"  class="style5">Qué opinión tiene acerca de la campaña de la Universidad:</td>
+            <td colspan="3" ><input name="opinion_npa" type="text" id="opinion_npa" size="100" maxlength="100" class="emptystring" ></td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Estar&iacute;a de acuerdo en tener publicidad de la  Universidad en su empresa</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="publicidad_npa" id="publicidad_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="style5">Estar&iacute;a de acuerdo en que la publicidad de la  Universidad salga su empresa o personal como <strong>testimonio:</strong></td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="testimonio_npa" id="testimonio_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          
+           <tr>
+             <td height="31">&nbsp;</td>
+             <td></td>
+             <td>&nbsp;</td>
+           </tr>
+           <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="evaluar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table>
+  </td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+         
+        </table></td>
+    </tr>
+  </table>
+<script>
+function cargarDocumento() {
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportFileHistoricoAcademico.php?campoarchivo=documento_hac&archivo='+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+function verDocumento() {
+   var attributes='width=550,height=250,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no, copyhistory=no, statusbar=no';
+                   omnisoftNewWindow=window.open('../historicoacademico/'+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+}
+</script>
+<script>
+   	omnisoftLoadData(document.PaginaDatos);
+	
+    var serial_alu=opener.PaginaDatos.serial_alu.value;
+	document.PaginaDatos.serial_alu.value=serial_alu;
+
+	var SQLCommand="select apellidopaterno_alu, apellidomaterno_alu, nombre1_alu, nombre2_alu,serial_sex,serial_eci from alumno where serial_alu =" + serial_alu;
+	var objDBComando=new omnisoftDB(SQLCommand,"../lib/server/omnisoftSQLData.php",'recuperarDat');
+	objDBComando.executeQuery();	  
+	function recuperarDat(data){
+		var datos=data.split('|')[1].split('~');	
+		document.PaginaAlumno.apellido1.value = datos[0];
+		document.PaginaAlumno.apellido2.value = datos[1];	
+		document.PaginaAlumno.nombre1.value = datos[2];
+		document.PaginaAlumno.nombre2.value = datos[3];	
+		document.PaginaAlumno.sexoalu.value = datos[4];
+		//alert(datos[4]);
+		//alert(document.PaginaDatos.sexoalu.value);
+		document.PaginaAlumno.estadocivil.value = datos[5];	
+
+	}	
+	
+</script>
+
+</form>
+
+</body>
+</html>

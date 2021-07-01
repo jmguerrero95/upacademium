@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+
+
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+
+
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript1.2" src="../lib/zpmenu/utils/utils.js"></script>
+<script language="javascript1.2" src="../lib/zpmenu/src/menu.js"></script>
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script> 
+
+<script>
+ var serial_sec=opener.serial_sec;
+	 
+	//alert('serial_sec:'+serial_sec);
+</script>
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_npa" type="hidden" id="serial_npa" class="hidden">
+<input name="serial_alu" type="hidden" id="serial_alu" class="hidden">
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="189" height="52"  class="ingeniumtoptitle"></td>
+      <td width="487"  class="maintoptitle fonttitle"><center>
+          MODULO ACADEMICO <br>
+          DETALLE DEL NEGOCIO PROPIO
+      </center></td>
+      <td width="129"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="805" height="496" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          
+          <tr>
+            <td width="300" height="31"  class="inputtitle">Es usted due&ntilde;o del Negocio   : </td>
+            <td width="96" ><span class="inputtitle"><img src="../images/camporequerido.gif"></span>
+              <select name="duenio_npa" id="duenio_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+            </select></td>
+            <td width="198" class="inputtitle">Nombre Negocio/Empresa: </td>
+            <td width="201" ><input name="nombre_npa" type="text" id="nombre_npa"  class="emptytext" size="40" maxlength="40"></td>
+          </tr>
+          <tr>
+            <td height="30" colspan="2"  class="inputtitle">En caso de la respuesta sea Positiva   :Fue esta su Tema de Tesis o Grupo de Gesti&oacute;n:</td>
+            <td  class="inputtitle"><img src="../images/camporequerido.gif">
+              <select name="tematesis_npa" id="tematesis_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="30"  class="inputtitle">Cuantos Empleados tiene: </td>
+            <td ><input name="numempleados_npa" type="text" id="numempleados_npa"  class="emptyinteger" size="10" maxlength="20"></td>
+            <td  class="inputtitle">Web Site: </td>
+            <td >
+              <input name="website_npa" type="text" id="website_npa"  class="emptytext" size="40" maxlength="40">            </td>
+          </tr>
+          <tr>
+            <td height="30"  class="inputtitle">Tipo de Negocio  : </td>
+            <td height="31" colspan="2" ><span class="inputtitle"><img src="../images/camporequerido.gif">
+                <select name="tipo_npa" id="tipo_npa" class="combobox">
+                  <option value="NEGOCIOS DE SERVICIO">NEGOCIOS DE SERVICIO</option>
+                  <option value="NEGOCIOS DE PRODUCCION O MANUFACTURA">NEGOCIOS DE PRODUCCION O MANUFACTURA</option>
+                  <option value="NEGOCIOS DE EXTRACCION">NEGOCIOS DE EXTRACCION</option>
+                  <option value="NEGOCIOS DE VENTAS AL POR MENOR (MINORISTAS)">NEGOCIOS DE VENTAS AL POR MENOR (MINORISTAS)</option>
+                  <option value="NEGOCIOS DE VENTAS AL POR MAYOR (MAYORISTAS)">NEGOCIOS DE VENTAS AL POR MAYOR (MAYORISTAS)</option><option value="EXPORTACION">EXPORTACION</option>
+                </select>
+            </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="30"  class="inputtitle">Formas Jur&iacute;dicas del Negocio/Empresa:</td>
+            <td height="31" colspan="2" ><span class="inputtitle"><img src="../images/camporequerido.gif">
+                <select name="tipojuridico_npa" id="tipojuridico_npa" class="combobox">
+                  <option value="EMPRESARIO INDIVIDUAL">EMPRESARIO INDIVIDUAL</option>
+                  <option value="SOCIEDAD LIMITADA">SOCIEDAD LIMITADA</option>
+                  <option value="SOCIEDAD ANONIMA">SOCIEDAD ANONIMA</option>
+                  <option value="ASOCIACIONES SIN ANIMO DE LUCRO">ASOCIACIONES SIN ANIMO DE LUCRO</option>
+                  <option value="COMUNIDAD DE BIENES">COMUNIDAD DE BIENES</option>
+				  <option value="SOCIEDAD COOPERATIVA">SOCIEDAD COOPERATIVA</option>
+				  <option value="SOCIEDAD DE CUENTAS EN PARTICIPACION">SOCIEDAD DE CUENTAS EN PARTICIPACION</option>
+				  <option value="OTROS">OTROS</option>
+                </select>
+            </span></td>
+            <td class="inputtitle">Observaciones:<input name="observaciones_npa" type="text" id="observaciones_pna"  class="emptytext" size="50" maxlength="100"></td>
+          </tr>
+          
+          <tr>
+            <td height="31" colspan="2"  class="inputtitle">Cu&aacute;l es el monto de facturaci&oacute;n de su Negocio/Empresa: </td>
+            <td class="inputtitle"><img src="../images/camporequerido.gif">
+              <select name="ingresosanuales_npa" id="ingresosanuales_npa" class="combobox">
+                <option value="MENOS DE 50000">MENOS DE 50000</option>
+                <option value="DE 50000 A 100000">DE 50001 A 100000</option>
+                <option value="DE 100001 A 500000">DE 100001 A 500000</option>
+                <option value="DE 500001 A 1000000">DE 500001 A 1000000</option>
+                <option value="MAS DE 1000001">MAS DE 1000001</option>
+              </select></td>
+            <td class="inputtitle">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31"  class="inputtitle">Monto de Activos de su Empresa  : </td>
+            <td >            
+            <input name="montoactivos_npa" type="text" id="montoactivos_npa"  class="emptydecimal" size="20" maxlength="20">           </td>
+            <td class="inputtitle"><a href="javascript:verDocumento();"></a></td>
+            <td class="inputtitle">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="inputtitle">Est&aacute; interesado que estudiantes de la Universidad  hagan pasant&iacute;as en su empresa:</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="pasantias_npa" id="pasantias_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="inputtitle">Est&aacute; interesado en ser MENTOR de estudiantes de la  Universidad:</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="mentor_npa" id="mentor_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="inputtitle">Est&aacute; interesado en Documentar como caso acad&eacute;mico su  negocio:</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="documentar_npa" id="documentar_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="inputtitle">Esta interesado en ser miembro de la Asociaci&oacute;n de  Graduados:</td>
+            <td ><span class="inputtitle"><img src="../images/camporequerido.gif">
+                <select name="asociacion_npa" id="asociacion_npa" class="combobox">
+                  <option value="SI">SI</option>
+                  <option value="NO">NO</option>
+                </select>
+            </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31"  class="inputtitle">Que sugerencias nos puede ofrecer para servicios de  valor que podr&iacute;a brindarle dicha asociaci&oacute;n : </td>
+            <td colspan="3" ><input name="sugerencia_npa" type="text" id="sugerencia_npa" size="100" maxlength="100" class="emptystring" ></td>
+          </tr>
+          <tr>
+            <td height="31"  class="inputtitle">           
+                Productos nuevos que deba ofrecer la Universidad:            </td>
+            <td colspan="3" ><input name="productos_npa" type="text" id="productos_npa" size="100" maxlength="100" class="emptystring" ></td>
+          </tr>
+          <tr>
+            <td height="31"  class="inputtitle">Qué opinión tiene acerca de la campaña de la Universidad:</td>
+            <td colspan="3" ><input name="opinion_npa" type="text" id="opinion_npa" size="100" maxlength="100" class="emptystring" ></td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="inputtitle">Estar&iacute;a de acuerdo en tener publicidad de la  Universidad en su empresa</td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="publicidad_npa" id="publicidad_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="31" colspan="2"  class="inputtitle">Estar&iacute;a de acuerdo en que la publicidad de la  Universidad salga su empresa o personal como <strong>testimonio:</strong></td>
+            <td ><img src="../images/camporequerido.gif">
+              <select name="testimonio_npa" id="testimonio_npa" class="combobox">
+                <option value="SI">SI</option>
+                <option value="NO">NO</option>
+              </select>
+              </span></td>
+            <td >&nbsp;</td>
+          </tr>
+          
+          
+          
+          
+
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" height="31">
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#" onClick="omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690"></td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<script>
+function cargarDocumento() {
+
+   var attributes='width=300,height=200,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no,copyhistory=no,statusbar=no';
+                   omnisoftNewWindow=window.open('../lib/server/omnisoftImportFileHistoricoAcademico.php?campoarchivo=documento_hac&archivo='+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+
+ omnisoftProcesarCambios();
+}
+
+function verDocumento() {
+   var attributes='width=550,height=250,toolbar=no,location=no,directories=no,status=no,menubar=no, scrollbars=no, copyhistory=no, statusbar=no';
+                   omnisoftNewWindow=window.open('../historicoacademico/'+document.PaginaDatos.documento_hac.value,'OmnisoftFile',attributes);
+                   if (window.focus) {omnisoftNewWindow.focus()}
+}
+</script>
+<script>
+   	omnisoftLoadData(document.PaginaDatos);
+	
+    var serial_alu=opener.PaginaDatos.serial_alu.value;
+	//alert('serial_alu:'+serial_alu);
+	document.PaginaDatos.serial_alu.value=serial_alu;
+	
+	
+</script>
+
+</form>
+
+</body>
+</html>

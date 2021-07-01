@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>ERP::INGENIUM::ENTERPRISE RESOURCE PLANNING</title>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<script>
+var useBSNns = true;
+
+$(document).ready(
+		function()
+		{
+			$('#dock2').Fisheye(
+				{
+					maxWidth: 60,
+					items: 'a',
+					itemsText: 'span',
+					container: '.dock-container2',
+					itemWidth: 40,
+					proximity: 80,
+					alignment : 'left',
+					valign: 'bottom',
+					halign : 'center'
+				}
+			)
+		}
+	);
+
+
+window.status='Diseñado y Desarrollado por Omnisoft Cia Ltda http://www.omnisoft.cc';
+</script>
+
+<link href='../lib/autosuggest2/css/autosuggest_inquisitor.css' rel="stylesheet" type="text/css">
+<link href='../lib/aw/styles/xp/aw.css'rel="stylesheet" type="text/css">
+<link href='../lib/grid/styles/omnisoftGrid.css'rel="stylesheet" type="text/css">
+
+<script language="javascript" src= "../lib/tools/cookies.js" ></script>
+<script language='javascript' src="../lib/tools/omnisoftTools.js"></script>
+<script language="javascript" src= "../lib/aw/lib/aw.js" ></script>
+<link href="../lib/styles/omnisoft.css" rel="stylesheet" type="text/css">
+<link href="../lib/tools/omnisoftValidar.css" rel="stylesheet" type="text/css">
+<script language='javascript' src="../lib/tools/omnisoftValidar.js"></script>
+<script language="javascript" src="../lib/mask/event-listener.js"></script>
+<script language="javascript" src="../lib/mask/masked-input.js"></script>
+<script language="javascript" src="../lib/mask/enter-as-tab.js"></script>
+<script language="javascript" src="../lib/mask/auto-tab.js"></script>
+<script language='javascript' src="../lib/grid/omnisoftDB.js"></script>
+<script language='javascript' src="../lib/combo/omnisoftComboBox.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="../lib/jscalendar/calendar-blue2.css" title="win2k-cold-1" />
+  <script type="text/javascript" src="../lib/jscalendar/calendar.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/lang/calendar-en.js"></script>
+  <script type="text/javascript" src="../lib/jscalendar/calendar-setup.js"></script>
+
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp_grid.js"> </script>
+<script language="javascript" src="../lib/autosuggest2/js/bsn.AutoSuggest_2.1_comp.js"> </script>
+
+<script language="javascript" src= "../lib/grid/omnisoftGridDetail.js" ></script>
+
+
+
+</head>
+
+
+<body >
+
+<form method="POST" enctype="multipart/form-data"  name="PaginaDatos" onClick="highlight(event)" onKeyUp="highlight(event)">
+<input name="action" type="hidden" id="action">
+<input name="serial_ore" type="hidden" id="serial_ore" class="hidden" >
+
+
+  <table width="780" border="0" cellspacing="0" cellpadding="0" >
+    <tr  >
+      <td width="226" height="52"  class="ingeniumtoptitle"></td>
+      <td width="593"  class="maintoptitle fonttitle"><center>
+          INVENTARIOS<br>
+          ORDEN DE REQUERIMIENTO
+        </center></td>
+      <td width="142"  class="logotoptitle"></td>
+    </tr>
+    <tr>
+      <td height="30" colspan="3"> <table width="927" height="235" border="1" cellpadding="0" cellspacing="0"  bordercolordark="#FFFFFF" bordercolorlight="#000000"class="formtable">
+          <tr>
+            <td height="30"  class="inputtitle">C&oacute;digo : </td>
+            <td width="207"><img  src="../images/camporequerido.gif"><input name="codigo_ore" type="text" id="codigo_ore" class="string" size="8" maxlength="10"  onBlur="esconderToolTip()"></td>
+            <td width="102" class="inputtitle">N&uacute;mero : </td>
+            <td class="inputtitle"><img  src="../images/camporequerido.gif"><input name="numero_ore" type="text" id="numero_ore" class="autoincrement" size="10" maxlength="10"  onBlur="esconderToolTip()" table="ordenderequerimiento" readonly="yes" fieldid="serial_ore"  ></td>
+            <td class="inputtitle">&nbsp;</td>
+            <td colspan="2" class="inputtitle">&nbsp;</td>
+          </tr>
+          <tr>
+            <td height="29"  class="inputtitle">Solicitado por  : </td>
+            <td><img  src="../images/camporequerido.gif"><script>
+ var cserial_epl=new omnisoftComboBox('cserial_epl','serial_epl','select serial_epl,concat(apellido_epl,\'  \',nombre_epl) as empleado from empleado order by apellido_epl,nombre_epl','200px',true,getURLParam('serial_epl'));
+                     cserial_epl.show();	  </script></td>
+            <td class="inputtitle">Fecha :</td>
+            <td class="inputtitle"><img  src="../images/camporequerido.gif"><input name="fecha_ore" type="text" id="fecha_ore" class="date" size="10" maxlength="10"  onBlur="esconderToolTip()"  ></td>
+            <td class="inputtitle">Tipo : </td>
+            <td colspan="2" class="inputtitle"><img  src="../images/camporequerido.gif"><select name="tipo_ore"  id="tipo_ore" class="combobox">
+              <option value="BIEN" selected>Bien</option>
+              <option value="SERVICIO">Servicio</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td height="25"  class="inputtitle">Necesidad : </td>
+            <td><span class="inputtitle"><img  src="../images/camporequerido.gif">
+              <select name="necesidad_ore"  id="necesidad_ore" class="combobox">
+                <option value="ESPECIFICA" selected>Especifica</option>
+                <option value="PERMANENTE">Permanente</option>
+              </select>
+            </span></td>
+            <td span class="inputtitle">Area :</td>
+            <td colspan="4"><span class="inputtitle"><img  src="../images/camporequerido.gif">
+            <script>
+ var cserial_are=new omnisoftComboBox('cserial_are','serial_are','select serial_are,nombre_are from area order by nombre_are','200px',true,getURLParam('serial_are'));
+                     cserial_are.show();	  </script>
+            </span></td>
+          </tr>
+          <tr>
+            <td height="25"  class="inputtitle">Proveedor 1 :</td>
+            <td><img  src="../images/camporequerido.gif">
+			       	    <script>
+ var cproveedor1_ore=new omnisoftComboBox('cproveedor1_ore','proveedor1_ore','select serial_pvd,razonSocial_pvd from proveedor where estado_pvd=\'ACTIVO\' order by razonSocial_pvd','200px',true,getURLParam('proveedor1_ore'));
+                     cproveedor1_ore.show();	  </script>			</td>
+            <td class="inputtitle">Proveedor 2 :</td>
+            <td ><img  src="../images/camporequerido.gif">
+            <script>
+ var cproveedor2_ore=new omnisoftComboBox('cproveedor2_ore','proveedor2_ore','select serial_pvd,razonSocial_pvd from proveedor where estado_pvd=\'ACTIVO\' order by razonSocial_pvd','200px',true,getURLParam('proveedor2_ore'));
+                     cproveedor2_ore.show();	  </script></td>
+            <td class="inputtitle">Proveedor 3 :</td>
+            <td colspan="2" class="inputtitle"><img  src="../images/camporequerido.gif"><script>
+ var cproveedor3_ore=new omnisoftComboBox('cproveedor3_ore','proveedor3_ore','select serial_pvd,razonSocial_pvd from proveedor where estado_pvd=\'ACTIVO\' order by razonSocial_pvd','200px',true,getURLParam('proveedor3_ore'));
+                     cproveedor3_ore.show();	  </script></td>
+          </tr>
+          
+          <tr>
+            <td width="115" height="25"  class="inputtitle">Observaciones : </td>
+            <td colspan="3"><span class="inputtitle">
+              <input name="observacion_ore" type="text" id="observacion_ore" class="emptytext" size="80" maxlength="255"  onBlur="esconderToolTip()"  >
+            </span></td>
+            <td width="93" class="inputtitle">Estado : </td>
+            <td width="96" class="inputtitle"><img  src="../images/camporequerido.gif"><select name="estado_ore"  id="estado_ore" class="combobox">
+              <option value="PENDIENTE">Pendiente</option>
+              <option value="ENTREGADA">Entregada</option>
+              <option value="CERRADA">Cerrada</option>
+            </select></td>
+            <td width="100" class="inputtitle">&nbsp;</td>
+          </tr>
+
+
+          <tr>
+            <td height="40" colspan=7> <script>
+   
+    omnisoftLoadData(document.PaginaDatos);
+		   
+   if (getURLParam('action')=='insert') 
+      document.PaginaDatos.fecha_ore.value=fechaSistema();
+   
+    var serial_ore=getURLParam('serial_ore');
+
+
+    var sql='select  SERIAL_DOR,  nombre_prd,CANTIDAD_DOR, UNIDADMEDIDA_PRD, STOCKMINIMO_DOR, PARA_DOR,  prioridad_dor,producto.SERIAL_PRD,SERIAL_ORE from producto,detalleordenderequerimiento where  producto.serial_prd=detalleordenderequerimiento.serial_prd and serial_ore=masterkey';
+
+    omniObj=new omnisoftGridDetail('omniObj','serial_ore',serial_ore,'detalleordenderequerimiento','serial_dor',sql,document.PaginaDatos);
+
+   omniObj.addColumn('Serial','serial_dor', 1,'hidden','','middle','');
+   omniObj.addColumn('Producto','nombre_prd', 15,'combobox',Array('select producto.serial_prd,nombre_prd,codigo_prd from producto','serial_prd','nombre_prd'),'middle','','refresh');
+   omniObj.addColumn('Cantidad','cantidad_dor', 12,'string','','middle','');
+   omniObj.addColumn('Unidad Medida','unidadMedida_prd', 20,'readonly','','middle','');
+   omniObj.addColumn('Stock Minimo','stockMinimo_dor', 10,'integer','','middle','');
+   omniObj.addColumn('Para','para_dor', 15,'string','','middle','');
+   omniObj.addColumn('Prioridad','prioridad_dor', 10,'string','','middle','');
+   omniObj.addColumn('serial_prd','serial_prd', 10,'hidden','','middle','');
+
+   omniObj.showGrid('omniObj',12,308,1020,'menu','#FF9900');
+
+
+ </script> </td>
+          </tr>
+          <tr>
+            <td height="32" colspan=7 class="inputtitle"> Aprobado por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoCreadoPor" id="FotoCreadoPor">
+              <input name="creadoPor" type="text" id="creadoPor" size="28" maxlength="30"  onBlur="esconderToolTip()"    readonly>
+              Recibido por: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoModificadoPor" id="FotoModificadoPor">
+              <input name="modificadoPor" type="text" id="modificadoPor"  size="28" maxlength="30"  onBlur="esconderToolTip()"  readonly  >
+              Entregado A: <img src="../fotos/foto.jpg" width="48" height="48" align="middle" name="FotoAutorizadoPor" id="FotoAutorizadoPor">
+              <input name="autorizadoPor" type="text" id="autorizadoPor" size="28" maxlength="30"  onBlur="esconderToolTip()"   readonly >            </td>
+          </tr>
+        </table></td>
+    </tr>
+    <tr >
+      <td height="30" colspan="3" align="center"> <table width="805" border="0" cellpadding="0" cellspacing="0"  >
+          <tr>
+            <td width="50" >
+<div align="center" id="divGuardar" style="visibility:visible"><a href="#"  onClick="javascript:omnisoftGrabar()"><img src="../images/baceptar.jpg" width="150" height="30" border="0"></a></div></td>
+            <td width="690">
+            <div align="center" id="divImprimir" style="visibility:visible"><a href="#"  onClick="javascript:window.print();"><img src="../images/imprimir.jpg" width="150" height="30" border="0"></a></div></td>
+
+            </td>
+            <td width="56"><div align="center" id="divCancelar" style="visibility:visible"><a href="javascript:omnisoftCancelar()"><a href="javascript:window.close();"><img src="../images/bcancelar.jpg" width="150" height="30" border="0"></a></div></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<input name="aprobadoPor_ore" type="hidden" id="aprobadoPor_ore" class="hidden" value="1">
+<input name="recibidoPor_ore" type="hidden" id="recibidoPor_ore" class="hidden" value="1"  >
+<input name="entregadoA_ore" type="hidden" id="entregadoA_ore" class="hidden"  value="1" >
+
+</form>
+<script>
+//	omnisoftLoadData(document.PaginaDatos);
+//	OmnisoftPerfilUsuarioFormulario();
+</script>
+</body>
+</html>
